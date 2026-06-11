@@ -1,5 +1,3 @@
-require_relative "tis_table"
-
 module Thapthim
   # Normalize Thai input string according to TIS 1566-2541 standard
   def self.normalize_tis(input, strict=false)

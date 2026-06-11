@@ -1,5 +1,3 @@
-require_relative "tis_table"
-
 module Thapthim
   def self.valid_tis(input, strict=false)
       return true if input.nil? || input.empty?
