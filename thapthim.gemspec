@@ -10,13 +10,13 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Thapthim: A Thai Text Processor in Ruby"
   spec.description = "A Thai text processor fully written in Ruby"
-  spec.homepage = "https://github.com/suphasan-kh"
+  spec.homepage = "https://github.com/suphasan-kh/thapthim"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/suphasan-kh"
-  spec.metadata["changelog_uri"] = "https://github.com/suphasan-kh"
+  spec.metadata["source_code_uri"] = "https://github.com/suphasan-kh/thapthim"
+  spec.metadata["changelog_uri"] = "https://github.com/suphasan-kh/thapthim"
 
   # Uncomment the line below to require MFA for gem pushes.
   # This helps protect your gem from supply chain attacks by ensuring
