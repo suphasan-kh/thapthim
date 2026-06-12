@@ -4,25 +4,26 @@ module Thapthim
     return input if input.nil? || input.empty?
 
     # Input has to be a string, if not, convert it to string
-    text = " " + String.new(input)
+    cleaned = self.normalize_std(input)
+    text = String.new(cleaned)
     normalized = String.new(capacity: text.bytesize)
+    prev_char_type = :NON
 
-    for i in 1...text.length
-      char = text[i]
-      prev_char = text[i-1]
+    text.each_char do |char|
       char_type = CHAR_TYPE[char]
-      prev_char_type = CHAR_TYPE[prev_char]
       rule = RULES[prev_char_type][char_type]
       case rule
-      when 0
+      when :A
         normalized << char
-      when 1
+        prev_char_type = char_type
+      when :R
         next
-      when 2
+      when :S
         if strict
           next
         else
           normalized << char
+          prev_char_type = char_type
         end
       end
     end
