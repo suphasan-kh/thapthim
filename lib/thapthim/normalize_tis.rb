@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2016-2026 PyThaiNLP Project
+# SPDX-FileCopyrightText: 2026 Thapthim Project Contributor suphasan-kh
+# SPDX-FileType: SOURCE
+# SPDX-License-Identifier: Apache-2.0
+
 module Thapthim
   # Normalize Thai input string according to TIS 1566-2541 standard
   def self.normalize_tis(input, strict=false)

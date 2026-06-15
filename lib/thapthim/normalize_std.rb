@@ -1,9 +1,10 @@
 # SPDX-FileCopyrightText: 2016-2026 PyThaiNLP Project
+# SPDX-FileCopyrightText: 2026 Thapthim Project Contributor suphasan-kh
 # SPDX-FileType: SOURCE
 # SPDX-License-Identifier: Apache-2.0
 
 module Thapthim
-  # Thai text normalization function in Ruby, modified from PyThaiNLP
+  # Thai text normalization in Ruby, modified from PyThaiNLP
   CONSONANTS = "\u0E01-\u0E23\u0E25\u0E27-\u0E2E"
   ABOVE_VOWELS = "\u0E31\u0E34-\u0E37\u0E4D\u0E47" # ั, ิ, ี, ึ, ื, ํ, ็
   BELOW_VOWELS = "\u0E38\u0E39" # ุ, ู

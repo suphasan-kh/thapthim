@@ -1,3 +1,10 @@
+# SPDX-FileCopyrightText: 2016-2026 PyThaiNLP Project
+# SPDX-FileCopyrightText: 2026 Thapthim Project Contributor suphasan-kh
+# SPDX-FileType: SOURCE
+# SPDX-License-Identifier: Apache-2.0
+
+# Character type table from TIS 1566-2541
+
 module Thapthim
   CHAR_TYPE = Hash.new(:NON).merge!({
     "ก" => :CONS, 
