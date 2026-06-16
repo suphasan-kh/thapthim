@@ -30,7 +30,10 @@ Gem::Specification.new do |spec|
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
     ls.readlines("\x0", chomp: true).reject do |f|
       (f == gemspec) ||
-        f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml])
+        f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml]) ||
+        # 🆕 ADD THIS CRITICAL FILTER LINE:
+        # Prevents any raw target files or compiled binaries from polluting the build pipeline
+        f.start_with?("target/") || f.start_with?("tmp/") || f.end_with?(".dylib") || f.end_with?(".so")
     end
   end
   spec.bindir = "exe"

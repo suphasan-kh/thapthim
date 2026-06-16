@@ -12,6 +12,6 @@ module Thapthim
   # Your code goes here...
 end
 
-order = ["tis_table", "valid_tis", "normalize_tis", "normalize_std", "segment_tcc"]
+order = ["tis_table", "valid_tis", "normalize_tis", "normalize_std", "segment_tcc_legacy", "segment_tcc"]
 
 order.each { |file| require_relative "thapthim/#{file}"}

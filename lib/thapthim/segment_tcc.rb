@@ -1,69 +1,48 @@
-# SPDX-FileCopyrightText: 2016-2026 PyThaiNLP Project
-# SPDX-FileCopyrightText: 2026 Thapthim Project Contributor suphasan-kh
-# SPDX-FileType: SOURCE
-# SPDX-License-Identifier: Apache-2.0
-=begin 
-The implementation of tokenizer according to Thai Character Clusters (TCCs) rules proposed by `Theeramunkong et al. 2000. \
-    <https://doi.org/10.1145/355214.355225>`_
-
-Credits:
-    * TCC: Jakkrit TeCho
-    * Grammar: Wittawat Jitkrittum (`link to the source file \
-      <https://github.com/wittawatj/jtcc/blob/master/TCC.g>`_)
-    * Python code: Korakot Chaovavanich
-=end
+# lib/thapthim/segment_tcc.rb
+require 'fiddle'
+require 'fiddle/import'
 
 module Thapthim
-    RE_TCC = "
-        c[ั]([่-๋]c)?
-        c[ั]([่-๋]c)?k
-        เc็ck
-        เcctาะk
-        เccีtยะk
-        เccีtย(?=[เ-ไก-ฮ]|$)k
-        เc[ิีุู]tย(?=[เ-ไก-ฮ]|$)k
-        เcc็ck
-        เcิc์ck
-        เcิtck
-        เcีtยะ?k
-        เcืtอะk
-        เcื
-        เctา?ะ?k
-        c[ึื]tck
-        c[ะ-ู]tk
-        c[ิุู]์
-        cรรc์
-        c็
-        ct[ะาำ]?k
-        แc็ck
-        แcc์k
-        แctะk
-        แcc็ck
-        แccc์k
-        โctะk
-        [เ-ไ]ctk
-        ก็
-        อึ
-        หึ
-    ".gsub("k", "(XX?(ุ|ู|ิ)?[์])?")
-    .gsub("c", "[ก-ฮ]")
-    .gsub("X", "[ก-ฮ]")
-    .gsub("t", "[่-๋]?")
-    .strip.split(/\s+/).join("|")
-    def self.tcc_segment(input)
-        return [] if input.nil? || input.empty?
-        String.new(input).gsub(/#{RE_TCC}|./).to_a
-    end
+  module NativeBridge
+    extend Fiddle::Importer
+    
+    ext = RbConfig::CONFIG['DLEXT']
+    LIB_PATH = File.expand_path("libthapthim.#{ext}", __dir__)
 
-    def self.tcc_positions(tcc_tokens)
-        positions = [0]
-        current_len = 0
-        
-        tcc_tokens.each do |chunk|
-        current_len += chunk.length
-        positions << current_len
-        end
-        
-        positions
+    if File.exist?(LIB_PATH)
+      dlload LIB_PATH
+      extern 'int* thapthim_tcc_positions(const char*, int*)'
+      extern 'void thapthim_free_array(int*, int)' # 🆕 Bind the memory cleanup hook
     end
+  end
+
+  def self.tcc_positions(input_text)
+    return [0] if input_text.nil? || input_text.empty?
+
+    size_buffer = Fiddle::Pointer.malloc(Fiddle::SIZEOF_INT)
+    raw_array_ptr = NativeBridge.thapthim_tcc_positions(input_text, size_buffer)
+    return [0] if raw_array_ptr.null?
+
+    total_elements = size_buffer[0, Fiddle::SIZEOF_INT].unpack1('i')
+    positions = raw_array_ptr[0, total_elements * Fiddle::SIZEOF_INT].unpack('i*')
+    
+    # ✅ FIXED: Frees the raw pointer allocation back to Rust immediately after unpacking
+    NativeBridge.thapthim_free_array(raw_array_ptr, total_elements)
+    
+    positions
+  end
+
+  def self.tcc_segment(input_text)
+    return [] if input_text.nil? || input_text.empty?
+    
+    binary_str = input_text.b 
+    positions = tcc_positions(input_text)
+    
+    segments = []
+    positions.each_cons(2) do |start_idx, end_idx|
+      segments << binary_str[start_idx...end_idx].force_encoding('UTF-8')
+    end
+    
+    segments
+  end
 end
