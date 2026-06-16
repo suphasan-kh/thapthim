@@ -50,8 +50,20 @@ module Thapthim
     .gsub("X", "[ก-ฮ]")
     .gsub("t", "[่-๋]?")
     .strip.split(/\s+/).join("|")
-    def self.segment_tcc(input)
+    def self.tcc_segment(input)
         return [] if input.nil? || input.empty?
         String.new(input).gsub(/#{RE_TCC}|./).to_a
+    end
+
+    def self.tcc_positions(tcc_tokens)
+        positions = [0]
+        current_len = 0
+        
+        tcc_tokens.each do |chunk|
+        current_len += chunk.length
+        positions << current_len
+        end
+        
+        positions
     end
 end

@@ -6,7 +6,7 @@
 # Input validation from TIS 1566-2541
 
 module Thapthim
-    def self.valid_tis(input, strict=false)
+    def self.tis_valid(input, strict=false)
         return true if input.nil? || input.empty?
         
         text = String.new(input)

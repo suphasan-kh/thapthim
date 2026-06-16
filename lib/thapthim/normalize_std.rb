@@ -64,7 +64,7 @@ module Thapthim
     text.gsub(/ +[#{DANGLING_CHARS}]+/, " ")
   end
     
-  def self.normalize_std(input)
+  def self.std_normalize(input)
     return input if input.nil? || input.empty?
     text = String.new(input)
     text = remove_zw(text)

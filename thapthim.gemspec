@@ -42,4 +42,11 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://guides.rubygems.org/make-your-own-gem/
+  
+  # 1. Instructs RubyGems to execute your compilation file on installation
+  spec.extensions = ["ext/thapthim/extconf.rb"]
+
+  # 2. Ensures the compilation tool is present during the asset building phase
+  spec.add_development_dependency "rb_sys", "~> 0.9"
+  spec.add_development_dependency "rake-compiler", "~> 1.2"
 end

@@ -5,11 +5,11 @@
 
 module Thapthim
   # Normalize Thai input string according to TIS 1566-2541 standard
-  def self.normalize_tis(input, strict=false)
+  def self.tis_normalize(input, strict=false)
     return input if input.nil? || input.empty?
 
     # Input has to be a string, if not, convert it to string
-    cleaned = self.normalize_std(input)
+    cleaned = self.std_normalize(input)
     text = String.new(cleaned)
     normalized = String.new(capacity: text.bytesize)
     prev_char_type = :NON
