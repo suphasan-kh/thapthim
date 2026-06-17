@@ -1,9 +1,11 @@
 // ext/thapthim/src/lib.rs
 pub mod tcc; 
+pub mod lattice;
 
 use std::ffi::CStr;
 use std::os::raw::c_char;
 use crate::tcc::TccSegmenter;
+use crate::lattice::LatticeEdge;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn thapthim_tcc_positions(

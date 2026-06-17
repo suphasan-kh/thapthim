@@ -9,7 +9,9 @@ require_relative "thapthim/version"
 
 module Thapthim
   class Error < StandardError; end
-  # Your code goes here...
+  class << self
+    include Thapthim
+  end
 end
 
 order = ["tis_table", "valid_tis", "normalize_tis", "normalize_std", "segment_tcc_legacy", "segment_tcc"]

@@ -14,10 +14,12 @@ impl TccSegmenter {
 
         let raw_rules = vec![
             "c[ั]([่-๋]c)?", "c[ั]([่-๋]c)?k", "เc็ck", "เcctาะk", "เccีtยะk",
-            "เccีtย(?=[เ-ไก-ฮ]|$)", "เc[ิีุู]tย(?=[เ-ไก-ฮ]|$)", "เcc็ck", "เcิc์ck",
-            "เcิtck", "เcีtยะ?", "เcืtอะk", "เcื", "เctา?ะ?", "c[ึื]tck",
-            "c[ะ-ู]tk", "c[ิุู]์", "cรรc์", "c็", "ct[ะาำ]?", "แc็ck", "แcc์k",
-            "แctะk", "แcc็ck", "แccc์k", "โctะk", "[เ-ไ]ctk", "ก็", "อึ", "หึ",
+            "เccีtย",         // FIXED: Removed look-ahead syntax
+            "เc[ิีุู]tย",     // FIXED: Removed look-ahead syntax
+            "เcc็ck", "เcิc์ck", "เcิtck", "เcีtยะ?", "เcืtอะk", "เcื", 
+            "เctา?ะ?", "c[ึื]tck", "c[ะ-ู]tk", "c[ิุู]์", "cรรc์", "c็", 
+            "ct[ะาำ]?", "แc็ck", "แcc์k", "แctะk", "แcc็ck", "แccc์k", 
+            "โctะk", "[เ-ไ]ctk", "ก็", "อึ", "หึ",
         ];
 
         let compiled_rules: Vec<String> = raw_rules

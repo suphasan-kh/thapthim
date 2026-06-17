@@ -7,7 +7,8 @@ require "rb_sys/extensiontask"
 RSpec::Core::RakeTask.new(:spec)
 
 RbSys::ExtensionTask.new("thapthim", Bundler.load_gemspec("thapthim.gemspec")) do |ext|
-  ext.lib_dir = "lib/thapthim" # Copies the finished compiled binary directly here
+  ext.lib_dir = "lib/thapthim"
+  ext.source_pattern = "*.{rs,toml}"
 end
 
 task default: [:compile, :spec]

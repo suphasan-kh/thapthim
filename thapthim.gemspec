@@ -31,9 +31,9 @@ Gem::Specification.new do |spec|
     ls.readlines("\x0", chomp: true).reject do |f|
       (f == gemspec) ||
         f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml]) ||
-        # 🆕 ADD THIS CRITICAL FILTER LINE:
-        # Prevents any raw target files or compiled binaries from polluting the build pipeline
-        f.start_with?("target/") || f.start_with?("tmp/") || f.end_with?(".dylib") || f.end_with?(".so")
+        f.start_with?("target/") || f.start_with?("tmp/") || 
+        f.start_with?("test/") || f.start_with?("data/")
+        f.end_with?(".dylib") || f.end_with?(".so") || f.end_with?(".bundle")
     end
   end
   spec.bindir = "exe"
