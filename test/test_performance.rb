@@ -6,7 +6,7 @@ require_relative "../lib/thapthim"
 class TestPerformance < Minitest::Benchmark
   def setup
     # Create a base Thai string segment
-    @base_text = "ทนายปีศาจ เนี่ยเริ่มต้นจากแซมกับซันและก็ทีมเขียนบท "
+    @base_text = "ทนายปีศาจ เนี่ยเริ่มต้นจากแซมกับซันและก็ทีมเขียนบท"
   end
 
   # This validates that your Rust TCC engine executes in Linear Time O(N)

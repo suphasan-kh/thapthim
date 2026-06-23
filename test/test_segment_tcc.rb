@@ -12,11 +12,11 @@ class TestSegmentTcc < Minitest::Test
     assert_equal expected_chunks, Thapthim.tcc_segment(@sentence)
   end
 
-  def test_that_it_returns_byte_based_positions
-    # Verifies the byte-accurate offsets coming back from Rust
+  def test_that_it_returns_character_based_positions
     positions = Thapthim.tcc_positions(@sentence)
     assert_equal 0, positions.first
-    assert_equal 43, positions[8] # 'เริ่ม' byte boundary tracking
+    assert_equal 15, positions[8]  # Boundary offset right after "เนี่ย"
+    assert_equal 29, positions.last # Total character length of the UTF-8 text string
   end
 
   def test_handling_empty_or_nil_inputs
