@@ -8,8 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors = ["suphasan-kh"]
   spec.email = ["suphasan2004@gmail.com"]
 
-  spec.summary = "Thapthim: A Thai Text Processor in Ruby"
-  spec.description = "A Thai text processor fully written in Ruby"
+  spec.summary = "Thai word and syllable segmentation, backed by a native Rust extension"
+  spec.description = "Thapthim segments Thai text into words and orthographic syllables using a " \
+    "dictionary lattice aligned to Thai Character Cluster (TCC) boundaries, scored with a " \
+    "Kneser-Ney bigram language model via Viterbi decoding, with branching-entropy back-off for " \
+    "out-of-vocabulary spans. The gem as distributed is for non-commercial / research / " \
+    "open-source use only (see THIRD_PARTY_NOTICES.md)."
   spec.homepage = "https://github.com/suphasan-kh/thapthim"
   # Source code is MIT, but the bundled model assets derive from non-commercial corpora
   # (BEST: CC-BY-NC-SA-3.0; LST20: NECTEC non-commercial). Both apply — the gem as distributed
@@ -20,7 +24,7 @@ Gem::Specification.new do |spec|
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/suphasan-kh/thapthim"
-  spec.metadata["changelog_uri"] = "https://github.com/suphasan-kh/thapthim"
+  spec.metadata["changelog_uri"] = "https://github.com/suphasan-kh/thapthim/blob/main/CHANGELOG.md"
 
   # Uncomment the line below to require MFA for gem pushes.
   # This helps protect your gem from supply chain attacks by ensuring
