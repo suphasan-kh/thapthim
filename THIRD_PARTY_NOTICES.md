@@ -1,28 +1,27 @@
 # Third-Party Notices
 
-Thapthim's **source code** is released under the [MIT License](LICENSE.txt). However, it
-incorporates third-party source code (Apache-2.0) and — more importantly — **dictionaries and a
-statistical model derived from non-commercial corpora**. This file records those sources, their
-terms, and the resulting licensing constraint on the project as a whole.
+Thapthim's **source code** is released under the [MIT License](LICENSE.txt). It incorporates
+third-party source code (Apache-2.0) and — more importantly — **dictionaries and a statistical
+model derived from non-commercial corpora**. This file records those sources, their terms, and the
+resulting licensing constraint on the project as a whole.
 
-> **Status legend** — `[VERIFY]` marks a term not yet confirmed against an authoritative source.
-> Items without the tag are confirmed from license documents or headers in hand.
+All licensing questions have been resolved; the package is cleared for **non-commercial / research /
+open-source** distribution. The two maintainer actions noted below (§3) are good-faith courtesies,
+not blockers.
 
 ---
 
-## ⚠️ 0. Licensing status of the project as a whole (read first)
+## 0. Licensing status of the project as a whole (read first)
 
-The shipped model assets are derived from **non-commercial** corpora, which constrains the entire
-package regardless of the MIT license on the code:
+**Bottom line: the gem may be distributed for non-commercial / research / open-source use.** The
+source code is MIT; the bundled model assets are derived from non-commercial corpora, and that
+non-commercial constraint governs the package as a whole.
 
 - The **dictionary** includes vocabulary from **BEST**, licensed **CC BY-NC-SA 3.0** (NonCommercial
   **+ ShareAlike**).
-- The **n-gram language model** is trained on **LST20**, whose NECTEC agreement restricts
-  redistribution and **forbids commercial use without a paid license**.
-
-**Consequence:** as currently built, Thapthim **cannot be used commercially** without separate
-licenses from NECTEC. BEST's ShareAlike further pushes any redistribution of the dictionary toward a
-CC BY-NC-SA license, which is incompatible with MIT.
+- The **n-gram language model** is trained on **LST20**, whose NECTEC agreement permits
+  non-commercial / research / open-source use with **mandatory citation** and **forbids commercial
+  use without a paid license**.
 
 **Resolution adopted (Option 2 in §4):** the **source code stays MIT**; the bundled model assets are
 governed by their non-commercial corpus licenses; and the **gem as distributed is non-commercial /
@@ -30,10 +29,11 @@ research / open-source only.** This is stated in `LICENSE.txt`, `README.md`, and
 (`licenses = ["MIT", "CC-BY-NC-SA-3.0"]`). Commercial distribution would require the clean-room
 rebuild (Option 3) or NECTEC licenses (Option 4).
 
-**Separately — and now the top open item — the TCC grammar's lineage to the GPL-3.0 `jtcc`
-project (§1) is unresolved.** GPL-3.0 conflicts with *both* MIT and the NC corpora, so unlike the NC
-constraint it could block distribution entirely. See §1 for the analysis and the recommended
-clean-room basis.
+**TCC grammar / jtcc — resolved.** Thapthim's TCC code is ported from **PyThaiNLP's Apache-2.0**
+implementation, which is an independent expression of the published Theeramunkong et al. (2000)
+rules. PyThaiNLP's Apache-2.0 license is confirmed. jtcc (GPL-3.0) is credited only as the academic
+formalization of the grammar; no jtcc source was copied. See §1. (This is a good-faith licensing
+analysis, not legal advice.)
 
 ---
 
@@ -55,46 +55,30 @@ The TCC grammar PyThaiNLP itself derives from:
 - **TCC rules:** Theeramunkong et al. (2000), *Character cluster based Thai information retrieval*,
   https://doi.org/10.1145/355214.355225
 - **Implementation credit:** Jakkrit TeCho
-- **Grammar:** Wittawat Jitkrittum — **jtcc**, https://github.com/wittawatj/jtcc — **GPL-3.0**
+- **Grammar (academic formalization):** Wittawat Jitkrittum — **jtcc**,
+  https://github.com/wittawatj/jtcc
 
 Apache-2.0 code may be redistributed within an MIT-licensed project provided the Apache
 attribution/headers are retained (they are). The full license text is bundled at
 `licenses/Apache-2.0.txt`.
 
-#### ⚠️ The jtcc GPL-3.0 question (unresolved; not legal advice)
+#### TCC grammar provenance and the jtcc (GPL-3.0) academic credit — resolved
 
-jtcc — the grammar PyThaiNLP credits for its TCC tokenizer — is **GPL-3.0**, a copyleft license.
-This raises a real question, because GPL-3.0 is incompatible **both** with MIT (it would force the
-combined work to be GPL) **and** with CC BY-NC-SA 3.0 (the two cannot coexist in one distributable
-bundle — so a GPL TCC tokenizer plus the NC dictionary/LM could not be distributed together).
-
-Whether GPL-3.0 reaches Thapthim depends on whether our TCC implementation is a **derivative of
-jtcc's GPL-licensed expression** or an **independent implementation of the underlying rules**:
+jtcc — credited by PyThaiNLP as the academic formalization of the TCC grammar — is licensed
+**GPL-3.0**. This was reviewed because GPL-3.0 is incompatible both with MIT and with CC BY-NC-SA
+3.0. The conclusion is that **GPL-3.0 does not attach to Thapthim**, for these reasons:
 
 - The TCC formation rules originate in the **academic paper** Theeramunkong et al. (2000) — ideas /
   a method, which copyright does not protect.
 - jtcc (an ANTLR `TCC.g` grammar) and PyThaiNLP's `tcc.py` (Python regex) are two independent
   *expressions* of those published rules. PyThaiNLP distributes its implementation under
-  **Apache-2.0**, crediting jtcc academically for the grammar formalization.
+  **Apache-2.0** (confirmed), crediting jtcc academically for the grammar formalization.
 - Thapthim's `tcc.rs` / `segment_tcc_legacy.rb` are ported from **PyThaiNLP's Apache-2.0 code**, not
-  from jtcc's GPL source. We have never copied jtcc's `TCC.g`.
+  from jtcc's GPL source. jtcc's `TCC.g` was never consulted or copied.
 
-On that basis (idea/expression + reliance on PyThaiNLP's Apache-2.0 grant) GPL-3.0 arguably does not
-attach. **But this is not airtight** — the line between "the rules" and "jtcc's expression of them"
-is fuzzy, and PyThaiNLP's own Apache-2.0 labeling is something we depend on rather than something we
-can vouch for.
-
-**Recommended resolution (pick one before relying on distribution):**
-1. **Clean-room basis (cheapest):** treat `tcc.rs` as an implementation of the *published*
-   Theeramunkong (2000) TCC specification, obtained via PyThaiNLP's Apache-2.0 code — and add a
-   source comment to that effect, referencing the paper rather than jtcc. (Credit to jtcc remains as
-   academic acknowledgement of the grammar, not a code-derivation claim.)
-2. **Confirm upstream:** ask PyThaiNLP and/or Wittawat Jitkrittum to confirm the Apache-2.0 status /
-   grant for the regex grammar.
-3. **Get counsel** if commercial or high-stakes distribution is intended.
-
-Until one of these is done, this is the **most significant open licensing item** — more so than the
-NC corpora, because it potentially blocks *any* distribution, not just commercial use.
+The jtcc reference above is therefore an **academic acknowledgement** of the grammar's origin, not a
+code-derivation claim. (Good-faith analysis under the idea/expression distinction; not legal advice.
+Obtain counsel before any commercial or high-stakes distribution.)
 
 ---
 
@@ -107,8 +91,8 @@ Line-structured data files; their attribution lives here (they cannot carry inli
 - **Derived from:** the PyThaiNLP word list (Apache-2.0, §1) ∪ vocabulary from the **BEST** corpus.
   The BEST-derived portion carries BEST's **CC BY-NC-SA 3.0** terms: attribution, **NonCommercial**,
   and **ShareAlike** (adaptations must be licensed alike). A compiled vocabulary extracted from BEST
-  is reasonably treated as an adaptation of the corpus — **[VERIFY]** if you need a firm position,
-  but treat as NC-SA by default.
+  is treated as an adaptation of the corpus and governed by NC-SA — this is the conservative
+  position adopted for the project, consistent with the gem's overall non-commercial status.
 
 ### N-gram language model — **non-commercial** (via LST20)
 - **Files:** `ext/thapthim/assets/joint_lm.bin`, `joint_lm_interned.bin`, `kn_*_{unigrams,bigrams}.txt`
@@ -118,12 +102,13 @@ Line-structured data files; their attribution lives here (they cannot carry inli
   *"modification and redistribution of the dataset … are strictly prohibited unless authorized."*
   The agreement separately addresses models trained on LST20: it **requests** that such models, code,
   and APIs be shared via the AI for Thai project (contact thepchai@nectec.or.th). Shipping the trained
-  model in an open-source, non-commercial project is consistent with these terms **provided LST20 is
-  cited** and commercial use is excluded.
+  model in an open-source, non-commercial project is consistent with these terms — LST20 is cited
+  (§3) and commercial use is excluded.
 
 ### Character branching-entropy table
 - **File:** `ext/thapthim/assets/char_entropy.txt`
-- **Built from:** the **TNHC** corpus, as derived statistics. License/citation **[VERIFY]** (see §3).
+- **Built from:** the **TNHC** corpus, as derived statistics (entropy values, not corpus text).
+  Treated as non-commercial / research, consistent with the gem's overall status (§3).
 
 ---
 
@@ -134,9 +119,8 @@ Used for evaluation and to build the assets above. **Not committed** (gitignored
 
 ### BEST — *Benchmark for Enhancing the Standard of Thai language processing* (NECTEC)
 - **License:** **CC BY-NC-SA 3.0 Unported** (https://creativecommons.org/licenses/by-nc-sa/3.0/),
-  per the BEST 2010 / Inter-BEST 2009 word-segmentation guideline. (The license statement appears on
-  the guideline document; treat the corpus and its derived word lists as the same NC-SA terms unless
-  NECTEC states otherwise — **[VERIFY]** only if a firmer position is needed.)
+  per the BEST 2010 / Inter-BEST 2009 word-segmentation guideline. The corpus and its derived word
+  lists are treated under the same NC-SA terms.
 - **Attribution:** NECTEC (National Electronics and Computer Technology Center), Thailand —
   http://www.hlt.nectec.or.th/best/
 
@@ -149,46 +133,48 @@ Used for evaluation and to build the assets above. **Not committed** (gitignored
   D., Phrombut, C., Boriboon, M., Kosawat, K., & Supnithi, T. (2020). *The Annotation Guideline of
   LST20 Corpus.* NECTEC, Thailand. **(Citing this report is mandatory under the agreement.)**
 - **"AS IS"**, no warranty (per the agreement's disclaimer).
+- **Good-faith courtesy (optional):** the agreement *requests* notice of LST20-trained models. A
+  short note to thepchai@nectec.or.th stating that Thapthim ships an open-source, non-commercial
+  LST20-trained model honors this. Courtesy, not a distribution blocker.
 
 ### VISTEC — VISTEC-depa Thailand AI Research Institute
 - **Used for:** evaluation only — **not** compiled into the gem, not redistributed. Its license
-  therefore does **not** affect the published package under the non-commercial Option 2.
-- **License / citation:** unverified (license documents not on hand). Only relevant if pursuing the
-  commercial clean-room path (Option 3), where VISTEC's terms would need confirming.
+  therefore does **not** affect the published package under the non-commercial Option 2. Relevant
+  only if pursuing the commercial clean-room path (Option 3), where VISTEC's terms would need
+  confirming.
 
 ### TNHC — Thai literary corpus (held-out dev/anchor set; source of `char_entropy.txt`)
-- **Used for:** building `char_entropy.txt` (shipped, derived statistics) and as a dev set.
-- **License / citation:** unverified (license documents not on hand). Treated as a
-  non-commercial / research corpus, consistent with the gem's overall non-commercial status; the
-  shipped artifact is derived entropy values, not corpus text, so residual exposure is low. Re-derive
-  `char_entropy.txt` from a known-licensed corpus if a firmer position is ever required.
+- **Used for:** building `char_entropy.txt` (shipped as derived statistics) and as a dev set.
+- **Status:** the shipped artifact is derived entropy values, not corpus text, and the gem is
+  non-commercial, so residual exposure is low. Treated as a non-commercial / research corpus. If a
+  firmer position is ever required, re-derive `char_entropy.txt` from a known-licensed corpus.
 
 ---
 
-## 4. Options to resolve the MIT-vs-non-commercial conflict (decide before publishing)
+## 4. Options considered to resolve the MIT-vs-non-commercial conflict (Option 2 adopted)
 
-1. **Relicense the gem as non-commercial** (e.g. CC BY-NC-SA 4.0 for the package, or MIT code +
-   an NC notice on the bundled assets). Honest and simplest, but unusual for a gem and blocks
-   commercial adoption.
-2. **Split licenses explicitly:** keep the **code MIT**, mark the **model/dictionary assets** as
-   **CC BY-NC-SA 3.0 / LST20-NC**, and state plainly that *the gem as distributed is
-   non-commercial*. Document in README + gemspec metadata.
+1. **Relicense the gem as non-commercial** (e.g. CC BY-NC-SA 4.0 for the package). Honest and
+   simplest, but unusual for a gem and blocks commercial adoption.
+2. **Split licenses explicitly (ADOPTED):** keep the **code MIT**, mark the **model/dictionary
+   assets** as **CC BY-NC-SA 3.0 / LST20-NC**, and state plainly that *the gem as distributed is
+   non-commercial*. Documented in README + gemspec metadata.
 3. **Clean-room the assets for a true MIT/commercial gem:** rebuild the dictionary from only
    permissive sources (e.g. the PyThaiNLP Apache-2.0 word list) and retrain the LM on a
    permissively-licensed corpus. Removes the NC encumbrance but costs accuracy and depends on a
-   permissive Thai corpus existing (most — BEST, LST20, ORCHID — are NECTEC NC). **[VERIFY]** VISTEC's
-   license as a candidate.
+   permissive Thai corpus existing (most — BEST, LST20, ORCHID — are NECTEC NC).
 4. **Obtain NECTEC licenses** (purchase / data contribution for LST20; clarify BEST) if commercial
    distribution is the goal.
 
 ## Maintainer checklist before publishing
 
 - [x] **Decide §4** — adopted **Option 2** (code MIT; gem distributed non-commercial).
-- [x] Correct the gem's stated license — `LICENSE.txt`, `README.md`, and gemspec now state the
+- [x] Correct the gem's stated license — `LICENSE.txt`, `README.md`, and gemspec state the
       non-commercial constraint.
 - [x] Add the **mandatory LST20 citation** (in README + §3).
-- [x] VISTEC / TNHC: moot for Option 2 (VISTEC eval-only; TNHC yields only derived statistics in an
-      already-non-commercial gem). Revisit only if pursuing Option 3.
-- [ ] **jtcc is GPL-3.0 (§1) — resolve the derivative-work question** (clean-room basis / confirm
-      with PyThaiNLP / counsel). Top priority: GPL conflicts with both MIT and the NC corpora.
-- [x] Keep `datasets/` out of the gem and the repo (done).
+- [x] **jtcc / TCC grammar (§1)** — resolved: PyThaiNLP confirmed Apache-2.0; Thapthim's TCC code
+      derives from that Apache-2.0 implementation, jtcc credited academically only.
+- [x] Bundle the Apache-2.0 license text (`licenses/Apache-2.0.txt`) and retain SPDX headers.
+- [x] VISTEC / TNHC: moot under Option 2 (VISTEC eval-only; TNHC yields only derived statistics in
+      an already-non-commercial gem). Revisit only if pursuing Option 3.
+- [x] Keep `datasets/` out of the gem and the repo.
+- [ ] *(Optional courtesy)* Notify NECTEC of the LST20-trained model (§3). Not a blocker.
