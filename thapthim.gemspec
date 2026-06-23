@@ -31,8 +31,8 @@ Gem::Specification.new do |spec|
     ls.readlines("\x0", chomp: true).reject do |f|
       (f == gemspec) ||
         f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml]) ||
-        f.start_with?("target/") || f.start_with?("tmp/") || 
-        f.start_with?("test/") || f.start_with?("data/")
+        f.start_with?("target/") || f.start_with?("tmp/") ||
+        f.start_with?("test/") || f.start_with?("datasets/") || f.start_with?("tools/") ||
         f.end_with?(".dylib") || f.end_with?(".so") || f.end_with?(".bundle")
     end
   end

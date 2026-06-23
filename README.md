@@ -38,6 +38,11 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
+Thapthim also incorporates third-party code (the PyThaiNLP TCC/normalization components, under
+Apache-2.0) and data derived from external dictionaries and corpora. See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the full attribution and per-source license
+status.
+
 ## Code of Conduct
 
 Everyone interacting in the Thapthim project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/suphasan-kh/thapthim/blob/main/CODE_OF_CONDUCT.md).

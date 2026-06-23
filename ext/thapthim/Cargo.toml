@@ -16,3 +16,5 @@ rustc-hash = "1.1" # Incredibly fast lookup hashes optimized for compiler/NLP to
 
 [build-dependencies]
 rb-sys = "0.9" # Standard cross-boundary system wrapper
+serde = { version = "1.0", features = ["derive"] } # build.rs re-encodes the LM to the interned asset
+bincode = "1.3"

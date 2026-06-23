@@ -14,9 +14,10 @@ module Thapthim
   # back into substrings of the original text. Each token packs [ Start:32 | Length:24 | Tier:8 ]
   # as byte offsets, so we slice on bytes (TCC boundaries are always valid UTF-8 boundaries).
   def self.decode_tokens(input_text, fn_name)
-    return [] if input_text.nil? || input_text.empty?
+    text = sanitize_input(input_text)
+    return [] if text.empty?
 
-    text_pointer = Fiddle::Pointer.to_ptr(input_text.to_s)
+    text_pointer = Fiddle::Pointer.to_ptr(text)
     size_buffer = Fiddle::Pointer.malloc(Fiddle::SIZEOF_INT)
 
     raw_address = NativeBridge[fn_name].call(text_pointer.to_i, size_buffer.to_i)
@@ -31,7 +32,7 @@ module Thapthim
     packed.map do |token|
       start = token >> 32
       length = (token >> 8) & 0xFFFFFF
-      input_text.byteslice(start, length)
+      text.byteslice(start, length)
     end
   end
   private_class_method :decode_tokens

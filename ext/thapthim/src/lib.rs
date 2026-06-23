@@ -1,6 +1,10 @@
 // ext/thapthim/src/lib.rs
-pub mod tcc; 
+pub mod tcc;
 pub mod lattice;
+// Shared with build.rs (which uses the String-keyed types + intern_*); the lib only reads the
+// interned types, so the rest is "dead" from the lib's view — silence those warnings.
+#[allow(dead_code)]
+mod lm_format;
 
 use std::ffi::CStr;
 use std::os::raw::c_char;
@@ -17,6 +21,14 @@ fn get_engine() -> &'static RuntimeEngine {
     })
 }
 
+/// Reads a (non-null) C string pointer as UTF-8, replacing any invalid bytes with
+/// U+FFFD instead of discarding the entire input. The Ruby layer already hands us
+/// clean UTF-8, so this is defense-in-depth for direct C-ABI callers (e.g. future
+/// language bindings) — a single bad byte should never blank out the whole result.
+unsafe fn read_utf8<'a>(ptr: *const c_char) -> std::borrow::Cow<'a, str> {
+    String::from_utf8_lossy(unsafe { CStr::from_ptr(ptr) }.to_bytes())
+}
+
 #[unsafe(no_mangle)]
 pub extern "C" fn thapthim_tcc_positions(
     raw_text_ptr: *const c_char,
@@ -27,8 +39,8 @@ pub extern "C" fn thapthim_tcc_positions(
         return std::ptr::null();
     }
 
-    let c_str = unsafe { CStr::from_ptr(raw_text_ptr) };
-    let text = c_str.to_str().unwrap_or("");
+    let text_cow = unsafe { read_utf8(raw_text_ptr) };
+    let text: &str = &text_cow;
 
     let segmenter = TccSegmenter::new();
     let positions = segmenter.find_positions(text);
@@ -51,8 +63,8 @@ pub extern "C" fn thapthim_segment(
         return std::ptr::null();
     }
 
-    let c_str = unsafe { CStr::from_ptr(raw_text_ptr) };
-    let text = c_str.to_str().unwrap_or("");
+    let text_cow = unsafe { read_utf8(raw_text_ptr) };
+    let text: &str = &text_cow;
 
     // Access the shared global engine instantly (O(1) after bootstrap initialization)
     let engine = get_engine();
@@ -79,8 +91,8 @@ pub extern "C" fn thapthim_segment_syllables(
         return std::ptr::null();
     }
 
-    let c_str = unsafe { CStr::from_ptr(raw_text_ptr) };
-    let text = c_str.to_str().unwrap_or("");
+    let text_cow = unsafe { read_utf8(raw_text_ptr) };
+    let text: &str = &text_cow;
 
     let engine = get_engine();
     let packed_tokens = engine.segment_syllables(text);
@@ -103,8 +115,8 @@ pub extern "C" fn thapthim_segment_joint(
         return std::ptr::null();
     }
 
-    let c_str = unsafe { CStr::from_ptr(raw_text_ptr) };
-    let text = c_str.to_str().unwrap_or("");
+    let text_cow = unsafe { read_utf8(raw_text_ptr) };
+    let text: &str = &text_cow;
 
     let engine = get_engine();
     let packed_tokens = engine.segment_words_joint(text);
