@@ -18,10 +18,10 @@ source code is MIT; the bundled model assets are derived from non-commercial cor
 non-commercial constraint governs the package as a whole.
 
 - The **dictionary** includes vocabulary from **BEST**, licensed **CC BY-NC-SA 3.0** (NonCommercial
-  **+ ShareAlike**).
-- The **n-gram language model** is trained on **LST20**, whose NECTEC agreement permits
-  non-commercial / research / open-source use with **mandatory citation** and **forbids commercial
-  use without a paid license**.
+  **+ ShareAlike**), and vocabulary from **LST20** (NECTEC non-commercial; see next bullet).
+- **LST20** (NECTEC) is the source of both the **n-gram language model** (trained on it) and part of
+  the **dictionary vocabulary**. Its NECTEC agreement permits non-commercial / research /
+  open-source use with **mandatory citation** and **forbids commercial use without a paid license**.
 
 **Resolution adopted:** the **source code stays MIT**; the bundled model assets are governed by
 their non-commercial corpus licenses; and the **gem as distributed is non-commercial / research /
@@ -86,13 +86,19 @@ Obtain counsel before any commercial or high-stakes distribution.)
 
 Line-structured data files; their attribution lives here (they cannot carry inline headers).
 
-### Word / syllable dictionaries — **CC BY-NC-SA 3.0** (via BEST)
+### Word / syllable dictionaries — **non-commercial** (via BEST + LST20)
 - **Files:** `ext/thapthim/assets/master_words_vocab.txt`, `master_syllables_vocab.txt`
-- **Derived from:** the PyThaiNLP word list (Apache-2.0, §1) ∪ vocabulary from the **BEST** corpus.
-  The BEST-derived portion carries BEST's **CC BY-NC-SA 3.0** terms: attribution, **NonCommercial**,
-  and **ShareAlike** (adaptations must be licensed alike). A compiled vocabulary extracted from BEST
-  is treated as an adaptation of the corpus and governed by NC-SA — this is the conservative
-  position adopted for the project, consistent with the gem's overall non-commercial status.
+- **Derived from:** the PyThaiNLP word list (Apache-2.0, §1) ∪ vocabulary from the **BEST** corpus
+  ∪ vocabulary from the **LST20** corpus.
+  - The **BEST**-derived portion carries BEST's **CC BY-NC-SA 3.0** terms: attribution,
+    **NonCommercial**, and **ShareAlike** (adaptations must be licensed alike).
+  - The **LST20**-derived portion carries LST20's NECTEC non-commercial terms (mandatory citation,
+    no commercial use without a paid license; see the N-gram model entry below and §3). A word-type
+    inventory is a derived artifact — the same class of derived statistic as the LM's unigram table,
+    not LST20 corpus text — but it is still LST20-derived and so is governed by those terms.
+  A compiled vocabulary extracted from these corpora is treated as an adaptation governed by their
+  (non-commercial) terms — the conservative position adopted for the project, consistent with the
+  gem's overall non-commercial status.
 
 ### N-gram language model — **non-commercial** (via LST20)
 - **Files:** `ext/thapthim/assets/joint_lm.bin`, `joint_lm_interned.bin`, `kn_*_{unigrams,bigrams}.txt`

@@ -87,8 +87,9 @@ assets shipped in the gem are built from these; the build tooling lives in `tool
 choice — it follows from the bundled model assets, which are derived from non-commercial corpora:
 
 - The dictionary includes vocabulary from the **BEST** corpus — **CC BY-NC-SA 3.0** (NonCommercial,
-  ShareAlike).
-- The n-gram language model is trained on the **LST20** corpus — NECTEC's agreement permits
+  ShareAlike) — and from the **LST20** corpus (NECTEC non-commercial; see below).
+- The n-gram language model is trained on the **LST20** corpus (which also contributes dictionary
+  vocabulary) — NECTEC's agreement permits
   non-commercial/research/open-source use **only**, and **requires citing** the LST20 report
   (Boonkwan et al., 2020, *The Annotation Guideline of LST20 Corpus*). Commercial use requires a
   separate license from NECTEC.
