@@ -36,12 +36,21 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+**Source code:** [MIT License](https://opensource.org/licenses/MIT) (see [LICENSE.txt](LICENSE.txt)).
 
-Thapthim also incorporates third-party code (the PyThaiNLP TCC/normalization components, under
-Apache-2.0) and data derived from external dictionaries and corpora. See
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the full attribution and per-source license
-status.
+**The gem as a whole is for non-commercial / research / open-source use only.** This is *not* a
+choice — it follows from the bundled model assets, which are derived from non-commercial corpora:
+
+- The dictionary includes vocabulary from the **BEST** corpus — **CC BY-NC-SA 3.0** (NonCommercial,
+  ShareAlike).
+- The n-gram language model is trained on the **LST20** corpus — NECTEC's agreement permits
+  non-commercial/research/open-source use **only**, and **requires citing** the LST20 report
+  (Boonkwan et al., 2020, *The Annotation Guideline of LST20 Corpus*). Commercial use requires a
+  separate license from NECTEC.
+
+So while the code is MIT, you **may not use the gem commercially** without resolving the corpus
+licenses yourself. It also bundles PyThaiNLP's TCC/normalization components (Apache-2.0). Full
+attribution and per-source terms are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Code of Conduct
 

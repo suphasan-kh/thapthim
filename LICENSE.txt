@@ -1,3 +1,11 @@
+NOTE ON SCOPE: The MIT License below covers Thapthim's SOURCE CODE only. The gem also bundles
+model assets (dictionary, n-gram language model, entropy table) derived from NON-COMMERCIAL
+corpora (BEST: CC BY-NC-SA 3.0; LST20: NECTEC non-commercial agreement, citation required).
+Those terms apply in addition to this license, so the gem AS DISTRIBUTED may be used for
+non-commercial / research / open-source purposes only. See THIRD_PARTY_NOTICES.md.
+
+----------------------------------------------------------------------
+
 The MIT License (MIT)
 
 Copyright (c) 2026 suphasan-kh

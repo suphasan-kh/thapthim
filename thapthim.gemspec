@@ -11,7 +11,11 @@ Gem::Specification.new do |spec|
   spec.summary = "Thapthim: A Thai Text Processor in Ruby"
   spec.description = "A Thai text processor fully written in Ruby"
   spec.homepage = "https://github.com/suphasan-kh/thapthim"
-  spec.license = "MIT"
+  # Source code is MIT, but the bundled model assets derive from non-commercial corpora
+  # (BEST: CC-BY-NC-SA-3.0; LST20: NECTEC non-commercial). Both apply — the gem as distributed
+  # is non-commercial. See THIRD_PARTY_NOTICES.md. (Listed together so license scanners flag the
+  # NonCommercial constraint; this is AND, not a choose-one.)
+  spec.licenses = ["MIT", "CC-BY-NC-SA-3.0"]
   spec.required_ruby_version = ">= 3.2.0"
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
   spec.metadata["homepage_uri"] = spec.homepage
