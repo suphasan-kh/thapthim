@@ -1,4 +1,21 @@
 module Thapthim
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  class Error < StandardError
+  end
+
+  # Word-level segmentation. Returns the input split into word tokens.
+  def self.segment: (untyped input_text, ?normalize: bool) -> Array[String]
+
+  # Syllable-level segmentation. Boundaries are a superset of +segment+'s.
+  def self.syllables: (untyped input_text, ?normalize: bool) -> Array[String]
+
+  # Thai Character Cluster segmentation — the smallest inseparable units.
+  def self.tcc_segment: (untyped input_text) -> Array[String]
+
+  # Character offsets of the TCC boundaries for +input_text+.
+  def self.tcc_positions: (untyped input_text) -> Array[Integer]
+
+  # Standard text normalization (spaces, vowel order, zero-width marks, ...).
+  def self.std_normalize: (untyped input) -> String
 end
