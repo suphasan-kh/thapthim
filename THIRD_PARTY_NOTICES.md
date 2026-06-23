@@ -6,8 +6,8 @@ model derived from non-commercial corpora**. This file records those sources, th
 resulting licensing constraint on the project as a whole.
 
 All licensing questions have been resolved; the package is cleared for **non-commercial / research /
-open-source** distribution. The two maintainer actions noted below (§3) are good-faith courtesies,
-not blockers.
+open-source** distribution. The optional follow-ups noted below (§3) are good-faith courtesies, not
+blockers.
 
 ---
 
@@ -23,11 +23,11 @@ non-commercial constraint governs the package as a whole.
   non-commercial / research / open-source use with **mandatory citation** and **forbids commercial
   use without a paid license**.
 
-**Resolution adopted (Option 2 in §4):** the **source code stays MIT**; the bundled model assets are
-governed by their non-commercial corpus licenses; and the **gem as distributed is non-commercial /
-research / open-source only.** This is stated in `LICENSE.txt`, `README.md`, and the gemspec
-(`licenses = ["MIT", "CC-BY-NC-SA-3.0"]`). Commercial distribution would require the clean-room
-rebuild (Option 3) or NECTEC licenses (Option 4).
+**Resolution adopted:** the **source code stays MIT**; the bundled model assets are governed by
+their non-commercial corpus licenses; and the **gem as distributed is non-commercial / research /
+open-source only.** This is stated in `LICENSE.txt`, `README.md`, and the gemspec
+(`licenses = ["MIT", "CC-BY-NC-SA-3.0"]`). Commercial distribution would require rebuilding the
+assets from only permissively-licensed sources, or obtaining the relevant NECTEC licenses.
 
 **TCC grammar / jtcc — resolved.** Thapthim's TCC code is ported from **PyThaiNLP's Apache-2.0**
 implementation, which is an independent expression of the published Theeramunkong et al. (2000)
@@ -139,42 +139,11 @@ Used for evaluation and to build the assets above. **Not committed** (gitignored
 
 ### VISTEC — VISTEC-depa Thailand AI Research Institute
 - **Used for:** evaluation only — **not** compiled into the gem, not redistributed. Its license
-  therefore does **not** affect the published package under the non-commercial Option 2. Relevant
-  only if pursuing the commercial clean-room path (Option 3), where VISTEC's terms would need
-  confirming.
+  therefore does **not** affect the published non-commercial package. Relevant only if pursuing a
+  commercial clean-room rebuild, where VISTEC's terms would need confirming.
 
 ### TNHC — Thai literary corpus (held-out dev/anchor set; source of `char_entropy.txt`)
 - **Used for:** building `char_entropy.txt` (shipped as derived statistics) and as a dev set.
 - **Status:** the shipped artifact is derived entropy values, not corpus text, and the gem is
   non-commercial, so residual exposure is low. Treated as a non-commercial / research corpus. If a
   firmer position is ever required, re-derive `char_entropy.txt` from a known-licensed corpus.
-
----
-
-## 4. Options considered to resolve the MIT-vs-non-commercial conflict (Option 2 adopted)
-
-1. **Relicense the gem as non-commercial** (e.g. CC BY-NC-SA 4.0 for the package). Honest and
-   simplest, but unusual for a gem and blocks commercial adoption.
-2. **Split licenses explicitly (ADOPTED):** keep the **code MIT**, mark the **model/dictionary
-   assets** as **CC BY-NC-SA 3.0 / LST20-NC**, and state plainly that *the gem as distributed is
-   non-commercial*. Documented in README + gemspec metadata.
-3. **Clean-room the assets for a true MIT/commercial gem:** rebuild the dictionary from only
-   permissive sources (e.g. the PyThaiNLP Apache-2.0 word list) and retrain the LM on a
-   permissively-licensed corpus. Removes the NC encumbrance but costs accuracy and depends on a
-   permissive Thai corpus existing (most — BEST, LST20, ORCHID — are NECTEC NC).
-4. **Obtain NECTEC licenses** (purchase / data contribution for LST20; clarify BEST) if commercial
-   distribution is the goal.
-
-## Maintainer checklist before publishing
-
-- [x] **Decide §4** — adopted **Option 2** (code MIT; gem distributed non-commercial).
-- [x] Correct the gem's stated license — `LICENSE.txt`, `README.md`, and gemspec state the
-      non-commercial constraint.
-- [x] Add the **mandatory LST20 citation** (in README + §3).
-- [x] **jtcc / TCC grammar (§1)** — resolved: PyThaiNLP confirmed Apache-2.0; Thapthim's TCC code
-      derives from that Apache-2.0 implementation, jtcc credited academically only.
-- [x] Bundle the Apache-2.0 license text (`licenses/Apache-2.0.txt`) and retain SPDX headers.
-- [x] VISTEC / TNHC: moot under Option 2 (VISTEC eval-only; TNHC yields only derived statistics in
-      an already-non-commercial gem). Revisit only if pursuing Option 3.
-- [x] Keep `datasets/` out of the gem and the repo.
-- [ ] *(Optional courtesy)* Notify NECTEC of the LST20-trained model (§3). Not a blocker.
