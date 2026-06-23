@@ -73,6 +73,9 @@ pub struct RuntimeEngine {
     /// backoff branch). Larger = trust dictionary-only/unseen words less, so an attested
     /// decomposition wins over a junk dict entry like `กอดอก`. Set via `THAPTHIM_OOV_PENALTY`.
     oov_penalty: f64,
+    /// Max length (in TCC clusters, NOT characters) of a dictionary word candidate; longer matches
+    /// are dropped from the lattice. Set via `THAPTHIM_MAX_WORD_TCC` (`0` = no cap).
+    max_word_tcc: usize,
 }
 
 /// Longest context fed to the branching-entropy tables. Must match K in build_char_entropy.rb.
@@ -92,6 +95,13 @@ const BE_MERGE_MAX_TCC: usize = 2;
 /// fixing junk-dict-word over-merges like กอดอก→กอ|ดอก|ไม้. Higher helps LST20/TNHC more but
 /// over-segments VISTEC's heavier OOV tail. `0.0` restores legacy scoring.
 const DEFAULT_OOV_PENALTY: f64 = 2.0;
+
+/// Default max length (in TCC clusters) of a dictionary word candidate. Tuned by sweep: LST20 F1
+/// is a flat plateau over 10–12 TCC (peak 10 = 0.9480 vs 12 = 0.9476, noise) and collapses below 8
+/// (cap 6 → 0.921); BEST rises monotonically with the cap. 12 is kept as the best all-rounder in
+/// the LST20-safe range. NB the reference paper's 80th-pct word length is a CHARACTER figure — a
+/// literal 12-char cap (≈6 TCC) would crater LST20. `THAPTHIM_MAX_WORD_TCC` overrides; `0` = no cap.
+const DEFAULT_MAX_WORD_TCC: usize = 12;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum LatticeTier {
@@ -164,6 +174,10 @@ impl RuntimeEngine {
             .ok()
             .and_then(|s| s.parse::<f64>().ok())
             .unwrap_or(DEFAULT_OOV_PENALTY);
+        let max_word_tcc = std::env::var("THAPTHIM_MAX_WORD_TCC")
+            .ok()
+            .and_then(|s| s.parse::<usize>().ok())
+            .unwrap_or(DEFAULT_MAX_WORD_TCC);
 
         RuntimeEngine {
             word_trie,
@@ -176,6 +190,7 @@ impl RuntimeEngine {
             be_threshold,
             be_max_tcc,
             oov_penalty,
+            max_word_tcc,
         }
     }
 

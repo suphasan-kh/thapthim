@@ -25,7 +25,9 @@ impl RuntimeEngine {
     }
 
     /// Overlapping dictionary matches from a charwise trie, kept only when grid-aligned and
-    /// within the maximum word length (≈12 TCCs — the empirical 80th-percentile Thai word).
+    /// within `max_word_tcc` TCC clusters. (The reference paper's word-length figure is in
+    /// characters; this cap is in TCC clusters and was tuned empirically — LST20 plateaus at
+    /// 10–12 TCC; see THAPTHIM_MAX_WORD_TCC.)
     fn dict_candidates(
         &self,
         trie: &CharwiseDoubleArrayAhoCorasick<usize>,
@@ -34,13 +36,14 @@ impl RuntimeEngine {
         boundary: &HashSet<usize>,
         byte_to_idx: &FxHashMap<usize, usize>,
     ) -> Vec<Cand> {
-        const MAX_WORD_TCC: usize = 12;
+        // `0` disables the cap (accept any dictionary match); see THAPTHIM_MAX_WORD_TCC.
+        let max_tcc = if self.max_word_tcc == 0 { usize::MAX } else { self.max_word_tcc };
         let mut cands = Vec::new();
         for m in trie.find_overlapping_iter(text) {
             let (s, e) = (m.start(), m.end());
             if boundary.contains(&s) && boundary.contains(&e) {
                 let len_tcc = byte_to_idx[&e] - byte_to_idx[&s];
-                if len_tcc >= 1 && len_tcc <= MAX_WORD_TCC {
+                if len_tcc >= 1 && len_tcc <= max_tcc {
                     cands.push(Cand {
                         start: s,
                         end: e,

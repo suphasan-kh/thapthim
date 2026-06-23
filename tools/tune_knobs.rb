@@ -12,7 +12,7 @@
 # Usage:
 #   ruby tools/tune_knobs.rb KNOB VAL [VAL ...] [options]
 #
-#   KNOB                  one of: be_threshold | be_max_tcc | oov_penalty
+#   KNOB                  one of: be_threshold | be_max_tcc | oov_penalty | max_word_tcc
 #   VAL ...               the grid of values to try (e.g. 1.5 2.0 2.5)
 #
 # Options:
@@ -36,6 +36,7 @@ KNOB_ENV = {
   "be_threshold" => "THAPTHIM_BE_THRESHOLD",
   "be_max_tcc"   => "THAPTHIM_BE_MAX_TCC",
   "oov_penalty"  => "THAPTHIM_OOV_PENALTY",
+  "max_word_tcc" => "THAPTHIM_MAX_WORD_TCC",
 }.freeze
 
 # Test corpora known to eval_segment.rb — sweeping on these overfits, so we warn.
@@ -83,8 +84,9 @@ die "no values to sweep (give a grid, e.g. 1.0 1.5 2.0)" if values.empty?
 
 overfit = corpora & TEST_CORPORA
 unless overfit.empty?
-  warn "tune_knobs: WARNING — #{overfit.join(", ")} #{overfit.size == 1 ? "is a" : "are"} test " \
-       "corpus; tuning on it overfits. Prefer a held-out split (e.g. tnhc_train)."
+  single = overfit.size == 1
+  warn "tune_knobs: WARNING — #{overfit.join(", ")} #{single ? "is a test corpus" : "are test corpora"}; " \
+       "tuning on #{single ? "it" : "them"} overfits. Prefer a held-out split (e.g. tnhc_train)."
 end
 
 # ---- sweep ------------------------------------------------------------------
