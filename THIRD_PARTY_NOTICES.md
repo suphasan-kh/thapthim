@@ -30,6 +30,11 @@ research / open-source only.** This is stated in `LICENSE.txt`, `README.md`, and
 (`licenses = ["MIT", "CC-BY-NC-SA-3.0"]`). Commercial distribution would require the clean-room
 rebuild (Option 3) or NECTEC licenses (Option 4).
 
+**Separately — and now the top open item — the TCC grammar's lineage to the GPL-3.0 `jtcc`
+project (§1) is unresolved.** GPL-3.0 conflicts with *both* MIT and the NC corpora, so unlike the NC
+constraint it could block distribution entirely. See §1 for the analysis and the recommended
+clean-room basis.
+
 ---
 
 ## 1. Source code
@@ -50,11 +55,46 @@ The TCC grammar PyThaiNLP itself derives from:
 - **TCC rules:** Theeramunkong et al. (2000), *Character cluster based Thai information retrieval*,
   https://doi.org/10.1145/355214.355225
 - **Implementation credit:** Jakkrit TeCho
-- **Grammar:** Wittawat Jitkrittum — **jtcc**, https://github.com/wittawatj/jtcc — license **[VERIFY]**
+- **Grammar:** Wittawat Jitkrittum — **jtcc**, https://github.com/wittawatj/jtcc — **GPL-3.0**
 
 Apache-2.0 code may be redistributed within an MIT-licensed project provided the Apache
-attribution/headers are retained (they are). This part is **not** the licensing problem; the corpora
-in §0/§2/§3 are.
+attribution/headers are retained (they are). The full license text is bundled at
+`licenses/Apache-2.0.txt`.
+
+#### ⚠️ The jtcc GPL-3.0 question (unresolved; not legal advice)
+
+jtcc — the grammar PyThaiNLP credits for its TCC tokenizer — is **GPL-3.0**, a copyleft license.
+This raises a real question, because GPL-3.0 is incompatible **both** with MIT (it would force the
+combined work to be GPL) **and** with CC BY-NC-SA 3.0 (the two cannot coexist in one distributable
+bundle — so a GPL TCC tokenizer plus the NC dictionary/LM could not be distributed together).
+
+Whether GPL-3.0 reaches Thapthim depends on whether our TCC implementation is a **derivative of
+jtcc's GPL-licensed expression** or an **independent implementation of the underlying rules**:
+
+- The TCC formation rules originate in the **academic paper** Theeramunkong et al. (2000) — ideas /
+  a method, which copyright does not protect.
+- jtcc (an ANTLR `TCC.g` grammar) and PyThaiNLP's `tcc.py` (Python regex) are two independent
+  *expressions* of those published rules. PyThaiNLP distributes its implementation under
+  **Apache-2.0**, crediting jtcc academically for the grammar formalization.
+- Thapthim's `tcc.rs` / `segment_tcc_legacy.rb` are ported from **PyThaiNLP's Apache-2.0 code**, not
+  from jtcc's GPL source. We have never copied jtcc's `TCC.g`.
+
+On that basis (idea/expression + reliance on PyThaiNLP's Apache-2.0 grant) GPL-3.0 arguably does not
+attach. **But this is not airtight** — the line between "the rules" and "jtcc's expression of them"
+is fuzzy, and PyThaiNLP's own Apache-2.0 labeling is something we depend on rather than something we
+can vouch for.
+
+**Recommended resolution (pick one before relying on distribution):**
+1. **Clean-room basis (cheapest):** treat `tcc.rs` as an implementation of the *published*
+   Theeramunkong (2000) TCC specification, obtained via PyThaiNLP's Apache-2.0 code — and add a
+   source comment to that effect, referencing the paper rather than jtcc. (Credit to jtcc remains as
+   academic acknowledgement of the grammar, not a code-derivation claim.)
+2. **Confirm upstream:** ask PyThaiNLP and/or Wittawat Jitkrittum to confirm the Apache-2.0 status /
+   grant for the regex grammar.
+3. **Get counsel** if commercial or high-stakes distribution is intended.
+
+Until one of these is done, this is the **most significant open licensing item** — more so than the
+NC corpora, because it potentially blocks *any* distribution, not just commercial use.
 
 ---
 
@@ -149,5 +189,6 @@ Used for evaluation and to build the assets above. **Not committed** (gitignored
 - [x] Add the **mandatory LST20 citation** (in README + §3).
 - [x] VISTEC / TNHC: moot for Option 2 (VISTEC eval-only; TNHC yields only derived statistics in an
       already-non-commercial gem). Revisit only if pursuing Option 3.
-- [ ] jtcc license (`[VERIFY]`, §1) — minor; confirm if you want the attribution airtight.
+- [ ] **jtcc is GPL-3.0 (§1) — resolve the derivative-work question** (clean-room basis / confirm
+      with PyThaiNLP / counsel). Top priority: GPL conflicts with both MIT and the NC corpora.
 - [x] Keep `datasets/` out of the gem and the repo (done).
