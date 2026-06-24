@@ -76,10 +76,22 @@ impl RuntimeEngine {
     /// under `lm_tier`'s language model regardless of a node's own tier (a TCC fallback in the
     /// word decode is therefore priced as an OOV word). Never returns empty while the TCC
     /// fallback chain is present.
-    fn decode_best_path(&self, cands: &[Cand], rs: usize, re: usize, lm_tier: &LatticeTier) -> Vec<Cand> {
+    /// `cand_ids[i]` is `cands[i].text`'s token id in `lm_tier`'s layer, precomputed once by the
+    /// caller (a token is a predecessor and a successor of many edges; resolving its id per node
+    /// instead of per edge keeps the inner loop free of String hashing).
+    fn decode_best_path(
+        &self,
+        cands: &[Cand],
+        cand_ids: &[Option<u32>],
+        rs: usize,
+        re: usize,
+        lm_tier: &LatticeTier,
+    ) -> Vec<Cand> {
         if rs >= re {
             return Vec::new();
         }
+        let layer = self.layer(lm_tier);
+        let space_id = layer.token_id.get(" ").copied(); // initial context, resolved once
 
         let in_region: Vec<usize> = (0..cands.len())
             .filter(|&i| cands[i].start >= rs && cands[i].end <= re)
@@ -95,19 +107,24 @@ impl RuntimeEngine {
         let mut order = in_region.clone();
         order.sort_by_key(|&i| cands[i].start);
 
-        let mut dp: FxHashMap<usize, f64> = FxHashMap::default();
-        let mut bp: FxHashMap<usize, Option<usize>> = FxHashMap::default();
+        // Candidate indices are dense, so dp/bp/reached are plain Vecs (no per-edge usize hashing).
+        // `reached` is a separate flag rather than a dp sentinel: `score` can legitimately return
+        // NEG_INFINITY (a seen token with no followers and a zero bigram count → ln(0)), so a
+        // score value cannot stand in for "was this node reached".
+        let mut dp = vec![f64::NEG_INFINITY; cands.len()];
+        let mut bp: Vec<Option<usize>> = vec![None; cands.len()];
+        let mut reached = vec![false; cands.len()];
 
         for &i in &order {
             let c = &cands[i];
             let best: Option<(f64, Option<usize>)> = if c.start == rs {
-                Some((self.score_transition(lm_tier, " ", &c.text), None))
+                Some((layer.score(space_id, cand_ids[i], self.oov_penalty), None))
             } else {
                 let mut b: Option<(f64, Option<usize>)> = None;
                 if let Some(prevs) = ending_at.get(&c.start) {
                     for &p in prevs {
-                        if let Some(&ps) = dp.get(&p) {
-                            let s = ps + self.score_transition(lm_tier, &cands[p].text, &c.text);
+                        if reached[p] {
+                            let s = dp[p] + layer.score(cand_ids[p], cand_ids[i], self.oov_penalty);
                             if b.is_none_or(|(bs, _)| s > bs) {
                                 b = Some((s, Some(p)));
                             }
@@ -117,17 +134,18 @@ impl RuntimeEngine {
                 b
             };
             if let Some((s, prev)) = best {
-                dp.insert(i, s);
-                bp.insert(i, prev);
+                dp[i] = s;
+                bp[i] = prev;
+                reached[i] = true;
             }
         }
 
         let mut best_end: Option<(f64, usize)> = None;
         if let Some(ends) = ending_at.get(&re) {
             for &i in ends {
-                if let Some(&s) = dp.get(&i)
-                    && best_end.is_none_or(|(bs, _)| s > bs) {
-                        best_end = Some((s, i));
+                if reached[i]
+                    && best_end.is_none_or(|(bs, _)| dp[i] > bs) {
+                        best_end = Some((dp[i], i));
                     }
             }
         }
@@ -142,10 +160,16 @@ impl RuntimeEngine {
                 text: c.text.clone(),
                 tier: c.tier.clone(),
             });
-            cur = *bp.get(&i).unwrap_or(&None);
+            cur = bp[i];
         }
         path.reverse();
         path
+    }
+
+    /// Resolve every candidate's token id in `lm_tier`'s layer, once, for the decode hot path.
+    fn candidate_ids(&self, cands: &[Cand], lm_tier: &LatticeTier) -> Vec<Option<u32>> {
+        let layer = self.layer(lm_tier);
+        cands.iter().map(|c| layer.token_id.get(c.text.as_str()).copied()).collect()
     }
 
     /// Word segmentation (single word-LM Viterbi). Spans the dictionary cannot cover come back
@@ -165,7 +189,8 @@ impl RuntimeEngine {
         let mut word_cands =
             self.dict_candidates(&self.word_trie, text, LatticeTier::Word, &boundary, &byte_to_idx);
         word_cands.extend(fallback.iter().cloned());
-        let word_path = self.decode_best_path(&word_cands, 0, byte_len, &LatticeTier::Word);
+        let word_ids = self.candidate_ids(&word_cands, &LatticeTier::Word);
+        let word_path = self.decode_best_path(&word_cands, &word_ids, 0, byte_len, &LatticeTier::Word);
 
         // Coalesce consecutive TCC-fallback nodes into maximal OOV spans.
         let mut spans: Vec<(usize, usize, bool)> = Vec::new();
@@ -184,14 +209,14 @@ impl RuntimeEngine {
         }
 
         // Baseline token list: dictionary words verbatim, OOV runs syllabified (syllable cands
-        // built lazily — only if some span actually needs them).
-        let mut syl_cands: Option<Vec<Cand>> = None;
+        // and their precomputed ids built lazily — only if some span actually needs them).
+        let mut syl: Option<(Vec<Cand>, Vec<Option<u32>>)> = None;
         let mut toks: Vec<(usize, usize, LatticeTier)> = Vec::new();
         for (s, e, is_word) in spans {
             if is_word {
                 toks.push((s, e, LatticeTier::Word));
             } else {
-                let cands = syl_cands.get_or_insert_with(|| {
+                let entry = syl.get_or_insert_with(|| {
                     let mut c = self.dict_candidates(
                         &self.syllable_trie,
                         text,
@@ -200,9 +225,10 @@ impl RuntimeEngine {
                         &byte_to_idx,
                     );
                     c.extend(fallback.iter().cloned());
-                    c
+                    let ids = self.candidate_ids(&c, &LatticeTier::Syllable);
+                    (c, ids)
                 });
-                for sy in &self.decode_best_path(&cands[..], s, e, &LatticeTier::Syllable) {
+                for sy in &self.decode_best_path(&entry.0, &entry.1, s, e, &LatticeTier::Syllable) {
                     toks.push((sy.start, sy.end, sy.tier.clone()));
                 }
             }
@@ -240,8 +266,9 @@ impl RuntimeEngine {
             &byte_to_idx,
         );
         cands.extend(self.tcc_fallback(text, &positions));
+        let cand_ids = self.candidate_ids(&cands, &LatticeTier::Syllable);
 
-        self.decode_best_path(&cands, 0, byte_len, &LatticeTier::Syllable)
+        self.decode_best_path(&cands, &cand_ids, 0, byte_len, &LatticeTier::Syllable)
             .iter()
             .map(|c| pack(c.start, c.end, tier_flag(&c.tier)))
             .collect()
