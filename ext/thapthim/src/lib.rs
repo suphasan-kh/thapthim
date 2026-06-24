@@ -2,9 +2,10 @@
 pub mod tcc;
 pub mod lattice;
 // Shared with build.rs (which uses the String-keyed types + intern_*); the lib only reads the
-// interned types, so the rest is "dead" from the lib's view — silence those warnings.
+// interned types, so the rest is "dead" from the lib's view — silence those warnings. `pub` so the
+// `build_interned_lm` example can reach build_lm_from_kn/intern_model to mint an alternate LM asset.
 #[allow(dead_code)]
-mod lm_format;
+pub mod lm_format;
 
 use std::ffi::CStr;
 use std::os::raw::c_char;

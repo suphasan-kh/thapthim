@@ -41,6 +41,11 @@ Gem::Specification.new do |spec|
         f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml]) ||
         f.start_with?("target/") || f.start_with?("tmp/") ||
         f.start_with?("test/") || f.start_with?("datasets/") || f.start_with?("tools/") ||
+        # Alternate BEST-trained LM: kept in git for experiments, but not shipped (it is only
+        # embedded under the off-by-default `best_lm` cargo feature). Excludes the +24MB asset
+        # and the example that mints it from the released gem.
+        f == "ext/thapthim/assets/joint_lm_interned_best.bin" ||
+        f == "ext/thapthim/examples/build_interned_lm.rs" ||
         f.end_with?(".dylib") || f.end_with?(".so") || f.end_with?(".bundle")
     end
   end

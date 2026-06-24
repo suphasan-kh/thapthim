@@ -5,7 +5,14 @@ edition = "2024"
 
 [lib]
 name = "thapthim"
-crate-type = ["cdylib"]
+# cdylib for the Ruby FFI; rlib so the `build_interned_lm` example can link the crate.
+crate-type = ["cdylib", "rlib"]
+
+[features]
+# Off by default: the alternate BEST-trained LM (assets/joint_lm_interned_best.bin) is kept in the
+# repo for experiments but NOT embedded into the shipped binary. Build with `--features best_lm`
+# (and run with THAPTHIM_LM=best) to evaluate it. Keeps the default gem ~11MB smaller.
+best_lm = []
 
 [dependencies]
 regex = "1.10"

@@ -158,9 +158,19 @@ impl RuntimeEngine {
         let syllable_trie = CharwiseDoubleArrayAhoCorasick::with_values(syllable_patterns).unwrap();
 
         // The interned LM is derived from the corpus pipeline's joint_lm.bin by build.rs and
-        // embedded here (see src/lm_format.rs for the format and the lossless re-encode).
-        let model: InternedModel = bincode::deserialize(include_bytes!("../../assets/joint_lm_interned.bin"))
-            .expect("Critical error reading joint_lm_interned.bin. Structure formats mismatch.");
+        // embedded here (see src/lm_format.rs for the format and the lossless re-encode). The
+        // default LST20-trained LM always ships; the alternate BEST-trained LM is embedded ONLY
+        // under the `best_lm` cargo feature (off by default — see Cargo.toml), and selected at
+        // bootstrap with THAPTHIM_LM=best. The dictionary/entropy assets are identical either way,
+        // so this isolates the effect of the LM's training corpus. Without the feature, THAPTHIM_LM
+        // is ignored and the default LM is always used.
+        let lm_bytes: &[u8] = match std::env::var("THAPTHIM_LM").ok().as_deref() {
+            #[cfg(feature = "best_lm")]
+            Some("best") => &include_bytes!("../../assets/joint_lm_interned_best.bin")[..],
+            _ => &include_bytes!("../../assets/joint_lm_interned.bin")[..],
+        };
+        let model: InternedModel = bincode::deserialize(lm_bytes)
+            .expect("Critical error reading interned LM. Structure formats mismatch.");
         let words = RuntimeLayer::from_interned(model.words);
         let syllables = RuntimeLayer::from_interned(model.syllables);
         let tccs = RuntimeLayer::from_interned(model.tccs);
