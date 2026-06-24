@@ -152,11 +152,14 @@ SSG is the natural baseline.
 | agreement with SSG training target (per-word, boundary F1, LST20) | **0.9941** |
 | speed (LST20 test, best-of-5, Ruby FFI) | **~3.5M char/s** (~23,600 sent/s) |
 | speed (same text, Python/PyO3, single-core) | ~4.3M char/s |
-| SSG speed (same corpus) | ~0.20M char/s (~1,400 sent/s) |
+| SSG speed (`engine="ssg"`, same corpus) | ~0.20M char/s (~1,340 sent/s) |
+| dict speed (`engine="dict"`, same corpus) | ~0.48M char/s (~3,250 sent/s) |
 
 So syllable segmentation reproduces its SSG target near-perfectly while running **~17× faster than
-SSG** — and faster than thapthim's own word segmentation (single Viterbi pass over the smaller
-syllable dictionary, with none of the word path's OOV-run / entropy-merge post-processing).
+SSG** and **~7× faster than PyThaiNLP's dictionary syllable tokenizer** (`engine="dict"`, the other
+common deterministic baseline) — and faster than thapthim's own word segmentation (single Viterbi
+pass over the smaller syllable dictionary, with none of the word path's OOV-run / entropy-merge
+post-processing).
 (Against raw SSG-on-full-text the boundary F1 is 0.81, but that gap is purely a space/number
 tokenization convention — thapthim keeps `" "` and numbers as standalone tokens — not a quality
 difference.)
