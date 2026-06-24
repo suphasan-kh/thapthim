@@ -101,6 +101,18 @@ char/s overall; see CHANGELOG).
   (thapthim-LST20 → LST20, thapthim-BEST/attacut/deepcut → BEST, nlpo3/newmm → LEXiTRON-style
   dictionary). The home-corpus advantage is real; read each tool both on its home turf and on the
   out-of-domain corpora (tnhc, vistec, ws1000).
+- **Baselines are evaluated as shipped (BEST-trained).** The released `deepcut` and `attacut-sc`
+  packages are fixed models trained on BEST, so in this table **only the BEST column is in-domain
+  for them** — every other column is cross-domain and would likely be higher if they were retrained
+  per corpus. This is corroborated by the UnifiedCut paper (Wen et al., 2024), whose Table 5 shows a
+  BEST-trained DeepCut dropping to ORCHID 0.66 / TNHC 0.63 / Wisesight 0.81 cross-domain; our
+  deepcut matches the paper on BEST (0.966 vs 0.963), confirming the harness. So thapthim's lead on
+  the non-BEST corpora is partly its home advantage against the baselines' cross-domain handicap —
+  the cleanest like-for-like is each tool on its home corpus (on BEST: thapthim-BEST 0.949 ≈ attacut
+  0.946, below deepcut 0.966).
+- **Metric averaging.** We report **micro** F1 (TP/FP/FN aggregated over the corpus). Some papers
+  (e.g. AttaCut, UnifiedCut) report **macro** F1 (mean ± std of per-sentence F1), which runs a few
+  tenths to ~1.5 points lower here and is not directly comparable to these numbers.
 - **Held-out splits.** Thapthim's dictionary is decontaminated of the BEST test split, so
   thapthim-BEST's `best` score is a fair held-out number, not memorization.
 - **Sentence caps.** `best` and `vistec` are capped at 3,000 sentences to bound deepcut's runtime;
@@ -113,13 +125,18 @@ char/s overall; see CHANGELOG).
 python3 -m venv /tmp/thai_bench
 /tmp/thai_bench/bin/pip install "pythainlp[benchmarks]" attacut deepcut nlpo3 tensorflow
 
-# 2. Thapthim predictions (shipped LST20 LM)
+# 2. Thapthim predictions. The shipped LST20 LM needs no flags; the gated BEST and COMBINED LMs
+#    need a build that embeds them (one binary can carry all three):
+#      (cd ext/thapthim && cargo rustc --release --features best_lm,combined_lm --crate-type cdylib)
+#      cp target/release/libthapthim.dylib lib/thapthim/thapthim.bundle
 ruby test/dump_segmentation.rb /tmp/pred_lst20
-# optional gated BEST LM: build with `--features best_lm`, then:
-#   THAPTHIM_LM=best ruby test/dump_segmentation.rb /tmp/pred_best
+THAPTHIM_LM=best     ruby test/dump_segmentation.rb /tmp/pred_best
+THAPTHIM_LM=combined ruby test/dump_segmentation.rb /tmp/pred_combined
 
 # 3. score every engine with the identical research metric
-/tmp/thai_bench/bin/python test/benchmark_accuracy.py thapthim-LST20 --pred /tmp/pred_lst20
+/tmp/thai_bench/bin/python test/benchmark_accuracy.py thapthim-LST20    --pred /tmp/pred_lst20
+/tmp/thai_bench/bin/python test/benchmark_accuracy.py thapthim-BEST     --pred /tmp/pred_best
+/tmp/thai_bench/bin/python test/benchmark_accuracy.py thapthim-COMBINED --pred /tmp/pred_combined
 for e in nlpo3 newmm attacut deepcut; do
   /tmp/thai_bench/bin/python test/benchmark_accuracy.py "$e"
 done
