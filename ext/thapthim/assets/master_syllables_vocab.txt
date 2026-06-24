@@ -9,16 +9,13 @@
  10
  100
  100 
- 108
  11
- 111
  12
  1201
  1206
  1226
  13
  138
- 142
  15-16
  17
  17 
@@ -30,7 +27,6 @@
  2
  2 
  21
- 22
  23
  24
  2490
@@ -74,7 +70,6 @@
  7 
  8
  8 
- 89.75 
  9
  9 
  9/1
@@ -83,8 +78,6 @@
  APTN
  Agence France-Presse
  Alliance Capital Management
- Amazing Tour
- Amazon.
  American Enterprise Institute
  Antigonish
  AstraZeneca
@@ -92,27 +85,21 @@
  Barisan Revolusi Nasional-Coordinate
  Benedict Anderson
  Blue Jewelry
- CSEARHAP
  California
  Crown Forum
  Doubleday
  Earth First
- Expedia
  F
  GAMPAR
  GNC
  Gerakan
  Gerson Lehrman
  Hollinger
- IPE
- ISA
  K
  Kampaha
  Ken
  Lanna caf
  Lingga
- MET 107
- MNChannel 25
  Mantiqi I
  Mark Fabiani
  Merck
@@ -123,7 +110,6 @@
  NYMEX
  New South Wales
  PAD
- Quebec
  Queensland
  Rabitat-ul Mujahidin
  Rowett
@@ -135,18 +121,15 @@
  South Australia
  The Free Press
  UNHCR
- Walker Asset Management
  ก
  ก.
  กก
  กบ
- กฟ
  กม
  กม.8
  กร
  กรง
  กรม
- กรรม
  กระ
  กรัย
  กรีน
@@ -184,7 +167,6 @@
  กิ๊กส์
  กึง
  กุ
- กุณ
  กุน
  กุล
  กู
@@ -198,7 +180,6 @@
  ค
  คง
  คช
- คณะ
  คน
  คม
  คร
@@ -218,9 +199,7 @@
  จง
  จริต
  จอค
- จอร์
  จอห์น
- จะ
  จัค
  จัง
  จำ
@@ -228,9 +207,7 @@
  จึง
  จุม
  จ๊ก
- จ๊ะ
  ฉ
- ฉก.12
  ฉัน
  ช
  ชนะ
@@ -242,18 +219,13 @@
  ชวน
  ชัย
  ชา
- ชาร์ล
  ชิ
  ชิน
- ซ
  ซก
- ซอย 4
- ซี
  ซ่อน
  ฌอง
  ฌิ
  ฌู
- ญาณ
  ญิง
  ฐา
  ฐาน
@@ -262,11 +234,9 @@
  ณ
  ณ 
  ณษ
- ณัฐ
  ด
  ดร
  ดวง
- ดอ
  ดอร์
  ดะห์
  ดัชท์
@@ -296,7 +266,6 @@
  ตป
  ตม
  ตระ
- ตอน
  ตะ
  ตัน
  ตัล
@@ -355,7 +324,6 @@
  นว
  นวล
  นอย
- นอร์
  นอร์ 
  นอร์ด
  นอร์ธ
@@ -369,8 +337,6 @@
  นา
  นาก
  นาค
- นาง
- นาฏ
  นาถ
  นาม
  นาย
@@ -379,16 +345,13 @@
  นิ
  นิก
  นิจ
- นิต
  นินต์
- นิม
  นิม 
  นิล
  นิว
  นิ่ม
  นี
  นีล
- นีลล์
  นี้
  นึก
  นุ
@@ -413,13 +376,10 @@
  บัล
  บัว
  บา
- บาง
  บาย
- บาร์
  บาร์ก
  บาร์ต
  บำ
- บิ
  บี
  บือ
  บุ
@@ -433,37 +393,27 @@
  บุษย
  บู
  บูล
- บ่ม
  บ่อ
  ป
  ป.
  ปง
  ปฏิ
- ปต
  ปรัช
  ปลั่ง
- ปลา
  ปาน
- ปิ
  ปุ
  ปุง
  ปู
- ป้อง
- ป๊ะ
  ผกา
  ผจญ
  ผบ
- ผล
  พ
  พงศ์
  พงษ์
  พจน์
- พบ
  พยัฆ
  พร
- พรม
  พรรค
- พรรณ
  พรหม
  พระ
  พล
@@ -477,24 +427,20 @@
  ภ
  ภ.
  ภม
- ภร
  ภว
  ภัก
  ภัท
  ภา
  ภาค
  ภิ
- ภิญ
  ภุม
  ภู
  ภู่
  ม
- ม.
  มก
  มง
  มณ
  มณี
- มน
  มหา
  มหิด
  มอ
@@ -510,9 +456,7 @@
  มา
  มา 
  มาติ
- มาน
  มาร์
- มาศ
  มาส
  มาห์
  มาห์ล
@@ -543,7 +487,6 @@
  ยา
  ยุก
  ยุว
- ยุ่ง
  ยุ้น
  ยู
  ยู 
@@ -556,8 +499,6 @@
  ร.15312
  ร.1614
  ร.2123
- ร.3012 
- ร.3023
  ร.๙
  ร5033 ฉก.
  รณ
@@ -570,7 +511,6 @@
  รอ.
  รอง
  รอด
- รอตส์
  รอบ
  รอย
  ระ
@@ -587,14 +527,11 @@
  ราง
  ราญ
  ราม
- ราหร์
  รำ
  ริ
  ริช
  ริน
- รี
  รีด
- รือ
  รื่น
  รุ
  รุท
@@ -609,32 +546,25 @@
  ร้อย
  ฤ
  ฤกษ์
- ฤท
  ฤทธิ์
  ล
- ลก
  ลง
  ลง 
  ลพ
- ลภ
  ลว.
  ลว. 
  ลอ
  ลอง
- ลอดจ์
  ลอน
  ลอฟ
  ลอย
  ลัค
  ลัง
- ลัทธ
  ลา
  ลาด
- ลาน
  ลาภ
  ลาย
  ลาว
- ลาส
  ลาห์ม
  ลำ
  ลิ
@@ -650,7 +580,6 @@
  ลิ่ว
  ลิ้ม
  ลี
- ลีช
  ลีบ
  ลี้
  ลึก
@@ -658,14 +587,11 @@
  ลุ
  ลุง
  ลุฟ
- ลุม
  ลุ่ม
  ลู
- ลูก
  ลู่
  ล็อก
  ล็อกซ
- ล็อค
  ล่อ
  ล่ำ
  ว
@@ -696,16 +622,13 @@
  วัฒน
  วัด
  วัตต์
- วัตร
  วัน
  วัล
  วัส
  วา
- วาช
  วาต
  วาบ
  วาร
- วาส
  วาสนา 
  วาห์ล
  วิ
@@ -729,7 +652,6 @@
  ว่อง
  ว่า
  ศ
- ศ.
  ศต
  ศร
  ศรัท
@@ -753,7 +675,6 @@
  สร
  สรรพ
  สระ
- สร้อย
  สวน
  สวย
  สวัส
@@ -772,12 +693,10 @@
  สุจริต
  สุด
  ห
- หงษ์
  หงส์
  หงส์ช
  หนาน
  หนู
- หน่วย
  หมวด
  หมั่น
  หมาย
@@ -787,11 +706,9 @@
  หยะ
  หยาน
  หยิบ
- หยุ่น
  หยู
  หลง
  หลัก
- หลิว
  หลีก
  หล่ำ
  หวัง
@@ -808,7 +725,6 @@
  อ. 
  อก
  อง
- อธิ
  อบ
  อภัย
  อภิ
@@ -816,13 +732,10 @@
  อมร
  อร
  อรรค
- อรรณ
  อรรถ
  อรุ
  ออ
  ออง
- ออด
- ออธ
  ออฟ
  ออร์
  อะ
@@ -843,7 +756,6 @@
  อัศ
  อัศว
  อัส
- อั้น
  อา
  อาจ
  อาฟ
@@ -867,14 +779,12 @@
  อิสระ
  อิ่ม
  อี
- อีฟ
  อี้
  อึง
  อึ้ง
  อึ๊ง
  อุ
  อุช
- อุด
  อุต
  อุป
  อุ่น
@@ -883,7 +793,6 @@
  อู่
  อู้
  อู้ด
- อเม
  อ่วม
  อ่อน
  อ่อม
@@ -902,14 +811,12 @@
  เขา
  เค
  เคก 
- เคย
  เครือ
  เคีย
  เค่ง
  เจ
  เจริญ
  เจะ
- เจ็ด
  เจ๊
  เจ๊ะ
  เชน
@@ -918,7 +825,6 @@
  เชียง
  เชื้อ
  เซ
- เซง
  เซอร์
  เซ็ง
  เซ็น
@@ -928,7 +834,6 @@
  เดน
  เดอ 
  เดียว
- เต็ง
  เทียม
  เบล
  เป็น
@@ -953,11 +858,9 @@
  เห็น
  เอ็ด 
  เอ็ล 
- เฮ
  เฮ็ล
  เฮ้า
  เฮ้าส์
- แก้
  แก้ว
  แข้ง
  แซ่
@@ -965,47 +868,37 @@
  แดน
  แต 
  แผล
- แฟน 
  แม
  แมะ
  และ
  แสง
  แสดง
  แสวง
- โก
- โกล
  โค
  โฆ
  โจ
- โจ๋ง
  โชค
  โชติ
  โซ
- โซ๊ะ
  โต
  โต๊ะ
- โทร์
  โป
  โพธิ์
  โพสต์
  โม 
  โรจน์
- โรล
  โศก
  โส
  โสต
- โสรจ
  โหส
  โอ
  โฮ
  โฮป 
- โฮล์ม
  ให้
  ไชย
  ไซ
  ๑
  ๒
- ๒๙
  ๓
  ๓ 
  ๔
@@ -1038,12 +931,10 @@ $
 (NH2)
 (NH2)2
 (OH)
-(Pali Text Society)
 (The World Fellowship of Buddhists)
 (aq
 (aq)
 (g)
-(กม
 (กรุง
 (ตลิ่ง
 (ธน
@@ -1069,7 +960,6 @@ $
 )ฎ Ca
 )ฎ Ca+2
 )ฎ Na+(aq)
-)น
 )อ
 *
 **
@@ -1080,25 +970,15 @@ $
 + Cl-
 ++
 +++
-++++
-++++++++++++++++++++
-++++++++++++++++++++++
-++++++++++++++++++++++++
 +++++++++++++++++++++++++
-+++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1107,7 +987,6 @@ $
 , 7
 , 8
 , 9
-, ดุล
 , ภ
 ,,,
 ,2
@@ -1115,14 +994,12 @@ $
 ,หลวง
 ,๙๙๘
 -
-- 
 --
 ---
 ---------
 ---------------
 -------------------------------
 ------------------------------------
---------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
@@ -1142,7 +1019,6 @@ $
 -2
 -23,540
 -32,041
--4"
 -44/3
 -44713
 -50,091
@@ -1167,16 +1043,12 @@ $
 -line
 -ฏอ
 -บ
--ม
 -ย
 -ย-
--ร.ร.
--ระ
 -ว
 -อ
 -ัว
 -ัวะ
--า
 -ิ
 -ี
 -ึ
@@ -1185,11 +1057,8 @@ $
 -ุ.
 -ู
 -๕๓
--๖๑
 .
 . 
-. 02
-. 10
 . 13
 . 23
 . 24
@@ -1238,7 +1107,6 @@ $
 .38
 .4
 .43
-.44
 .45
 .6
 .8/2552
@@ -1246,7 +1114,6 @@ $
 .>
 .AB>ส
 .COM
-.Rice
 ._
 ._02
 ._3
@@ -1273,7 +1140,6 @@ $
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10081
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10082
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10083
-.bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10084
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10085
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10086
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10087
@@ -1285,16 +1151,13 @@ $
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10113
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10114
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10118
-.bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10119
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10122
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10123
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10130
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10134
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10135
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10136
-.bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10137
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10153
-.bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10155
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10161
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10175
 .bangkokhealth.com/healthnews _ htdoc/healthnews _ detail.asp?Number=10506
@@ -1303,7 +1166,6 @@ $
 .cato.org/pubs/journal/cj2n1/cj2n1-2.pdf>
 .com
 .crisisgroup.org/home/index.cfm?id=2969&1=1
-.fridaycollege.org/index.php?file=forum&obj=
 .ftawatch.org/autopage1/show_page.php?t=40&s_id=3&d_id=3
 .garretthardinsociety.org/articles/art_extension_tragedy_commons.html>
 .law.duke.edu/journals/66LCPBoyle>
@@ -1316,20 +1178,16 @@ $
 .na/centres/hrdc/journal/docs/Conflict
 .net
 .nike
-.nytimes.com/2005/11/06/international/europe/06cnd-
 .nytimes.com/2005/11/06/weekinreview/06smith.html?fta=y&pagewanted=print.
 .nytimes.com/2005/11/08/international/europe/08france.html?hp=&pagewanted=print.
 .nytimes.com/2005/11/09/international/europe/09projects.html?pagewanted=print.
 .onopen.com/2006/02/364>
 .org
 .paris
-.prachatai.com/05web/th/home/page2.php?mod=mod_ptcms01&
 .prachathai.
 .prachathai.com/news/show.php?Category=nm&No=5319.
 .sysinternals.com/ blog/2005/10/sony-rootkits-and
-.thaimisc.com/freewebboard/php/vreply.php?user=midnightuniv&topic=6583
 .thaimisc.com/freewebboard/php/vreply.php?user=midnightuniv&topic=7104
-.thaimisc.com/freewebboard/php/vreply.php?user=midnightuniv&topic=7504
 .thaimisc.com/freewebboard/php/vreply.php?user=midnightuniv&topic=7951
 .tjanews.org/cms/index.php?option=com_content&task=view&id=1118&Itemid=56
 .tjanews.org/cms/index.php?option=com_content&task=view&id=453&Itemid=58
@@ -1339,11 +1197,9 @@ $
 .กร
 .กลม
 .กอบ
-.กัล
 .กิ
 .ค
 .ค.
-.ครร
 .ง
 .งบ
 .จ
@@ -1362,7 +1218,6 @@ $
 .ตป
 .ตร
 .ตร.
-.ถ
 .ท
 .ท.
 .ทบ.
@@ -1378,7 +1233,6 @@ $
 .น.6
 .น.7
 .น.8
-.นค
 .นง
 .นร
 .นวล
@@ -1391,20 +1245,17 @@ $
 .บ.
 .บุญ
 .ป
-.ปิย
 .ผจ
 .ผบ
 .พ
 .ฟ
 .ภ
 .ภ.
-.ภ. 7
 .ภ.7
 .ภญ.
 .ม
 .ม.
 .มา
-.มาช
 .มาร์
 .ย
 .ย.
@@ -1422,9 +1273,7 @@ $
 .รา
 .ราธ
 .ราม
-.ริ
 .รุ่ง
-.ร่ม
 .ฤ
 .ล
 .ล.
@@ -1439,7 +1288,6 @@ $
 .วร
 .วรวฺฒิ
 .วัง
-.วัช
 .วัด
 .วา
 .วิ
@@ -1454,7 +1302,6 @@ $
 .อ
 .อ 
 .อ.
-.อ. 
 .อง
 .อบ
 .อภิ
@@ -1469,7 +1316,6 @@ $
 .อำ
 .อุ
 .า
-.า.
 .โชค
 .๐๐
 .๐๔
@@ -1614,11 +1460,9 @@ $
 000
 0000
 00000000
-000000000
 0001.31/3077
 0004.25/04156
 001
-002
 0023
 0028
 003
@@ -1631,7 +1475,6 @@ $
 008
 0084
 009
-0099
 00:19
 00:20
 00:21
@@ -1657,16 +1500,13 @@ $
 0100
 0100/4
 0105551115959
-011
 0114
 0125
 013
 0130
 014
-0144
 015
 0160
-017
 0176
 018
 019
@@ -1705,7 +1545,6 @@ $
 0237
 0238
 025
-0252
 025892222
 027
 0288
@@ -1717,7 +1556,6 @@ $
 03.30
 03.48
 030
-0302
 032
 033
 034
@@ -1726,7 +1564,6 @@ $
 0361
 0378
 038
-03939
 04
 04.00
 04.02
@@ -1742,7 +1579,6 @@ $
 0423
 0427
 0442
-045
 046
 047
 05
@@ -1762,7 +1598,6 @@ $
 055
 05695
 057
-058
 0582
 059
 06
@@ -1794,16 +1629,13 @@ $
 07.45
 07.50
 0701
-071
 07104
 0726
 073
 074
-075
 076-215524
 077
 078
-07951
 07:23
 07:36
 08
@@ -1827,7 +1659,6 @@ $
 081-8938909
 0813
 082
-083
 083-888****
 0834
 0834.3/ว_3010
@@ -1863,7 +1694,6 @@ $
 09.50
 09.54
 090
-0902
 0902/12718
 091
 09:00
@@ -2288,8 +2118,6 @@ $
 1000
 10002
 10027
-1004
-1005
 1005/15
 100_
 101
@@ -2325,7 +2153,6 @@ $
 104.50
 104.634
 104.7
-1040
 1048
 1048/8
 105
@@ -2475,8 +2302,6 @@ $
 1195
 1196
 1197
-1198
-1199
 11:00
 11:02
 11:03
@@ -2567,7 +2392,6 @@ $
 1219
 122
 122,800,000
-1222
 123
 1233/52
 1236
@@ -2576,7 +2400,6 @@ $
 124,327
 124,991
 124.46
-1241
 1242
 1243
 1248
@@ -2589,8 +2412,6 @@ $
 126,851
 127
 127,053
-1271
-12718
 128
 128,260.11
 128.533
@@ -2663,7 +2484,6 @@ $
 130,000
 130/3
 1300
-1307
 1308
 131
 131.50
@@ -2811,7 +2631,6 @@ $
 149.500
 149.825
 149/65
-1492
 14:02
 14:19
 14:20
@@ -2892,7 +2711,6 @@ $
 152.7
 1520
 1523
-1525
 1526
 153
 153/2549
@@ -2982,7 +2800,6 @@ $
 163
 163.5
 163.625
-1632
 1634
 1634/2550
 164
@@ -3006,9 +2823,7 @@ $
 168/111
 16803
 16804
-16807
 16810
-16813
 16815
 16827
 16828
@@ -3066,7 +2881,6 @@ $
 17.90
 17.99
 170
-1704
 17052
 171
 171,000
@@ -3074,7 +2888,6 @@ $
 17156
 1718
 172
-1722
 1723
 173
 173.47
@@ -3101,14 +2914,12 @@ $
 178
 178,000
 178,608,382
-1780
 1784
 1785
 1786
 1789
 179
 1790
-1792
 1795
 1798
 17:21
@@ -3213,7 +3024,6 @@ $
 1892
 1894
 1895
-1897
 18:33
 18:57
 19
@@ -3275,9 +3085,7 @@ $
 1919
 192
 192,000
-1920
 1921
-1923
 1925
 1926
 1927
@@ -3286,7 +3094,6 @@ $
 193
 1930
 1931
-1932
 1933
 1934
 1935
@@ -3373,7 +3180,6 @@ $
 19_
 1_
 1_รอ.
-1st
 1กร.
 1รอ.
 2
@@ -3641,7 +3447,6 @@ $
 209
 209.3
 209/4
-2094
 20:27
 20:28
 20:30
@@ -3777,7 +3582,6 @@ $
 2222222
 223
 223.32
-2238
 224
 224,409,000
 2240
@@ -3787,12 +3591,10 @@ $
 225
 2250
 2251
-2254
 226
 227
 2272
 228
-2280
 2282
 229
 229,000
@@ -3851,7 +3653,6 @@ $
 231,000,000
 231,596
 2310
-2319
 232
 2325
 233
@@ -3868,7 +3669,6 @@ $
 236,000
 236,581,791
 236/459
-2360
 2364
 237
 238
@@ -3939,7 +3739,6 @@ $
 2444
 2445
 2446
-2447
 2448
 2449
 245
@@ -3948,7 +3747,6 @@ $
 2450
 2451
 2452
-2453
 2454
 2455
 2456
@@ -3959,7 +3757,6 @@ $
 2461
 2463
 2464
-2465
 2468
 2469
 247
@@ -4116,7 +3913,6 @@ $
 256.69
 2561
 2562
-2563
 2566
 2568
 257
@@ -4126,7 +3922,6 @@ $
 2579
 258
 258,867.04
-2584
 259
 259-261
 2590
@@ -4279,7 +4074,6 @@ $
 2945
 295
 295.86
-2953
 2953/2550
 296
 2969
@@ -4684,7 +4478,6 @@ $
 347
 347,220
 348
-3485
 349
 35
 35,000
@@ -4808,7 +4601,6 @@ $
 386
 387
 387,539
-3871
 388
 389
 389/102
@@ -4848,7 +4640,6 @@ $
 3GS
 3_
 3_ก.
-3th
 3ก.
 3จัง
 3ฝ1670
@@ -5003,7 +4794,6 @@ $
 40287
 403
 405
-4050
 406
 407
 408
@@ -5054,7 +4844,6 @@ $
 42.98
 42/1
 420
-421
 422
 4221141
 423
@@ -5062,7 +4851,6 @@ $
 4231
 424
 425,000
-426
 427
 428
 4280
@@ -5115,13 +4903,11 @@ $
 4410
 4414
 442
-443
 444
 444/11
 445
 446
 4464
-4465
 447
 447/2549
 448
@@ -5149,10 +4935,8 @@ $
 450
 450,000
 45005535
-451
 452
 453
-4537100
 454
 454/2546
 4547
@@ -5208,7 +4992,6 @@ $
 47/128
 47/3
 470
-471
 4713
 472
 473
@@ -5236,9 +5019,7 @@ $
 480/2548
 481
 482
-4825
 484
-485
 4858
 486
 487
@@ -5449,7 +5230,6 @@ $
 511
 511/2551
 5115
-512
 513
 514
 5145
@@ -5493,7 +5273,6 @@ $
 523
 523257263
 523383915
-5239
 524
 5240
 524000001
@@ -5558,7 +5337,6 @@ $
 546
 547
 5476
-5479
 548
 548/1
 54842127
@@ -5826,12 +5604,10 @@ $
 602.8
 603
 603.26
-604
 6042
 605
 605.04
 606
-607
 608
 609
 609/16
@@ -5902,11 +5678,7 @@ $
 631
 632
 633
-6339
-634
-635
 636
-6365
 637
 637.2
 638
@@ -5926,12 +5698,10 @@ $
 64.9
 64/2549
 641
-642
 6421
 643
 643,692
 6438
-644
 646
 647
 647.9
@@ -6020,7 +5790,6 @@ $
 67/49
 670
 670,000
-671
 672
 673
 6731
@@ -6052,7 +5821,6 @@ $
 68/2549
 680
 680,000
-681
 682
 685
 686
@@ -6229,7 +5997,6 @@ $
 704
 705
 7068
-707
 708
 709
 71
@@ -6337,7 +6104,6 @@ $
 747-400
 7473
 748
-749
 75
 75,000
 75,376
@@ -6352,7 +6118,6 @@ $
 75.8
 750
 750,000
-7504
 751
 751,967,000
 751/2550
@@ -6385,9 +6150,7 @@ $
 76435
 765
 7652
-766
 7667
-768
 77
 77.3
 77.4
@@ -6417,7 +6180,6 @@ $
 78.9
 780
 780,000
-781
 782
 784
 786
@@ -6622,7 +6384,6 @@ $
 841
 842
 843
-8437
 844
 8445
 846
@@ -6657,7 +6418,6 @@ $
 86.59
 86.88
 86/1
-860
 861
 8622
 863
@@ -6704,7 +6464,6 @@ $
 880
 881
 882
-8829
 8832
 884
 885
@@ -6806,7 +6565,6 @@ $
 90110
 902
 903
-9044
 9053
 906
 9060
@@ -6854,7 +6612,6 @@ $
 926
 9261
 927
-928
 9286
 929
 93
@@ -6863,7 +6620,6 @@ $
 93.88
 93.9
 930
-931
 9315
 933
 933.63
@@ -6904,12 +6660,10 @@ $
 95/20
 95/2550
 95/5
-950
 951
 952
 9520
 952335
-953
 9537
 954
 955
@@ -6926,8 +6680,6 @@ $
 9610
 964
 964,181
-966
-9663
 9667
 967
 969
@@ -6946,7 +6698,6 @@ $
 970
 971
 9718
-972
 973
 974
 9747
@@ -6997,7 +6748,6 @@ $
 992
 993
 994
-995
 996
 9972
 998
@@ -7038,7 +6788,6 @@ A.M.
 A.O.U
 A.O.U.
 A.chaudocensis Pierre
-A.crassna Pierre ex H.Lec.
 A1
 A300-360
 A310
@@ -7048,9 +6797,7 @@ A340
 AA
 AAA
 AB>
-AB>พ.
 AB>อ.
-ABATE
 ABC
 ABCนิวส์
 ABIM
@@ -7066,7 +6813,6 @@ ACTION
 ADAMO
 ADB
 ADP
-ADRs
 ADVANC
 AEC
 AEG
@@ -7138,17 +6884,14 @@ ATM
 ATP
 ATSI
 ATม
-AUTONOMY
 AVAAZ
 AWARD
 Aarhus
 Abeel
 Abhidhamma
-Abolish
 Aboriginal
 Aborigine
 Aborigines
-About
 Above
 Abrus
 Absent
@@ -7156,20 +6899,15 @@ Absolutism
 Absorption
 Abstract
 Abstraction
-Abu
-Abu Sayaf
 Abuse
 Abuses
 Acacia
 Acacia farnesiana Willd.
-Academe
 Academic
-Academic Press
 Academic Press, INC.
 Academics
 Academy
 Acampe rigida Hunt.
-Acceptor
 Access
 Accessibility
 Accidents
@@ -7188,12 +6926,9 @@ Acid
 Acinetobacter
 Acnatec
 Acorus
-Acoustic
 Acquittal
 Acrophorus stipellatus
 Acrorumohra subreflexipinna
-Acrostichum aureum
-Acrylic
 Act
 Action
 Activate
@@ -7210,12 +6945,9 @@ Addressing
 Adequacy
 Adequate
 Adha
-Adhan
 Adiantum
 Adiantum capillus-veneris
 Adiantum caudatum
-Adiantum latifolium
-Adiantum philippense
 Adiantum siamense
 Adiantum siamense Tagawa&K.Iwats.
 Adjustment
@@ -7224,11 +6956,9 @@ Administrative
 Adolf Bastian
 AdoniramJudson
 Adorno
-Adrew
 Adrian Zackheim
 Advanced
 Advancement
-Adventure
 Adversarial
 Advertiser
 Advertising
@@ -7237,7 +6967,6 @@ Advisory
 Advocacy
 Aeginetia
 Aegle
-Aegle marmelos Corr.
 Aequorea
 Aereca traindra Roxb.
 Aerial
@@ -7245,7 +6974,6 @@ Aerides falcata Lindl.
 Aerides houllefiana Rchb. f.
 Aerides odorata Lour.
 Aeridesodorata Lour.
-Aero Service Corporation
 Aerosol
 Aerospace
 Aesthetic
@@ -7255,18 +6983,14 @@ Affairs
 Affirmative
 Aflatoxins
 After
-Aftermath
-AgNO
 Again
 Against
-Agama
 Agavaceae
 Age
 Agence
 Agence France Press
 Agencies
 Agency
-Agenda
 Ages
 Aggressivity
 Aglaia Odorata Lour.
@@ -7275,11 +6999,9 @@ Aglaia pyramidata Hance
 Aglaomorpha coronans
 Agrarian
 Agreement
-Agricultural
 Agricultural Development Council
 Agriculture
 Aholic
-Aid
 Aime Laussedat
 Ainu
 Air
@@ -7292,8 +7014,6 @@ Akhon
 Al
 Al-Azhar
 AlCl3
-Alam
-Alan B.Shepard Junior
 Alan Bass
 Alan Gray
 Alan Sheridan
@@ -7315,28 +7035,22 @@ Alexi Maximovich Peshkov
 Alexis de Tocqueville
 Alfred Kroeber
 Alfred Mah
-Alfred North Whitehead
 AlfredNorth
 Ali
 Alice
 Alien
 Aligarh Muslim University
 All
-Allah
 Allahu
 Allen
 Allethrin
 Alliance
 Allianz-dit
-Allium
 Allium SativumLinnaeus
 Allocation
-Allyn
 Allyn and Bacon A Viacom Company
 Almost
 Almshouse
-Alo
-Alocasia
 Aloe barbadensisMills
 Alpine
 Alpinia
@@ -7346,12 +7060,10 @@ Alstonia scolaris R. Br.
 Alt
 Alternaria
 Alternative
-Alters
 Althusser
 Althusser, Louis
 Alumina
 Alysicarpus
-Alyxia rein wardtii B1.var lucida Markqr.
 Alyxia reinwardtii Bl.
 Amanita
 Amarin
@@ -7381,33 +7093,24 @@ Amicus
 Aminolevulinic
 Ammar
 Ammar Siamwala
-Ammonium
 Amnesty
 Amoco
 Amomum
-Amomum KrervanhPierre
-Amore e
 Amplitude
 Amsterdam
 An
 Anacardiaceae
-Anacarduim
 Analysis
 Anan
 Anan Ganjanapan
-Anand
 Anarchy
 Anatomy
-Anaxagorea javanica B1.
 Ancestor
-Anchee Min
-Ancient
 And
 Andean
 Anders
 Anderson
 Anderson, Benedict
-Anderson, Margaret L.
 Anderson, Perry
 Andr
 Andra du plasis de Richelieu
@@ -7416,29 +7119,23 @@ Andrew
 Andrew Forbes
 Andrographis paniculata(Burman f.) Nees
 Android
-Andropogoneae
 Andy Warhol
 Anek Laothamathas
 Anemia
 Anesaki,Masaharu
 Ang
-Angel
 Angel M.Rabassa
 Angelika Mechtel
 Angiopteris evecta
-Angkatan
 Angkatan Belia Islam Malaysia
 Animal
 Animals
 Animation
 Ann Coulter
 Annex
-Annexation
-Annona
 Annona squamosaLinnaeus
 Annonaceae
 Annual
-Another
 Answers
 Antarctic
 Anthony
@@ -7466,7 +7163,6 @@ Aphornsuwan
 Apinya
 Apocynaceae
 Apollo
-Apollo-Soyuz Test Project; ASTP
 App
 Appaloosa
 Apparatus
@@ -7474,7 +7170,6 @@ Apparatuses
 Appeal
 Appeals
 Appears
-Appeasing
 Appendix
 Application
 Applied
@@ -7484,10 +7179,8 @@ Appropriate
 April
 Aptitude
 Aquatic
-Aquilaria malaccensis Lamk.
 Arab
 Arab League
-Arabia
 Arabian
 Arachmiodes asamica
 Arachmiodes hasseltii
@@ -7500,7 +7193,6 @@ Arbitrary
 Arcangelisia
 Archeelogie
 Archidendron
-Architecture
 Archives
 Archiving
 Are
@@ -7514,18 +7206,14 @@ Arenga
 Argentine
 Arginine
 Argued
-Arifin
 Aristotle
 Arm
 Armed
 Armee
 Army
-Aroma
 Arong Suthana
 Arong Suthsana
 Around
-Arrest
-Arsenic
 Art
 Arthromeris lehmanni
 Arthromeris phuluangensis
@@ -7534,22 +7222,17 @@ Article
 Artifact
 Artist
 Artistic
-Artists
 Artobotrys siamenis Miq.
 Artocarpus
-Artropoda
 Arts
 Arundinaria
 Aryan
 As
 AsH3
 Asclepiadaceae
-Ascobic
-Ash
 Ashcroft
 Ashenden, Samantha
 Asia
-AsiaMinor
 Asian
 Asian Public Intellectuals
 AsianDevelopmentBank
@@ -7564,7 +7247,6 @@ Asli
 Asornsat
 Aspects
 Aspen
-Asperger
 Aspergillus
 Aspleniaceae
 Asplenium ensiforme
@@ -7585,11 +7267,8 @@ Association
 Associations
 Asteraceae
 Astreaus
-Astri
-At
 Atan
 Atheism
-Athyriaceae
 Atlantic
 Atlas
 Atmostpheric
@@ -7597,11 +7276,9 @@ Atomic
 Atropine
 Atsi
 Attack
-Attacks
 Attempts
 Attorney General
 Auction
-Audience
 Audiovisual
 Audrey R. Kahin
 Aufl
@@ -7620,24 +7297,19 @@ Ausnahmezustand
 Australia
 Australian
 Australoid
-Authenticity
 Author
 Authoritarianism
 Authority
-Authors
 Autistic
 Auto
-Autocar
 Autograph
 Autonomous
-Autosports
 Availability
 Available
 Avain
 Avar
 Ave.E. Buckley
 Ave.E._Buckley
-Avenue
 Average
 Avian
 Aviation
@@ -7648,12 +7320,10 @@ Axonopus
 AyeyawadyDivision
 Aymonier
 Azadirachta
-Azalea
 B
 B&
 B-Net
 B.
-B.M.A.
 B.S.
 B1-008
 B100
@@ -7681,7 +7351,6 @@ BENNOURBAN
 BERSATU
 BETTER
 BGT
-BHC
 BIG&BIH
 BIOTEC
 BIPP
@@ -7693,7 +7362,6 @@ BMG
 BMW
 BNB
 BNPP
-BNPP.
 BOARD
 BOD
 BOI
@@ -7708,34 +7376,25 @@ BRN
 BRN - C
 BRN-Coordinate
 BRN-coordinate
-BRN.
 BRONZE
 BRT
 BS
-BSD
 BSPP
 B_
-Ba
 Baa
 Baa1
 Baath
 Babylonia
-Baccaurea
 Bacillus
 Bacillus anthracis
 Back
 Background
 Backgrounder
-Bacon
 Bacterial
-Bad
-Badila
-Baeckia frutescens Linn.
 Bagehot
 Bagehote
 BagoDivision
 Bahn
-Bakar
 Baker
 Balacing
 Balance
@@ -7748,10 +7407,8 @@ Bambusa
 Ban
 Banco del Sur
 Bandit
-Bandung
 Bandwidth
 Bangkok
-Bangsa
 Bank
 Banม
 Baphicacanthus
@@ -7760,27 +7417,20 @@ Baras
 Barbados
 Barbara Adam
 Barbara H.
-Barbara Kirshenblatt-Gimblett
 Bargain
 Barisan Bersatu Kemerdekaan-BERSATU
 Barisan Bersatu Mujahidin Patani
-Barisan Islam Pembebasan Panati
-Barisan Nasional Pembebasan Patani
 Barisan Revolusi Nasional
 Barisan Revolusi Nasional Melayu Patani
 Barker
 Barleria lupulinaLindley
-Barley
-Barnes
 Barnett
 Baroness
 Barra
 Barrage
 Barrel
 Barthes,Roland
-Bas
 Base
-Based
 Basel
 Basella
 Basic
@@ -7788,8 +7438,6 @@ Basingstoke
 Basma
 Basque
 Bassien
-Bath
-Battle
 Baudrillard
 Baudrillard, Jean
 Bauhinia bracteata Bak. Var marcanii Craib
@@ -7798,14 +7446,11 @@ Be
 Beach
 Beam
 Beat
-Beaumontia murtonii Craib
 Beautiful
 Beauty
-Because
 Becks
 Bee
 BeeT,ka
-Beechcraft
 Beer
 Behavior
 Behavioral
@@ -7814,11 +7459,9 @@ Being
 Bekenstein Jocob D.
 Belgian
 Beliefs
-Believe
 Belin
 Bell
 Bello
-Belvisia revoluta
 Bemisia
 Ben - Ami Scharfstein
 Bender
@@ -7834,15 +7477,11 @@ Benjamin Barber
 Benjamin Franklin
 Bennet Bronson
 Bennhold, Katrin
-Benth
 Bentham
-Benthos
 Bentonite
 Benzene
 Berger John
-Bergeron
 Berhhard Giesen
-Berita
 Berkeley
 Berlin
 Bernard
@@ -7853,19 +7492,12 @@ Bersatu
 Bertrand Russell
 Bessel
 Best
-Better
 Between
-Beyer, Chris
 Beyond
-Bhabani Bhattacharya
 Bharat
-Bhd.
 Bht
-Bi
 Bias
-Bibliography
 Bickers
-Bickers KennethN.
 Big
 Bignoniaceae
 Bihar
@@ -7885,24 +7517,18 @@ Biographical
 Biomedical
 Biomedicine
 Biopharmaceutical
-Bior
-Biosecurity
 Biosphere
 Biotec
 Biothai
-Bioturbation
-Bira Kotanila
 Bird
 Birmingham
 Birth
-Bitter
 Bixa
 Black
 Black and White
 Black forest
 Blackwell Publishers
 BlackwellPublishers
-Blamed
 Blass
 Bleaching Powder
 Blechnaceae
@@ -7915,7 +7541,6 @@ Block
 Blog
 Blogger
 Blood
-Blowing
 Blucher
 Blue
 Blumea
@@ -7934,9 +7559,6 @@ Boesenbergia
 Boesenbergia rotunda(Linnaeus) Mansfild
 Boiler
 Bois
-Bolbitis appendi culata
-Bolbitis copelandii
-Bolbitis heteroclita
 Bolbitis tonkiensis
 Bolbitis tonkinensis
 Boletus
@@ -7949,7 +7571,6 @@ Bombings
 Bonbyx
 Bond
 Bondung
-Bone
 Bono
 Book
 Bookmark
@@ -7959,11 +7580,8 @@ Borassus
 Borax
 Border
 Borneo
-Borobudur
-Borrowing
 Bos sauveli
 Bos_sauveli
-Boston
 Boston College Environmental Affairs Law Review
 Bot Grubs
 Botannical
@@ -7971,25 +7589,20 @@ Both
 Bottom
 Bottoms
 Boulder
-Bouna Traore
 Boundaries
 Bourdieu,Pierre
 Bourgeois
 Bouteldja, Naima
 Bowie
-Bowman
 Bowring
-Boy
 Br.
 Brachiaria
 Brad Caldwell
 Brahman
-Brahmanism
 Brahmanistic
 Brahmaputra
 Brain
 Brainea insignis
-Brainwash
 Brand
 Brand.
 Brandes
@@ -8000,13 +7613,11 @@ Brazil
 Break
 Breaking
 Breda
-Brequet
 Bretten
 Brewmaster
 Brewster
 Brian Massumi
 Bride
-Brief
 Brien
 Britain
 Britain's
@@ -8014,26 +7625,20 @@ Britannica
 British
 British Council
 BritishBorneoCompany,Ltd.
-Brix
 Broad
 Broadband
 Broadcasing
 Broadcasting
-Broadway
 Brook
 Brooke
 Brotherhood
-Broussonetia
 Brown
 Bruce Caldwell
-Brunswick
 Brush
 Brümmer
-Bubbies
 Bubble
 Bucher
 Buddha
-Buddhism
 Buddhist
 Buddhists
 Buddlija paniculata Wall.
@@ -8063,35 +7668,23 @@ Business
 But
 Butcher
 Butea
-Butler, Judith
-Buying
 By
 Bypassed
 Bฤษ
 C
-C.
 C. Rivett Carnac
 C.B. Hillier
-C.Bretherton
 C.C.S.
 C.E.O.
-C.U.T.
 C.littoralis Salisb.
-C.zur Strassen
-C10H14NO5PS
 C14O
 C14O2
 C3
 C4
-C6H12O6
-CA
-CA-14
 CAAP
 CAN
 CANDLES
 CAP
-CARBAMATE
-CARGO
 CASSIDY
 CASualty
 CAT
@@ -8117,7 +7710,6 @@ CHAMBER
 CHAU
 CHCL3
 CHCl3
-CHECK
 CHIANG
 CHINA
 CHRISTINA
@@ -8125,13 +7717,11 @@ CHUMPHON OFF ROAD CLUB
 CHUMPHON_OFF_ROAD_CLUB
 CI
 CI-
-CINCPAC
 CK
 CKTC
 CL
 CLMV
 CLS
-CMC
 CMO
 CMS
 CN
@@ -8142,19 +7732,16 @@ CO2(s
 CO2(s)
 COA
 COD
-COLODION
 COMMUNITY
 COMP
 COMPANY
 CONCEPT
-CONTROL
 CONTROLLERS
 COUNTRY
 CP
 CPI
 CPN
 CPNRF
-CPR
 CR
 CRM
 CRM(
@@ -8195,9 +7782,7 @@ Calif
 California
 California State University
 Call
-Called
 Callinicos, Alex
-Calophyllum
 Calotropis
 Calvin
 Calvinism
@@ -8205,20 +7790,16 @@ Calvinist
 Cambio
 Cambridge
 Cambridge University Press
-Cambridge University Press.
 Camera
 Cameron
 Camfrog
 Campaign
-Campanularia
 Campbell
 Camper
 Campos
-Can
 Canada
 Canadian
 Cananga odorlaHook. f.var fruticosaCorner
-Canarium
 Canberra
 Cancer
 Cancers
@@ -8242,7 +7823,6 @@ Capra,Fritjof
 Capricorn
 Caprifoliaceae
 Caps
-Capt. JamesLow
 CaptainH.N.Andersen
 Car
 Carbamate
@@ -8253,17 +7833,13 @@ Card
 Cardiovascular
 Cardoso
 Care
-Careya
 Caribbean
-Caribe
-Carl Ludwig
 Carlos Torres
 Carlos de Silveira
 Carlsberg
 Carnivores
 Carnoy,M.
 Carol M.Rose
-Carole
 Caroline Ford
 Carradine
 Carriage
@@ -8271,7 +7847,6 @@ Carrier
 Carrington
 Carry
 Carrying
-Cars
 Cartan
 Cartel
 Carthamus
@@ -8295,12 +7870,10 @@ Cato
 Caucasoid
 Cavendish
 Cd
-Celadon
 Celebes
 Cell
 Cells
 Celtic Pony
-Cenchrus
 Centella asiatica(Linnaeus) Urban
 Center
 Central
@@ -8315,15 +7888,12 @@ Cephalostachyum
 Ceramics
 Ceratopteris
 Ceratopteris thalictroides
-Cerberaodollam
 Cercospora sp
-Cercosporium
 Cerebral
 Ceres
 Certain
 Certificates
 Certified
-Cestrum nocturnum Linn.
 Ch
 Chai-Anan Samudavanija
 Chain
@@ -8335,13 +7905,10 @@ Chaiyan Rajchagool
 Chalk
 Challenge
 Challenges
-Chalmers Johnson
 Chamallas
-Chamber
 Chamlong Srimuang
 Champions
 Championship
-Chandler
 Chandra Mukeji
 Chanel
 Change
@@ -8351,7 +7918,6 @@ Chantal
 Chantal Mouffe
 Chaos
 Chapter
-Character
 Characteristics
 Charge
 Charles
@@ -8360,7 +7926,6 @@ Charles Darvin
 Charles E. Tuttle Company
 Charles E.Tuttle Company
 Charles K. Wilber
-Charles Lockhart
 Charles River
 Charles-EdwardA.Winslow
 CharlesF.Keyes
@@ -8376,11 +7941,9 @@ Checks
 Cheeseburger
 Cheilanthes delicatula
 Cheilanthes siamensis (S.K,Wu) K.Iwats.
-Cheiropleuria bicuspis
 Chelating
 Chelation
 Chemical
-Chemin
 Chen Kaige
 Cheng
 ChengHua
@@ -8416,19 +7979,14 @@ Chlorophyll
 Chocolate
 Choice
 Cholesterol
-Chorlton
 Choson
 Chris Baker
 Chris Beyrer
-Christian
-Christianity
 Christine
 Christmas
 ChristoffelBlindenmission
 Christoph
 Christoph H.D. Buys-Ballot
-Christopher Columbus
-Christs Reinig
 Chrome
 Chronological
 Chrysopogon
@@ -8436,7 +7994,6 @@ Chuang Tzu
 Chubby
 Chula-longkorn University
 Chulalongkorn
-Chulalongorn University
 Chun Doo Hwan
 Chung
 Chungang
@@ -8445,13 +8002,11 @@ Cibotium barometz
 Cinnamomun porrectum Kosterm.
 Circle
 Circuit
-Circuits
 Circulation
 Cissampelos
 Citizen
 Citizenship
 Citrus
-Citrus aurantifolia(Christmann) Swing
 City
 Civil
 Civility
@@ -8468,7 +8023,6 @@ Class
 Classic
 Classification
 Classified
-Claude
 Claude E. Shannon
 Clause
 Clay
@@ -8484,7 +8038,6 @@ Clinacanthus nutans(Burman f.) Lindau
 Clinton
 Clitoria
 Cloacal
-Cloisonne
 Cloning
 Closing
 Clostridium
@@ -8501,7 +8054,6 @@ Co.A
 Coal
 Coase Thoerem
 Coccinia grandis(Linnaeus)Voigt
-Cockpit
 Code
 Coercion
 Coffee
@@ -8516,16 +8068,10 @@ Collection
 Collective
 Collegiate
 Colletotrichum
-Collin Gordon
 Colocasia
-Colombettes
 Colonel Howord
 Colonial
-Colonialism
-Colonization
-Columbia
 Columbia University Press
-Columbo
 Colysis pentaphylla
 Com
 Combined
@@ -8536,7 +8082,6 @@ Commandments
 Commart
 Comment
 Commentary
-Commerce
 Commercial
 Commercialization
 Commiphora
@@ -8544,7 +8089,6 @@ Commission
 Commissioner
 Committee
 Commodification
-Commodifying
 Commodities
 Commodity
 Common
@@ -8564,12 +8108,10 @@ Communitarianism
 Communities
 Community
 Community of Andean Nations
-Companies
 Companion
 Company
 Comparative
 Compatible
-Compendium
 Compensation
 Competitiveness
 Complete
@@ -8581,18 +8123,15 @@ Computer
 Computex
 Concept
 Conception
-Concepts
 Conceptual
 Concern
 Concerns
 Concert
 Concertando
 Concluding
-Concubine
 Condensation
 Condition
 Conditionality
-Confederation
 Conference
 Conflict
 Conformal
@@ -8601,19 +8140,15 @@ Congenital
 Congress
 Conic
 Connected
-Consciously
 Consciousness
 Consequences
 Conservation
-Conservatism
 Conservative
 Consistency
 Consolidate
 Consolidation
-Const
 Constitution
 Constitutional
-Constitutions
 Construction
 Constructive
 Consultant
@@ -8625,7 +8160,6 @@ ContentID=585&SystemModuleKey=SepcialReport&System_Session_Language=Thai
 Contents
 Contest
 Context
-Contingency, Hegemony , Universality
 Contour
 Contraceptives
 Contract
@@ -8639,7 +8173,6 @@ Conversion
 Convolvulaceae
 Cook
 Cooperation
-Coordinate
 Copenhagen
 Copper
 Coproporphyrin
@@ -8648,17 +8181,10 @@ CopyLeft
 Copyleft
 Copylefted
 Copyright
-CordellHull
 Core
-Coriolis
-Cornbread
-Cornel West
 Cornelius
-Cornelius Beach Bradley)
 Cornell University
-Cornell University Press
 Cornish
-Corona
 Corp
 Corporate
 Corporation
@@ -8681,12 +8207,10 @@ Council
 Count
 Counter
 Country
-Coupe
 Course
 Courses
 Court
 Courtiss
-Courts
 Covenant
 Cover
 Cowboys
@@ -8697,18 +8221,14 @@ Craft
 Crafting
 Craig J. Reynolds
 Craig J.Reynolds
-Crampton, Thomas
 Craterellus
-Crateva
 Cratoxylum
 Craze
 CreaM
 Cream
 Creating
-Creation
 Creative
 Credit
-Crew
 Crews
 Crime
 Crimes
@@ -8740,7 +8260,6 @@ Cu
 CuSo
 Cucurbita
 Culp
-Cultivated
 Cults
 Cultural
 Culture
@@ -8749,7 +8268,6 @@ Cups
 Curcuma
 Curcuma longaLinnaeus
 Cure
-Current
 Curved
 Curzon Press
 Curzon, L.B., Jurisprudence
@@ -8759,14 +8277,12 @@ Custumer
 Cutting
 Cuttings
 Cyathea contaminans
-Cyathea gigantea
 Cyathea latebrosa
 Cyathea podophylla
 Cyathea spp.
 Cyber
 Cyberspace
 Cycle
-Cyclopeltis crenata
 Cyfluthrin
 Cymbopogon
 Cymbopogon citratus(De Candolle) Stapf
@@ -8776,9 +8292,6 @@ Czochralski
 C’
 D
 D-penicillamine
-D.
-D. Stanley Eitzen
-D.J.Collins
 D.alata Linn.
 D.bulbifera Linn.
 D.glabra Roxb.
@@ -8795,7 +8308,6 @@ DECLARATION
 DEMOCRACY
 DEMOCRAT
 DIGITAL
-DIVX
 DJ
 DMA
 DMCA
@@ -8803,17 +8315,14 @@ DNA
 DO
 DOMESTIC
 DOS
-DRM
 DSHEA
 DSI
 DSI.
 DSTK
 DTAC
-DUKE
 Dacalliaceae
 Dactyloctenium
 Daegu
-Dahl, Goran
 Daily
 Dalbergia
 Daletmay
@@ -8821,7 +8330,6 @@ Damiana
 Danaher
 Danaher,Geoff
 Daneil Pipes
-Danger
 Dangerous
 Dangers
 Daniel
@@ -8834,20 +8342,12 @@ Darwin
 Darwinian
 Darwinism
 Das
-Dasymaschalon Blumei Finet.
 Data
-Dateline
-Daughers
 Davallia solida
-Davallia trichoma noides
 David
-David Arnott
 David Ashley
 David Crouch
 David Forgacs
-David Fulbrook
-David LaMacchia
-David Marsh
 David Owen
 David Streckfuss
 David_Heiss
@@ -8861,35 +8361,28 @@ Dayak
 Days
 De
 De Beauvoir
-DeBary, William Theodore
 DeCSS
 Dead
 Deal
 Dear
 Death
 Debate
-Debates
 Debra
 DebraP.Hunter
 Dec.
 Decade
-Decalcomainia
 December
 Decided
 Decision
 Declaration
 Decline
-Deco
 Deconstruction
 Decoration
 Decree
 Deena
 Deep
-Defamation
 Defence
-Defend
 Defendant
-Defender
 Defenders
 Defense
 DefenseMappingAgency
@@ -8900,10 +8393,8 @@ Delclore
 Delcore
 Delegate
 Delegative
-Deleuze
 Deleuze, Gilles
 Delicious
-Delmen-Hiddingsel
 Deltamethrin
 Delusions
 Demand
@@ -8932,41 +8423,33 @@ Depleted
 Deposit
 Deregulation
 Deris Scandens Benth.
-Dermatological
 Derogations
 Derrida
 Derrida, Jacques
 Derris
-Des
 Design
 Desktop
 Desmodium
 Desmos chinensis Lour.
 Despair
 Despotic
-Destination
 Destruction
 Detektive
 Detention
 Determined
 Detritus
-Deuce
 Deutsche
 Developer
 Developing
 Development
-Developmental
-Devide
 Dewan
 Dextrose
-Deyhle
 Dhamma
 Di
 Diacalpe aspidioides
 Diagnos
 Dialectics
 Dialium
-Dialog
 Dialogues
 Diaspora
 Dichlorvos
@@ -8981,11 +8464,8 @@ Died
 Dieldrin
 Diet
 Dietary
-Diethyl
-Diethyltoluamide
 Difference
 Differences
-Differentiation
 Digital
 Digital TK park
 Digital_TK_park
@@ -9004,9 +8484,7 @@ Diplazium
 Diplazium heterophlebium
 Diplazium siamenseC.Chr.
 Diprose
-Dipteris conjugata
 Dipterocarpaceae
-Dipterocarpus
 Direct
 Directive
 Disabilities
@@ -9014,7 +8492,6 @@ Disability
 Disagreement
 Disappearances
 Disaster
-Discharger
 Discipline
 Disclosure
 Discourse
@@ -9033,7 +8510,6 @@ Dissemination
 Distributed
 Distribution
 District
-Dit
 Diversity
 Divide
 Division
@@ -9041,7 +8517,6 @@ Dixon,C.
 Djing
 Do
 Doc
-Docile
 Doctor
 Doctoral
 Doctrine
@@ -9058,17 +8533,13 @@ Domesticity
 Domin
 Dominance
 Dominique Villepin
-Don
 Don Hopkins
 Donald Gillies
 Donald Moore for Asia Pacific Press
 Dong
-Dongle
 Dongwu
-Donna L.
 Donna L.Deyhle
 Donor
-Doppler principle
 Doryopteris ludens
 Dot
 Douglas
@@ -9087,7 +8558,6 @@ Dr.David R. Nalin
 Dr.Dilip Mahalanabis
 Dr.Francis B. Sayre
 Dr.Frank C.Laubach
-Dr.Marshman
 Dr.Pusztai
 Dr.Richard A. Cash
 Dr.Ulrich Freitag
@@ -9106,7 +8576,6 @@ Drummond
 Drupal
 Dry
 Drynaria bonii
-Drynaria propinqua
 Drynaria quercifolia
 Drynaria rigidula
 Drynaria sparsisora
@@ -9121,7 +8590,6 @@ Duck
 Due
 Duke
 Duke University
-Duke University Press
 Duke University. Press
 Dukes
 Dulyakasem
@@ -9156,7 +8624,6 @@ EDDY
 EDDYGAMPE
 EDGE
 EDGE/GPRS
-EDINBURGH
 EDITHJUNETEN
 EDTA
 EFM
@@ -9227,14 +8694,12 @@ Edmund Roberts
 Eds.
 Education
 Educational
-Educations
 Edward
 Edward Falces
 Edward Grieg
 Edward Klein
 Edward Strobel
 Edward Tylor
-Edward W.Said
 EdwardArnold
 EdwardPease
 EdwarddeBono
@@ -9244,15 +8709,11 @@ Effective
 Effects
 Ego
 Eid
-Eight
 Einstein
-Eitzen, Stabley
 Ekatox
-Elaphoglossum
 Elaphoglossum angulatum
 Elaphoglossum dumrongii
 Elaphoglossum dumrongii Tagawa&K.Iwats.
-Elaphoglossum malayense
 Elateriospermum
 Eldred
 Elected
@@ -9267,13 +8728,11 @@ Elitism
 Elizabeth
 Elizabeth G. Traube
 Elizabethan
-Ellen
 Embassy
 Embree
 Emergency
 Emerging
 Emigration
-EmilEisenhofer
 Emile Zola
 Emission
 Emitting
@@ -9289,7 +8748,6 @@ Empirical
 Empiricism
 Employers
 Employment
-Empower
 Empowerment
 Encarta
 Enclosure
@@ -9308,7 +8766,6 @@ Enemy
 Energy
 Enforced
 Enforcement
-Engaged
 Engelhardt
 Engineer
 Engineering
@@ -9321,33 +8778,26 @@ Engseng
 Enlightenment
 Enough
 Entada
-Enter
 Enteropathogenic
 Enterovirus
 Entertainment
-Entmannugn
 Entomologist
 Entomology
-Entzugserscheinung
 Environment
 Environment, Resources and Development Court
 Environmental
 Environmental Court
 Environmental Impact Assessment
-Environmentally
 Envy
 Eocene
 Eohippus
 Ephedrine
-Epifauna
-Episteme
 Epistylis
 Equal
 Equality
 Equaliy
 Equilibrium
 Equine
-Equus
 Equus caballus
 Eradication
 Eragrostis
@@ -9357,9 +8807,7 @@ Erik Erikson
 Ernest Bevin
 Ernest Laclau
 Ernesto
-Ernesto Laclau
 Erysiphe
-Erythrina
 Erythrocyte
 Escalade
 Escape
@@ -9370,9 +8818,7 @@ Essay
 Essays
 Essential
 Essigmann
-Est
 Established
-Estee
 Esteem
 Esther
 Etat
@@ -9383,10 +8829,7 @@ Ethics
 Ethnic
 Ethnicities
 Ethno
-Ethnoagriculture
-Ethnobotanist
 Ethnobotany
-Ethnocosmetics
 Ethnoecology
 Ethnografiska
 Ethnologiska
@@ -9394,7 +8837,6 @@ Ethnologist
 Ethnology
 Ethnomusicology
 Ethnopharmacology
-Eucation
 Eugene
 Eugenia Kaw
 Eugenia caryophyllus(Sprengel) Bullock et Harrison
@@ -9409,12 +8851,10 @@ Evelyne Hong
 Events
 Everest
 Every
-Everyday
 Everything
 Evidence
 EvoMorales
 Evolution
-Evolutionary
 Evolutionism
 Ewing
 Ex
@@ -9422,16 +8862,13 @@ Excavations
 Excellence
 Exchange
 Exclusive
-Exclusivity
 Excoecaria
 Executions
 Executive
 Exercise
 Exhaustion
 Exhibition
-Exit
 Exothermic
-Exoticism
 Experiment
 Experimental
 Expert
@@ -9440,7 +8877,6 @@ Experts
 Expiration
 Exploration
 Exploring
-Explosion
 Explosive Ordnance Disposal
 Explosive_Ordnance_Disposal
 Expo
@@ -9453,7 +8889,6 @@ Extractive
 Extradition
 Extreme
 Extremely
-Extremism
 Extrinsic
 Exxon
 Eye
@@ -9462,7 +8897,6 @@ F-1
 F.H. Giles
 F.I.A.
 F8
-FACILITIES
 FALCON
 FAO
 FBI
@@ -9522,8 +8956,6 @@ Fair
 Fair child
 Fairchild Aerial Survey
 Fairness
-Fairtrade Labelling Organisations International
-Faiz Abu Bakar Bafana
 Falam
 Fall
 Falls
@@ -9536,7 +8968,6 @@ Fantacy
 Fantasy
 Far
 Farce
-Farewell
 Farish
 Farish Noor
 Farmers
@@ -9546,7 +8977,6 @@ Fashion
 Fast
 Fat
 Father
-Fatten
 Fatwas
 Fault
 Faux
@@ -9564,14 +8994,10 @@ Federal Communication Commission
 FederatedofShanStates
 Federation
 Federic Jameson
-Fee
 Feed
 Feelings
-Felix Guattari
 Fellow
 Fellowship
-Female
-Femininity
 Feminism
 Feminist
 Fenitrothion
@@ -9585,19 +9011,15 @@ Fetishism
 Fi
 Fiber
 Fiction
-Ficus
-Field
 Fifteen
 Fifth
 Figure
 Film
-Filter
 Fin
 Finale
 Finance
 Financial
 Financing
-Findeisen
 Finger
 Finite
 Finkelstein
@@ -9609,11 +9031,8 @@ Fishermen
 Fishery
 Fishing
 Fitch
-Fitr
-Fittest
 FitzGerald
 Five
-Fixation
 Fixed
 Flacourtiaceae
 Flame
@@ -9622,7 +9041,6 @@ Flamingo
 Flap
 Flat
 Fledermaus
-Fledspar
 Fleurs
 Flickr
 Flint
@@ -9653,7 +9071,6 @@ Forestry
 Foreword
 Forgets
 Form
-Formalin
 Formalist
 Formalists
 Formation
@@ -9671,7 +9088,6 @@ Foucault, Michel
 Foucault,Michel
 Foulconer E. James
 Foundation
-Founding
 Four
 Fox News Corporation
 Fracastoro
@@ -9681,7 +9097,6 @@ Frame
 Framework
 France
 Franchise
-Francis Light
 Franck
 Frank
 Frank Ackerman
@@ -9691,7 +9106,6 @@ Frankfurt
 Franklin D. Roosevelt
 Franz Fanon
 Frauen
-Frauen schreiben
 Fred Warren Riggs
 Free
 Freedom
@@ -9720,7 +9134,6 @@ Frostig
 Fuck
 Fuel
 Fujishock
-Fujitive
 Fulfill
 Full
 Fun
@@ -9733,17 +9146,13 @@ Fundamentalism
 Fung, Yu-Lan
 Fungal
 Fungi
-Furthermore
 Fusarium
 Future
-Futures
 G
 G.
-G. Schau
 G.Alfred Hess
 G.K.Chesterton
 G.Seal
-G.William Skinner
 GAID
 GALLERY
 GAMPAR
@@ -9760,7 +9169,6 @@ GDHI
 GDP
 GEN
 GENE
-GFDL
 GHOP
 GHz
 GI
@@ -9769,7 +9177,6 @@ GIN=Asia
 GIP
 GIS
 GMIP
-GMIP.
 GMM
 GMO
 GMOs
@@ -9789,7 +9196,6 @@ GPRS
 GPS
 GRE
 GRMIS
-GROUP
 GS
 GSM
 GSN
@@ -9804,9 +9210,7 @@ GaAsP
 GaP
 Galaxy
 Galileo
-Gallaudet
 Gallery
-Gambierdiscus
 Gamble
 Game
 Games
@@ -9814,7 +9218,6 @@ Gandi.net
 Gangdhar
 Ganges
 Gangs
-Garakan Mujahidin Islam Patani
 Garcinia
 Garden
 Gardenia jasminoides Ellis
@@ -9824,7 +9227,6 @@ Garo
 Garrett Hardin
 Garry
 Garry Marvin
-Garry Stoker.
 Gasification
 Gaspard Gustave de Coriolis
 Gaston Leroux
@@ -9834,13 +9236,9 @@ Gateway
 Gauge
 Gay
 Gayatri Chakravotry Spivak
-Gayatri Spivak
-Gayle Rubin
-Gaze
 Ge
 Gedanken
 Geese
-Gegenden
 Gehimnis
 Gel
 Gelsemium
@@ -9857,9 +9255,7 @@ Generation
 Generations
 Generic
 Genetic
-Genetically
 Geneva
-GeneviewCaulified
 Genn.
 Genomics
 Genus
@@ -9872,18 +9268,14 @@ George
 George Braque
 George H.Hough
 George Herbert Mead
-George Padoux
 George Ritzer
 George Steinmetz
 George Washington
 Georges Eugene Haussmann
 Georgia
-Gerakan
-Gerakan Aceh Merdeka
 Gerakan Islam Patani
 Gerakan Mujahidin Islam Patani
 Gerakan Mujahidin Patani
-Gerakan Srinako
 Gerakan Ulama Pattani
 Gerankan Mujahidin Islam Patani
 Geras, Norman
@@ -9891,7 +9283,6 @@ German
 Germanium
 Germs
 Geschlecht
-Gesichtsz
 Get
 Ghettoization
 Ghost
@@ -9899,7 +9290,6 @@ Gia-Long
 Gian Maria Greco
 Giddens
 Gill Valentine
-Gilles Deleuze
 Gills
 Gilman
 Girl
@@ -9915,10 +9305,8 @@ Globalization
 Glochidion
 Gloeosporium
 Gluck
-Glycol
 Gnetum
 Go
-Goa
 Goals
 God
 Goddess
@@ -9932,13 +9320,10 @@ Golf
 Gone
 Gonyaulax
 Good
-Good - pasteur
 GoodYearPublishingCo.,Ltd.
 Goods
 Google
-Gook
 Gordian
-Gordon
 Gorki
 Got
 Gotegorg
@@ -9959,10 +9344,8 @@ Graduates
 Graffiti
 Grain
 Gramineae
-Gramitis dorsipila
 Grammar
 Grammatology
-Grammitidaceae
 Gramsci
 Gramsci, Antonio
 Grand
@@ -9973,35 +9356,25 @@ Grassroots
 Grave
 Graves
 Gravity
-Gravure
 Gray
 Greater
-Greed
 Green
 Green Peace
 Greenpeace
-Greenwash
 Greham
-Grenade
 Grew
 Grid
 Griff.
 Grimaces
-Grorge Padoux
 Gross
-Grossberg
 Ground
 Group
 Groups
-Grow
 Growth
 Guarantee
 Guardian
 Guards
-Guattari
 Guattari, Felix
-Guba, Egon C.
-GuglielmoMarconi
 Guide
 Guided
 Guidelines
@@ -10016,7 +9389,6 @@ Guy Tachard
 Gwangju
 H
 H(
-H+
 H.
 H. Slade
 H. illieifolius King
@@ -10024,17 +9396,14 @@ H.Hill
 H.L.A.
 H.L.A.Hart
 H.Slade
-H.anthelminthicus Pierre
 H1N1
 H3N2
 H5N1
 HA
-HB
 HCI
 HCN
 HCO3
 HDPE
-HDTV
 HELENA
 HELENACHRISTINA
 HELIPORT
@@ -10043,14 +9412,12 @@ HF
 HIA
 HIV
 HK
-HKI
 HOME
 HP
 HRC
 HRI
 HS1A
 HSPA
-HYBRID
 HYPERBARIC
 Ha-Joon Chang
 Haadyai
@@ -10073,11 +9440,9 @@ Halogenated
 Halton.D.M.
 Hamas
 Hamburger
-Hamil
 Hammurabi
 Hanban
 Hand
-Handbook
 Hands
 Handset
 Hanguk
@@ -10088,7 +9453,6 @@ Hanle
 Hannah Arendt
 Hans J.Wolf
 Hans Kelsen
-Hans de Crop
 Happen
 Happiness
 Happy
@@ -10100,9 +9464,6 @@ Hardin
 Hardware
 Haring
 Harmondsworth
-Harness
-Harold Lasswell
-Harrods
 Harry Nyquist
 Hart
 Hartford
@@ -10111,7 +9472,6 @@ Harvard University
 Harvard University Press
 Harvard-Yenching Institute
 HarvardUniv ersity
-Harvester
 Has
 Hatch
 Hatches
@@ -10119,7 +9479,6 @@ Hate
 Hates
 Hati
 Hatter
-Hauante
 Hautungen
 Have
 Havel
@@ -10131,27 +9490,20 @@ Hb
 He
 Health
 Healthy
-Hearing
 Hearts
 Heat
 Heaven
-Heavenly
 Heavy
-Hedycchium coronarium Roem.
 Hedychium coronarium Roem.
 Hee
-Hegalian
 Hegel
 Hegemonic
 Hegemony
-Heidegger
 Heineken
 Heinrich
 Heinrich Hertz
-Hela
 Helen
 HelenKeller
-HelenKellerInternationalIncorporated
 Helena
 Helena Norberg - Hodge
 Helene Cixous
@@ -10159,7 +9511,6 @@ Helicoverpa armigera Hubner
 Heliocopris
 Helix
 Helmert
-Helminthostachys zeylanica
 Helms, R.B.
 Help
 Hematite
@@ -10167,7 +9518,6 @@ Hemionitis arifolia
 Henderson
 Henley
 Henley, Jon
-Henry
 Henry Alabaster
 Henry Burney
 Henry C K Liu
@@ -10176,21 +9526,17 @@ HenryD.
 Her
 Her_Majesty_Queen_Mother_Ntombi
 Herald
-Herbert
-Herbert P. Phillips
 Herbivores
 Heritage
 Herman E. Daly
 Hermaphroditism
 Hertz
 Hesperethusa crenulata Roem.
-Hess, G.Alfred
 Hesse
 Heteropogon
 Hewison
 Hewison, Kevin
 Hewison,K.
-Heywood
 Hg
 Hi
 Hicks
@@ -10206,14 +9552,11 @@ Hilaire
 Hill
 Hills
 Hin
-Hindi
 Hindu Tamils
 Hinduism
 Hinrich
 Hip
-Hippocrates
 Hippocretes
-Hiptage bengalensis Kurz
 Hirch
 Hirohito
 Hirsch
@@ -10234,9 +9577,7 @@ Hobson
 Hockey
 Hodge
 Hoe-type
-Hohenheim University
 Holarrhena
-Hole
 Hollinger International Inc.
 Hollywood
 Holographic
@@ -10244,13 +9585,10 @@ Holoptelea
 Holstein
 Holt
 Home
-Hong
-Hong Kong
 HongKong
 Honolulu
 Honour
 Hoon
-Hoot
 Hop
 Hope
 Hopkins
@@ -10259,18 +9597,14 @@ Horkheimer
 Horse
 Horses
 Hortatory
-Horticulture
 Hospitality
 Hot
 Hotel
 Hotine
 Hotmail
-Houghton Mifflin Company
 House
 Housing
 How
-Howe
-However
 Hoya parasitica Wall.
 Hpower
 Hsich-Sui
@@ -10280,12 +9614,10 @@ Huahin
 Hudde
 Hugh Ward
 Hugo
-Hugo Martinize
 HugoBernatzik
 HugoChavez
 Human
 HumanRightsCommittee
-Humata repens
 Hume, Robert Ernest
 Humulus
 Hunter
@@ -10293,7 +9625,6 @@ Hunting Aero Servey
 Hupe
 Hupe, Peter
 Hutch
-Hydnocarpus
 Hydnocarpus spp.
 Hydrocarbon
 Hydrozoa
@@ -10301,7 +9632,6 @@ Hygienists
 Hyman
 Hymenachne
 Hymenocardia
-Hymenophyllum polyanthos
 Hypertext
 Hypohippus
 Hyracotherium
@@ -10309,7 +9639,6 @@ Hyuk-Rae Kim
 Hz
 I
 I"II
-I.A. Richards
 I.S.T.
 IAC
 IATA
@@ -10335,9 +9664,7 @@ IEC
 IF
 IGB
 IGCC
-IGES
 IGF
-IGU
 IGWG
 II
 IIFA
@@ -10403,21 +9730,16 @@ Illuminations
 Illusion
 Illusions
 Image
-Imaginary
 Imagine
 Imagined
 Immanuel
 Immature
 Immediately
-Immigration
 Immortality
 Impact
 Impartially
-Impatiens
 Imperata
 Imperial
-Impersonal
-Impey
 Implementation
 Implementing
 Implications
@@ -10435,13 +9757,10 @@ Incised
 Inclosure
 Income
 Inconvenient
-Indecisive
 Independence
 Index
 India
 Indian
-Indian Institute ofAdvanced Studies
-IndianInstituteofAdvancedStudies
 Indication
 Indications
 Indicatons
@@ -10452,7 +9771,6 @@ Indo - China
 Indonesia
 IndraprasthanEstate
 Inducements
-Industrail
 Industrailization
 Industrial
 Industrialization
@@ -10484,17 +9802,14 @@ Insensitive
 Inside
 Insights
 Insourcing
-Inspired
 Instant
 Institeu
 Institut
 Institute
-Institute for Global Environmental Strategies
 Institutional
 Institutional Supporters
 Institutionalised
 Institutions
-Instrument
 Insufficiently
 Insurance
 Insurgency
@@ -10509,11 +9824,9 @@ Intellecutal
 Intelligence
 Intel®
 Intensive
-Intentional
 Inter
 Inter-American Development Bank
 Interaction
-Interactions
 Interactive
 Interdisciplinary
 Interest
@@ -10524,9 +9837,7 @@ International
 International Center for Law in Development
 International Crisis Group
 International Maritime Organization
-International Rice Research Institute
 International Service for the Acquisition of Agri-biotech Applications
-International Trade Center
 InternationalAviationOrganization
 InternationalCivilAviationOrganization
 InternationalCouncilofScientificUnions
@@ -10560,10 +9871,6 @@ Ion
 Iove
 Ipomoea alba Linn.
 Ipomoea pescaprae(Linnaeus) Sweet
-Iqamah
-Iraq
-Iris Marion Young
-Iroquois
 Irrelevance
 Irvine
 Is
@@ -10574,9 +9881,7 @@ Islamic
 Islamism
 Islamiyah
 Islamization
-Islamology
 Isolation
-Isopropoxyphenyl
 Israel friesian
 Issa
 Issue
@@ -10593,15 +9898,11 @@ Izikowitz,KarlGustav.
 Iตุ๊ก
 Iอัศว
 J
-J. Homan Van De Heide
-J.Bush
 J.C.
 J.Karmelk
 J.L.
 J.M.F.
-J.M.Keynes
 J.R.R.Tolkien
-J.Steward Black
 J.van der Steen
 JARAD
 JARAม
@@ -10648,12 +9949,9 @@ Japan
 Japanese
 Jasminum
 Jasminum adenophyllum Wall
-Jasminum amplixicaule Ham.
-Jasminum auriculatum Vahl
 Jasminum bifarium Wall
 Jasminum pubesxens Willd.
 Jasminum sambac Ait.
-Jathika
 Jatropha
 Jay, Martin
 Jean
@@ -10667,7 +9965,6 @@ Jean-Michel Basquiat
 Jehku
 Jek
 Jemaah
-Jemaah Islamiyah
 Jemaah Salafi
 Jemini
 Jenifer
@@ -10679,12 +9976,10 @@ Jens Iverson Westengard
 Jeon
 Jeremy
 Jeremy Tunstall
-Jersey
 Jersey Porcelain
 Jerzy Growtowski
 Jessop, Bob
 Jessop,B.
-Jesus
 Jesw.
 JeunessesMusicalesdeFrance
 Jew
@@ -10704,7 +9999,6 @@ Jocob D. Bekenstein
 Johan Galtung
 Johan Gutenberg
 JohanGaltung
-Johann Friedrich Bottger
 Johann Gottfried Herder
 John
 John A. Fleming
@@ -10742,7 +10036,6 @@ Jos
 Jose
 Joseph
 Joseph Ballestier
-Joseph Lauder
 Joseph Liow
 Joseph Schumpeter
 Journal
@@ -10758,7 +10051,6 @@ Judicata
 Judicial
 Judicialization
 Judiciary
-Judith Chafel
 Juice
 Juicy
 Julio
@@ -10766,11 +10058,9 @@ Julio 204
 Julio204
 July
 June
-Jung Chang
 Jungbluth
 Jungluth,Frauke
 Junior
-Jural
 Jurgen Habermas
 Jurgen Serke
 Juridical
@@ -10781,18 +10071,14 @@ Jurists
 Jusco
 Just
 Justice
-Jutaprint
-Jutta Heinrich
 K
 K+
 K. Iwatsuki
-K.Bethge
 K.Y.Ho
 KA
 KA-47a
 KAMPAR
 KBS
-KC1
 KCIA
 KEY
 KFRI
@@ -10806,17 +10092,13 @@ KS 200
 KTB
 KU
 KX
-Kabir Abdul Rahman
 Kachin
 KachinState
-Kadai
 Kadazan
 Kadomtsev
-Kaebyok
 Kafir
 Kalimantan
 Kamal
-Kampung
 Kanada
 Kanan Institute Asia
 Kanan_Institute_Asia
@@ -10847,22 +10129,17 @@ Kbyte
 Ke
 Keeping
 Keg
-Kegan Paul
 Keith Haring
 Kelantanese
 Kellner
 Kelompok Mujahidin Malaysia
 Kelthane
-Kelvin
-Kenneth Burke
 Kent
 Kepa M.Ormazabal
 Keramos
 Kerch
 Ketamine
 Kevin Hewison
-Key
-Keyensian
 Keyes
 Keynesianism
 Keyword
@@ -10881,7 +10158,6 @@ King
 King Frederick IX
 King, Martin Luther
 Kingdom
-Kings
 Kiss
 Kit
 Kite
@@ -10889,7 +10165,6 @@ Klassenliebe
 Kloster
 Know
 Knowledge
-Knox
 Kob
 Kobfai
 Kobper@hotmail.com
@@ -10899,7 +10174,6 @@ Koelsch
 Kokocrunch
 Kongsak
 Konkani
-Koran
 Korea
 Korean
 Kortschak
@@ -10907,7 +10181,6 @@ Kose
 Koselleck
 Krabi
 Kru
-Ku
 Kuala
 Kuala Lumpur
 KumamotoGakuenUniversity
@@ -10915,28 +10188,22 @@ Kumo.com
 Kumpulan
 Kumpulan Mujahidin Malaysia
 Kundstadter
-Kunstadter
 Kunstadter, Peter
-Kunstadter,Pater
 Kurbisfrau
 Kurz
 Kwak'wala
-Kwame Anthony
 Ky14
 Kyat
 Kyauktaw
 KyoneDoh
 KyoneYwa
 Kyonghyang
-Kyoto
-Kyoto University Press
 L
 L 7015
 L 7016
 L 7017
 L 708
 L.
-L.A.
 LA
 LAI
 LAN
@@ -10950,7 +10217,6 @@ LD
 LDL
 LED
 LESA
-LF
 LG
 LGPL
 LI
@@ -10968,7 +10234,6 @@ LPN
 LR
 LSI
 LTE
-LTTE
 La
 LaMacchia
 Lablab
@@ -10977,7 +10242,6 @@ Laboratory
 Lacan
 Laclau
 Laclau Ernesto
-Laclau, Ernesto
 Lactobacillus
 Ladd
 Lady
@@ -11002,7 +10266,6 @@ Lang
 Language
 Languages
 Languas galanga(Linnaeus) Stuntz
-Lanna
 Lao Tzu
 Laos
 Laplace
@@ -11015,7 +10278,6 @@ Lasia
 Last
 Lat
 Late
-Lauder
 LauraBridgman
 Law
 Lawn
@@ -11028,11 +10290,9 @@ Lawyers
 Lay
 Layering
 Le
-LeCompte
 Lead
 Leadership
 Leap
-LeaqueofNations
 Learning
 Leasing
 Lecanopteris sinuasa
@@ -11066,22 +10326,17 @@ Lens
 Lentinus
 Leo Strauss
 Leon
-Leonovens
 Leonowens
 Leopard
 Lepironia
-Lepisorus nudus
 Lepisorus suboligolepidus
 Leptochilus minor
 Leroux
 Les
 Lesbians
-Leslie
 Less
-Let
 Letter
 Leucaena
-Leucostegia immersa
 Level
 Levinas
 Lewis A.Coser
@@ -11106,8 +10361,6 @@ Lifting
 Light
 Like
 Lim
-Lim Joo Jock
-Limestone
 Limit
 Limited
 Limitless
@@ -11115,14 +10368,9 @@ Lin
 Lin, Yutang
 Linda J.True
 Lindsaea adorata
-Lindsaeaceae
 Line
-Linear
 Lines
-Lings
-Linguistics
 Link
-Linn,Maxine
 Linn.
 Linnaeus
 LinnaeusF.
@@ -11139,10 +10387,8 @@ Lis
 Lisa
 Lisa Takeuchi Cullen
 Lislie
-Lisp
 List
 Listening
-Listeria
 Literary
 Literatur
 Literature
@@ -11156,18 +10402,14 @@ Liverpool
 Living
 Loan
 Lobbyist
-Loblaws
 Lobster
-Localizing
 Lochner
-Lockhart
 Locoste
 Loganiaceae
 Logic
 Logocentrism
 Logos
 Loikaw
-Lomagramma grossoserata
 Lomagramma grossoserrata
 Lomariopsidaceae
 Lon Chaney
@@ -11184,9 +10426,6 @@ Loosely
 Lophtus
 Lord
 Lord Denning
-Lord Sankey
-Los Angeles
-Loss
 Lost
 Louis
 Louis Althusser
@@ -11197,7 +10436,6 @@ Louts
 Love
 Lovin
 Low
-Loxogramme involuta
 Loyalty
 Ltd
 LuArment
@@ -11208,7 +10446,6 @@ LucienM.
 Lucifer
 Luck
 Lucky
-Ludwig Rahrmann
 Ludwig Wittgenstein
 Lukmanul Hakiem Pesantren
 Lumpur
@@ -11223,16 +10460,13 @@ Lygodium polystachyum
 Lygodium salicifolium
 Lyotard
 Lyotard, Jean-Francois Lyotard
-Lythraceae
 M
 M-26
 M-61
 M.
-M. Tagawa
 M.C.Rana
 M.D.
 M.E.Turpel
-M.L.McCallum
 M.S.T.
 M.Scott Niederjohn
 M48A5
@@ -11245,14 +10479,12 @@ MARITIME
 MARK STRICKLAND
 MARKET
 MARSK
-MARY ROSE
 MBC
 MBDS
 MBT
 MCS-51
 MD
 MD-80
-MERGE>
 MET
 MET 107
 MET_107
@@ -11260,7 +10492,6 @@ MF
 MFC
 MGC
 MHz
-MI
 MICE
 MICT
 MID
@@ -11270,7 +10501,6 @@ MILF
 MINI
 MIRIAM
 MISS.
-MIT
 MLR
 MM
 MMS
@@ -11283,21 +10513,16 @@ MOSFET
 MOTHER
 MOU
 MP
-MPRMP
 MR.
 MR.CULLENJOHNNICHOLAS
 MR.EWEN SOUTHBYTAILYOUR
 MR.FISHERBENNOURBAN
-MR.JAMES FARSYTHE
-MR.MICHAEL TYNAN
-MR.Somchai Neelaphaijit
 MRA
 MRL
 MRR
 MS-DOS
 MSAN
 MSB
-MSDS
 MSI
 MSN
 MSS
@@ -11308,7 +10533,6 @@ MVREADY
 Ma
 Ma Xiaojun
 Mac
-MacMillan Press
 Macbook
 Machi
 Machine
@@ -11316,10 +10540,8 @@ Mackinnon
 Maclura
 Macmillan
 Macmillan Publishing
-Macmillan Publishing Company
 Macqarie University
 Macrocontext
-Macroeconomic
 Macrofauna
 Macrotermes gilvus Hagen
 Macrotermes_gilvus_Hagen
@@ -11329,7 +10551,6 @@ Made
 Madison
 Madrasah Muhammadiyyah
 Mae
-Magaret D.
 Magaret D.LeCompte
 Magazine
 Magenta
@@ -11348,12 +10569,9 @@ Mai
 Maine
 Mainland
 Mainz
-Maissen
-Majelis Permesyuaratan Rakyat Melayu Patani
 Majeste
 Majesty
 Make
-Maketing
 Making
 Malacca
 Malathion
@@ -11365,8 +10583,6 @@ Malaysia
 Malaysian
 Male
 Mall
-Maloyo-Polynesian
-Malpighiaceae
 Malt
 Maltery
 Malthus
@@ -11401,7 +10617,6 @@ Mansonia gagei Drumm.
 Manual
 Manuel
 Manufacturing
-Many-Splendoured
 Mao
 Map
 Mapiyoh Sadalah
@@ -11413,14 +10628,12 @@ Marginalization
 Marie
 Marie-Christine
 Marina
-Marine
 Marion
 Maritime
 Maritimes
 Mark
 Mark Beeson
 Mark Eagle
-Mark Ritter
 Mark Russinovich
 Market
 Marketization
@@ -11433,21 +10646,17 @@ Marry
 Marshall
 Marsilea
 Martha
-Martial
 Martin Albrow
 Martin Luther King
 Martin Luther King, Jr.
-Martinize
 Maru
 Marx
 Marx , Gary t.
 Marxism
 Marxist
 Masagos
-Masque
 Mass
 Massachusette
-Massachusettes
 Massachusetts
 Massacre
 Massimo
@@ -11470,7 +10679,6 @@ Max Horkheimer
 Max Weber
 Maxim Gorky
 Maximization
-Maxine Baca Linn
 May
 Mbps
 Mc
@@ -11479,7 +10687,6 @@ McCargo
 McCargo, Duncan
 McDonald
 McDonaldization
-McDonalisation
 McUniversity
 McWorld
 Mcdonal
@@ -11498,12 +10705,9 @@ Medical Hub
 Medicalization
 Medicine
 Medium
-Mediums
 Mediumship
-Medusa
 Meeting
 Megical
-Meijer
 Meiji
 Mein Kampf
 Meiofauna
@@ -11512,7 +10716,6 @@ Mekong - Ganga Coperation
 Melaleuca
 Melanesian
 Melayu
-Melbourne
 Melia azedarach Linn.
 Meliaceae
 Melientha
@@ -11521,7 +10724,6 @@ Meloidogyne
 Memorandum
 Memorial
 Memory
-Menschen
 Mental
 Mercantile
 Mercator
@@ -11539,16 +10741,13 @@ Mesua ferrea Linn.
 Meta
 Metacontext
 Metal
-Metallurgy
 Metanarrative
-Metaphor
 Metaphysics
 Metasystox
 Metathelypteris flaccida
 Meter
 Method
 Method)
-Methodology
 Methods
 MethylBromide
 Metroport
@@ -11556,7 +10755,6 @@ Mg2+
 MgC
 MgSO4 7H 20
 Mgo
-Mgr.Laneau
 Mi
 Mi Lan
 Mich
@@ -11571,9 +10769,7 @@ Michael_Bryan_Smith
 Michel Chossudovsky
 Michel Foucault
 Michele Manceaux
-MicheleManceaux
 Michelia alba DC.
-Michelia figo Spreng.
 Michil Jacq-Hergounale H
 Mickey
 Micmac
@@ -11587,7 +10783,6 @@ Microorganism
 Microsoft
 Microsorum pteropus
 Microsorum punctatum
-Microsorum sp.
 Microstegium
 Microwave
 Mid
@@ -11595,12 +10790,10 @@ Middle
 Midnight
 Migration
 Miguel
-Mikado
 Mike
 Milan Presse
 Milettia
 Militancy
-Militant
 Militants
 Military
 Millenarian
@@ -11628,10 +10821,8 @@ Miocene
 Mirabilis
 Miramichi
 Miriam
-Mirror
 Mirzoeff
 Miserables
-Mismeasure
 Miss
 Missing
 Mission
@@ -11639,10 +10830,8 @@ Mist
 Mitsubishi
 Mix
 Mixed
-Mixer
 Mixture
 Mn
-MnO
 Model
 Modern
 ModernineTV.
@@ -11683,7 +10872,6 @@ Monopoly
 Monotheism
 Monotype
 Monovision
-Monsieur Yves Le Bouthillier
 Montessori
 Montgomery
 Monthly
@@ -11721,7 +10909,6 @@ Mouse
 Movement
 Movements
 Mr.
-Mr. Frederico Mayor
 Mr.Donald John Marshall
 Mr.H.A. Slade
 Mr.John smith
@@ -11729,20 +10916,16 @@ Mr.Marshall
 Mr.Thomas S. Andrew
 Mrs
 Mrs.
-Mrs.Ann Hazeltine Judson
 Msn
 Mucuna
 Mudmarn
 Mudon
 Mueang
 Muenchen
-Muhammed
-Mujahidin
 Mujahidin Islam Patani
 Mujumdar
 Multidisciplinary
 Multilateral
-Multimedia
 Multispectral
 Multispectrum
 Munhwa
@@ -11750,7 +10933,6 @@ MunhwaBroadcastingCorporation
 Munich
 Munro
 Murray N.Rothbard
-Murraya
 Murraya paniculata Jack
 Musa(ABB group)Nam Wa
 Muscct
@@ -11779,10 +10961,8 @@ N.V.
 N2O
 N5A
 N70
-NAA
 NAD
 NADH2
-NADPH
 NAFTA
 NAIS Press
 NAM
@@ -11793,13 +10973,11 @@ NBA
 NBC
 NBT
 NCo
-NE>
 NE>Hill, Michael
 NE>จ.
 NE>บรา
 NE>วลา
 NEGARA
-NET
 NEWS
 NFL
 NGO
@@ -11809,7 +10987,6 @@ NGV
 NH
 NH2
 NH3
-NH4 NO3
 NH4 NO3 + aq ฎ 
 NH4+
 NHK
@@ -11818,7 +10995,6 @@ NICHOLAS
 NICOLAJ HOLMBOE
 NIDA
 NIOSH
-NLD
 NO
 NO3
 NOGA
@@ -11827,7 +11003,6 @@ NONTANDO
 NORTHROP
 NORTHROPGRUMMANESI
 NOSE
-NOT
 NOW
 NOx
 NPA
@@ -11846,7 +11021,6 @@ Na Y
 Na+
 NaCl
 NaCl + aq(
-NaOCI
 NaOH
 Nabu
 Nadzru B. Azhari
@@ -11854,29 +11028,23 @@ Naewoe
 Naga
 Nalin
 NamTawngKong
-Namaz
 Name
 Nancy Kranich
-Naphthyl
 Napster
 NarNgu
-Narrative
 Nasir
 Natal
 Nation
 National
-National League for Democracy
 National Patani Liberation Front
 NationalInstituteofOccupationalSafetyandHealth
 Nationalism
 Nationalisms
 Nationalist
-Nationality
 Nationalityless
 Nations
 Native
 Natives
-Natmauk
 Natural
 Naturalism
 Nature
@@ -11895,9 +11063,7 @@ Neoconservative
 Neoliberalism
 Nepali
 Nephelium
-Nephrolepis biserrata
 Nephrolepis falcata
-Nephrolepis radicans
 Nerida M.Cook
 Nerium indicum Mill.
 Nerve
@@ -11910,16 +11076,13 @@ Netherlands
 Nets
 Network
 Networked
-Networking
 Neuro
 New
 New American Library
-New Brunswick
 New Delhi
 New Jersey
 New Jersy
 New York
-New York City
 NewYork
 NewYork Mercantile Exchange
 NewYork University Press
@@ -11928,7 +11091,6 @@ News
 Newsweek
 Next
 Ni
-Nicolas Sarkozy
 Nicos Poulantzas
 Nicotiana
 Nielsen
@@ -11937,7 +11099,6 @@ Night
 Nik Adili Nik Aziz
 Nineteenth
 Ninth
-Nip
 Nipa
 Nitric
 Nitrites
@@ -11945,8 +11106,6 @@ Nitrogen
 No
 No.
 Noam Chomsky
-Nobel
-Noble
 Noise
 Noiwong
 Non
@@ -11962,20 +11121,17 @@ Norgvarม
 Norm
 Normal
 Normalization
-Norman Baynes
 Normative
 North
 Northern
 Northern Illinois University
 Northing
-Norton
 Nose
 Not
 Notes
 Notholaena velutina
 Notholena velutina
 Nouveau
-Nova Scotia
 November
 Now
 Nucleic
@@ -12013,10 +11169,8 @@ OTOP"
 OUP
 OZo
 Oaks
-Obesity
 Objectivity
 Objects
-Obligations
 Observations
 Occupational
 Occupations
@@ -12036,19 +11190,14 @@ Officers
 Official
 Officials
 Offshoring
-Often
 Oh
 Ok.
 Oko
 Old
 Oleaceae
 Oleandra musifolia
-Oleandra undulata
-Oleandra wallichii
 Oligocene
 Olive
-Oliver Lodge
-Olivia Goldsmith
 Omar Farouk
 Omnicom
 Omnipotent
@@ -12071,7 +11220,6 @@ Ophioglossaceae
 Ophioglossum gramineum
 Opportunitis
 Opportunity
-Opposes
 Optic
 Optical
 Optimism
@@ -12081,7 +11229,6 @@ Orang
 Orang Asli
 Orc
 Orchid
-Orchidaceae
 Order
 Orders
 Ordinance
@@ -12089,12 +11236,10 @@ OrdnanceSurvey
 Organic
 Organisation
 Organisation of Islamic Conference
-Organisms
 Organization
 Organization for an International Geographical Indications Network
 OrganizationofIslamicConferences
 Organizations
-Organizer
 Organizing
 Organo
 Organochlorine
@@ -12110,23 +11255,19 @@ Origon
 Oriya
 Ornamentation
 Ornanong
-Oroxylum
 Orthocide
 Orthodoxy
 Orthophos
 Orthosiphon aristatus(Blanc) Miquel
-Oryza
 Oskar Morgenstern
 Osmoconformers
 Osmoregulators
 Osmunda
 Osmunda angustifolia
 Osmunda cinnamomea
-Oswald Spengler
 Other
 Othering
 Otherness
-Others
 Othman
 Otis
 Ottawa
@@ -12140,7 +11281,6 @@ Over
 Overground
 Overseas
 Ownership
-Oxfam
 Oxford
 Oxford University
 Oxford University Press
@@ -12154,14 +11294,10 @@ Oxyuris equi
 Ozone
 P
 P.
-P.Pennsylvanicus
-P.R.Jones
 P.T.
 P.laevingata Moldenke
 P/E
-P2
 P2O5
-P3
 PACS
 PAD
 PAE
@@ -12222,7 +11358,6 @@ PTA
 PTT
 PTTEP
 PULO
-PULO.
 PVC
 PVIFA
 PWO
@@ -12239,7 +11374,6 @@ Pak
 Palace
 Palestinian Liberation Organisation
 Paletwa
-Palgrave
 Palisades
 Pall Mall
 Pallop
@@ -12272,14 +11406,12 @@ Parathion
 Pareto
 Parissodactyla
 Park
-Parkeriaceae
 Parkia
 Parliament
 Parliamentary
 Parnas
 Parrinder,Geoffrey
 Part
-Parti
 Parti Islam
 Parti Islam Se
 Parti Islam se
@@ -12293,7 +11425,6 @@ Paruchuri
 Pas
 Paspalum
 Passenger
-Passive
 Past
 Pasteurisation
 Pasteurization
@@ -12305,7 +11436,6 @@ Pasurruan
 Pata
 Patai
 Patai , Daphne.
-Patan
 Patani
 Patani People Movement
 Patani United Liberation Organisation
@@ -12317,7 +11447,6 @@ PatersonPSM
 Path
 Pathmanand
 Patient
-Patriarchy
 Patrick Camiller
 Patrick Jory
 Patrimoine
@@ -12333,12 +11462,8 @@ Payoh
 Pb
 Peace
 Peaceful
-Peacemaker
-Pearson
 Peasant
 Peasants
-Pedestal
-Pediatrics
 Peeling
 Pegu
 Pei
@@ -12349,20 +11474,16 @@ Pellet
 Pemuda
 Penang
 Pendulum
-Penetrative
 Penguin
 Penicillin
 Penicillium
 Peninsular
 Pennisetum
 People
-People's Alliance for Democracy
 Peoples
 Peperomia
 Perception
 Perceptions
-Percheron
-Percival
 Percy Schmeiser
 Pere Schmitt
 Perfectly
@@ -12372,7 +11493,6 @@ Performances
 Performer
 Pergamum
 Periodical
-Perkermanusiaan
 Perkins
 Perry
 Persistence
@@ -12381,21 +11501,15 @@ Personal
 Persons
 Perspective
 Perspectives
-Pertubuhan
 Pertubuhan Persatuan Pembebasan Patani
 Pessimism
 Pesticide
 Peter
 Peter A.Jackson
-Peter Camper
 Peter Chalk
 Peter Jackson
-Peter Kundstadter
 Peter Soderbaum
 Petri
-Petro
-Petrus
-Petrus Camper
 Ph
 Ph.D.
 Ph.D.Dissertation
@@ -12415,8 +11529,6 @@ Philip
 Philippe
 Philippines
 Phillip Adams
-Phillips
-Philosopher
 Philosophical
 Philosophical Papers
 Philosophy
@@ -12424,31 +11536,25 @@ Pholas
 Phonetics
 Phonograms
 Phontom
-Phosphorus
 Photo
-Photoblepharon
 Photoconductor
 Photocopies
 Photographic
 Photoporphyrin
-Photuris
 Phragmites
 Phun
 Phyllanthus
-Phymatosorus nigrescens
 Phymatosorus scolopendria
 Physical
 Physics
 Physiology
 Phyto-alpine
-Phytopthora
 Piaget
 Picto
 Picture
 Piece
 Pieces
 Pier Vellinga
-Pierre Bourdieu
 Pierre-Joseph Proudhon
 PierreLangrois
 Pig
@@ -12484,25 +11590,17 @@ Planted
 Plants
 Plasma
 PlasmaZ
-Plastic
 Plate
-Plateaus
-Plato
-Platycerium coronarium
 Platycerium holttumii
 Platycerium ridleyi
-Platycerium wallichii
 Play
 Pleasure
 Pleasures
 Pleistocene
-Pleocnemia irregularis
 Pliny
-Pliocene
 Pliohippus
 Plone
 Plot
-Pluchea
 Plumeria spp.
 Pluralism
 Plus
@@ -12516,7 +11614,6 @@ Poison
 Poisoning
 Pol
 Polianthes
-Polianthes tuberosa Linn.
 Police
 Policy
 Polidori
@@ -12532,7 +11629,6 @@ Polygenic
 Polygonum
 Polymerase
 Polynesian
-Polyphenol
 Polypodiadeae
 Polypodium manmeiense
 Polytheism
@@ -12552,12 +11648,10 @@ Porcelain
 Porter
 Portfolio
 Portland
-Portland state University Portland
 Portland.
 Portrait
 Portugal
 Position
-Positioning
 Positive
 Positivism
 Positivist
@@ -12571,7 +11665,6 @@ Potalidaceae
 Potter
 Poulantzas
 Poulantzas,N.
-Pouzolzia
 Poverty
 Power
 Pp
@@ -12588,11 +11681,9 @@ Prayer
 Praying
 Pre
 Pre-O-Net
-Preamble
 Precedent
 Precious
 Preecha
-Preecha Kuwinpant
 Prehistoric
 Prehistory
 Prem
@@ -12601,7 +11692,6 @@ Prentice
 Prerogative
 Presence
 Present
-Presentation
 Presented
 President
 Press
@@ -12609,19 +11699,12 @@ Presse
 Pressure
 Preston,P.W.
 Prevention
-Prices
 Primary
-Primate
 Prime
-Primer
 Primitive
 Prince
-Prince Edward Island
-Prince Otto Von-Bismarck
-Princess
 Princeton
 Princeton University Press
-PrincetonUniversityPress
 Principal
 Principle
 Principles
@@ -12632,7 +11715,6 @@ Prisoner
 Private
 Privateness
 Privatization
-Privilege
 Prize
 Pro
 Problem
@@ -12644,13 +11726,11 @@ Process
 Processional
 Prodigal
 Producers
-Product
 Production
 Products
 Professional
 Professor
 Professor James Boyle
-Professor Mary Ellen Turpel
 Professor Sander Gilman
 Professor Stanley G. Schultz
 Profit
@@ -12665,7 +11745,6 @@ Projection
 Projects
 Promotion
 Pronephrium penangianum
-Pronephrium rubicundum
 Propagation
 Proparthrin
 Proper
@@ -12673,7 +11752,6 @@ Property
 Prophet
 Proposal
 Propoxur
-Prosaptia khasyana
 Prosaptia leysii
 Prosaptia obliquata
 Prosperity
@@ -12686,17 +11764,13 @@ Protocol
 Protozoa
 Proudhon
 ProvencherR.
-Provident
 Province
 Provinces
 Provincial
 Proving
-Provision
 Prudhisan Jumbala
 Ps
 Pseudomonas
-Psidium guajavaLinnaeus
-Psychiatry
 Psychoanalysis
 Psychoanalytic
 Psycholinguistics
@@ -12705,8 +11779,6 @@ Psychology
 Pteridium
 Pteridium aquilinum
 Pteridium aquilinum var. wightianum
-Pteridium aquilinumssp.latiusculum
-Pteridrys australis
 Pteris
 Pteris ensiformis var.victoriae
 Pteris phuluangensis Tagawa&K.Iwats.
@@ -12723,22 +11795,15 @@ Publications
 Published
 Publishers
 Publishing
-Puchard
 Puella
 Pueraria
-Pull
 Punchline
-Punish
 Punishment
 Puppy
 Purchase
 Pure
 Purity
-Purposive
-Push
-Pusztai
 Putting
-Pyong
 Pyrethrins
 Pyrethroid
 Pyrethroids
@@ -12748,16 +11813,13 @@ Pyrophyllite
 Pyrrosi piloseloides
 Pyrrosia
 Pyrrosia adnascens
-Pyrrosia eberhardtii
 Pyrrosia longifolia
 Pyrrosia nummularifolia
-Pyrrosia stigmosa
 Pythium
 Python
 Q
 QQ
 Qoatation
-Qu
 Quadrillage
 Qualitative
 Quality
@@ -12780,15 +11842,12 @@ Quisqualis
 Quisqualis indica Linn.
 Quisqulis indica Linn.
 Quo
-Quran
 R
 R&A
-R&D
 R.
 R. v.
 R.E. Holttum
 R.F.Devlin
-R.W. Giblin
 R9
 RAD
 RAFI
@@ -12799,8 +11858,6 @@ REACH
 RECORD
 RGS
 RIM
-RKK
-RM
 RNA
 ROI
 ROM
@@ -12814,7 +11871,6 @@ RPC
 RRT
 RS
 RSV
-RT
 RTAD
 RTFG
 RU
@@ -12822,7 +11878,6 @@ RUNWAY
 RUS
 RUSSIAN
 Rabasa
-Rabitatul Mujahidin
 Race
 Racial
 Racism
@@ -12838,7 +11893,6 @@ Railway
 Rain
 Rainbow
 Rainsford
-Raj
 Raju
 Rakhine
 RakhineState
@@ -12856,7 +11910,6 @@ Ranking
 Ranunculaceae
 Rao
 Raphael Bousso
-Raphistemma hooperianum Decne
 Rapper
 Raquin
 Rating
@@ -12865,8 +11918,6 @@ Rationalism
 Rationality
 Rationalization
 Raums
-Rauwenhoffia siamensis scheff.
-Rauwenhoffia siammensis Scheff.
 Raw
 Rawls
 Rawls, John
@@ -12874,8 +11925,6 @@ Raya
 Raymond L.Bryant
 Raymond Williams
 Razor แกล
-Re-Invention
-Re-Orientalization
 ReCAAP
 Reaction
 Reactor
@@ -12904,7 +11953,6 @@ Redemption
 Reference
 Reflection
 Reflections
-Reflexive
 Reform
 Reformation
 Refreshing
@@ -12915,7 +11963,6 @@ Regimes
 Regional
 Regionalism
 Registration
-Regression
 Regulations
 Regulatory
 Rehabilitation
@@ -12926,7 +11973,6 @@ Relating
 Relation
 Relations
 Relationship
-Relatives
 Relenza
 Relevance
 Relief
@@ -12940,8 +11986,6 @@ Remedy
 Remember
 Remote
 Renaissance
-Rename
-Rene Guyon
 Renewable
 Renewal
 Rent
@@ -12951,10 +11995,8 @@ Repetition
 Replacement
 Repoliticization
 Report
-Reports
 Representative
 Repression
-Reprint
 Reprinted
 Reproduction
 Reproductive
@@ -12966,11 +12008,9 @@ Researchers
 Researches
 Reserve
 Reserved
-Residues
 Resistance
 Resistant
 Resolution
-Resolutions
 Resolving
 Resort
 Resource
@@ -12979,7 +12019,6 @@ Respect
 Response
 Responsibilities
 Responsibility
-Restrictions
 Restructuring
 Resurgence
 Retail
@@ -12989,9 +12028,7 @@ Returning
 Reuse
 Rev
 Reverend
-Reverse
 Review
-Revised
 Revivalism
 Revived
 Revocation
@@ -13007,20 +12044,15 @@ Rhetorical
 Rhinacanthus
 Rhinoplasty
 Rhizoctonia
-Rhizome
 Rhizophora
 Rhynchostylis gigantea Ridl.
-Rhynchostylis retusa B1.
 Rhynchostylis retusa Bl.
 Riau
 Rice
 Rich
 Rich, J.
 Richard
-Richard J.Perry
 Richard Jacques Kirkpatrick
-Richard Jenkins
-Richard Koenigsberg
 Richard Robinson
 Richard Rorty
 Richard Stallman
@@ -13038,7 +12070,6 @@ Rigths
 Rinehart
 Ring
 Rings
-Riots
 Rise
 Risk
 Risks
@@ -13050,13 +12081,11 @@ Road
 Roadster
 Robert B. Reich
 Robert J.Smith
-Robert Knox
 Robert Knox Dentan
 Robert Koch
 Robert L. Heilbroner
 Robert Nozick
 Robert Young
-RobertD.Davenport
 Robertson
 Robo
 Robocup
@@ -13065,7 +12094,6 @@ Roche
 Rock
 Rockefeller Foundation
 Rockefeller_Foundation
-Rocket
 Rockshelter
 Rodan
 Rodopi
@@ -13087,13 +12115,11 @@ Ronald Dworkin
 Ronald H.Coase
 Room
 Roommate
-Roosevelt
 Rootkits
 Roots
 Rorty
 Rorty, Richard
 Rosa
-Rosa spp.
 Rosaceae
 RosalindC.
 Rosalyn
@@ -13117,20 +12143,16 @@ Royalty
 Rtads
 Rubber
 Rubiaceae
-Rubin
 Ruby
 Ruin
 Ruinous
 Rule
 Rules
 Rumah Patani
-Runda Kumpulan Kecil
 Runs
 Rupert Julien
 Rural
-Rush
 Rusman
-Russell Ohl
 Russula
 Rustoleum
 Rutaceae
@@ -13145,8 +12167,6 @@ S.Castles
 S.G. Mcfarland
 S.M.P.
 S.N. Eisenstadt
-S.Vance
-S.Vani
 S280
 SA
 SAAR
@@ -13179,7 +12199,6 @@ SEATO-South East Asia Treaty Organization
 SECC
 SEMI
 SENA
-SERVICES
 SET
 SEXIEST
 SHEEP
@@ -13190,7 +12209,6 @@ SHOPPING
 SI
 SIDNEY LOPEZ DEL AGUILA
 SIDNEY_LOPEZ_DEL_AGUILA
-SIMPLE
 SIPA
 SLAPP
 SLORC
@@ -13206,7 +12224,6 @@ SOR
 SP
 SP2
 SPDC
-SPLIT>
 SPOT
 SQL
 SRRT
@@ -13221,7 +12238,6 @@ START
 STATION
 STEC
 STONEWARE
-STRINGS
 SUARAM
 SUFFERING
 SUPHANNAHONG
@@ -13230,37 +12246,26 @@ SUV
 SV
 SW
 SYRUS
-Saaz
-Sabilullah
 Saccharomyces
 Saccharum
 Safety
 SagaingDivision
 Sage
-Sage Publication Inc.
 Sage Publications
-Sage Publications Ltd.
-Sage PublicationsLtd.
-Sahabat
 Sahiwal
 Saibillilah
-Saibillillah
 Said
 Said, Edward
 Sailom
 Sakai
-Saks
-Salary
 Sale
 Sales
 Salim
-Salinometer
 Salmonella
 Salon
 Salvator
 Samala
 Same
-Sampue
 Samsen rd
 Samsen9
 Samsoun
@@ -13270,13 +12275,9 @@ Samuel P.Huntington
 SamuelDyer
 SamuelJohnSmith
 San
-San Diego
 San Francisco
-San Salvador
 Sanction
 Sanctions
-Sand
-Sander Gilman
 SanderL.Gilman
 Sands
 Sandwich
@@ -13287,11 +12288,9 @@ Sansakrit
 Santa Clara University
 Santalum album Linn.
 Santi
-Sapindus
 Sara
 Sara@school.net.th
 Saraca
-Saraca indica Linn.
 Sarawak
 Sargon of Assyria
 Sarit
@@ -13305,7 +12304,6 @@ Satopa
 Satria
 Satsuki
 Saul Bellow
-Sauropus
 Savako Ariyoshi
 Savannakhet
 Say
@@ -13329,7 +12327,6 @@ Schleichera
 Schmelleger, Frank
 Scholarship
 School
-Schools
 Schoutenia glomerata King subsp. peregrina Roekm. &Hartono
 Schoutenia glomerata king susp. Peregrina Roekm.
 Schrift
@@ -13344,7 +12341,6 @@ Scilla
 Scissorhands
 Scot Barme
 Scott
-Scott C., James
 Scott Lash
 Scott, Joan W.
 Scottish
@@ -13354,13 +12350,10 @@ Scrambling
 Screen
 Screening
 Scribner
-Scum
-Sdn.
 Se
 Sean
 Search
 Seattle
-Sec
 Secession
 Second
 Secondary
@@ -13372,11 +12365,8 @@ Secularism
 Secularization
 Securitization
 Security
-SecurityCouncil
 See
 Seeing
-Segment
-Segrid Weigel
 Seidenfaden,Erik
 Sejarah
 Selaginella siamensis Hieron
@@ -13388,15 +12378,12 @@ Selfhood
 Seller
 Selves
 Semiconductor
-Sender Gilman
 Sendero Luminoso
 Seneca
 Seni
 Seni Mudmarn
 Senior
 Sennett
-Sensible
-Sent
 Sentiment
 Sentiments
 Seol
@@ -13406,7 +12393,6 @@ Separatist
 Separatists
 Seperator
 September
-Sequencing
 Sequin
 Ser
 Seraffito
@@ -13428,7 +12414,6 @@ Sexualities
 Sexuality
 Sexy
 Sgaw
-Shadowy
 Shaeffer
 Shahadah
 Shallow
@@ -13439,7 +12424,6 @@ Shaping
 Shariah
 Shbah
 Sheelagh
-Sheet
 Shegeharu Tanabe
 Sheikh Abdul Aziz Ibn Baz
 Sheldon
@@ -13451,7 +12435,6 @@ Shigella
 Shinhan
 Shinobi
 Shinto
-Shippo
 Shiranuisea
 Shiratori
 Shire
@@ -13492,7 +12475,6 @@ Silver
 SilverStripe
 Silvia Bovenschen
 Sim
-Simla
 Simmun
 Simone de Beauvoir
 Simple
@@ -13505,7 +12487,6 @@ Singer, Peter
 Singh
 Single
 Sir Alexander Fleming
-Sir Francis Drake
 Sir James Brooke
 Sir John Bowring
 Sir Robert Schomburgh
@@ -13521,10 +12502,7 @@ Sky
 Skype
 Slack
 Slammer
-Slavoj
-Slavoj Zizek
 Slogan
-Slovenia
 Slovoj Zizek
 Small
 Smallroom
@@ -13539,20 +12517,14 @@ Smith, D. Howard
 Smith, RobertB.
 Smith, WilliamC.
 Smythe
-Sn
-So
-Sobitha Tero
 Soccer
 Social
 Socialism
 Socialist
 Socialization
-Socially
 Society
 Socio
-Socioeconomic
 Sociolinguistics
-Sociological
 Sociologie
 Sociology
 Sodah
@@ -13564,14 +12536,11 @@ Sol
 Solanaceae
 Solanum indicumLinnaeus
 Solanum trilobatumLinnaeus
-Solar
 Soldiers
 Solidarity
 Solution
 Solutions
-Solving
 Somchai
-Some
 Something
 Songs
 Sonic
@@ -13591,7 +12560,6 @@ Soup
 Source
 South
 South Australia
-South/Prepaid
 Southeast
 Southern
 Southern Thailand
@@ -13607,17 +12575,14 @@ Special
 Specialist
 Specialized
 Species
-Specificity
 Spectrum
 Speech
 Speight
 Sphenoclea
 Sphere
-Spicules
 Spilanthes
 Spirit
 Spirogyra
-Spodoptera litteralis Fabricius
 Spondias
 Spotted morocco
 Sprache
@@ -13626,7 +12591,6 @@ Spraycan
 Spraying
 Spread
 Spring
-Squadron
 Sreenivasan
 Sri
 St.
@@ -13635,13 +12599,11 @@ St.Hugh's College
 St.John
 St.Martin's Press
 St.Mary's Bay
-St.Palgrave Macmillan.
 St.Thomas Aquinas
 Stability
 Stabilization
 Staffordshire
 Stage
-Stakeholder
 Stalinist
 Stall
 Stallman
@@ -13657,7 +12619,6 @@ Stanford University
 Stanford University Press
 Stanislavsky
 Stanley
-Stanley Fish
 Stanley Rosen
 Staphylococcus aureus
 Staplescenter.com
@@ -13673,8 +12634,6 @@ State Peace and Development Council
 State University
 State University of New York
 State_Peace_and_Development_Council
-Statelessness
-Statement
 States
 Static
 Stations
@@ -13686,12 +12645,10 @@ Status
 Statute
 Stem
 Stemona
-Stenochlaena
 Stenochlaena palustris
 Step
 Stephanotis florbunda Brogn.
 Stephen
-Stephen Jay Gould
 Stephen Mattoon
 Stephen Schwartz
 Stephen Sparkes
@@ -13704,17 +12661,13 @@ Stereotype
 Sterigmatocystin
 Steroids
 Steven
-Steven Lukes
 Steven Perry
 StevenPerry
-Stijl
 Still
-Stimme
 Stimulus
 Stiver
 Stocks
 Stone
-Stone, Deborah.
 Stoneware
 Stoney
 Stop
@@ -13737,57 +12690,44 @@ Streblus
 Street
 Streets
 Streptococcus
-Streptococcus equi
 Stress
 Stretch
 Strikes
 Strip
 Strong
-Strongylus spp.
 Structural
-Structuralism
 Structuration
 Structure
 Structured
 Structures
 Struggle
 Strychnos
-Stud
 Students
 Studier
 Studies
 Study
 Studying
-Stuetz,W.
-Stuttgart
 Style
 Stylosanthes
 Styrax spp.
 Styrene
 Sub
-Subaltern
 Subject
-Subjective
 Subjectivity
 Sublime
 Submitted
-Suboptimal
-Subpersonal
 Subsidence
 Substantivist
 Substantivists
 Substitution
 Suburban
-Suburbs
 Subversion
 Subway
-Sue
 Sueo
 Suffolk
 Sugar
 Sugarcane
 Suhrkamp
-Suhrke
 Sulaiman
 Sulak Sivaraksa
 Sulfulric
@@ -13797,7 +12737,6 @@ Summary
 Summer
 Summit
 Sun
-SunUp
 Sunait Chutintaranond
 Sungoddess
 Sungsidh Piriyarangsan
@@ -13808,7 +12747,6 @@ Supara
 Super
 Superkool
 Supersession
-Supervised
 Supplement
 Supplementary
 Supply
@@ -13823,7 +12761,6 @@ Surgery
 Surin Pitsuwan
 Surin>Pitsuwan
 Surindermr
-Surra
 Surrey
 Surveillance
 Surveillance Rapid Response Team
@@ -13841,9 +12778,7 @@ Sustainable
 Sw.
 Swab
 Swan
-Swans
 Swati
-Swedish
 Sweeter
 Swells
 Swissotel
@@ -13857,7 +12792,6 @@ Symposium
 Syne
 Syngman Rhee
 Synthesis
-SyrianArabRepublic
 Sysinternals
 System
 Systeme
@@ -13865,7 +12799,6 @@ Systems
 Syzygium
 T
 T.
-T.H.Marshall
 TABLE
 TARP
 TAX
@@ -13885,12 +12818,10 @@ TG
 THA
 THAAD
 THAILAND
-THAT
 THE
 THE AIRPORTS COUNCIL INTERNATIONAL
 THEATRE
 THEFT
-THERE
 THI
 TIMES
 TIROS-1
@@ -13900,13 +12831,11 @@ TLV
 TLV)
 TMB
 TMC
-TNA
 TNF
 TOEFL
 TOOM"
 TOP
 TOUR
-TOWER
 TPS
 TRADED
 TRAF
@@ -13931,8 +12860,6 @@ Tags
 Tahoe
 Tai
 Taisho
-Tajukistan
-TakBai
 Take
 Taki183
 Taking
@@ -13944,11 +12871,9 @@ Tamarindus
 Tambiah
 Tampa, Florida: University of South Florida
 Tan Phock Kin
-Tanabe
 Tanah
 Tania Branigan
 TanjungMalim
-Tantra Jihad Islam
 Tao
 Taoism
 Tapeindium luzonicum
@@ -13967,7 +12892,6 @@ Taylor
 Te
 Teacher
 Teachers
-Teams
 Teatime
 Tech
 Technical
@@ -13975,14 +12899,12 @@ Techniques
 Technological
 Technologies
 Technology
-Tectaria griffithii
 Tectaria impressa
 Tectaria laotica
 Tectaria melanocaulis
 Tectaria polymorpha
 Tectona grandis
 Teen
-Teenagers
 Tele
 Telecoms
 Telosma
@@ -13990,11 +12912,9 @@ Telosma minor Craib
 Telugu
 Temperate
 Temperature
-Temple
 Temporary
 Ten
 Tenckhoff
-Tende
 Tengku Abdul Kadir
 Tennessee Walking
 Tennessee Walking Horse
@@ -14012,7 +12932,6 @@ Terracotta
 Territories
 Territory
 Terror
-Terroris
 Terrorism
 Terrorist
 Terrorists
@@ -14030,13 +12949,10 @@ Tetramethyl
 Teun A
 Text
 Textual
-Th
-Tha
 Thai
 Thailand
 Thailand National Gravity Station
 Thailands
-Thainess
 Thak Chaloemtiarana
 Thaksin
 Thaksin Shinawatra
@@ -14046,18 +12962,14 @@ Thaksinlive
 Thaksino
 Thaksinocracy
 Thaksinomics
-Thamil
 Thanbyuzayatt
 Thanet
-Thanet Aphornsuvan
 ThaninthayiDivision
 Thank
 Thaumatolampus
 ThayetChaung
 The
 The American Jewish Committee
-The Association of Southeast Asia
-The Association of Southeast Asian Nations
 The Belknap Press of Harvard University Press
 The Burma Socialist Programme Party
 The Hamlyn Publishing Group Limited
@@ -14090,7 +13002,6 @@ Their
 Thelypteridaceae
 Thelypteris siamensis Tagawa&K.Iwats.
 Theme
-Themeda
 Theodor Adorno
 Theodor Soemmering
 TheodoreRoosevelt
@@ -14108,25 +13019,20 @@ Thesis
 Thespesia
 They
 Thial
-Thing
 Things
 Thinking
 Third
 This
 Thitinan Pongsudhirak
-Thitinob Komalnimi
 Thomas
 Thomas George Knox
 Thomas Hobbes
 Thomas Jefferson
-Thomas Kirsch
 Thomas L. Friedman
 Thomas Robert
 Thomas W.Hazlett
 ThomasdelaRue
-Thongchai
 Thongchai Winichakul
-Thoroughbred
 Thought
 Thousand
 Thrainn Eggertsson
@@ -14139,7 +13045,6 @@ Thyrsostachys
 Ti
 Tian
 Tian Zhuangzhuang
-Tianyu
 Tibet
 Tibeto-Burman
 Tiddim
@@ -14165,7 +13070,6 @@ Tobin
 Today
 Todd A. Culp
 Tok
-Tokichi Masao
 Tokiji Masao
 Tokyo
 Tolerance
@@ -14180,12 +13084,10 @@ Too
 Tool
 Toona ciliata M. Roem
 Top
-Topgear
 Topographic
 Toronto
 Torrens
 Tort
-Tortor
 Torture
 Toshiba
 Total
@@ -14195,11 +13097,8 @@ Touch@Home
 Toulene
 Toulouse
 Tourism
-Tourists
 Towards
 Towers
-Town
-Toxicological
 Toxicology
 Toxinomics
 Tracie
@@ -14211,8 +13110,6 @@ Tradition
 Tragedy
 Training
 Trains
-Trans Pacific Press
-TransFair
 Transcend
 Transcendence
 Transfer
@@ -14224,14 +13121,12 @@ Transistor
 Transition
 Transitional
 Translated
-Translation
 Transmission
 Transmitted
 Transparency
 Transport
 Transportation
 Transvers
-Trauma
 Traumatic
 Traveller
 Travelnow
@@ -14246,15 +13141,11 @@ Treatises
 Treatment
 Treaty
 Tree
-Tremor
 Trial
-Tribe
 Tribes
 Tribune
 Tribute
-Trichoplusia sp.
 Trichosanthes
-Triethyl
 Trifur equinorum
 Triggering
 Trigonella faenogrecum Linn.
@@ -14275,7 +13166,6 @@ Truth
 Try
 Trypanosoma evansi
 Tse
-Tse?lon, Efrat
 Tsesmelis
 Tshering
 Tsingtao
@@ -14283,7 +13173,6 @@ Tu-144
 Tuberose
 Tucker
 Tugby
-Tukish
 Tula
 Tundra
 Turning
@@ -14301,27 +13190,21 @@ Type
 Tzu
 U
 U.
-U. S.
 U.H.T.
-U.S
 U.S.
 U.S. Army Man Service
 U.S. Army Map Service, Far East Tokyo
-U.S.Army Corp. of Engineer
 U.S.C.
 U.S.CoastandGeodeticSurveys
 U2
-UBANGTAPEKEMA
 UDC
 UGA
-UGA.
 UHF
 UITID
 UK
 UK"
 UK.
 ULV
-UMNO
 UN
 UNAIDS
 UNDCP
@@ -14336,7 +13219,6 @@ UNHCR)
 UNICEF
 UNIDO
 UNIFEM
-UNITED NATIONS ECONOMIC AND SOCIAL COMMISSION FOR ASIA AND THE PACIFIC
 UNIVERSAL MUSIC
 UNIVERSAL_MUSIC
 UNPF
@@ -14345,7 +13227,6 @@ UNSEEN
 UPOV
 UPPSALA
 UPS
-UPU
 UQ
 URL
 US
@@ -14354,7 +13235,6 @@ US-CAW
 US.Open
 USA
 USAID
-USB
 USC
 USC and GS
 USGS
@@ -14366,7 +13246,6 @@ Ukrist Pathamanand
 Ukrist Pathmanand
 Ulama
 Ulrich Beck
-Ulrick Beck
 Ultra
 Ultra-HNWIs
 Ultraviolet
@@ -14375,7 +13254,6 @@ Ummah
 Uncommunity
 Under
 Underclass
-Underground
 Understanding
 Undesirable
 Unemployed
@@ -14384,24 +13262,18 @@ Unesco PROAP
 Unesco Worldwide Action in Education,Paris
 Unfair
 Ungpakorn, Ji Giles
-Unicef
 Unicem
-Uniformity
 Union
 Unit
 United
-United Malays National Organization
 United Malays National Organization - UMNO
 United Nation Plaza
 United Nations Development Programme
-United Nations Environment Programme
 UnitedNationationsEnvironmentProgramme
 UnitedNations
-UnitedNationsChildren& 39;sFund
 UnitedNationsDevelopmentFundforWomen
 UnitedNationsDevelopmentProgramme
 UnitedNationsEducational,ScientificandCulturalOrganization
-UnitedNationsEnvironmentProgramme
 UnitedNationsHighCommissionerforRefugees
 UnitedNationsIndustrialDevelopmentOrganization
 UnitedNationsInternationalDrugControlProgramme
@@ -14411,11 +13283,8 @@ Unitrio
 Unity
 Univ. of California Press
 Universal
-UniversalPostalUnion
 Universe
 University
-University of California
-University of California Press
 University of Chicago Press
 University of Illinois Press,
 University of Minnesota Press
@@ -14425,11 +13294,9 @@ Unlimited
 Unrest
 Unseen
 Unter den Linden
-Unterschied
 Untold
 Unwritten
 Up
-Update
 Updraft
 Upper
 Uradu
@@ -14437,12 +13304,9 @@ Uranium
 Urban
 Urbana
 Urea
-Urgent
-Urich Beck
 Urry
 Urszene
 Uruk
-Urumaya
 Us
 Use
 Useem , Michael
@@ -14452,16 +13316,13 @@ Utility
 Utilization
 Utopia
 V
-VAP
 VAT
-VCB
 VDO
 VEB
 VHF
 VI
 VIENNA
 VII
-VLF
 VLSI
 VOCs
 VOIP
@@ -14474,7 +13335,6 @@ Vaginalis
 Vahl.
 Valdez
 Valency
-Valentine, A. Charls
 Vallaris glabra Ktze
 Valmont
 Valpy
@@ -14483,7 +13343,6 @@ Van der Peet
 Vancouver
 Vanda denisoniana Bens. & Rchb. 
 Vandals
-Vanessa Griffen
 Vanguards
 Vani
 Vanishing
@@ -14491,17 +13350,12 @@ Vanity
 Varanus
 Variety
 Vascular
-Vatica diospyroides Syming.
 Vehicle
 Veil
-Ven. Dhamar Lake
-Ven.Omalpe
 Venus
-Verbal
 Verbenaceae
 Verena Stefan
 Verfassungsgerichtsbarkeit
-Vermin
 Vermont
 Verninia elliptica DC.
 Version
@@ -14510,7 +13364,6 @@ Veruschka
 Verwaltungsrecht
 Very
 Veterinary
-Viagra
 Vibrio
 Vice
 Victor
@@ -14523,9 +13376,7 @@ Vietnam
 View
 Viewpoint
 Village
-Villagers
 Vincent
-Vintage
 Violations
 Violence
 Violent
@@ -14540,14 +13391,11 @@ Vision
 Visit
 Visual
 Vitamin
-Vitamins
-Vittaria ensiformis
 Vittariaceae
 Vividness
 Vivienne
 Vivisimo
 Vladimir
-Vladimir K.Zworykin
 Voice
 Vol
 Vol.
@@ -14562,14 +13410,10 @@ Vote
 Voyage
 Vulnerable
 W
-W.
-W. 
-W. Norton&Company
 W. W. Rostow
 W.A. Graham
 W.G. Johnson
 W.J.F. Williamson
-W.S.A
 W920
 WA
 WAIPA
@@ -14582,7 +13426,6 @@ WASA
 WASP
 WB
 WBC
-WET
 WFP
 WHO
 WIBA
@@ -14621,20 +13464,16 @@ Walter H. Brattain
 Wan
 Wan Kadir
 Wan Kadir Che Man
-Wan-li
 WanZarm
 Wang
 Wang Ban
-Wang Dongxiang
 Wang Shuo
 Wanna
 War
 Warasan
-Ward, Hugh.
 Warfare
 Warning
 Wars
-Wartella
 Washington
 Waste
 Watch
@@ -14648,13 +13487,11 @@ Way
 We
 Weak
 Wealth
-Weary
 Weather
 Web
 Webb, Jen
 Weber
 Weber, Generalbericht
-Weber,Generalbericht
 Website
 Webster
 Wedgwood
@@ -14675,7 +13512,6 @@ Werner
 Werner Dannhauser
 West
 Western
-Westernism
 Westeuropa
 What
 Wheat
@@ -14688,10 +13524,8 @@ White
 White Lotus Press
 White Rajah
 White fly
-Whitney
 Who
 Whole
-Whom
 Whose
 Why
 Wi
@@ -14710,13 +13544,11 @@ Wildstyle
 Willd.
 Willhelm Friedrich Ludwig
 William
-William Alfred Kunatelake
 William B. Shockley
 William Forster Lloyd
 William Rappard
 William S.May
 Williams
-Williams, JohnT.
 Wim
 Wind
 Window
@@ -14725,24 +13557,18 @@ Wing
 Wire
 Wireless
 Wisconsin
-Wisdom
 Wise
 With
 Wizard
 Wolf
 Wolfgang
-Wolfgang Stuetz
 Wollacott
-Woman
 Women
 Wonderland
-Wong
 Wood
 Woodrow Wilson
 Woods
-Woodwardia
 Woodwardia cochinchinensis
-Woodwardia harlandii
 Wordpress
 Words
 Work
@@ -14766,7 +13592,6 @@ Woyzeck
 Wrightia religiosa Benth.
 Writers
 Writing
-Writings
 Wu
 Wu Min Aun
 Wurmb.
@@ -14776,11 +13601,8 @@ XII
 XIV
 XP
 XXXVI
-Xa21
 Xiongmeng
 Xiphopteris khaoluangensis
-Xiphopteris khaoluangensis Tagawa&K.Iwats.
-Xiu
 Xiu Xiu
 Xll
 Xlll
@@ -14792,28 +13614,21 @@ Yahoo
 Yahwey
 Yala
 Yale University Press
-Yalta
-Yan Geling
 Yang
 YangoonDivision
 Yarong Jiang
 Yasmeen
 Yasukuni Shrine
 Ye
-Ye Jianying
 Year
 Yeast
 Yebyu
 Yegar
 Yeh
 Yellow
-Yemen
-Yenangyaung
 Yes
 Yet
-Yi
 Yin
-Yoghurt
 Yogurt
 YoichiTANI
 Yom
@@ -14835,14 +13650,12 @@ Yuca
 Yung Cheng
 Yushukan
 Z
-ZD
 ZEN
 ZIFT
 Zaabi
 Zagger
 Zainol Ismael
 Zakat
-Zamboanga
 Zanthoxylum
 Zdravko Miinar
 Zearalenone
@@ -14855,17 +13668,13 @@ Zembra
 Zentralbank
 Zero
 Zetland
-Zhang Yimou
 Zhelve, Zhelyu
 Zhu
 Zhu Xueqin
 Zigzag
 Zingiber
 Zingiber cassumunarRoxburgh
-Zingiber officinaleRoscoe
 Zingiberaceae
-Zircon
-Zizek
 Zizek, Slavoj
 Zn
 Zone
@@ -14875,7 +13684,6 @@ Zoo
 Zootaxa
 Zoothamnium
 Zulkifli
-Zyed Benna
 [
 [H1
 \
@@ -15051,18 +13859,15 @@ abortion
 about
 above
 abroad
-abscissic
 abscission
 absence
 absolute
 absolutism
-absorbed
 absurd
 abuse
 abuses
 abutment
 academic
-academics
 acceleration
 acceptance
 acceptations
@@ -15082,12 +13887,8 @@ acid
 acidity
 acknowledge
 acquired
-across
-acrylic
 act
-acting
 action
-activated
 active
 actively
 actor
@@ -15104,12 +13905,9 @@ adenine
 adenophylla
 adenosine
 adiabatic
-adinosine
-adjustment
 administration
 administrative
 adquate
-adrenalin
 advanced
 advantage
 adventive
@@ -15121,73 +13919,54 @@ aerobic
 aesthetic
 afe
 affair
-affairs
 affecting
 after
 again
 against
 agallocha
-age
 agencies
 agency
 agenda
 agent
 agents
 agglutinating
-aggregated
-agitator
 ahistorical
 aid
-aimed
 air
-air blower
 ais
-ake
 aking
 al
-alarm
-alata
 alba
-albumin
 alcohol
 aldim
 aldrin
 algae
-alias
 alienated
 aliens
-alike
 alismoides
 alive
 alkali
 alkaline
 alkalinity
 all
-alliance
 allowance
 almost
 almum
-alpha
 alphabet
-already
 als
 also
 alternata
 alternate
 alternative
 altocumulus
-altostatus
 alveoli
 alveolus
 always
-am
 ambushes
 amensis
 americanum
-ametabola
 ametryne
 amicis
-amino
 ammorn@hotmail.com
 among
 an
@@ -15195,27 +13974,18 @@ anaerobic
 analog
 analogy
 analysis
-analyzes
-anatomy
 anceps
 anchor
 ancient
 and
-androgynus
-angle
 anglo
-angular
-anhydrase
 animism
 anniversary
 annual
 another
-anthelminthicus
 anther
 anthracnose
-anthropoids
 anti-circumvention
-anti-copyright
 anti-postcommunism
 anti-thesis
 antibiotic
@@ -15227,7 +13997,6 @@ antiquorum
 antispasmodic
 antithesis
 antithetical
-anvil
 any
 anything
 apical
@@ -15246,10 +14015,8 @@ approach
 approximately
 aquilinum
 arbor
-arch
 are
 area
-areas
 areation
 arginine
 argue
@@ -15262,14 +14029,11 @@ around
 arranged
 arrest
 arrested
-arrests
 arrow
 arsenate
 arsenic
 art
 artemia
-arthropoda
-article
 articles
 articulata
 artificially
@@ -15277,14 +14041,12 @@ arts
 as
 ascending
 ascension
-ascorbic
 ascribed
 ash
 asiaticum
 ask
 asked
 asparagus
-aspect
 aspects
 asper
 assimilation
@@ -15293,23 +14055,19 @@ assisted
 associated
 association
 assumption
-asyir
 at
 atlas
 atmosphere
 atom
 atomizing
-atrazine
 atropine
 atroviridis
 attached
-attachment
 attack
 attacks
 attribute
 attribution
 audience
-audio
 auricle
 auriculatum
 austerity
@@ -15332,7 +14090,6 @@ aux
 auxin
 available
 awareness
-awutthai@hotmail.com
 axillary
 axis
 azan
@@ -15353,16 +14110,13 @@ balance
 ball
 ballistic
 balsamifera
-balsamina
 band
 banking
 baquio
 barbara62
 barberi
 barriers
-basal
 base
-base line
 based
 basophilic
 battle
@@ -15374,16 +14128,11 @@ beatae
 beautiful
 beauty
 beawn
-bec
-becoming
 bed
-bee
 been
 beer
-beet
 beetroot
 before
-began
 begun
 behavior
 behaviour
@@ -15401,10 +14150,8 @@ bench
 benefit
 benefits
 benthos
-ber
 best
 beta
-better
 between
 bias
 biased
@@ -15417,7 +14164,6 @@ biggest
 bill
 bin
 binary
-binding
 biocenosis
 biochemical
 biogas
@@ -15435,7 +14181,6 @@ bladder
 blade
 blepharoplasty
 bloc
-block
 blog
 blood
 bloodier
@@ -15443,16 +14188,12 @@ bloody
 blue
 blumeana
 board
-bobbin
 bobos
 bodies
 body
 bogie
 bohemians
 boiled
-bomb
-bonduc
-bone
 bonis
 bonus
 book
@@ -15468,7 +14209,6 @@ botulinum
 bound
 boundary
 bourgeois
-bourgeoisie
 bourgeoisification
 boys
 brain
@@ -15477,18 +14217,15 @@ branched
 brandisii
 break
 breakdown
-breathing
 breeding
 breeze
 bridge
 bright
 brightly
-bringing
 brings
 bristle
 broad
 brokenness
-bronchioles
 bronchus
 brood
 broom
@@ -15496,7 +14233,6 @@ brother
 brotherhood
 brown
 brownsugar
-browser
 bru?e
 brushes
 bserver
@@ -15512,11 +14248,8 @@ bulblets
 bulgaricus
 bumibutura
 bunius
-burden
 bureaucratic
 bureaucrats
-burners
-bush
 business
 businesses
 but
@@ -15525,12 +14258,8 @@ by
 bypassed
 c
 ca
-cabbage looper
-cabinets
 cadastral
 cadmium
-caf
-cain@access.inet.co.th.
 cajan
 cajuputi
 cake
@@ -15539,7 +14268,6 @@ call
 calling
 calls
 callus
-caloriemeter
 caltural
 cambium
 came
@@ -15549,7 +14277,6 @@ cane
 canning
 cannot
 cansent
-cant
 cap
 capabilities
 capable
@@ -15558,9 +14285,7 @@ capital
 capitalism
 capitalist
 caps
-capsid
 capsomere
-capsule
 capture
 car
 caramel
@@ -15569,20 +14294,14 @@ carbide
 carbohydrate
 carbon
 carbonate
-carbonic
-card
-care
 carl
 carnation
 carotene
-carotinoid
 carried
 carrier
 carrot
 carts
 case
-cases
-cassettes
 cat
 catanella
 catastrophe
@@ -15593,7 +14312,6 @@ cavity
 ceiba
 ceiling
 celery
-cell
 cells
 cellulose
 censer
@@ -15603,8 +14321,6 @@ central axis
 centralist
 centralize
 centrifugal
-centrifuge
-centuries
 ceramics
 cerebroside
 cereus
@@ -15612,7 +14328,6 @@ cerevisiae
 certain
 certainty
 chain
-chalk
 challenge
 change
 changed
@@ -15633,36 +14348,28 @@ chelating
 chemical
 chemically
 chemicals
-cheque
 chewing
 chich
 chichoracearum
 chicken
-chiefs
 children
 china
 chip
 chip budding
-chirurgia
 chloride
 chlorinemonoxide
 chlorofluorocarbons
 chlorophyll
 choice
-choices
 cholerae
 cholinesterase
 chromium
-chronicle
 cibarius
 cigar
 cigara
-cigarette beetle
 ciguatera
 cilia
-ciliaris
 ciliatum
-cinematic
 circulation
 circumvention
 cirricumulus
@@ -15678,16 +14385,11 @@ citric
 city
 civic
 civil
-cl
 claim
 claims
-clarification
-claris
 class
 classification
 clay
-cleansing
-cleft grafting
 clickable
 climate
 climatology
@@ -15695,14 +14397,11 @@ climbers
 clinics
 clip
 clone
-closed
 clotting
 cloud
 clown
-cluster of buds
 cnn
 co
-coagulation
 coalescence
 coat
 coated
@@ -15715,7 +14414,6 @@ coercive
 coexistence
 coffee
 cohabit
-coherent
 cold
 cole crops
 coliform
@@ -15731,7 +14429,6 @@ colonies
 colonization
 colonum
 color
-colostrum
 com
 com/2004/02/02/soc/index.php?news=evol.html
 com/4/ syrett5.asp>
@@ -15742,7 +14439,6 @@ com/viewdiary.php?id=sabannga&m
 com/viewdiary.php?id=tanyarat-hut&m
 com;
 comb
-combine
 combustion
 come
 coming
@@ -15750,7 +14446,6 @@ commemorative
 comment
 comment/story/0,,1635795,00.html.
 commercial
-commercialization
 commodification
 commodities
 commodity
@@ -15763,78 +14458,59 @@ communis
 communism
 communities
 community
-compact
 companies
-company
 comparative
 compass
 compilation
 complete
 complex
-complicit
 composite
 compound
 comprehensive
 compressus
-computer
 conceal
 concept
 conception
-conceptual
 conceptualization
 concern
 concinna
-concrete
 concurrent
 condensation
 condition
 conditions
 conductivity
-conference
-confidence
 confidentiality
 configured
-confirm
 conflict
 conformity
 confront
-confrontation
 confronts
 congestion
 congruence
 conjugatum
 connectivity
-conoidal
 conqueror
 conscience
-consensual
-consensus
 consent
 consequences
 conservation
-conservatism
 conservative
 consideation
 considerations
 considered
-constant
 constituencies
 constitution
 constitutional
 construct
 constructed
-constructing
 consultation
 consulted
 consume
 consumption
-contacting
-contemporary
 content
 contents
 context
 continental
-continued
 contortus
 contours
 contract
@@ -15842,16 +14518,12 @@ contraction
 contribution
 control
 controlled
-controlledatmosphere
-controversial
 convection
 convention
-conventionalized
 converge
 convergence
 converter
 convinced
-convincing
 convoluted
 cooperation
 cop
@@ -15865,13 +14537,11 @@ cordifolia
 core
 coring
 corky
-cormels
 corn
 corona
 corporation
 corporeal
 correct
-corresponding
 corrupted
 corruption
 corrupts
@@ -15882,7 +14552,6 @@ cost
 costly
 cottage
 could
-councilor
 count"
 counter
 counterfeit
@@ -15893,7 +14562,6 @@ coup
 court
 cover
 coverage
-covers
 cowa
 crab
 crack
@@ -15904,7 +14572,6 @@ creations
 creative
 creator
 credit
-creme
 crenata
 crescent
 cries
@@ -15920,18 +14587,15 @@ critique
 cromate
 cropping
 crops
-cross-culturalcomparison
 crossing
 crown
 crown grafting
 cruel
 crunch
 crystals
-cubism
 cucumber
 cuisine
 cultev
-cultivated
 cultural
 culturalization
 culturally
@@ -15949,17 +14613,13 @@ cured
 curiosity
 curl
 current
-currently
 curve
-curved
 cusia
 custom
 customs
 cut
-cuticle
 cutting
 cutting stock
-cuttings
 cuverian
 cyanide
 cyberspace
@@ -15969,7 +14629,6 @@ cyclone
 cyclones
 cyfluthrin
 cylindrica
-cylindrical
 cyprid
 cytochrome
 cytokinin
@@ -15983,14 +14642,12 @@ dactylus
 dakwah
 damping
 dance
-dare
 dark
 data
 database
 date
 dawn
 day
-day-length
 day-neutral
 de
 dea
@@ -15998,11 +14655,8 @@ dead
 deal
 deamination
 death
-deaths
 debate
 decending
-deciduous
-decision
 deciston
 deck
 declared
@@ -16011,7 +14665,6 @@ decline
 decoding
 deconstruction
 decoration
-decoratoria
 decrease
 decrees
 decumbens
@@ -16020,8 +14673,6 @@ deep
 defective
 defenders
 definitely
-definition
-deflecting
 deflection
 deg
 degrades
@@ -16037,23 +14688,18 @@ democratic
 demodulator
 demoracy
 demos
-den
 denationalization
 denies
 dentity
 deny
 deological
 deology
-deoxyribonucleic
 deoxyribose
-department
 depeasantization
-deposition
 depression
 depth
 der
 derivatives
-derived
 des
 describes
 designer
@@ -16065,10 +14711,8 @@ destiny
 destroyed
 detainees
 detect
-detention
 detergents
 determination
-deticious
 developed
 development
 developmental
@@ -16076,18 +14720,14 @@ developments
 deviation
 devices
 devil
-devout
 dew
 dewlap
-dhurrin
 diabetes
 diadema
 diagnose
 diagnosis
-diagonal
 dialectic
 diaphragm
-diaspora
 diazo
 dichlorodiphenyltrichlorethane
 dichlorvos
@@ -16109,24 +14749,18 @@ differentiation
 difficult
 diffusion
 digital
-diglyceride
 dignity
 dilemmas
 dim
 dimension
-dimensions
 dinucleotide
 diosgenin
 dioxide
 dioxin
 dip
 diphosphate
-diphosphoglyceric
 dipus
 direct
-direction
-disappearance
-disc
 discipline
 discomfort
 discounts
@@ -16135,12 +14769,9 @@ discovery
 discretion
 discrimination
 discuss
-discussed
-discussion
 disease
 disobedience
 disobeyed
-disodium
 dispersal
 dispersion
 disposal
@@ -16149,12 +14780,8 @@ dissipating
 dissolve
 dissolved
 distal
-distance
-distasteful
-distinguish
 distorted
 distribute
-distribution
 distributor
 districts
 diuron
@@ -16192,18 +14819,14 @@ downdrafts
 downhill
 download
 downward
-draconian
-draft
 dream
 dried
 drinking
-drip
 driver
 droit
 drop
 droplets
 drops
-droves
 drugs
 dry
 dtente
@@ -16221,7 +14844,6 @@ duty
 dynamic
 dystrophy
 e
-e-books
 e-mail
 e-marketing
 e.
@@ -16237,18 +14859,14 @@ ecdysis
 ecology
 econo
 economic
-economically
 economics
 economy
 ecosystem
-ecriture
 ecstasy
 ed
 ed.
-edetate
 edited
 edition
-editor
 edosperm
 eds
 eds.
@@ -16260,7 +14878,6 @@ edulis
 effect
 effective
 effects
-efficacy
 efficiency
 efficient
 egalitarian
@@ -16270,12 +14887,10 @@ eight
 ejarah
 elected
 election
-elective
 electocracy
 electric
 electrical
 electricity
-electro
 electron
 electronic
 electronics
@@ -16288,7 +14903,6 @@ ellipsoid
 elliptica
 elongation
 email
-emasculation
 embargo
 embassy
 emblica
@@ -16297,7 +14911,6 @@ emergency
 emigration
 emitting
 emphasis
-emphasize
 employment
 empowerment
 en
@@ -16319,7 +14932,6 @@ engineering
 english
 enhancement
 enide
-enjoy
 enjoyment
 enopla
 ensis
@@ -16329,7 +14941,6 @@ entities
 environment
 environmental
 enzyme
-enzymes
 epidermis
 epiglottis
 epiphytes
@@ -16343,21 +14954,16 @@ equip
 equipment
 equisetifolia
 equivalence
-erotic
 esculenta
 esculentum
 especially
 essence
 essential
-essentialism
 est
-established
-esteem
 estrogen
 estroyer
 et
 eternal
-eternity
 ethephon
 ethical
 ethnic
@@ -16365,7 +14971,6 @@ ethnicitม
 ethnicizing
 ethno
 ethnocentrism
-ethnography
 ethnology
 ethnos
 evaluated
@@ -16373,7 +14978,6 @@ evaluating
 evapotranspiration
 even
 events
-ever
 evergreen
 everyone
 everything
@@ -16381,16 +14985,11 @@ evil
 ex
 exactly
 examination
-excellence
 exchange
 exclusive
 exclusively
 excreation
 exhaustion
-existing
-exit
-expanded
-expanding
 expansion
 expected
 exponential
@@ -16414,8 +15013,6 @@ fabric
 face
 face-to-face
 faces
-facial
-facilities
 facsimile
 fact
 factions
@@ -16423,7 +15020,6 @@ facto
 factor
 factual
 faham
-faience
 fail
 failed
 failing
@@ -16432,17 +15028,13 @@ fair
 faith
 familiar
 family
-family.html?fta=y&pagewanted=print.
-famine
 fan
-fantasies
 fantasy
 far
 farm
 farmer
 farmers
 farming
-fascinating
 fascism
 fast
 fat
@@ -16451,45 +15043,32 @@ fats
 fatwa
 fc/(C-n)
 feacal
-fear
-fears
 feathey
 feature
 feed
 feeders
-fellowship
 feminism
 feminist
-feminization
 fermentation
 fertilization
 fervent
 feterita
-fetishes
 few
 fiat
 fiber
 fibrous
 fibular
-fidelity
 field
 field cricket
-fifteen
 fiftieth
 fight
 fighter
 figurative
 filament
-file
 files
-filmy fern
 filter
 financial
-find
-finger
-firmness
 first
-first-sale
 fish
 fishing
 fission
@@ -16497,25 +15076,19 @@ fit
 fitness
 five
 flabellifer
-flag
 flatteners
 flava
 flavour
 flavus
 flee
-fleeing
 flesh
-fleshy
 fleshy root
 flexibility
 flexible
-flexuosa
 flexuosum
 floc
-flocculation
 floor
 flora
-floral
 flow
 flue
 fluff
@@ -16523,7 +15096,6 @@ fluorescence
 flux
 fly
 fm
-focus
 foetida
 fog
 folk knowledge
@@ -16541,21 +15113,16 @@ for
 foraminifera
 forbidden
 force
-forces
 fored
-foreign
 foreignpolicy
 forest
 form
 formal
-formed
 formerly
 formosum
 forms
 formulas
-forth
 forthcoming
-forum.view(cat_id=en,id=17)
 fossil
 foul
 foundation
@@ -16569,11 +15136,9 @@ free
 free_ws@yahoo.com
 freedom
 freedoms
-freely
 freeze
 freezing
 frequency
-fresco
 fresh
 freshness
 frogeye
@@ -16581,7 +15146,6 @@ from
 front
 frontline
 frost
-fructose
 fruit
 fruits
 frustrate
@@ -16608,7 +15172,6 @@ fusion
 future
 futures
 fuzz
-g
 gains
 galactose
 galanga
@@ -16620,26 +15183,19 @@ garbage
 garden
 gardening
 gases
-gastrovascular
 gathering
 gayana
 gaze
-ge
 gender
 gene
 general
 generally
-generations
 generative
 generator
-generic
 generis
-genetic
-genres
 gentlemen
 gentleness
 genus
-geocentric
 geodemeter
 geodesy
 geographical
@@ -16652,7 +15208,6 @@ geschlossenen
 get
 getting
 ghaesembilla
-ghost
 giant
 gift
 gigantea
@@ -16660,14 +15215,12 @@ giganteus
 gill slits
 girder
 girl
-girls
 given
 glabal
 gladiolus
 gland
 glass
 glaze
-global
 globalism
 globalization
 globalized
@@ -16677,19 +15230,14 @@ glomerulus
 glottis
 gluconate
 glucose
-glume
-glutinosa
 glycolysis
-glycosylation
 gnemon
 go
 goal
 god
-gonyaulax
 good
 goods
 google.com
-gossypifolia
 got
 gout
 governance
@@ -16711,10 +15259,8 @@ grand
 grandiflora
 grandis
 granted
-granules
 graphein
 grass
-grata
 gratitude
 grattage
 great
@@ -16751,18 +15297,14 @@ haemocyanin
 haemoglobin
 hai
 hair
-halo
 hamata
 hamiltonii
 hamulai
-hanburyi
 hand
 hands
 happened
-happily
 happiness
 happy
-harassment
 harbor
 hard
 hardiness
@@ -16771,18 +15313,13 @@ hardy
 harmful
 harmonisation
 has
-hasselblad
 have
 hawks
 hazard
 hazardous
-hazards
-he
 head
 headland
 health
-heart
-hearts
 heat
 heating
 heavy clay soil
@@ -16793,39 +15330,31 @@ held
 helical
 heme
 hemimetabola
-hepatic
 hepatitis
 heptachlor
 her
 herbaceous
-herbarium
 herbs
 here
 hereby
 heredity
 hereinafter
-heritage
 heterodox
-heterogeneity
 heterosexism
 hexavalent
 hierarchy
 high
 higher
-highest
 hilgendorfii
 hilling
-him
 himself
 hip hop
 his
 hispida
 histidine
 historical
-historically
 history
 hit
-hitch
 hoarding
 hoc
 hold
@@ -16838,14 +15367,12 @@ hologram
 holographic
 holometabola
 home
-homewebboard
 homogeneity
 homogenisation
 honesty
 honey
 hook
 hope
-hops
 horizontal
 hormone
 hormones
@@ -16854,20 +15381,16 @@ host
 hot
 hours
 house
-house plants
 houses
 how
-hr
 ht
 html
 http
 http//www.svkumk.com
 http://
-http://2bangkok.com/right.shtml#blood
 http://campus.sanook.com/u_life/cu-tu62.php
 http://caselaw.lp.findlaw.
 http://chantaburi.nso.go.th/Acrobat/Report_Stat47.pdf
-http://chillingeffects.org/defamation/>
 http://chillingeffects.org/fanfic/>
 http://chillingeffects.org/johndoe/>
 http://citebase.eprints.org/cgi
@@ -16881,31 +15404,23 @@ http://en.wikipedia.org/wiki/Commons>
 http://en.wikipedia.org/wiki/Copyleft
 http://en.wikipedia.org/wiki/Digital_Rights_ Management>
 http://en.wikipedia.org/wiki/Emigration
-http://en.wikipedia.org/wiki/Enclosure>
-http://en.wikipedia.org/wiki/Est%C3%A9e_Lauder_Companies
-http://en.wikipedia.org/wiki/Garrett_Hardin>
 http://en.wikipedia.org/wiki/Immigration
 http://en.wikipedia.org/wiki/Industrialisation
 http://en.wikipedia.org/wiki/Migrant
 http://en.wikipedia.org/wiki/Post-autistic_economics
-http://en.wikipedia.org/wiki/Sony_rootkit>
 http://fm.thecrimson.com:88/fm_10_05_2000/article3A.shtml
 http://freespace.virgin.net/steve.charter/big-picture/capra.html
 http://job3.ocsc.go.th
 http://kanchanapisek.or.th/kp6
 http://muse.jhu.edu
-http://nobelprize.org
 http://northinghappen.hi5.com
 http://papers.ssrn.com/sol3/papers.cfm?abstract_id=286932>
 http://web.amnesty.org/library/Index/ENGASA390132004?open&of=ENG-THA
-http://web.amnesty.org/library/index/ENGASA390132004?open&of=ENG-THA
 http://web.comlab.ox.ac.uk/oucl/
 http://www. eppo.go.th/admin/cab/cab12dec49.html#10
 http://www.2519.net/
 http://www.admiraltylaw.com/fisheries/Papers/treatyrights.htm.
-http://www.ahrchk.net/ua/mainfile.php/2004/640
 http://www.atimes.com
-http://www.austlii.edu.au/au/other/IndigLRes/1986/1/CUSTLAW1.rtf
 http://www.bkkonline.com/movie/drama/moon/
 http://www.boliviasoberana.org/blog/English/_archives/2006/6/14/2032849.html
 http://www.bot.or.th/bothomepage/databank/EconData/EconFinance/tab35.asp
@@ -16915,7 +15430,6 @@ http://www.cbc.ca/news/background/fishing/marshall.html
 http://www.cdd.go.th/clearinghouse/clearing.html
 http://www.cia.gov/cia/publications/factbook/geos/ca.html.
 http://www.copyleftmedia.org.uk/
-http://www.cpt.org/canada/canada.php.
 http://www.democracyuprising.com/
 http://www.democracyuprising.com/.
 http://www.ecoliteracy.org
@@ -16923,12 +15437,9 @@ http://www.fepproject.org/ policyreports/InformationCommons.pdf
 http://www.findarticles.com/p/articles/mi_qa3816/is_199907/ai_n8847747
 http://www.fridaycollege.org
 http://www.fridaycollege.org/
-http://www.ftawatch.org
 http://www.geocities.com/ummahonline/kolum/farish/040512farish-patani.htm
 http://www.guardian.co.uk
-http://www.guardian.co.uk/
 http://www.guardian.co.uk/france/story/0,11882,1635468,00.html.
-http://www.guardian.co.uk/france/story/0,11882,1636671,00.html.
 http://www.huso.buu.ac.th/sociology/boondoem/myanmar
 http://www.ithaca.edu/students/breynol1.virtuality.html
 http://www.komchadlue.net/
@@ -16941,16 +15452,10 @@ http://www.nationalreview.com/nrof_comment/darda200412010816.asp
 http://www.nokkrob.org/
 http://www.nytimes.com/2005
 http://www.op.mahidol.ac.th/orla/data2/note_02.pdf
-http://www.oxfam.ca/news/Peoples_Summit/intellectualProperty
-http://www.paecon.net
-http://www.paecon.net/PAEhistory02.htm
-http://www.parliament.go.th/con40/sec-0.htm
-http://www.prachatai.com
 http://www.rd.go.th/publish/12996.0.
 http://www.rd.go.th/publish/12996.0.html
 http://www.reds.msh-paris.fr/communication/textes/arnaud2.htm.
 http://www.reporter.co.th
-http://www.searin.org/Th/KSTD/KstdA1.htm
 http://www.sociology.emory.edu/globalization/theories01.html
 http://www.stt35.scisoc.or.th
 http://www.thaifta.com/ThaiFTA/Home/strategy/tabid/52/Default.aspx
@@ -16976,7 +15481,6 @@ hydraulic
 hydrocarbons
 hydrocyanic
 hydrological
-hydrometer
 hydroxymethyl
 hygrometricus
 hygroscopic
@@ -16996,12 +15500,9 @@ ibid
 ice
 icosahedron
 id
-ideal
 idealism
 ideas
-idem
 identification
-identitas
 identities
 identity
 ideological
@@ -17015,37 +15516,29 @@ ilbo
 ill
 illegally
 illusions
-illustration
 ilot.glo.or.th
 im
 im-
 image
 images
-imaginary
 imagined
 imaginerte
 imbalance
 immature
 immediately
 immigration
-immortal
 immunology
-impairs
-impeller
 implemented
 implication
-implications
 import
 important
 imposed
 impoverished
-impressionism
 in
 inalienable
 inarching or approach grafting
 inaugurate
 inbound
-inbred
 incentives
 includes
 including
@@ -17067,14 +15560,12 @@ individualizing
 individuals
 indivisible
 indochina
-indolebutyric acid
 indulgence
 indum
 industrailization
 industrial
 industrialization
 industry
-inequality
 inescapable
 inevitability
 infective
@@ -17085,7 +15576,6 @@ infinity
 infjorescence
 inflectional
 infoanarchism
-informal
 information
 informer
 informing
@@ -17096,7 +15586,6 @@ initial
 initials
 initiation
 inner
-inophyllum
 input
 insect
 insourcing
@@ -17105,9 +15594,7 @@ institution
 institutional
 institutions
 insubordination
-insufficiency
 insulating
-insurance
 insurgency
 insurgent
 insurgents
@@ -17121,28 +15608,21 @@ inter
 interact
 interaction
 intercontinental
-intercourse
 interdependence
 interdependent
 interest
-interferon
 interlocking
 intermediate
 internal
 international
-internet
 internode
-interplay
 interpret
 interpretation
 interpreted
-interpreter
 interrelated
 interstate
 intertropical
-intervention
 interviewee
-into
 intrinsic
 introduction
 intuition
@@ -17153,11 +15633,9 @@ investment
 investors
 invisible
 involved
-iodide
 ionization
 ionosphere
 iqamat
-iron
 irony
 irradiation
 irrational
@@ -17193,28 +15671,23 @@ judicial
 judiciary
 junction
 just
-justification
 k
 kafir
 kafiya
 kak rice
-kamar
 kankaroo
 kauki
 kbps
 keep
 kepala
-keramos
 keying
 kicks
 kiddie
 killed
-killings
 kingdom
 kit
 knot
 know
-knowledge
 kratein
 kreb
 krervanh
@@ -17223,22 +15696,18 @@ l
 labels
 labor
 labour
-lacor
 lactation
 lactic
 lactogen
 lactose
 lakoocha
 lalas
-lampetra
-lanceolata
 land
 landing
 landscape
 language
 languages
 lapse
-large
 largest
 larvae
 larynx
@@ -17257,25 +15726,20 @@ lawyer
 lawyers
 layer
 lead
-leaders
 leading
 leaf
 learn
 learning
 least
 leave
-leaves
-lectin
 legal
 legitimate
 leisure
-lemma
 lens
 lenticel
 leopard
 lesbians
 lesser
-lessness
 let
 lethal
 letheia
@@ -17296,13 +15760,9 @@ lie
 life
 life-long
 light
-lignin
 ligule
 like
-likes
-lily
 limit
-limitation
 limited
 limits
 limonella
@@ -17314,41 +15774,32 @@ link
 linked
 links
 liped
-lipid
-lipoprotein
 list
 literacy
 literary
-literatures
-live
 lives
 living
 ll
 loading
 loam
 loans
-loathing
 local
 localized
 locomotive
 logic
 logical
 logistics
-logo
 lon
 long
 long horned grasshopper
 long-acting
-long-day
 longa
 longer
-longest
 looker
 looking
 loom
 loop
 loss
-lotion
 lotus
 love
 love?
@@ -17358,7 +15809,6 @@ loyalty
 luciferin
 luciferous
 lupuluม
-ly
 lysine
 lysis
 lysogency
@@ -17366,12 +15816,10 @@ m
 mIRC
 machine
 mackerel
-macrocarpus
 macrophylla
 made
 magazine
 maggot
-magna
 magnitometer
 mail
 main
@@ -17380,10 +15828,7 @@ major
 majority
 makan
 make
-maker
-makes
 making
-mala
 maladjustment
 male
 malic
@@ -17398,18 +15843,12 @@ maneuver
 manganese
 manipulate
 manner
-mantle
-manufacturers
-manufacturing
 many
 map
 maq
 marginal
-marginalities
 marine
-maritime
 market
-marketers
 marketing
 marketplace
 marks
@@ -17422,13 +15861,11 @@ massive
 mate
 material
 materials
-matrilocality
 matter
 mature
 maturity
 maw
 maxil
-maximally
 maximization
 maximum
 may
@@ -17446,14 +15883,11 @@ mechanistic
 med
 media
 median
-mediated
 medical
 medicine
 medium
 meeting
 meets
-megalop
-melanin
 mellitus
 melons
 member
@@ -17462,10 +15896,8 @@ memory
 men
 ment
 mental
-menu
 mercury
 mesophyll
-mesosphere
 mess
 message
 met
@@ -17478,7 +15910,6 @@ metamorphosis
 metanarratives
 metaphor
 metaphors
-meteors
 methamidophos
 methionine
 method
@@ -17494,7 +15925,6 @@ microsoft.com/thailand
 microwave
 midnightuniv@gmail.com
 midnightuniv@yahoo.com
-might
 migration
 mildew
 militant
@@ -17502,22 +15932,16 @@ militants
 militarism
 military
 milk
-millennium
-millimeter
 million
 millionaire
 milo
 mimeograph
 mimosoides
 mind
-minded
-minds
 mineral
-minimal
 minimax
 minimum
 minister
-ministers
 ministry
 minor
 minorities
@@ -17528,15 +15952,10 @@ mirifica
 misconceived
 misoprostol
 missile
-missing
 mist
 misunderstood
 mitochondria
-mix
-mixer
-ml
 mm
-mmerring
 mob
 mode
 model
@@ -17562,10 +15981,7 @@ monist
 monoclonal
 monocrotophos
 monocultural
-monocytogenes
-monopolize
 monosperma
-monoxide
 monsoon
 month
 moon
@@ -17583,12 +15999,8 @@ moschata
 moss
 most
 mother
-motives
-motleyana
-motor
 mould
 moulting
-mountain
 mourning
 movable
 moved
@@ -17597,12 +16009,10 @@ movements
 mpbs
 mpn
 mt
-mu
 much
 mud
 muddle
 mulpighian
-multi
 multicultural
 multiculturalism
 multiple
@@ -17621,9 +16031,7 @@ mutatioม
 mutica
 mutual
 my
-mycoplasma
 mycotoxin
-myself
 myth
 myuros
 n
@@ -17631,15 +16039,12 @@ n = c(1
 naked
 name
 named
-naming
-naphthaleneacetic acid
 naphthenate
 narrative
 narratives
 nasal
 nasutus
 nation
-national
 nationalists
 nationality
 native
@@ -17648,12 +16053,10 @@ natural
 naturalization
 nature
 naturelles
-naturlichen
 navigation
 nectar
 need
 negated
-negative
 negativity
 nematocyst
 nematocysts
@@ -17662,8 +16065,6 @@ nematodes
 nengpramool@hotmail.com
 neo
 neoconservatism
-nephridia
-nephridium
 nephron
 nephrostome
 nership
@@ -17673,16 +16074,12 @@ network
 neutralization
 never
 new
-newspaper
 newsprint
-next
 ngv
 niacin
 nications
 niche
 nickel
-nicotiana
-nicotianae
 nicotinamide
 niello
 nigellum
@@ -17692,17 +16089,13 @@ night
 nigrum
 nihilist
 nike
-nimbostratus
 nitrate
-nitrophenylthio
 no
-noble
 noctiluca
 noctilucus
 noise
 nomenclature
 non
-non-meta
 nonattachment
 nonindividuality
 nonpartisan
@@ -17724,20 +16117,15 @@ now
 nucellus
 nuclear
 nuclei
-nucleic
 number
 numerical
-nurse
 nutrition
-nutritional
 nux
 nylon
 nymph
 o
-obconoidal
 obesity
 object
-objectify
 objectifying
 objective
 objectivity
@@ -17746,13 +16134,9 @@ obsrured
 obtained
 occasion
 occasionally
-occidentalis
-occluded
 occupational
 occupying
-occurred
 od
-odora
 odorata
 odoratissima
 odoratissimus
@@ -17760,7 +16144,6 @@ odoratum
 of
 off
 office
-officers
 offices
 official
 officinale
@@ -17770,7 +16153,6 @@ offshoring
 oil
 oils
 ok
-ol
 old
 oleosa
 oliveri
@@ -17781,18 +16163,14 @@ onion
 onji
 online
 only
-onth=01-2007&date=04&group=4&gblog=7
 onth=01-2007&date=19&group=4&gblog=13
 onth=06-2008&date=14&group=2&gblog=1
-onth=06-2008&date=14&group=2&gblog=2
 onth=06-2008&date=15&group=13&gblog=10
 onth=06-2008&date=15&group=13&gblog=7
 onth=06-2008&date=15&group=13&gblog=8
 onth=06-2008&date=15&group=13&gblog=9
 onth=06-2008&date=15&group=2&gblog=3
 onth=06-2008&date=15&group=2&gblog=4
-onth=06-2008&date=15&group=2&gblog=5
-onth=06-2008&date=15&group=2&gblog=6
 onth=06-2008&date=16&group=2&gblog=10
 onth=06-2008&date=16&group=2&gblog=7
 onth=06-2008&date=16&group=2&gblog=8
@@ -17804,7 +16182,6 @@ onth=09-2008&date=13&group=2&gblog=5
 onth=09-2008&date=15&group=3&gblog=1
 onth=09-2008&date=16&group=3&gblog=2
 onth=09-2008&date=17&group=3&gblog=3
-onth=09-2008&date=18&group=3&gblog=4
 onth=12-2006&date=06&group=4&gblog=5
 onth=12-2006&date=19&group=4&gblog=8
 ooo
@@ -17814,12 +16191,10 @@ openbooks
 opened
 operate
 operation
-operations
 operculum
 opinion
 opportunity
 opposition
-oppositional
 oppression
 optic
 optimal
@@ -17841,7 +16216,6 @@ organism
 organismic
 organisms
 organization
-organochiorine
 organophosphate
 orient
 orientalis
@@ -17849,21 +16223,15 @@ orientation
 oriented
 origin
 original
-originated
 originating
-osmocis
 osmoregulation
-osmosis
 osmotic
 other
 otherness
-others
 our
 ours
-ourselves
 out
 outcomes
-outer
 outline
 outlook
 output
@@ -17876,20 +16244,17 @@ overdrafts
 overglaze
 overlaid
 overuse
-overweight
 ovule
 own
 oxide
 oxygen
 oxysporum
-oxytocin
 ozone
 p
 p.
 p.92
 pH
 pH meter
-pack
 package
 packet
 page
@@ -17899,96 +16264,70 @@ paleoconservatives
 palgrave
 palisade
 palsy
-palustris
 panicle
 paniculata
 pantip
 paper
-papyrifera
-papyrus
 para
 paradigm
 paradox
 paragraph
-parahaemolyticus
 parallax
-paralytic
 parapodium
 paras
-parasite
-parasitica
 pareira
 parenchyma
-part
-partal
 parthenocarpy
-partial
 participation
 particle
 particles
 particular
 particularities
-parties
 partner
 parts
-party
 passive
 passively
 past
-pastuerisation
 patch
 patents
 paternalistic
 patient
 patriarchal
-patron
 pattern
 patterns
 patulum
 paul
 pauro
 payment
-pdf
 peace
 peasant
-peasantry
 pedicelled
 peinture
 pellucida
 pelvis
 pendulum
 penetration
-penicillamine
 penicillium
-pentandra
 penumbra
 people
 per
 perception
-perceptions
 peregrinus
 perennial
 perform
-perfume
 pergracile
 perhap
-pericarp
 period
 permimpim
 permission
 peroxide
-persecution
 person
-personal
 persons
 perspective
 pesantren
 pest
 pesticides
 pet
-petioles
-petite
-pharma
 pharynx
 phase
 phaseshift
@@ -18002,7 +16341,6 @@ philosophers
 philosophy
 phloem
 phobia
-phones
 phonetic
 phonetician
 phonology
@@ -18013,24 +16351,19 @@ phosphatidic
 phosphoglyceraldehyde
 phosphoglyceric
 phosphorescencม
-phosphorylation
 photoconductor
 photogrammetry
-photoperiod
 photosynthesis
 phycocolloid
-phylum
 phynal
 physics
 phytoplankton
-picking
 pickling
 piece
 piece root
 pier
 pigments
 pinnata
-piston
 pith
 piyabutr_bun@utcc.ac.th
 places
@@ -18038,17 +16371,14 @@ placet
 plagiarism
 plain
 plan
-plane
 planned
 planner
-planning
 plant
 plant cane
 plantation
 planting
 plants
 plasm
-plasma
 plasmolysis
 plate
 platform
@@ -18064,10 +16394,8 @@ plural
 pluralism
 plywood
 podo
-poiesis
 point
 poire
-poisoning
 pol
 polar
 polarimeter
@@ -18077,9 +16405,7 @@ policemen
 policies
 policy
 polis
-politic
 political
-politically
 politics
 polity
 pollen
@@ -18096,7 +16422,6 @@ polystachyum
 polysynthetic
 pondok
 ponoh
-pool
 poor
 pop
 popular
@@ -18104,7 +16429,6 @@ population
 populism
 populnea
 porcelain
-pornography
 portfolio
 pose
 position
@@ -18125,20 +16449,17 @@ power
 powerful
 pp.
 ppm
-ppm.
 ppt.
 practical
 practice
 practicee
 praerigidus
 pragmatism
-pragmatist
 praxis
 pre
 precatorius
 precipitation
 precise
-predator
 prediction
 prepared
 prerequisities
@@ -18149,9 +16470,7 @@ presented
 preservation
 presides
 press
-pressing
 pressure
-prestige
 prevent
 prevention
 primary
@@ -18164,15 +16483,11 @@ principle
 principles
 printer
 printing
-prison
-privacy
 private
 privatization
-privy
 pro
 probable
 problem
-problematic
 proboscis
 procedural
 process
@@ -18180,7 +16495,6 @@ processes
 processing
 produced
 producers
-producing
 product
 production
 productive
@@ -18193,17 +16507,14 @@ profits
 progesterone
 prognosis
 program
-prohibita
 project
 projects
 proletarianization
-proletariat
 promote
 promoted
 prompt
 propagation
 propeonic
-proper
 properties
 property
 propolis
@@ -18241,7 +16552,6 @@ puellae
 pulang
 pull
 pulling
-pulp
 pulse
 punishment
 pure
@@ -18255,19 +16565,16 @@ pursuing
 pusilla
 put
 puts
-pyralis
 pyrethroid
 pyruvic
 quadran
 qualification
 quality
-quantitative
 quark
 quasi
 queen
 question
 quick
-quiet
 quo
 r
 race
@@ -18285,25 +16592,19 @@ radiolaria
 radiometry
 radius
 raid
-raided
 rail
-railcar
 rain
 raises
 raising
 raja
 rally
-ramboutan
 range
 ranging
-ranking
 rap
-rarak
 rare
 raster
 rat
 rate
-rather
 ratio
 ratiocination
 rationalism
@@ -18313,23 +16614,16 @@ raw
 ray
 rays
 re
-reach
 reaction
 reactive
-reader
 reading
 real
 realign
 realism
 realist
-realistic
 reality
-realize
-realm
 reason
-reasonable
 reasoning
-reasons
 recall
 receptacle
 reception
@@ -18337,8 +16631,6 @@ receptive
 reciprocity
 recognition
 recognized
-recombination
-reconstructing
 reconstructive
 record
 recover
@@ -18350,7 +16642,6 @@ red
 reddish
 redemption
 reduce
-reduced
 reductionist
 reference
 referred
@@ -18358,19 +16649,14 @@ refers
 refill
 refined
 reflection
-reflexive
-reflexivity
 reform
 refounding
 refractometer
-regard
 regarding
 regardless
 regime
-regimes
 region
 regional
-registration
 regulation
 regulations
 regulatory
@@ -18380,22 +16666,16 @@ related
 relating
 relation
 relations
-relative
-relatively
 relatives
 relays
 relevant
 relief
 religion
-religions
-religiosa
 religious
 remains
 remaking
 remedy
-renal
 renouncer
-rental
 renunciation
 repaired
 repellent
@@ -18426,7 +16706,6 @@ resonance
 resource
 resources
 respecting
-respiratio
 respiration
 respiratory
 response
@@ -18444,21 +16723,16 @@ reveal
 reverse
 reversed
 review
-reviewed
 revolt
 revolution
 rgraber
 rheedii
 rheophyte
-rheumatism
 rhinoplasty
 rhizoctonia
 rhizome
 rhizomes
-ribo
 riboflavin
-ribose
-rich
 right
 righteousness
 rights
@@ -18468,7 +16742,6 @@ ring
 rings
 riot
 ripening
-ripper
 ripping
 risk
 river
@@ -18484,21 +16757,15 @@ rootring
 roots
 rootstock
 rot
-rota
 rotary
 rotavator
 rotunda
 round
 roxburghii
 royal
-royalist
-royaljelly
-rubber
-rufipogon
 ruin
 rule
 rules
-ruling
 ruminant
 run
 runlondon
@@ -18508,13 +16775,11 @@ rupture
 rural
 rush
 rust
-rustica
 rusto
 ruziziensis
 s
 s.
 sacrifice
-sacs
 safe
 safeguards
 safety
@@ -18533,24 +16798,18 @@ sanitation
 sanook
 sap
 sape
-sapida
 sappan
 sara@school.net.th
 sarmentosum
-sativa
-sativum
 save
 saved
 saxon
 say
 says
 scale
-scaly bulb
 scan
 scanner
 scanning
-scar
-scarce
 scholaris
 scholars
 schomburgkiana
@@ -18559,14 +16818,9 @@ schools
 schreiben
 science
 sciences
-scientific
-scientism
 scion
 sclerosis
-scooping
-scoring
 scour
-scrap
 screen
 screening
 script
@@ -18577,7 +16831,6 @@ seat
 sec
 secession
 second
-secret
 secretary
 section
 sector
@@ -18585,13 +16838,10 @@ secular
 secularism
 secularistic
 secure
-securing
 security
-sedimentation
 see
 seed
 seeding
-seedling
 seeds
 seeing
 seek
@@ -18600,7 +16850,6 @@ selected
 selection
 selective
 self
-sell
 selves
 semaphore
 semen
@@ -18611,9 +16860,7 @@ senses
 sensing
 sensor
 sentiment
-sentimental
 separate
-separately
 separatism
 separatist
 separatists
@@ -18622,10 +16869,7 @@ series
 serrations
 serrulata
 servants
-served
-server
 service
-serving
 sessil
 sessilis
 session
@@ -18642,8 +16886,6 @@ shake
 shall
 shallu
 shank
-shape
-shaped
 shaping
 share
 shared
@@ -18653,7 +16895,6 @@ she_jang@hotmail.com
 she_jang@yahoo.com
 sheath
 shelf
-shellfish
 shift
 shock
 shone
@@ -18661,41 +16902,31 @@ shoot
 shoots
 shore
 short
-short horned grasshopper
 short-acting
-short-day
 shortly
 shot
 should
 show
-shrub
 shrubs
 shut
-siamea
 siamense
 siamensis
 siamese
 siceraria
 side
 sided
-siding
 sight
 sign
 signal
 significance
-signified
-signifiers
 signify
 signs
 silenced
 silicate
 silk
-silver
 simmun
 simple
-simplex
 simplified
-sin
 since
 sine
 single
@@ -18709,11 +16940,9 @@ sixsun74@hotmail.com
 skeleton
 skeptic
 skilled
-skin
 skincare
 sky
 skyd
-slab
 slain
 slam
 slasher
@@ -18739,11 +16968,9 @@ sociological
 soft
 software
 soil
-solanacearum
 solar
 solidarity
 solution
-solutions
 some
 something
 sorghum
@@ -18756,15 +16983,12 @@ sous
 south
 southern
 southernmost
-southwest
 sovereign
-sovereignty
 sp.
 space
 spaces
 span
 speak
-speaking
 speaks
 specialization
 specialized
@@ -18779,10 +17003,8 @@ speed
 spelling
 spend
 sperm
-sphaerica
 sphagnum
 sphere
-spheres
 spikelect
 spikelet
 spin
@@ -18792,7 +17014,6 @@ spinosa
 spiracle
 spiral
 spirit
-spituality
 spliced
 spongy
 sponsors
@@ -18805,16 +17026,13 @@ spouse
 spp
 spp.
 spray
-sprinkle
 sprinkler
 sprinkling
-squamosa
 ss
 ssp.
 stability
 staff
 stage
-stainless steel
 stalk
 stalked
 stand
@@ -18824,7 +17042,6 @@ standing
 standoff
 staplescenter.com
 star
-starter
 state
 stateless
 statement
@@ -18834,8 +17051,6 @@ status
 steam
 stem
 stems
-stepped
-sterile
 sterilisation
 steroid
 stigma
@@ -18851,22 +17066,16 @@ stone
 stoneware
 stop
 storage
-store
 storm
 story
 strapped
 strategies
 strategy
-stratification
 stratocumulus
-stratopause
-stratosphere
 stratus
 streak
 stream
-street
 strong
-strongman
 structional
 structural
 structuralism
@@ -18880,17 +17089,13 @@ suavis
 sub
 subaltern
 subboard
-subculture
 subject
 subjected
 subjectivity
 sublimation
 subparagraph
 subparagraphs
-subsoiler
 substantive
-subulatum
-subumbrans
 subway
 succulent
 such
@@ -18902,9 +17107,7 @@ sugarcane
 sugarcanes
 sui
 suicide
-suis
 suit
-sulfate
 sum
 summary
 summer
@@ -18921,23 +17124,18 @@ supply
 support
 supporters
 supporting
-supposed
 supra
 surface
 surfactant
 surgery
 surplus
-surprised
 surrealism
 surrender
-surrogate
-surveillance
 survey
 survive
 suspect
 suspects
 sustainable
-svahid
 sweat
 sweet
 switch
@@ -18949,7 +17147,6 @@ sympathizer
 sympathy
 syncitial
 syndrome
-synopsis
 synthesis
 synthetase
 syphilis
@@ -18958,30 +17155,20 @@ systems
 t
 tabaci
 tabaco
-tabacum
-table
 tabloid
 tail
-tak
 take
-taking
 taksinomism
 talis
 talk
-talks
-talos
 tamarensis
 tanah
-tanks
 tannin
-tapi
 tapos
 tappers
 tarballs
 task
-tasking
 tea
-teacher
 teachers
 teaching
 teak
@@ -18990,10 +17177,8 @@ technical
 techniques
 technological
 technology
-television
 tell
 teller
-telling
 tells
 tellurometer
 temperate
@@ -19012,12 +17197,8 @@ terracotta
 terrestrial
 territory
 terror
-terrorism
 test
-tester
 tests
-tetanus
-tetracyclin
 tetraethylene
 text
 texts
@@ -19031,11 +17212,8 @@ than
 thank
 that
 the
-the Committee for the Free World
-the Congress for Cultural Freedom
 the Siam Society
 the United Nations
-theKumamotoDistrictCourt
 theMBC
 thePacific
 theUnitedNations
@@ -19055,8 +17233,6 @@ therapy
 there
 thermal
 thermophilus
-thermosphere
-these
 thesis
 they
 thiamine
@@ -19069,7 +17245,6 @@ this
 those
 thou
 thought
-thoughts
 threapy
 threat
 threatens
@@ -19082,14 +17257,11 @@ thymine
 tidak
 tiger
 tigillaria
-tillering
 timber
 time
-timidity
 timoriana
 tinctoria
 tinctorius
-tion
 tissue
 tmz.com
 to
@@ -19097,18 +17269,12 @@ to-
 tobacco
 tobacco budworm
 tobacco cutworm
-tobacco leaf eating caterpillar
-tobacco moth
-tobacco stem borer
-today
 told
 toll
-tomorrow
 ton
 toner
 tonga
 too
-took
 tool/instrument
 top
 top grafting
@@ -19121,15 +17287,11 @@ total
 totalitarian
 totalities
 totality
-tourism
 toward
 towards
-town
 toxic
 toxicaria
-toxicus
 toxin
-toy
 trachea
 track
 traction
@@ -19145,29 +17307,21 @@ training
 trans
 transaction
 transduction
-transfection
 transfer
 transgenic
 transition
 translated
 translation
 transport
-transsexuals
 transtemporality
-trash
 travel
-travelors
 traverse
-treason
 treat
-treaties
 treatment
-tree
 trees
 trend
 trendy
 trial
-trials
 triandra
 triangulation
 tribalism
@@ -19175,38 +17329,26 @@ tribunal
 trichoglumes
 trichothecenes
 tricinctum
-tricked
 trickle
 tricuspidata
 tries
-triggle
 trionine
 triphosphate
-triple
 tristis
 tropical
 tropopause
 troposphere
-troubled
 truck
 true
 truman
-trunk
 truss
 truth
-trying
 tryptophane
 tuber
-tuberculatus
 tuberosa
 tubule
 tubules
-tumescent
-tunic
 tunnel
-turbine
-turn
-turning
 turtles
 two
 tylor
@@ -19214,26 +17356,21 @@ type
 types
 types of cuttings
 tyranny
-ujahidin
 ul
 ultra
 ultra-low
 ultraviolet
 umbraculifera
 un
-una Cosa Meravigliosa
 unaware
 uncharted
 unchecked
 uncle
 uncommunity
 unconscious
-unconstitutional
-unconventional
 und
 under
 underdetermination
-underground
 underlying
 understand
 understanding
@@ -19241,20 +17378,16 @@ unending
 uneven
 unfair
 unfamiliar
-unfolds
 unification
 unifornity
 unilateralism
 unilinear
 unique
-unit
-unity
 universal
 universalism
 university
 unjust
 unlike
-unmanaged
 unofficial
 unrealistic
 unreasonable
@@ -19266,14 +17399,12 @@ until
 up
 update
 updrafts
-uperstition
 upload
 upon
 ups
 uracil
 urban
 ureter
-us
 use
 used
 uses
@@ -19282,7 +17413,6 @@ utilis
 utilization
 utterly
 v
-v.
 vaccines
 vacuole
 vaginata
@@ -19290,13 +17420,10 @@ valine
 valley
 value
 values
-valve
 van Dijk
 vanishing
 vapor
 var.
-variable
-variety
 various
 vascular cambium
 vascular plants
@@ -19306,24 +17433,18 @@ vegetable
 vegetables
 vegetative
 vegetative shoots
-vein
-ver
 verbal
 verdim
-verschidenen
-verschiedener
 versicolor
 vertical
 very
 vi
-via
 viable
 viaduct
 vicious
 victim
 victims
 video
-videotext
 view
 viewed
 viewfinder
@@ -19341,19 +17462,16 @@ violent
 virgatum
 viridicatum
 virion
-viroid
 virtual
 virulent
 virus
 visible
 vision
-visitor
 visual
 vitamin
 vitreous
 vitro
 vivendi
-voice
 vol
 volatile
 voltage
@@ -19365,7 +17483,6 @@ von_Reibnitz
 vote
 voucher
 vs
-wAS
 wOW
 wa
 wagging
@@ -19389,7 +17506,6 @@ warn
 wars
 was
 washington
-wasn
 waste
 wastewater
 watch
@@ -19407,7 +17523,6 @@ weaken
 wealth
 weapon
 weather
-weaving
 web
 webboar
 webboard
@@ -19417,12 +17532,10 @@ weight
 welfare
 well
 wellness
-went
 were
 western
 what
 whatsoever
-wheatsheaf
 wheeler
 when
 where
@@ -19437,18 +17550,15 @@ who
 whole
 whole root
 wholly
-whom
 whose
 why
 wide
-widens
 widespread
 wife
 wiki
 wikipedia
 wikipedia.org/wiki/Malthusianism
 wild
-wildfire
 wildlife
 wildstyle
 will
@@ -19457,7 +17567,6 @@ willy willy
 wilt
 win
 wind
-window
 windows
 wine
 wing
@@ -19479,7 +17588,6 @@ woman
 women
 wonderful
 wood
-woodfree
 woody
 word
 words
@@ -19491,7 +17599,6 @@ worldly
 worldview
 worldwide
 worms
-worst
 writer
 writing
 writings
@@ -19509,21 +17616,16 @@ www.Thailandonedaytour.com
 www.abhisit.org
 www.botythailand.net
 www.clubthaksin.com
-www.csuchico.edu/cjhp/3/1/01-55-esteban.pdf
 www.ctj.in.th
 www.dailyfx.com/article_rr_005.html
-www.dams.org
 www.dass.com
 www.dassk.org
 www.dbdacademy.com
-www.dekbaba .com
 www.dekbaba_.com
 www.dft.go.th
 www.dtn.moc.go.th
-www.eppo.go.th/vrs/VR
 www.fda.moph.go.th
 www.franchisefocus.co.th
-www.ftawatch.org
 www.gcc.go.th
 www.geocities.com/midnightuniv
 www.hutchtalent.com
@@ -19536,23 +17638,19 @@ www.khonkaenlink.com
 www.lssc.edu/studentlife/handbook
 www.mamalover.com
 www.matichon
-www.matichon.com
 www.medterms.com
 www.meechaithailand .com
 www.meechaithailand.com
 www.meechaithailand_.com
 www.michaeljackson.com
 www.mict.go.th
-www.midnightuniv.org/midnight2545/newpage27.html
 www.midnightuniv.org/miduniv888/newpage24.html
 www.minirecord.com
-www.monsanto.com/monsanto/layout/our-pledge/sharing/monsato-fund.asp
 www.moph.go.th
 www.narit.or.th
 www.nationchannel.com
 www.ntc.or.th
 www.ontheway.in.th
-www.pachumchon.com
 www.polsci.chula.ac.th/initatives
 www.prachathai. com.
 www.prachathai.com
@@ -19562,7 +17660,6 @@ www.quinl.com
 www.reporter.co.th
 www.ruamdvd.com
 www.sanook
-www.sanook.com
 www.senate.go.th
 www.shincorp.com
 www.sipa.or.th
@@ -19596,12 +17693,10 @@ www.weloveshopping.com
 www.wgcthailand.com
 www.wto.org
 x
-xanthopyll
 xi
 xii
 xiii
 xiv
-xv
 xvi
 xxx
 xylitol
@@ -19616,9 +17711,7 @@ years
 yeast
 yegar
 yes
-yet
 yoghurt
-york
 you
 young
 your
@@ -19795,7 +17888,6 @@ zygote
 กรม
 กรม 
 กรม_
-กรมณ์
 กรม์
 กรร
 กรรจ์
@@ -19856,7 +17948,6 @@ zygote
 กราส์
 กรำ
 กริ
-กริ 
 กริง
 กริช
 กริซ
@@ -19867,7 +17958,6 @@ zygote
 กริฟส์
 กริม
 กริมส์
-กริล
 กริลล์
 กริศน์
 กริศน์ 
@@ -19901,7 +17991,6 @@ zygote
 กรุด
 กรุน
 กรุบ
-กรุป
 กรุม
 กรุย
 กรุษ
@@ -19926,7 +18015,6 @@ zygote
 กร้า
 กร้าน
 กร้าว
-กร้ำ
 กร๊อบ
 กร๊าง
 กร๊าด
@@ -19939,7 +18027,6 @@ zygote
 กฤตร์
 กฤตร์ 
 กฤติ
-กฤติ 
 กฤษ
 กฤษ 
 กฤษฎ์
@@ -19948,7 +18035,6 @@ zygote
 กฤษฏ์
 กฤษณ
 กฤษณา
-กฤษณา 
 กฤษณ์
 กฤษณ์ 
 กฤษดิ์
@@ -19962,7 +18048,6 @@ zygote
 กลธ
 กลบ
 กลม
-กลม 
 กลย์
 กลวง
 กลศ
@@ -20018,7 +18103,6 @@ zygote
 กล่อง
 กล่อน
 กล่อม
-กล่าน
 กล่าม
 กล่าว
 กล่ำ
@@ -20078,7 +18162,6 @@ zygote
 กว้าว
 กว๊ะ
 กว๊าน
-กว๋อ
 กศ
 กศ.
 กศ.บป.
@@ -20136,7 +18219,6 @@ zygote
 กอล์ฟ
 กอว์
 กอส
-กอฮ
 กะ
 กะห์
 กะอฺบะหฺ
@@ -20169,7 +18251,6 @@ zygote
 กันตร์
 กันต์
 กันต์ด
-กันน์
 กันย์
 กันส์
 กับ
@@ -20193,7 +18274,6 @@ zygote
 กัว 
 กัวซ์
 กัวร์
-กัวะ
 กัศ
 กัส
 กัส 
@@ -20225,7 +18305,6 @@ zygote
 กาญจน์ 
 กาญจน์_
 กาญจ์
-กาญจ์น
 กาญน์
 กาฎ
 กาฐ
@@ -20287,7 +18366,6 @@ zygote
 กิตติ์
 กิตติ์ 
 กิตต์
-กิตต์ 
 กิติ์
 กิติ์ 
 กิต์
@@ -20393,7 +18471,6 @@ zygote
 กุย
 กุยย
 กุร
-กุรฺอาน
 กุล
 กุล 
 กุล_
@@ -20435,7 +18512,6 @@ zygote
 กูล 
 กูลด์
 กูส
-กูสท์ 
 กู่
 กู้
 กู้ด
@@ -20454,14 +18530,12 @@ zygote
 ก็อต
 ก็อตต์
 ก็อบ
-ก็า
 ก่ง
 ก่น
 ก่วย
 ก่อ
 ก่อง
 ก่อน
-ก่อน 
 ก่อย
 ก่า
 ก่าน
@@ -20470,7 +18544,6 @@ zygote
 ก้
 ก้ง
 ก้น
-ก้บ
 ก้ม
 ก้วย
 ก้อ
@@ -20515,7 +18588,6 @@ zygote
 ก๊าว
 ก๊าส
 ก๋ง
-ก๋ว
 ก๋วย
 ก๋อง
 ก๋อย
@@ -20527,7 +18599,6 @@ zygote
 ข870
 ขกะ
 ขข
-ขขว
 ขขว176
 ขง
 ขจ
@@ -20538,7 +18609,6 @@ zygote
 ขจัด
 ขจาย
 ขจิต
-ขจิต 
 ขจิตต์
 ขจิตร
 ขจี
@@ -20547,7 +18617,6 @@ zygote
 ขณ
 ขณะ
 ขณา
-ขณี
 ขณ์
 ขด
 ขต
@@ -20576,11 +18645,9 @@ zygote
 ขนาบ
 ขนาย
 ขนำ
-ขนิล
 ขนิษ
 ขนิษฐ
 ขนิษฐา
-ขนิษฐ์
 ขนุน
 ขบ
 ขบถ
@@ -20589,14 +18656,12 @@ zygote
 ขม
 ขมวด
 ขมวน
-ขมอง
 ขมะ
 ขมัง
 ขมัน
 ขมับ
 ขมัว
 ขมา
-ขมาย
 ขมิบ
 ขมิ้น
 ขมิ้ม
@@ -20617,7 +18682,6 @@ zygote
 ขยา
 ขยาด
 ขยาน
-ขยาบ
 ขยาย
 ขยำ
 ขยิก
@@ -20666,7 +18730,6 @@ zygote
 ขลุง
 ขลุม
 ขลุ่ย
-ขลู่
 ขว
 ขวง
 ขวง 
@@ -20787,10 +18850,8 @@ zygote
 ขุ่น
 ขุ่ม
 ขุ้ม
-ขู
 ขูด
 ขู่
-ขแยง
 ขโม
 ขโมย
 ข่ง
@@ -20829,7 +18890,6 @@ zygote
 ค 
 ค ส
 ค.
-ค.534
 ค.ป.พ.
 ค.ป.อ.
 ค.พ.
@@ -20870,7 +18930,6 @@ zygote
 คดน
 คดี
 คต
-คต 
 คต_
 คตง
 คตง.
@@ -20882,7 +18941,6 @@ zygote
 คติน
 คท
 คท.
-คทรา
 คทา
 คธ
 คน
@@ -21020,11 +19078,9 @@ zygote
 ครุม
 ครุย
 ครุส
-ครุ่
 ครุ่น
 ครุ่ม
 ครู
-ครู"
 ครูซ
 ครูซส์
 ครูด
@@ -21176,12 +19232,10 @@ zygote
 ควั่น
 ควา
 ควาญ
-ควาทิน
 ควาน
 ควานิช
 ความ
 ควาย
-ควาย 
 ควาร์ก
 ควิ
 ควิก
@@ -21194,7 +19248,6 @@ zygote
 ควีน
 ควีนส์
 ควุ
-ควุส
 คว่ำ
 คว้า
 คว้า.38
@@ -21340,7 +19393,6 @@ zygote
 คาร "
 คาร 100 
 คาร 80 
-คาร Roman 1
 คาร100
 คารถ
 คารร์
@@ -21380,7 +19432,6 @@ zygote
 คิต
 คิท
 คิน
-คิน 
 คินทร์
 คิป
 คิม
@@ -21396,8 +19447,6 @@ zygote
 คิ่น 
 คิ้ม
 คิ้ว
-คิ้ว่
-คิ๊ก
 คี
 คี 
 คี?
@@ -21424,7 +19473,6 @@ zygote
 คืน
 คืบ
 คือ
-คื้น
 คุ
 คุก
 คุค
@@ -21485,7 +19533,6 @@ zygote
 ค็อจ
 ค็อด
 ค็อตต์
-ค็อบ
 ค็อป
 ค็อปส์
 ค็อพ
@@ -21518,7 +19565,6 @@ zygote
 ค๊อ
 ค๊อก
 ค๊อฟ
-ค๊า
 ค๋น
 คํา
 ฅ
@@ -21527,8 +19573,6 @@ zygote
 ฆ
 ฆน
 ฆพ
-ฆม
-ฆมณ
 ฆมน
 ฆมาตย์
 ฆร
@@ -21567,7 +19611,6 @@ zygote
 งด
 งบ
 งม
-งร
 งวง
 งวด
 งวย
@@ -21623,14 +19666,12 @@ zygote
 งู
 งู 
 งูก
-งูง
 ง่วง
 ง่วน
 ง่อ
 ง่อง
 ง่อน
 ง่อย
-ง่ะ
 ง่า
 ง่าน
 ง่าม
@@ -21705,7 +19746,6 @@ zygote
 จย.
 จยย.
 จร
-จร 
 จร.
 จรง
 จรงค์
@@ -21762,17 +19802,14 @@ zygote
 จวง
 จวด
 จวน
-จวน 
 จวบ
 จวบ 
 จวัก
 จวัค
 จวิน
-จวิ่น
 จส
 จส.1
 จอ
-จอ 
 จอก
 จอค
 จอง
@@ -21803,7 +19840,6 @@ zygote
 จอห์นส์ 
 จอัน
 จะ
-จะะ
 จั
 จัก
 จัก 
@@ -21814,9 +19850,7 @@ zygote
 จักร 
 จักรร
 จักรี
-จักรี 
 จักร์
-จักร์ 
 จักษณ์
 จักษณ์ 
 จักษ์
@@ -21832,7 +19866,6 @@ zygote
 จัตุ
 จัตุร
 จัน
-จันด
 จันต
 จันต์
 จันท
@@ -22011,7 +20044,6 @@ zygote
 จุล
 จุล 
 จุส
-จุฬ
 จุ่ง
 จุ่น
 จุ่ม
@@ -22080,7 +20112,6 @@ zygote
 จ๊วต
 จ๊วน
 จ๊วบ
-จ๊อ
 จ๊อก
 จ๊อง
 จ๊อด
@@ -22110,7 +20141,6 @@ zygote
 ฉ
 ฉ.
 ฉ.พ.
-ฉ.ส
 ฉ.อ.
 ฉก
 ฉก.
@@ -22135,7 +20165,6 @@ zygote
 ฉนัง
 ฉนั้น
 ฉนา
-ฉนา 
 ฉนาก
 ฉนำ
 ฉบบ
@@ -22157,12 +20186,10 @@ zygote
 ฉม่อง
 ฉร
 ฉรา
-ฉรา 
 ฉริ
 ฉริย
 ฉล
 ฉลวย
-ฉลวย 
 ฉลอง
 ฉลอม
 ฉลัก
@@ -22275,7 +20302,6 @@ zygote
 ช ๔
 ช.
 ช..
-ช./NE>
 ช.EDDYGAMPE
 ช._
 ช.ก
@@ -22314,7 +20340,6 @@ zygote
 ชฎา 
 ชฎิล
 ชฏ
-ชฏ 
 ชฏา
 ชด
 ชด 
@@ -22328,7 +20353,6 @@ zygote
 ชท
 ชท 
 ชท.
-ชทัศน์
 ชน
 ชน 
 ชน.
@@ -22354,12 +20378,10 @@ zygote
 ชนิญ
 ชนิด
 ชนิตย์
-ชนิตย์ 
 ชนิตร
 ชนิน
 ชนินทร์
 ชนินท์
-ชนิล
 ชนี
 ชนีย
 ชนุ
@@ -22386,8 +20408,6 @@ zygote
 ชม้อย
 ชม้าย
 ชย
-ชย 
-ชยะ
 ชยัน
 ชยันต์
 ชยันต์ 
@@ -22410,7 +20430,6 @@ zygote
 ชล
 ชล 
 ชลอ
-ชลอ 
 ชลา
 ชลิ
 ชลิชต์
@@ -22473,7 +20492,6 @@ zygote
 ชัจจ์ 
 ชัช
 ชัชจ์
-ชัชจ์ 
 ชัญ
 ชัฎ
 ชัฏ
@@ -22539,11 +20557,9 @@ zygote
 ชามม์
 ชาย
 ชาย 
-ชาย"
 ชายWimala
 ชาย_
 ชารคส์ 
-ชารจ์ 
 ชารด์ 
 ชาร์
 ชาร์จ
@@ -22586,7 +20602,6 @@ zygote
 ชิน_
 ชินทร์
 ชินท์
-ชินน
 ชิบ
 ชิป
 ชิพ
@@ -22611,7 +20626,6 @@ zygote
 ชิ่น
 ชิ่น 
 ชิ้น
-ชิ้ว
 ชี
 ชี 
 ชีก
@@ -22626,7 +20640,6 @@ zygote
 ชีพ
 ชีพ 
 ชีฟ
-ชีฟท์
 ชีย
 ชีย์
 ชีล
@@ -22754,7 +20767,6 @@ zygote
 ซนิ
 ซนี
 ซบ
-ซฟอร์ด
 ซม
 ซม.
 ซรอ
@@ -22791,7 +20803,6 @@ zygote
 ซอย
 ซอย 
 ซอย 101
-ซอย 6
 ซอย 8
 ซอยด์
 ซอย์
@@ -22832,7 +20843,6 @@ zygote
 ซัลท์
 ซัลส์
 ซัว
-ซัว 
 ซัวร์
 ซัวส์
 ซัส
@@ -22853,7 +20863,6 @@ zygote
 ซาค
 ซาง
 ซาชส์
-ซาซ
 ซาญ
 ซาด
 ซาท
@@ -22905,7 +20914,6 @@ zygote
 ซิซ
 ซิซซ์
 ซิด
-ซิด 
 ซิต
 ซิตส์
 ซิท
@@ -22927,7 +20935,6 @@ zygote
 ซิลค์
 ซิลค์ท
 ซิลล์
-ซิลล์ 
 ซิว
 ซิส
 ซิสต์
@@ -22973,7 +20980,6 @@ zygote
 ซีสต์
 ซีสม์
 ซีส์
-ซีส์ 
 ซีส์_
 ซีห์
 ซี่
@@ -22988,7 +20994,6 @@ zygote
 ซึ
 ซึก
 ซึง
-ซึด
 ซึบ
 ซึม
 ซึม 
@@ -22999,16 +21004,13 @@ zygote
 ซึ้ง
 ซืด
 ซืน
-ซืม
 ซือ
 ซือก
 ซือร์
 ซื่น
 ซื่อ
-ซื้ง
 ซื้อ
 ซุ
-ซุ 
 ซุก
 ซุค
 ซุคห์
@@ -23023,7 +21025,6 @@ zygote
 ซุฟ
 ซุม
 ซุย
-ซุย 
 ซุย_
 ซุล
 ซุล 
@@ -23038,7 +21039,6 @@ zygote
 ซู
 ซู 
 ซู_
-ซูกส์
 ซูช
 ซูซส์
 ซูด
@@ -23050,7 +21050,6 @@ zygote
 ซูล
 ซูส์
 ซู่
-ซู้ง
 ซู้ด
 ซเพอ
 ซเล่ย์
@@ -23074,7 +21073,6 @@ zygote
 ซ่าม
 ซ่าร์
 ซ่าว
-ซ่ำ
 ซ้ง
 ซ้น
 ซ้วย
@@ -23101,7 +21099,6 @@ zygote
 ฌอน
 ฌะ
 ฌักส์
-ฌักส์ 
 ฌัม
 ฌา
 ฌากส์
@@ -23131,7 +21128,6 @@ zygote
 ญส
 ญอ
 ญอน
-ญอร์
 ญะ
 ญะห์
 ญะห์ 
@@ -23143,12 +21139,10 @@ zygote
 ญัติ 
 ญัน
 ญัป
-ญัร
 ญา
 ญา 
 ญา 7
 ญา.
-ญา6
 ญา_
 ญาง
 ญาณ
@@ -23162,12 +21156,10 @@ zygote
 ญิ
 ญิก
 ญิง
-ญิด
 ญิบ
 ญิส
 ญี
 ญี 
-ญีร์
 ญี่
 ญึก
 ญุ
@@ -23176,9 +21168,7 @@ zygote
 ญู 
 ญ่อล
 ญ่า
-ญ้อ
 ฎ
-ฎ 
 ฎ.
 ฎก
 ฎม
@@ -23201,7 +21191,6 @@ zygote
 ฎื
 ฎุก
 ฎุม
-ฏ
 ฏ 
 ฏก
 ฏฐ
@@ -23376,7 +21365,6 @@ zygote
 ด.ญ.
 ด_
 ดก
-ดก 
 ดค
 ดง
 ดง 
@@ -23414,11 +21402,9 @@ zygote
 ดริช
 ดริด
 ดริน
-ดริล
 ดริว
 ดริ้งค์
 ดริ้งส์
-ดริ๊ง
 ดริ๊งค์
 ดรี
 ดรีม
@@ -23504,7 +21490,6 @@ zygote
 ดับ
 ดัฟ
 ดัม
-ดัม 
 ดัมส์
 ดัย
 ดัร
@@ -23512,7 +21497,6 @@ zygote
 ดัวย
 ดัวร์
 ดัส
-ดัส 
 ดัสท์
 ดั่ง
 ดั่น
@@ -23525,8 +21509,6 @@ zygote
 ดั๋น
 ดา
 ดา 
-ดา 14
-ดา 16
 ดา 22
 ดา_
 ดา_14
@@ -23546,7 +21528,6 @@ zygote
 ดาย
 ดาร
 ดาร์
-ดาร์ 
 ดาร์_
 ดาร์ค
 ดาร์ด
@@ -23683,7 +21664,6 @@ zygote
 ดุลย
 ดุลย์
 ดุลย์ 
-ดุลลอหฺ
 ดุลลอฮฺ
 ดุลห์ 
 ดุษ
@@ -23700,7 +21680,6 @@ zygote
 ดู
 ดู 
 ดูก
-ดูซ์
 ดูด
 ดูป
 ดูร
@@ -23743,7 +21722,6 @@ zygote
 ด้อย
 ด้ะ
 ด้า
-ด้า 
 ด้า_
 ด้าง
 ด้าน
@@ -23774,11 +21752,7 @@ zygote
 ต.ช
 ต.ด
 ต.ต
-ต.ท
 ต.น
-ต.บ
-ต.ย
-ต.ร
 ต.อ
 ต.อ.
 ต_
@@ -23999,7 +21973,6 @@ zygote
 ตั้ม
 ตั้ว
 ตั๊ก
-ตั๊น
 ตั๊บ
 ตั๊ว
 ตั๋ง
@@ -24020,7 +21993,6 @@ zygote
 ตาม 
 ตามด
 ตาย
-ตาย 
 ตาร
 ตาร์
 ตาร์ 
@@ -24102,8 +22074,6 @@ zygote
 ตี๋
 ตึ
 ตึก
-ตึก 21
-ตึก 80 
 ตึง
 ตึด
 ตึ่ง
@@ -24120,7 +22090,6 @@ zygote
 ตื่น
 ตื้น
 ตื้บ
-ตื้ม
 ตื้อ
 ตื๊อ
 ตื๋น
@@ -24138,7 +22107,6 @@ zygote
 ตุม
 ตุร
 ตุล
-ตุล 
 ตุลย์
 ตุลย์ 
 ตุส
@@ -24178,7 +22146,6 @@ zygote
 ต็ด
 ต็อก
 ต็อด
-ต็อบ
 ต่วน
 ต่อ
 ต่อ 
@@ -24186,14 +22153,12 @@ zygote
 ต่อน
 ต่อม
 ต่อย
-ต่า
 ต่าง
 ต่าง 
 ต่าน
 ต่าน 
 ต่าย
 ต่ำ
-ต้
 ต้น
 ต้ม
 ต้ว
@@ -24201,7 +22166,6 @@ zygote
 ต้วม
 ต้อ
 ต้อง
-ต้อง 
 ต้อน
 ต้อม
 ต้อย
@@ -24241,7 +22205,6 @@ zygote
 ถกล
 ถง
 ถด
-ถทร
 ถน
 ถนน
 ถนน 
@@ -24276,8 +22239,6 @@ zygote
 ถวะ
 ถวัล
 ถวัลย์
-ถวัลย์ 
-ถวัลย์น
 ถวาย
 ถวิ
 ถวิล
@@ -24312,12 +22273,10 @@ zygote
 ถาว
 ถิ
 ถิก
-ถิง
 ถิตย์
 ถิน
 ถิบ
 ถิร
-ถิ่ง
 ถิ่น
 ถี
 ถี 24
@@ -24516,7 +22475,6 @@ zygote
 ทราย
 ทราย 
 ทรายณ์
-ทราว
 ทราส์
 ทริ
 ทริก
@@ -24575,7 +22533,6 @@ zygote
 ทวิ
 ทวิช
 ทวิต
-ทวิน
 ทวิส
 ทวี
 ทวี 
@@ -24610,7 +22567,6 @@ zygote
 ทอพ
 ทอฟ
 ทอม
-ทอม 
 ทอมป์
 ทอย
 ทอยน์
@@ -24622,7 +22578,6 @@ zygote
 ทอล์ก
 ทอล์ค
 ทอว์
-ทอุ
 ทะ
 ทัก
 ทักษ
@@ -24659,14 +22614,12 @@ zygote
 ทัลค์
 ทัว
 ทัวร์
-ทัวร์ 
 ทัวร์_
 ทัศ
 ทัศน
 ทัศน์
 ทัศน์ 
 ทัส
-ทัส 
 ทัฬ
 ทั่ง
 ทั่ว
@@ -24692,7 +22645,6 @@ zygote
 ทารย์
 ทาร์
 ทาร์ด
-ทาร์ต
 ทาร์ม
 ทาล
 ทาลน์
@@ -24737,7 +22689,6 @@ zygote
 ทิศ
 ทิศ 
 ทิศ 11
-ทิศ 8
 ทิศ_11
 ทิศ_8
 ทิษ
@@ -24762,7 +22713,6 @@ zygote
 ที่
 ที่ 
 ที่ 18-19
-ที่ 20
 ที่ 33
 ที่ 36
 ที่1
@@ -24844,7 +22794,6 @@ zygote
 ท่าม
 ท่าว
 ท้น
-ท้ว
 ท้วง
 ท้วน
 ท้วม
@@ -24874,7 +22823,6 @@ zygote
 ธกาล
 ธค.
 ธง
-ธง 
 ธจ
 ธช
 ธชี
@@ -24912,7 +22860,6 @@ zygote
 ธยาย
 ธร
 ธร 
-ธร 8
 ธร_
 ธรณ์
 ธรณ์ 
@@ -24986,16 +22933,13 @@ zygote
 ธารณ์
 ธาร์
 ธาล
-ธาอ
 ธำ
 ธิ
 ธิ 
 ธิก
 ธิค
-ธิด
 ธิต
 ธิน
-ธิน 
 ธิบ
 ธิป
 ธิปตย์
@@ -25025,13 +22969,11 @@ zygote
 ธ่อ
 ธ่า
 ธ้ง
-ธ์
 น
 น 
 น.
 น. 
 น. 6
-น. 7
 น. 9
 น.1
 น.31
@@ -25125,7 +23067,6 @@ zygote
 นรินทร์
 นริศ
 นริศย์
-นริศย์ 
 นรี
 นฤ
 นฤตย์
@@ -25166,7 +23107,6 @@ zygote
 นอฟ
 นอภ.
 นอม
-นอม 
 นอย
 นอยซ์
 นอยด์
@@ -25205,7 +23145,6 @@ zygote
 นันด์ 
 นันต
 นันต์
-นันต์ 
 นันท
 นันทน์
 นันทน์ 
@@ -25273,7 +23212,6 @@ zygote
 นาย 
 นาย "
 นาย Eric Eldred
-นายด
 นายด์
 นายอย
 นาร
@@ -25337,11 +23275,9 @@ zygote
 นิม
 นิร
 นิล
-นิล 
 นิว
 นิว 
 นิว_
-นิวต์
 นิวท์
 นิวส์
 นิวส์ 
@@ -25364,15 +23300,12 @@ zygote
 นิ๊ง
 นี
 นี 
-นี 1
-นี>
 นี_
 นีช
 นีด
 นีน
 นีม
 นีย
-นียม
 นียล
 นีย์
 นีย์ 
@@ -25388,14 +23321,12 @@ zygote
 นี่ย์
 นี้
 นี้ 
-นี้ด
 นี้น
 นึ
 นึก
 นึก 
 นึง
 นึ่ง
-นึ่ง 
 นือ
 นื่
 นื่อง
@@ -25452,7 +23383,6 @@ zygote
 น็อต
 น็อท
 น็อบล์
-น่ม
 น่วม
 น่อง
 น่อน
@@ -25461,10 +23391,8 @@ zygote
 น่า 
 น่าน
 น่ำ
-น้ม
 น้อ
 น้อง
-น้อง 
 น้อม
 น้อย
 น้อย 
@@ -25529,7 +23457,6 @@ zygote
 บน 
 บน. 6
 บนัน
-บนี
 บบ
 บบร
 บบส.
@@ -25562,7 +23489,6 @@ zygote
 บรอว์น
 บรอส
 บรัง
-บรัช
 บรัด
 บรันต์
 บรัฟ
@@ -25612,7 +23538,6 @@ zygote
 บลง.
 บลจ.
 บลส
-บลอ
 บลอนด์
 บลัด
 บลา
@@ -25635,7 +23560,6 @@ zygote
 บล็อค
 บล็องก์
 บล็องด์
-บล๊อ
 บล๊อก
 บล๊องค์
 บว
@@ -25689,7 +23613,6 @@ zygote
 บอลย์
 บอลล์
 บอล์ด
-บอว์ม
 บอส
 บอสช์
 บะ
@@ -25730,7 +23653,6 @@ zygote
 บั้ก
 บั้ง
 บั้น
-บั้บ
 บั้ม
 บั้ว
 บั๊ค
@@ -25759,7 +23681,6 @@ zygote
 บาฟส์
 บาม
 บาย
-บาย 
 บายส์
 บาย์
 บาร
@@ -25767,7 +23688,6 @@ zygote
 บาร์
 บาร์ก
 บาร์ด
-บาร์ตส์
 บาร์ธ
 บาร์น
 บาร์นส์
@@ -25813,7 +23733,6 @@ zygote
 บิน"
 บิน_46
 บินฑ
-บินด
 บินทร์
 บินท์
 บินห์
@@ -25826,7 +23745,6 @@ zygote
 บิลล์ส
 บิว
 บิส
-บิสม์
 บิ่น
 บิ้ง
 บิ้น
@@ -25850,7 +23768,6 @@ zygote
 บีม
 บียน
 บียะ
-บีย์
 บีร์
 บีล
 บีส
@@ -25859,14 +23776,12 @@ zygote
 บี้
 บี้ 
 บี้ส์
-บี๋
 บึก
 บึง
 บึน
 บึ่ง
 บึ้ก
 บึ้ง
-บึ้บ
 บึ้ม
 บือ
 บื้อ
@@ -25875,7 +23790,6 @@ zygote
 บุก
 บุค
 บุคล์
-บุคส์
 บุง
 บุจร
 บุช
@@ -25887,7 +23801,6 @@ zygote
 บุณฑ
 บุณย
 บุณย์
-บุด
 บุต
 บุตร
 บุตร 
@@ -25907,7 +23820,6 @@ zygote
 บุรษ
 บุล
 บุลย์
-บุลย์ 
 บุศ
 บุศย
 บุศย์
@@ -26005,7 +23917,6 @@ zygote
 บ๊อง
 บ๊อบ
 บ๊ะ
-บ๊า
 บ๊าย
 บ๋วย
 บ๋อย
@@ -26130,7 +24041,6 @@ zygote
 ปภ. 
 ปภา
 ปม
-ปมา
 ปยา
 ปร
 ปร.
@@ -26197,7 +24107,6 @@ zygote
 ปริตร
 ปริน
 ปรินซ์
-ปรินซ์ 
 ปรินส์
 ปริบ
 ปริม
@@ -26232,7 +24141,6 @@ zygote
 ปรู๊ฟ
 ปรู๋
 ปร่า
-ปร้า
 ปร้าง
 ปร๊าด
 ปร๋อ
@@ -26245,7 +24153,6 @@ zygote
 ปลก
 ปลง
 ปลด
-ปลน
 ปลวก
 ปลอ
 ปลอก
@@ -26313,7 +24220,6 @@ zygote
 ปส
 ปส.
 ปส. 
-ปสน
 ปหัง
 ปอ
 ปอ 
@@ -26363,7 +24269,6 @@ zygote
 ปัตร
 ปัติ
 ปัท
-ปัทม
 ปัทม์
 ปัทว
 ปัธ
@@ -26398,7 +24303,6 @@ zygote
 ปาก
 ปาค
 ปาง
-ปาซ
 ปาฏ
 ปาฐ
 ปาณ
@@ -26439,7 +24343,6 @@ zygote
 ปิดอว์
 ปิตซ์
 ปิน
-ปิน 
 ปินด์
 ปินส์
 ปิป
@@ -26464,8 +24367,6 @@ zygote
 ปีน
 ปีบ
 ปีป
-ปีย์
-ปีรย์
 ปีร์
 ปีห์
 ปี่
@@ -26541,7 +24442,6 @@ zygote
 ป่อย
 ป่ะ
 ป่า
-ป่า 
 ป่า_
 ป่าง
 ป่าน
@@ -26598,7 +24498,6 @@ zygote
 ผงาด
 ผจ
 ผจก.
-ผจง
 ผจญ
 ผช.
 ผชาติ
@@ -26607,7 +24506,6 @@ zygote
 ผญา
 ผด
 ผดุง
-ผดุง 
 ผทม
 ผนวก
 ผนวช
@@ -26734,10 +24632,8 @@ zygote
 ฝ
 ฝ.
 ฝน
-ฝน 
 ฝรภ.ส.
 ฝรั่ง
-ฝรั้ง
 ฝอ
 ฝอ.
 ฝอย
@@ -26772,11 +24668,9 @@ zygote
 ฝ้าย 
 พ
 พ 
-พ ณ
 พ.
 พ. 
 พ."
-พ.43
 พ.91
 พ._
 พ.ค.
@@ -26804,7 +24698,6 @@ zygote
 พ385
 พ_
 พก
-พก 
 พข
 พค
 พค.
@@ -26822,7 +24715,6 @@ zygote
 พงษ์ 
 พงษ์ด
 พงส์
-พงัน
 พงา
 พงา 
 พจ
@@ -26841,7 +24733,6 @@ zygote
 พญา
 พญาย
 พฎ
-พฎ 
 พฏ
 พฐ
 พฐ.
@@ -26877,7 +24768,6 @@ zygote
 พนิ
 พนิช
 พนิชย
-พน์
 พบ
 พบ 
 พป
@@ -26917,10 +24807,8 @@ zygote
 พรบ.
 พรม
 พรร
-พรร.
 พรรค
 พรรค 
-พรรค United Malays
 พรรค_
 พรรค์
 พรรฒธ
@@ -26964,7 +24852,6 @@ zygote
 พราด
 พราน
 พราบ
-พรามณ์
 พราย
 พราว
 พราส
@@ -26980,7 +24867,6 @@ zygote
 พริน
 พรินซ์
 พรินต์
-พรินท์
 พริบ
 พริม
 พริ้ง
@@ -26991,7 +24877,6 @@ zygote
 พริ้ว
 พรี
 พรีด
-พรีม
 พรี้
 พรึง
 พรึด
@@ -27023,8 +24908,6 @@ zygote
 พร้าว
 พร้าว 
 พร้าว 107
-พร้าว 113
-พร้าว 80
 พร๊อพ
 พฤ
 พฤก
@@ -27076,7 +24959,6 @@ zygote
 พลัด
 พลัน
 พลับ
-พลับ 
 พลัม
 พลัส
 พลั่ก
@@ -27087,7 +24969,6 @@ zygote
 พลา
 พลาง
 พลางค์
-พลาจ
 พลาซ
 พลาด
 พลาย
@@ -27107,9 +24988,7 @@ zygote
 พลึง
 พลุ
 พลุก
-พลุบ
 พลุ่ง
-พลุ่น
 พลุ้ย
 พลู
 พลู่
@@ -27146,7 +25025,6 @@ zygote
 พหุล
 พหู
 พอ
-พอ 
 พอ.
 พอ.สว.
 พอก
@@ -27236,7 +25114,6 @@ zygote
 พันธ์ุ
 พันว
 พับ
-พัม
 พัย
 พัล
 พัลซ์
@@ -27338,7 +25215,6 @@ zygote
 พินทร์
 พินทุ์
 พินท์
-พินท์ 
 พินธุ์
 พิป
 พิพม์
@@ -27363,7 +25239,6 @@ zygote
 พิศ 
 พิศน์
 พิษ
-พิษ 
 พิส
 พิสมัย
 พิ่ง
@@ -27382,7 +25257,6 @@ zygote
 พีต
 พีท
 พีน
-พีม
 พียง
 พีร
 พีร์
@@ -27397,13 +25271,11 @@ zygote
 พึ่ง
 พึ่บ
 พืช
-พืช 
 พืช.
 พืช_
 พืชน์
 พืด
 พือ
-พื่น
 พื่อ
 พื่อน
 พื้น
@@ -27419,7 +25291,6 @@ zygote
 พุด
 พุท
 พุทธ
-พุทธิ์ 
 พุทรา
 พุธ
 พุน
@@ -27432,7 +25303,6 @@ zygote
 พุ้ย
 พู
 พู 
-พูก
 พูซ
 พูด
 พูต
@@ -27446,7 +25316,6 @@ zygote
 พู่
 พู้น
 พเจ้า
-พเซ่ง
 พเน
 พเยาว์ 
 พเยิด
@@ -27511,10 +25380,8 @@ zygote
 ฟรานซ์
 ฟราส
 ฟริ
-ฟริง
 ฟริงก์ส
 ฟริช
-ฟริต
 ฟริตซ์
 ฟริทซ์
 ฟริส
@@ -27592,8 +25459,6 @@ zygote
 ฟัน
 ฟันด์
 ฟันต์
-ฟัฟฟ์
-ฟัร
 ฟัล
 ฟัลต์
 ฟัลท์
@@ -27608,7 +25473,6 @@ zygote
 ฟาง
 ฟาจ
 ฟาด
-ฟาดส์
 ฟาธ
 ฟาน
 ฟาน 
@@ -27748,7 +25612,6 @@ zygote
 ฟ้า
 ฟ้า 
 ฟ้าง
-ฟ้าย
 ฟ้าว
 ภ
 ภ.
@@ -27820,7 +25683,6 @@ zygote
 ภวา
 ภวิชญ์
 ภส
-ภอ
 ภะ
 ภัก
 ภักดิ์
@@ -27831,7 +25693,6 @@ zygote
 ภัค 
 ภัคน์
 ภัคร
-ภัคว
 ภัง
 ภังค์
 ภัจ
@@ -27848,7 +25709,6 @@ zygote
 ภัณธ์
 ภัณพ์
 ภัต
-ภัต 
 ภัตต์
 ภัตร
 ภัตร 
@@ -27888,7 +25748,6 @@ zygote
 ภาค 
 ภาค_
 ภาคย์
-ภาคย์ 
 ภาคิ
 ภาฅ
 ภางค์
@@ -27948,7 +25807,6 @@ zygote
 ภูง
 ภูญ
 ภูต
-ภูตระ
 ภูติ
 ภูท
 ภูธ
@@ -27957,12 +25815,10 @@ zygote
 ภูมิ 
 ภูมิซ
 ภูมิพ
-ภูมิ์
 ภูว
 ภูวด
 ภูษ
 ภู่
-ภู่ว
 ภเว
 ม
 ม 
@@ -28015,7 +25871,6 @@ zygote
 มธ.
 มธบ.
 มธุ
-มธุร
 มน
 มน 
 มน.
@@ -28143,7 +25998,6 @@ zygote
 มะ
 มะ 
 มะห์
-มะฮ์
 มัก
 มัค
 มัฆ
@@ -28190,7 +26044,6 @@ zygote
 มัส 
 มัสซ์
 มัสย
-มัาน
 มั่ง
 มั่น
 มั่น 
@@ -28229,7 +26082,6 @@ zygote
 มานซ์
 มานด์
 มานน์
-มานย
 มานย์
 มาบ
 มาป
@@ -28270,7 +26122,6 @@ zygote
 มิ.ย.
 มิ_
 มิก
-มิกค์
 มิกซ์
 มิกส์
 มิค
@@ -28290,7 +26141,6 @@ zygote
 มิต
 มิต 
 มิตช์
-มิตช์ 
 มิตต
 มิตต์
 มิตน
@@ -28342,7 +26192,6 @@ zygote
 มีด
 มีท
 มีน
-มีนะ
 มีบ
 มีพ
 มีย
@@ -28383,7 +26232,6 @@ zygote
 มุง
 มุจ
 มุซ
-มุฏ
 มุณ
 มุด
 มุต
@@ -28487,7 +26335,6 @@ zygote
 ยงค์ 
 ยงต์
 ยช.
-ยณ
 ยด
 ยดา
 ยต
@@ -28561,7 +26408,6 @@ zygote
 ยอร์ต
 ยอร์ท
 ยอร์น
-ยอว์
 ยอห์
 ยอห์น
 ยะ
@@ -28583,10 +26429,8 @@ zygote
 ยัด
 ยัต
 ยัติ
-ยัติ 
 ยัต์
 ยัธ
-ยัธริบฺ
 ยัน
 ยันตร์
 ยันต์
@@ -28617,7 +26461,6 @@ zygote
 ยั้น
 ยั้บ
 ยั้ว
-ยั๊
 ยา
 ยา 
 ยา_
@@ -28668,7 +26511,6 @@ zygote
 ยิง
 ยิช
 ยิด
-ยิต
 ยิน
 ยิน 
 ยินส์
@@ -28697,7 +26539,6 @@ zygote
 ยี่ 1999 
 ยี่ง
 ยี่น
-ยี่ยวน
 ยี้
 ยึ
 ยึก
@@ -28723,7 +26564,6 @@ zygote
 ยุท
 ยุทธ
 ยุทธิ์
-ยุทธิ์ 
 ยุทธ์
 ยุทธ์ 
 ยุธ
@@ -28755,7 +26595,6 @@ zygote
 ยูส
 ยู่
 ยู้
-ยู้ด
 ยโส
 ยโสธ
 ย่ง
@@ -28774,7 +26613,6 @@ zygote
 ย่าม
 ย่ำ
 ย้วน
-ย้วน 
 ย้วย
 ย้อ
 ย้อง
@@ -28791,7 +26629,6 @@ zygote
 ร 
 ร.
 ร. 
-ร. 17
 ร.1512ฉก.38
 ร.3
 ร.6
@@ -28816,7 +26653,6 @@ zygote
 รก
 รกิ
 รกี
-รค
 รง
 รง 
 รง.
@@ -28887,7 +26723,6 @@ zygote
 รม.
 รมช.
 รมณ์
-รมณ์ 
 รมต.
 รมน
 รมภ์
@@ -28927,7 +26762,6 @@ zygote
 รวม
 รวม 
 รวย
-รวย 
 รวร
 รวล
 รวะ
@@ -28950,7 +26784,6 @@ zygote
 รอ 
 รอ.
 รอก
-รอก 
 รอค
 รอง
 รองซ์
@@ -28998,7 +26831,6 @@ zygote
 ระะ
 รั
 รัก
-รัก 
 รักข์
 รักษ
 รักษณ์
@@ -29019,7 +26851,6 @@ zygote
 รัซ
 รัญ
 รัญชน์
-รัญชน์ 
 รัญย์
 รัฎ
 รัฎฐ์
@@ -29028,8 +26859,6 @@ zygote
 รัฏฐ์
 รัฏฐ์ 
 รัฐ
-รัฐ 
-รัฐา
 รัฐิ
 รัฒ
 รัณ
@@ -29049,7 +26878,6 @@ zygote
 รัตร
 รัตรน์ 
 รัติ
-รัติ 
 รัถ
 รัท
 รัทท์
@@ -29067,7 +26895,6 @@ zygote
 รันย์
 รันย์ 
 รันส์
-รันส์ 
 รันส์_
 รับ
 รัป
@@ -29093,7 +26920,6 @@ zygote
 รัษฎ์
 รัษา
 รัส
-รัส 
 รัส_
 รัสต์
 รัสนอ
@@ -29104,7 +26930,6 @@ zygote
 รั้ว
 รา
 รา 
-รา.
 รา_
 ราก
 ราค
@@ -29125,7 +26950,6 @@ zygote
 ราฐ
 ราณ
 ราด
-ราต์
 ราท์
 ราธ
 ราน
@@ -29142,11 +26966,9 @@ zygote
 ราภ์
 ราม
 ราย
-ราย 
 รายณ์
 รายด์
 รายน์
-รายล์
 รายห์
 รายอ
 ราร์
@@ -29198,8 +27020,6 @@ zygote
 ริท
 ริทซ์
 ริทธิ์
-ริทธิ์ 
-ริทธ์
 ริทร์
 ริธ
 ริน
@@ -29241,7 +27061,6 @@ zygote
 ริสก์
 ริสต์
 ริสม์
-ริห์
 ริห์ 
 ริ่
 ริ่ง
@@ -29265,9 +27084,7 @@ zygote
 รีฟ
 รีฟส์
 รีม
-รีมย์
 รีย
-รียก
 รีย์
 รีล
 รีส
@@ -29286,7 +27103,6 @@ zygote
 รึง
 รืน
 รือ
-รือน
 รื่น
 รื่นร
 รื่อ
@@ -29344,7 +27160,6 @@ zygote
 รุ่น
 รุ่ม
 รุ่ย
-รุ้
 รุ้ง
 รุ๊ก
 รุ๊ป
@@ -29382,7 +27197,6 @@ zygote
 ร็ก 
 ร็คท์
 ร็ช
-ร็ต
 ร็พ
 ร็ม
 ร็อ
@@ -29471,7 +27285,6 @@ zygote
 ฤษณา
 ฤษี
 ฤา
-ฤา 
 ฤๅ
 ล
 ล 
@@ -29501,8 +27314,6 @@ zygote
 ลต
 ลทซ์
 ลน
-ลนันท์
-ลนิ
 ลบ
 ลบ.
 ลบ.ม.
@@ -29528,12 +27339,10 @@ zygote
 ลวย
 ลวร
 ลวะ
-ลวัต
 ลว้า
 ลส
 ลหุ
 ลอ
-ลอ 
 ลอก
 ลอง
 ลอง 
@@ -29585,7 +27394,6 @@ zygote
 ลักษมณ์
 ลักษม์
 ลักษ์
-ลักษ์ 
 ลัค
 ลัคน์
 ลัง
@@ -29637,7 +27445,6 @@ zygote
 ลั่ก
 ลั่น
 ลั่ม
-ลั้ง
 ลา
 ลา 
 ลา 100 
@@ -29674,11 +27481,9 @@ zygote
 ลาห์
 ลาห์ 
 ลาห์ม
-ลาอ
 ลำ
 ลิ
 ลิ 
-ลิ105
 ลิก
 ลิกซ์
 ลิกซ์ 
@@ -29722,7 +27527,6 @@ zygote
 ลิฟฟ์
 ลิม
 ลิมป์
-ลิร์ต
 ลิล
 ลิล 
 ลิลย์
@@ -29757,7 +27561,6 @@ zygote
 ลีบ
 ลีฟ
 ลีม
-ลีมะ
 ลีย
 ลียง
 ลีย์
@@ -29772,7 +27575,6 @@ zygote
 ลี่
 ลี่ 
 ลี่_
-ลี่ข
 ลี่ย์
 ลี้
 ลี้อ
@@ -29805,7 +27607,6 @@ zygote
 ลุทซ์
 ลุทธ์
 ลุน
-ลุบ
 ลุปต์
 ลุพธ์
 ลุฟท์
@@ -29813,7 +27614,6 @@ zygote
 ลุมป์
 ลุย
 ลุย 
-ลุวอร์ 
 ลุส
 ลุ่ก
 ลุ่น
@@ -29826,7 +27626,6 @@ zygote
 ลู
 ลู 
 ลูก
-ลูซ
 ลูด
 ลูน
 ลูบ
@@ -29877,7 +27676,6 @@ zygote
 ล่าย
 ล่าร์
 ล่ำ
-ล้
 ล้ง
 ล้น
 ล้ม
@@ -29925,7 +27723,6 @@ zygote
 วจร
 วจะ
 วจี
-วจี 
 วช.
 วชน
 วชน 
@@ -29940,7 +27737,6 @@ zygote
 วณิช.
 วณิชย
 วณิชย์
-วด
 วดาร
 วดี
 วดี 
@@ -29990,7 +27786,6 @@ zygote
 วรรณ 
 วรรณะ
 วรรณ์
-วรรณ์ 
 วรรดิ
 วรรดิ์
 วรรต
@@ -30029,7 +27824,6 @@ zygote
 วรุธ
 วฤต
 วล
-วลัญ
 วลัญชน์
 วลัญช์
 วลัย
@@ -30105,7 +27899,6 @@ zygote
 วัจ
 วัจ 
 วัจฉ์
-วัจน
 วัจน์
 วัจน์ 
 วัช
@@ -30118,7 +27911,6 @@ zygote
 วัฎ
 วัฏ
 วัฐร์
-วัฐร์ 
 วัฒ
 วัฒก
 วัฒก์
@@ -30140,7 +27932,6 @@ zygote
 วัตต์
 วัตถ์
 วัตน์
-วัตน์ 
 วัตร
 วัตร 
 วัตร์
@@ -30197,14 +27988,12 @@ zygote
 วาท
 วาทย์
 วาทิน
-วาที
 วาน
 วานซ์
 วานซ์ 
 วานซ์_
 วานซ์ด
 วานส์
-วานห์
 วานิล
 วาบ
 วาม
@@ -30227,7 +28016,6 @@ zygote
 วาส
 วาสนา
 วาสนา 
-วาสน์
 วาห
 วาห์
 วาห์ล
@@ -30269,12 +28057,9 @@ zygote
 วิท 101
 วิท 101/1
 วิท 101/2
-วิท 103
 วิท 107
-วิท 21
 วิท 26
 วิท 50
-วิท 62
 วิท 64
 วิท 7
 วิท 83
@@ -30291,7 +28076,6 @@ zygote
 วิธ
 วิน
 วินซ์
-วินซ์ 
 วินด์
 วินทร์
 วินทร์ 
@@ -30334,11 +28118,9 @@ zygote
 วีน
 วีนส์
 วีนส์_
-วีบ
 วีป
 วีฟ
 วียน
-วียะ
 วีย์
 วีร
 วีร์
@@ -30382,7 +28164,6 @@ zygote
 วูล
 วูลฟ์
 วูล์ฟ
-วูล์ม
 วู่
 วู้
 วู้ด
@@ -30427,7 +28208,6 @@ zygote
 ศ 
 ศ.
 ศ. 
-ศ. 1
 ศ.ด
 ศ.ดร.
 ศ.น
@@ -30438,7 +28218,6 @@ zygote
 ศกร
 ศกรีม
 ศกล
-ศข
 ศข-
 ศงป.
 ศจ.
@@ -30457,7 +28236,6 @@ zygote
 ศนจ.
 ศนา
 ศนีย์
-ศนีย์ 
 ศบ.
 ศป
 ศปก.
@@ -30465,7 +28243,6 @@ zygote
 ศปร.
 ศปลน.
 ศพ
-ศภัทิธ์
 ศภัทิย์
 ศม
 ศมา
@@ -30475,7 +28252,6 @@ zygote
 ศร 
 ศร.
 ศรณ์
-ศรณ์ 
 ศรถ
 ศรภ
 ศรม
@@ -30531,7 +28307,6 @@ zygote
 ศอก
 ศอบ
 ศอปน.
-ศอร.
 ศอล
 ศอล 
 ศฮ
@@ -30546,13 +28321,11 @@ zygote
 ศักย์
 ศักย์ 
 ศักร
-ศัง
 ศัตรู
 ศัทพ์
 ศัน
 ศัพ
 ศัพท์
-ศัม
 ศัย
 ศัย 
 ศัล
@@ -30561,13 +28334,11 @@ zygote
 ศัส
 ศัสตรา
 ศา
-ศา 
 ศากย
 ศาจ
 ศาตร์
 ศาน
 ศานต์
-ศานต์ 
 ศาร
 ศาล
 ศาล 
@@ -30576,7 +28347,6 @@ zygote
 ศาว
 ศาส
 ศาสก์
-ศาสด
 ศาสต
 ศาสตร
 ศาสตรา
@@ -30589,8 +28359,6 @@ zygote
 ศาสนา 
 ศาสนู
 ศาสน์
-ศาสา
-ศาส์น
 ศิ
 ศิกษ
 ศิต
@@ -30617,7 +28385,6 @@ zygote
 ศีลอด
 ศีส
 ศึก
-ศึก 
 ศึกษ์
 ศุ
 ศุก
@@ -30635,7 +28402,6 @@ zygote
 ศุภ
 ศุล
 ศุษ
-ศุหฺเราะ
 ศู
 ศูตร
 ศูนย์
@@ -30669,7 +28435,6 @@ zygote
 ษม
 ษมณ์
 ษมา
-ษมิ
 ษมี
 ษร
 ษร 
@@ -30706,7 +28471,6 @@ zygote
 ษัท_AIAประ
 ษัท_EMI
 ษัท_seagate
-ษัทอม
 ษัย
 ษา
 ษา 
@@ -30721,7 +28485,6 @@ zygote
 ษี
 ษีน
 ษุ
-ษุ 
 ส
 ส 
 ส ส
@@ -30782,7 +28545,6 @@ zygote
 สกนธ์
 สกนธ์ 
 สกร
-สกร 
 สกรรม
 สกรัม
 สกรีน
@@ -30801,11 +28563,9 @@ zygote
 สกา
 สกาย
 สกิด
-สกิน
 สกินส์
 สกี
 สกีน
-สกีม
 สกีย์
 สกี้
 สกุ
@@ -30906,7 +28666,6 @@ zygote
 สตอ
 สตอรส
 สตอร์ม
-สตะ
 สตัค
 สตัน
 สตันท์
@@ -30927,7 +28686,6 @@ zygote
 สตาร์ช
 สตาร์ต
 สตาร์ท
-สตำ
 สติ
 สติก
 สติกส์
@@ -31013,7 +28771,6 @@ zygote
 สนั่น
 สนั่น 
 สนา
-สนา 
 สนาน
 สนาม
 สนาม 
@@ -31038,7 +28795,6 @@ zygote
 สบถ
 สบอม
 สบัญ
-สบัด
 สบา
 สบาย
 สบาย 
@@ -31074,7 +28830,6 @@ zygote
 สปอร์
 สปอร์ต
 สปอร์ตส์
-สปอร์ม
 สปา
 สปาย
 สปาร์
@@ -31102,7 +28857,6 @@ zygote
 สพร.
 สพรั่ง
 สพีล
-สฟิลด์
 สภ
 สภ.
 สภ.ต.
@@ -31153,13 +28907,10 @@ zygote
 สมา
 สมา 
 สมาน
-สมาร์ค
 สมาร์ด
-สมาร์ต
 สมาร์ท
 สมาส
 สมิ
-สมิก
 สมิง
 สมิงห์
 สมิต
@@ -31231,7 +28982,6 @@ zygote
 สรวง
 สรวย
 สรวล
-สรวิ
 สรวิชช์
 สรส.
 สรอ.
@@ -31244,7 +28994,6 @@ zygote
 สรัน
 สรัล
 สรา
-สรา 
 สราญ
 สริ
 สรินทร์ 
@@ -31300,7 +29049,6 @@ zygote
 สลิ้ง
 สลี
 สลี 
-สลีน
 สลีป
 สลีม
 สลีย
@@ -31402,10 +29150,8 @@ zygote
 สห
 สห-9667
 สห.
-สหธนา
 สหมง
 สหยู
-สหรณ์
 สหรัฐ
 สหวงษ์
 สหวิ
@@ -31423,7 +29169,6 @@ zygote
 สอน
 สอน 
 สอบ
-สอบอ
 สอพ
 สอม
 สอย
@@ -31500,7 +29245,6 @@ zygote
 สาท
 สาท 
 สาทร
-สาทรา
 สาธ
 สาธน์
 สาน
@@ -31549,7 +29293,6 @@ zygote
 สิงห์
 สิงห์ 
 สิงห์_
-สิงห์ด
 สิญจน์
 สิฏ
 สิฏฐ์
@@ -31580,12 +29323,10 @@ zygote
 สิษ
 สิษฐ
 สิษฐ์
-สิษฐ์ 
 สิส
 สิห
 สิ่ง
 สิ่ว
-สิ้ง
 สิ้น
 สี
 สี 
@@ -31600,7 +29341,6 @@ zygote
 สีห์ 
 สี่
 สี่ง
-สี้
 สึ
 สึก
 สืบ
@@ -31649,7 +29389,6 @@ zygote
 สุ้ง
 สุ้ม
 สู
-สูก
 สูง
 สูจน์
 สูญ
@@ -31679,7 +29418,6 @@ zygote
 สเก็ด
 สเก็ต
 สเก็ตช์
-สเก็ตซ์
 สเก้าท์
 สเก๊ต
 สเคป
@@ -31706,12 +29444,10 @@ zygote
 สเตรตส์
 สเตรท
 สเตรทส์
-สเตรทส์ 
 สเตรทส์_
 สเตรนท์
 สเตราส์
 สเตร็ป
-สเตร้าส์
 สเตล
 สเตส
 สเตอ
@@ -31734,7 +29470,6 @@ zygote
 สเบนซ์
 สเบอร์
 สเบอร์ก
-สเบิกส์
 สเบิร์ก
 สเป
 สเปก
@@ -31755,9 +29490,7 @@ zygote
 สเป็ก
 สเป็ค
 สเป๊ค
-สเฟค
 สเฟลด์
-สเฟียร์
 สเมนท์
 สเลย์
 สเลอร์
@@ -31865,7 +29598,6 @@ zygote
 ส่าย
 ส่าห์
 ส่ำ
-ส้
 ส้น
 ส้ม
 ส้วง
@@ -31922,7 +29654,6 @@ zygote
 หงุบ
 หง่อง
 หง่อม
-หง่าง
 หง่าน
 หง่าว
 หง๋อง
@@ -31936,7 +29667,6 @@ zygote
 หญ้า
 หญ้าม
 หด
-หตุ
 หทัย
 หทาร
 หน
@@ -32080,7 +29810,6 @@ zygote
 หมุบ
 หมุ่น
 หมู
-หมูก
 หมู่
 หมู๊ด
 หม่
@@ -32096,7 +29825,6 @@ zygote
 หม่ำ
 หม้อ
 หม้าย
-หม้าย 
 หย
 หยก
 หยง
@@ -32279,7 +30007,6 @@ zygote
 หลุม
 หลุย 
 หลุยซ์
-หลุยซ์ 
 หลุยส์
 หลุยส์ 
 หลุ่ม
@@ -32310,7 +30037,6 @@ zygote
 หวะ
 หวัก
 หวัง
-หวัณ
 หวัด
 หวัต
 หวัน
@@ -32323,7 +30049,6 @@ zygote
 หวาน
 หวาม
 หวาย
-หวาย 
 หวำ
 หวิ
 หวิด
@@ -32347,12 +30072,9 @@ zygote
 หว้า
 หว้าน
 หส
-หสง
-หสน.
 หสม.
 หสวัส
 หห
-หฬ
 หอ
 หอก
 หอง
@@ -32368,7 +30090,6 @@ zygote
 หัก
 หัก 
 หัง
-หัจ
 หัจญ์
 หัด
 หัต
@@ -32382,7 +30103,6 @@ zygote
 หันต
 หันต์
 หับ
-หัพ
 หัรฐ
 หัว
 หัว 
@@ -32396,7 +30116,6 @@ zygote
 หา 
 หาก
 หาง
-หาง 
 หาญ
 หาญส์
 หาด
@@ -32414,7 +30133,6 @@ zygote
 หาส
 หาสต์
 หาสน์
-หาสห์
 หำ
 หิ
 หิ 
@@ -32472,9 +30190,7 @@ zygote
 หู้
 หฺ
 หเจริญ
-หเม
 หเสนา
-หโย
 หไพ
 ห่ง
 ห่ม
@@ -32556,7 +30272,6 @@ zygote
 องค
 องค์
 องค์ 
-องซ์
 องศ์
 องุ่น
 อจ
@@ -32599,7 +30314,6 @@ zygote
 อธิป
 อธิษ
 อน
-อน.
 อนก
 อนง
 อนงค์
@@ -32618,7 +30332,6 @@ zygote
 อนันท์ 
 อนัม
 อนา
-อนา 
 อนาต
 อนาถ
 อนานด์
@@ -32676,7 +30389,6 @@ zygote
 อยู
 อยู่
 อยู่ 
-อย่ง
 อย่า
 อย่าง
 อย่างน
@@ -32704,7 +30416,6 @@ zygote
 อราน
 อริ
 อริน
-อริน 
 อริย
 อริยะ
 อริส
@@ -32779,7 +30490,6 @@ zygote
 ออ
 ออ 
 ออก
-ออกซ์
 ออก้า
 ออค
 ออง
@@ -32899,7 +30609,6 @@ zygote
 อาจจ
 อาช
 อาชว์
-อาชว์ 
 อาซ
 อาด
 อาต
@@ -32936,7 +30645,6 @@ zygote
 อาห์
 อำ
 อิ
-อิ 
 อิก
 อิค
 อิง
@@ -33004,13 +30712,10 @@ zygote
 อีล
 อีส
 อีสต์
-อีสต์ 
 อีสต์_
 อีสท์
-อีห์
 อี่
 อี้
-อี้.
 อี้ง
 อี้ด
 อี๊
@@ -33043,9 +30748,7 @@ zygote
 อือม์
 อื่น
 อื่น 
-อื่ม
 อื่อ
-อื้ง
 อื้น
 อื้อ
 อื๋อ
@@ -33152,7 +30855,6 @@ zygote
 อ่าน 
 อ่าว
 อ่ำ
-อ้
 อ้ง
 อ้น
 อ้ม
@@ -33177,7 +30879,6 @@ zygote
 อ๊อกซ์
 อ๊อง
 อ๊อด
-อ๊อด 
 อ๊อต
 อ๊อฟ
 อ๊ะ
@@ -33213,7 +30914,6 @@ zygote
 ฮอน
 ฮอบ
 ฮอบส์
-ฮอบส์ 
 ฮอป
 ฮอพ
 ฮอฟ
@@ -33249,7 +30949,6 @@ zygote
 ฮัท
 ฮัทช์
 ฮัน
-ฮันท์
 ฮันน์
 ฮันส์
 ฮันส์ 
@@ -33264,7 +30963,6 @@ zygote
 ฮัว
 ฮัว 
 ฮัส
-ฮั่ก
 ฮั่ง
 ฮั่น
 ฮั่ม
@@ -33288,22 +30986,18 @@ zygote
 ฮาร์ด
 ฮาร์ต
 ฮาร์ท
-ฮาร์น
 ฮาร์ม
 ฮาร์ร์ร์
-ฮาล
 ฮาล์ฟ
 ฮาว
 ฮาส
 ฮำ
 ฮิ
-ฮิ.
 ฮิก
 ฮิกส์
 ฮิคส์
 ฮิง
 ฮิจ
-ฮิจญ์
 ฮิซ
 ฮิด
 ฮิด 
@@ -33368,7 +31062,6 @@ zygote
 ฮุป
 ฮุย
 ฮุส
-ฮุ่
 ฮุ่น
 ฮุ่ย
 ฮุ้ย
@@ -33378,7 +31071,6 @@ zygote
 ฮูต
 ฮูธ
 ฮูม
-ฮูย
 ฮูร์
 ฮูส
 ฮู่
@@ -33418,18 +31110,14 @@ zygote
 ฯลฯ
 ะ
 ับ
-า
 ำ
 ิ์
 ุ
-ู้
-ฺ
 เ
 เ ด
 เ-
 เ-อ
 เ-ะ
-เ-าะ
 เ-ี
 เ-ีย
 เ-ือ
@@ -33501,7 +31189,6 @@ zygote
 เกร์
 เกล
 เกล 
-เกลด
 เกลน
 เกลนน์
 เกลส์
@@ -33563,7 +31250,6 @@ zygote
 เกอร์_
 เกอร์ส
 เกะ
-เกัน
 เกา
 เกาต์
 เกาะ
@@ -33582,14 +31268,10 @@ zygote
 เกิล_
 เกิลส์
 เกิ้ง
-เกิ้ม
 เกิ้ล
-เกิ๊ต
 เกิ๊น
-เกีด
 เกีน
 เกีย
-เกีย 
 เกียก
 เกียง
 เกียจ
@@ -33621,7 +31303,6 @@ zygote
 เกี๊ยว
 เกี๊ยะ
 เกี๋ย
-เกี๋ยว
 เกือก
 เกือบ
 เกือม
@@ -33651,7 +31332,6 @@ zygote
 เก้า
 เก๊
 เก๊ก
-เก๊ง
 เก๊ต
 เก๊น
 เก๊ะ
@@ -33667,7 +31347,6 @@ zygote
 เขต
 เขต 
 เขต 1
-เขต 12
 เขต 2
 เขต 4
 เขต 5
@@ -33714,7 +31393,6 @@ zygote
 เขวา
 เขว้
 เขว้า
-เขษม
 เขะ
 เขา
 เขิง
@@ -33750,7 +31428,6 @@ zygote
 เฃา
 เค
 เค 
-เค ซ
 เค"
 เค.
 เค_
@@ -33781,7 +31458,6 @@ zygote
 เครน
 เครป
 เครปส์
-เครอร์
 เครับ
 เครา
 เคราม
@@ -33916,7 +31592,6 @@ zygote
 เงี่ยง
 เงี่ยน
 เงี้ย
-เงี้ยบ
 เงี้ยว
 เงือก
 เงือด
@@ -33937,7 +31612,6 @@ zygote
 เจ
 เจ 
 เจ.
-เจ. 
 เจ_
 เจก
 เจกต์
@@ -33958,7 +31632,6 @@ zygote
 เจนซ์
 เจนต์
 เจนท์
-เจนส์
 เจนส์ 
 เจฟ
 เจฟฟ์
@@ -34123,7 +31796,6 @@ zygote
 เชฎฐ์
 เชฏ
 เชฏฐ์
-เชฏฐ์ 
 เชฐ
 เชด
 เชต
@@ -34144,7 +31816,6 @@ zygote
 เชม
 เชย
 เชย 
-เชยน
 เชย์
 เชรา
 เชราะ
@@ -34194,7 +31865,6 @@ zygote
 เชี
 เชีย
 เชีย 
-เชีย 18
 เชีย_
 เชียง
 เชียน
@@ -34219,7 +31889,6 @@ zygote
 เชื่อง
 เชื่อม
 เชื้อ
-เชื้อ 
 เชื้อก
 เชื๊ต
 เช็ก
@@ -34240,7 +31909,6 @@ zygote
 เซ
 เซ 
 เซก
-เซกซ์
 เซค
 เซง
 เซจ
@@ -34307,7 +31975,6 @@ zygote
 เซิ้ง
 เซีย
 เซีย 
-เซีย 41
 เซีย_
 เซียง
 เซียน
@@ -34365,13 +32032,11 @@ zygote
 เซ้นส์
 เซ้า
 เซ้าท์
-เซ๊ง
 เซ๊ะ
 เซ๊าท์
 เฌ
 เฌอ
 เญส
-เฑาว์
 เฑาะก์
 เฑาะว์
 เฑียร
@@ -34386,7 +32051,6 @@ zygote
 เดก
 เดกซ์
 เดค
-เดจ
 เดจห์
 เดช
 เดช 
@@ -34405,7 +32069,6 @@ zygote
 เดนต์
 เดนต์ส
 เดนท์
-เดนท์ 
 เดนท์_
 เดนส์
 เดบ
@@ -34419,7 +32082,6 @@ zygote
 เดย์_
 เดร
 เดร 
-เดรค
 เดรต
 เดรท
 เดรน
@@ -34487,7 +32149,6 @@ zygote
 เดียว
 เดียส
 เดียส์
-เดียะ
 เดี่ยน
 เดี่ยม
 เดี่ยว
@@ -34495,7 +32156,6 @@ zygote
 เดี้ยง
 เดี้ยน
 เดี้ยม
-เดี้ยว
 เดี๊ยน
 เดี๋ยว
 เดือก
@@ -34683,7 +32343,6 @@ zygote
 เถียง
 เถียน
 เถียร
-เถึยง
 เถือ
 เถือก
 เถื่อน
@@ -34747,7 +32406,6 @@ zygote
 เทล™
 เทว
 เทวศ
-เทวษ
 เทวัญ
 เทศ
 เทศ 
@@ -34765,7 +32423,6 @@ zygote
 เทห
 เทห์
 เทอ
-เทอ 
 เทอญ
 เทอด
 เทอน
@@ -34799,7 +32456,6 @@ zygote
 เทียน 
 เทียน_
 เทียนา
-เทียนา 
 เทียบ
 เทียม
 เทียม 
@@ -34836,7 +32492,6 @@ zygote
 เท่อ
 เท่า
 เท้ง
-เท้ด
 เท้นต์
 เท้า
 เธ
@@ -34868,7 +32523,6 @@ zygote
 เธียร
 เธียร 
 เธียร์
-เธียร์ 
 เธ่ย
 เธ่ย์
 เธ่ย์ 
@@ -34887,14 +32541,12 @@ zygote
 เนต
 เนต 
 เนตต์
-เนตย
 เนตร
 เนตร 
 เนตรน
 เนตรา
 เนตร์
 เนต์
-เนต์ 
 เนท
 เนธ
 เนน
@@ -34918,7 +32570,6 @@ zygote
 เนศร์
 เนศร์ 
 เนศวร์
-เนษ
 เนส
 เนสต์ 
 เนสท์
@@ -34940,7 +32591,6 @@ zygote
 เนิด
 เนิน
 เนิบ
-เนิร
 เนิร์น
 เนิร์ส
 เนิล
@@ -34957,7 +32607,6 @@ zygote
 เนียบ
 เนียม
 เนียร
-เนียร 
 เนียร์
 เนียล
 เนียล 
@@ -34990,14 +32639,12 @@ zygote
 เน็ตบ
 เน็ท
 เน่
-เน่ต์
 เน่อร์
 เน่า
 เน้น
 เน้ย
 เน้อ
 เน้า
-เน้าด์
 เน๊าะ
 เบ
 เบ 
@@ -35012,7 +32659,6 @@ zygote
 เบญจ
 เบด
 เบต
-เบตตส์
 เบท
 เบทส์
 เบธ
@@ -35094,7 +32740,6 @@ zygote
 เบิร์
 เบิร์ก
 เบิร์ด
-เบิร์ด 
 เบิร์ต
 เบิร์ต 
 เบิร์ท
@@ -35135,7 +32780,6 @@ zygote
 เบ็คส์
 เบ็ง
 เบ็ญ
-เบ็ญ 
 เบ็ด
 เบ็ท
 เบ็น
@@ -35200,8 +32844,6 @@ zygote
 เปล
 เปลล์
 เปลว
-เปลว 
-เปลอร์
 เปลา
 เปลาะ
 เปลิ
@@ -35261,7 +32903,6 @@ zygote
 เปียว
 เปียส
 เปียส์
-เปี่ยง
 เปี่ยน
 เปี่ยม
 เปี้ย
@@ -35312,7 +32953,6 @@ zygote
 เผชิญ
 เผชิญ 
 เผดิม
-เผดียง
 เผด็จ
 เผย
 เผยอ
@@ -35359,7 +32999,6 @@ zygote
 เพท
 เพน
 เพนท์
-เพนธ์
 เพนน์
 เพนียด
 เพป
@@ -35391,7 +33030,6 @@ zygote
 เพลซ
 เพลท
 เพลน
-เพลนส์ 
 เพลนส์_
 เพลม
 เพลย์
@@ -35452,7 +33090,6 @@ zygote
 เพียน
 เพียบ
 เพียร
-เพียร 
 เพียร์
 เพียร์ช
 เพียร์ส
@@ -35464,7 +33101,6 @@ zygote
 เพี้ยง 
 เพี้ยน
 เพี้ยบ
-เพือ
 เพื่ม
 เพื่อ
 เพื่อน
@@ -35486,7 +33122,6 @@ zygote
 เพ่ง
 เพ่น
 เพ่อ
-เพ้
 เพ้ง
 เพ้นท์
 เพ้อ
@@ -35527,7 +33162,6 @@ zygote
 เฟร์
 เฟล
 เฟล 
-เฟลก
 เฟลด์
 เฟลต์
 เฟลพ์ส
@@ -35590,7 +33224,6 @@ zygote
 เภท
 เภทก์
 เภอ
-เภอ 
 เภอก
 เภอน
 เภอพ
@@ -35647,14 +33280,12 @@ zygote
 เมลย์
 เมลล์
 เมลา
-เมลิ
 เมลิน
 เมลือง
 เมล็ด
 เมล์
 เมศ
 เมศร์
-เมษ
 เมษฐ์
 เมส
 เมห์
@@ -35695,7 +33326,6 @@ zygote
 เมี่ยน
 เมี่ยม
 เมี่ยว
-เมี้ยง
 เมี้ยน
 เมือ
 เมือก
@@ -35744,7 +33374,6 @@ zygote
 เยชร์
 เยซ
 เยด
-เยด 
 เยต
 เยตต์
 เยต์
@@ -35768,8 +33397,6 @@ zygote
 เยอ
 เยอร
 เยอร์
-เยอร์ 
-เยอร์ค
 เยอะ
 เยะ
 เยา
@@ -35797,7 +33424,6 @@ zygote
 เยี้ย
 เยือก
 เยือน
-เยื่ยม
 เยื่อ
 เยื่อง
 เยื้อ
@@ -35840,7 +33466,6 @@ zygote
 เรน
 เรนจ์
 เรนซ์
-เรนซ์ 
 เรนต์
 เรนทร์
 เรนท์
@@ -35866,7 +33491,6 @@ zygote
 เรห์ห์
 เรอ
 เรอร์
-เรอร์ 
 เรอร์_
 เรอร์ส
 เรอะ
@@ -35917,14 +33541,12 @@ zygote
 เรือง
 เรือง 
 เรือง_
-เรืองย
 เรือด
 เรือน
 เรือน 
 เรื่อ
 เรื่อง
 เรื่อย
-เรื่อย 
 เรื้อ
 เรื้อน
 เร็
@@ -35936,7 +33558,6 @@ zygote
 เร็จ
 เร็ด
 เร็ต
-เร็ต 
 เร็ท
 เร็ธ
 เร็น
@@ -36104,13 +33725,11 @@ zygote
 เล็นส์
 เล็บ
 เล็ม
-เล็ว
 เล่
 เล่ง
 เล่ต์
 เล่น
 เล่ม
-เล่ย
 เล่ย์
 เล่ย์ 
 เล่ห์
@@ -36217,7 +33836,6 @@ zygote
 เวิลด์ 
 เวิลด์_
 เวิล์ด
-เวิล์ม
 เวิส
 เวิอร์
 เวิ้ง
@@ -36299,7 +33917,6 @@ zygote
 เสต
 เสตท
 เสตรน
-เสถีย
 เสถียร
 เสถียร 
 เสท
@@ -36347,7 +33964,6 @@ zygote
 เสริฟ
 เสริม
 เสร็จ
-เสร็จ 
 เสร็ว
 เสร่
 เสลง
@@ -36371,14 +33987,12 @@ zygote
 เสิบ
 เสิร
 เสิรฐ
-เสิร์จ
 เสิร์ช
 เสิร์ต
 เสิร์ท
 เสิร์ฟ
 เสิ่น
 เสีย
-เสีย 
 เสียก
 เสียง
 เสียด
@@ -36429,7 +34043,6 @@ zygote
 เหงือก
 เหงื่อ
 เหง็ก
-เหง่ง
 เหง่า
 เหง้า
 เหง้า 
@@ -36439,7 +34052,6 @@ zygote
 เหตุ
 เหตุด
 เหน
-เหนอ 
 เหนอะ
 เหนา
 เหนาะ
@@ -36468,7 +34080,6 @@ zygote
 เหมด
 เหมย
 เหมะ
-เหมัน
 เหมันต์
 เหมา
 เหมา 
@@ -36477,7 +34088,6 @@ zygote
 เหมียด
 เหมียว
 เหมี่ยว
-เหมือ
 เหมือง
 เหมือด
 เหมือน
@@ -36550,7 +34160,6 @@ zygote
 เหลื่อม
 เหล็ก
 เหล็ง
-เหล็บ
 เหล่
 เหล่บ
 เหล่า
@@ -36562,14 +34171,12 @@ zygote
 เหวย
 เหวอ
 เหวอะ
-เหวิ
 เหวิน
 เหวียง
 เหวียน
 เหวี่ยง
 เหว่
 เหว่ย
-เหว่ย 
 เหว่า
 เหว๋อ
 เหศวร
@@ -36580,7 +34187,6 @@ zygote
 เหิด
 เหิน
 เหิม
-เหิม 
 เหิร
 เหิ้ว
 เหี
@@ -36627,7 +34233,6 @@ zygote
 เอดจ์
 เอดช์
 เอดส์
-เอดส์ 
 เอต
 เอท
 เอทส์
@@ -36722,7 +34327,6 @@ zygote
 เอื้อน
 เอื้อม
 เอื้อย
-เอื๊อก
 เอ็ก
 เอ็กซ
 เอ็กซ์
@@ -36778,7 +34382,6 @@ zygote
 เอ๋ง
 เอ๋ย
 เอ๋ย 
-เอ๋อ
 เอ๋อร์
 เฮ
 เฮก
@@ -36839,7 +34442,6 @@ zygote
 เฮี๊ยะ
 เฮือ
 เฮือก
-เฮือด
 เฮือน
 เฮื้
 เฮ็ง
@@ -36862,7 +34464,6 @@ zygote
 เเต่
 เเบงค์
 เเบ่ง
-เเม่
 เเล
 เเละ
 เเสร้ง
@@ -36891,7 +34492,6 @@ zygote
 แกรนท์
 แกรบ
 แกรม
-แกรม 
 แกระ
 แกรี
 แกรี 
@@ -37078,7 +34678,6 @@ zygote
 แจ๊ซ
 แจ๊ด
 แจ๊ต
-แจ๊บ
 แจ๊ส
 แจ๊ะ
 แจ๋
@@ -37115,7 +34714,6 @@ zygote
 แชรตส์
 แชร์
 แชร์ก
-แชร์ฟ
 แชล
 แชส
 แชะ
@@ -37139,7 +34737,6 @@ zygote
 แซงก์
 แซงค์
 แซงต์
-แซงต์ 
 แซงต์_
 แซด
 แซต
@@ -37157,7 +34754,6 @@ zygote
 แซร้าบส์
 แซร์
 แซล
-แซล 
 แซล_
 แซว
 แซส
@@ -37171,7 +34767,6 @@ zygote
 แซ็ท.
 แซ่
 แซ่ง
-แซ่ซ
 แซ่ด
 แซ่บ
 แซ่ว
@@ -37235,7 +34830,6 @@ zygote
 แตร
 แตรคท์
 แตรง
-แตร่ก
 แตร๊ก
 แตร์
 แตลล์
@@ -37282,7 +34876,6 @@ zygote
 แทนท์
 แทบ
 แทป
-แทพย
 แทพย์
 แทม
 แทมป์
@@ -37318,7 +34911,6 @@ zygote
 แท้งค์
 แท้ม
 แท๊ก
-แธม
 แธมป์
 แน
 แนก
@@ -37370,7 +34962,6 @@ zygote
 แบค์
 แบง
 แบงก์
-แบงก์น
 แบงค์
 แบงค์ 
 แบช
@@ -37428,7 +35019,6 @@ zygote
 แบ๊ะ
 แป
 แป 
-แปก
 แปง
 แปด
 แปน
@@ -37568,7 +35158,6 @@ zygote
 แฟลซ
 แฟลต
 แฟลพ
-แฟลม
 แฟ็กซ์
 แฟ็ค
 แฟ่
@@ -37627,7 +35216,6 @@ zygote
 แม่
 แม่ง
 แม่น
-แม่วง
 แม่วงก์
 แม่อนงค์
 แม่อมร
@@ -37659,7 +35247,6 @@ zygote
 แย้ง
 แย้ม
 แย้ส
-แย๊ค
 แย๊บ
 แร
 แรก
@@ -37683,7 +35270,6 @@ zygote
 แรม 
 แรม 90
 แรล
-แรส
 แระ
 แร็ก
 แร็ค
@@ -37701,8 +35287,6 @@ zygote
 แร๊ก
 แล
 แลก
-แลกซ์
-แลกซ์ 
 แลค
 แลง
 แลง 
@@ -37768,11 +35352,9 @@ zygote
 แวนส์
 แวบ
 แวพ
-แวฟ
 แวม
 แวร
 แวร์
-แวร์ 
 แวล
 แวว
 แวส
@@ -37798,13 +35380,11 @@ zygote
 แสด
 แสด 
 แสดง
-แสตนด์
 แสตม
 แสตมป์
 แสท
 แสน
 แสนย์
-แสนิง
 แสบ
 แสม
 แสยง
@@ -37905,7 +35485,6 @@ zygote
 แอนด์_
 แอนท์
 แอนน์
-แอนน์ 
 แอนส์
 แอบ
 แอป
@@ -37980,7 +35559,6 @@ zygote
 แฮร์
 แฮล์
 แฮล์ม
-แฮส
 แฮะ
 แฮ็ก
 แฮ็คส์
@@ -37993,7 +35571,6 @@ zygote
 แเฝ่น
 แเมน
 โ-
-โ-ะ
 โก
 โก 
 โก_
@@ -38016,7 +35593,6 @@ zygote
 โกรต๋น
 โกรธ
 โกรฟ
-โกรย
 โกร่ง
 โกร๋น
 โกร์
@@ -38037,7 +35613,6 @@ zygote
 โกส์
 โกะ
 โก่ง
-โก่น
 โก้
 โก้ 
 โก้_
@@ -38052,7 +35627,6 @@ zygote
 โขง
 โขด
 โขน
-โขน 
 โขนง
 โขม
 โขมง
@@ -38102,7 +35676,6 @@ zygote
 โคลา
 โคลาร์
 โคล่
-โคล่ง
 โคล้ง
 โคล์
 โคว
@@ -38129,7 +35702,6 @@ zygote
 โค้ว
 โค๊ด
 โค๊ต
-โค๊ะ
 โฆ
 โฆษ
 โฆษณ์
@@ -38152,7 +35724,6 @@ zygote
 โจทย์
 โจน
 โจนส์
-โจนส์ 
 โจม
 โจร
 โจร 
@@ -38166,7 +35737,6 @@ zygote
 โจ้ง
 โจ้ว
 โจ๊ก
-โจ๊ะ
 โจ๋
 โจ๋ง
 โฉ
@@ -38186,7 +35756,6 @@ zygote
 โชก
 โชค
 โชค 
-โชง
 โชซ์
 โชด
 โชตะ
@@ -38197,7 +35766,6 @@ zygote
 โชต์
 โชน
 โชป
-โชพ
 โชย
 โชล
 โชวส
@@ -38213,7 +35781,6 @@ zygote
 โซนส์
 โซม
 โซล
-โซส
 โซะ
 โซา
 โซ่
@@ -38254,15 +35821,12 @@ zygote
 โด้
 โด้ 
 โด้"
-โด๊ก
 โด๊ป
 โด๊ส
 โต
 โต 
 โตก
-โตค
 โตง
-โตจ
 โตน
 โตนด
 โตฟ
@@ -38277,7 +35841,6 @@ zygote
 โตร์
 โตล
 โตว์
-โตษ
 โตส
 โตะ
 โต่ง
@@ -38286,7 +35849,6 @@ zygote
 โต้ 
 โต้ง
 โต้ว
-โต๊
 โต๊ด
 โต๊ส
 โต๊ะ
@@ -38308,7 +35870,6 @@ zygote
 โทม
 โทร
 โทรด
-โทรต์
 โทรม
 โทรล
 โทรว์
@@ -38374,7 +35935,6 @@ zygote
 โน๊ะ
 โบ
 โบก
-โบง
 โบด
 โบถส์
 โบท
@@ -38440,7 +36000,6 @@ zygote
 โผด
 โผต
 โผน
-โผนด
 โผลก
 โผล่
 โผล๊ะ
@@ -38475,7 +36034,6 @@ zygote
 โพสต์
 โพสท์
 โพะ
-โพ่
 โพ้น
 โฟ
 โฟ 
@@ -38580,7 +36138,6 @@ zygote
 โรน
 โรบ
 โรป
-โรป/NE>
 โรฟ
 โรม
 โรย
@@ -38621,7 +36178,6 @@ zygote
 โลด
 โลน
 โลบ
-โลป
 โลฟ
 โลภ
 โลม
@@ -38738,10 +36294,7 @@ zygote
 โอลด์ 
 โอลด์_
 โอลด์ส
-โอลส์
-โอล์
 โอล์ด
-โอล์ส
 โอว
 โอว์น
 โอษฐ์
@@ -38808,7 +36361,6 @@ zygote
 ใช้ 
 ใซ้
 ใด
-ใด๋
 ใต้
 ใต้ 6
 ใน
@@ -38858,9 +36410,7 @@ zygote
 ไข้
 ไค
 ไคจ์
-ไคท์
 ไคฟว์
-ไคม์
 ไคย
 ไคร
 ไครส
@@ -38872,8 +36422,6 @@ zygote
 ไคลด์
 ไคลน์
 ไคล้
-ไคล์
-ไคล์ 
 ไคล์น
 ไคว
 ไควร์
@@ -38887,7 +36435,6 @@ zygote
 ไจร
 ไจลล์
 ไจ้
-ไจ๋
 ไฉ
 ไฉน
 ไฉ่
@@ -38907,7 +36454,6 @@ zygote
 ไช่
 ไช้
 ไซ
-ไซ 
 ไซค์
 ไซด์
 ไซด์ 
@@ -38918,7 +36464,6 @@ zygote
 ไซม์
 ไซย
 ไซย์
-ไซร
 ไซร้
 ไซร์
 ไซล์
@@ -38942,14 +36487,12 @@ zygote
 ไดล์_
 ได้
 ได้ 
-ได้ซ์
 ได้วน
 ได้้
 ได๊ฟ์
 ได๋
 ไต
 ไตน์
-ไตน์ 
 ไตย
 ไตย 
 ไตย์
@@ -39000,7 +36543,6 @@ zygote
 ไทส์ม
 ไท่
 ไท้
-ไท้ย
 ไธ
 ไธย
 ไน
@@ -39025,7 +36567,6 @@ zygote
 ไบด์
 ไบต์
 ไบท์
-ไบน์
 ไบร
 ไบรซ์
 ไบรด์
@@ -39053,7 +36594,6 @@ zygote
 ไผท
 ไผล
 ไผ่
-ไผ่ 
 ไฝ
 ไพ
 ไพ 
@@ -39069,7 +36609,6 @@ zygote
 ไพรด์
 ไพรม์
 ไพรส์
-ไพรา
 ไพริ
 ไพรี
 ไพร่
@@ -39177,7 +36716,6 @@ zygote
 ไวท์ส
 ไวน์
 ไวน์ส
-ไวบ
 ไวย
 ไวย์
 ไวร์
@@ -39215,7 +36753,6 @@ zygote
 ไหล
 ไหล่
 ไหว
-ไหว 
 ไหว้
 ไหว้ 
 ไหห
@@ -39265,16 +36802,12 @@ zygote
 ้
 ์
 ํ
-ํง
 ํา
 ํ้า
 ๐
 ๐_
 ๐๐
 ๐๐๐
-๐๐๐๔๘
-๐๐๐๕๐
-๐๐๐๕๖๕
 ๐๐๗
 ๐๐๘
 ๐๑
@@ -39290,16 +36823,13 @@ zygote
 ๐๕
 ๐๕.๒๐
 ๐๕๐
-๐๕๕๖
 ๐๕๖
 ๐๕๘๘
 ๐๖
 ๐๖๐
 ๐๗
 ๐๗๐
-๐๗๙
 ๐๘
-๐๘๐
 ๐๘๙
 ๐๙
 ๐๙.
@@ -39323,7 +36853,6 @@ zygote
 ๑๐๗
 ๑๐๘
 ๑๐๙
-๑๐๙๐
 ๑๑
 ๑๑.
 ๑๑1
@@ -39348,7 +36877,6 @@ zygote
 ๑๓๓
 ๑๓๖
 ๑๓๗
-๑๓๘
 ๑๔
 ๑๔.
 ๑๔.๒
@@ -39361,12 +36889,10 @@ zygote
 ๑๔๔
 ๑๔๔๙
 ๑๔๕
-๑๔๕๗
 ๑๔๖
 ๑๔๗
 ๑๔๘
 ๑๔๙
-๑๔๙๖
 ๑๕
 ๑๕.๐
 ๑๕.๐๓
@@ -39397,7 +36923,6 @@ zygote
 ๑๕๕
 ๑๕๖
 ๑๕๗
-๑๕๘
 ๑๕๙
 ๑๖
 ๑๖.
@@ -39447,8 +36972,6 @@ zygote
 ๑๗๓๖
 ๑๗๔๑
 ๑๗๕
-๑๗๕๕
-๑๗๕๖
 ๑๗๕๘
 ๑๗๕๙
 ๑๗๖
@@ -39457,7 +36980,6 @@ zygote
 ๑๗๘
 ๑๗๙
 ๑๗๙๒
-๑๗๙๖
 ๑๘
 ๑๘.๐๐
 ๑๘.๑
@@ -39469,8 +36991,6 @@ zygote
 ๑๘.๕
 ๑๘๐
 ๑๘๐๓
-๑๘๑
-๑๘๑๐
 ๑๘๑๓
 ๑๘๑๖
 ๑๘๑๗
@@ -39479,7 +36999,6 @@ zygote
 ๑๘๒๒
 ๑๘๒๓
 ๑๘๒๖
-๑๘๒๙
 ๑๘๓
 ๑๘๓๕
 ๑๘๓๖
@@ -39488,19 +37007,15 @@ zygote
 ๑๘๔๑
 ๑๘๔๒
 ๑๘๔๓
-๑๘๔๘
-๑๘๔๙
 ๑๘๕
 ๑๘๕๑
 ๑๘๕๒
 ๑๘๕๗
 ๑๘๖
 ๑๘๖๒
-๑๘๖๔
 ๑๘๖๗
 ๑๘๗
 ๑๘๗๐
-๑๘๗๑
 ๑๘๗๔
 ๑๘๘
 ๑๘๘๐
@@ -39509,12 +37024,9 @@ zygote
 ๑๘๘๗
 ๑๘๙
 ๑๘๙๐
-๑๘๙๑
 ๑๘๙๒
 ๑๘๙๓
-๑๘๙๔
 ๑๘๙๕
-๑๘๙๖
 ๑๘๙๗
 ๑๙
 ๑๙.๐๘
@@ -39534,7 +37046,6 @@ zygote
 ๑๙๑๐
 ๑๙๑๑
 ๑๙๑๔
-๑๙๑๖
 ๑๙๑๗
 ๑๙๑๘
 ๑๙๑๙
@@ -39555,7 +37066,6 @@ zygote
 ๑๙๔
 ๑๙๔๐
 ๑๙๔๑
-๑๙๔๒
 ๑๙๔๓
 ๑๙๔๔
 ๑๙๔๕
@@ -39563,14 +37073,10 @@ zygote
 ๑๙๔๗
 ๑๙๔๘
 ๑๙๔๙
-๑๙๕
 ๑๙๕๐
 ๑๙๕๑
 ๑๙๕๒
-๑๙๕๓
-๑๙๕๕
 ๑๙๕๖
-๑๙๕๗
 ๑๙๕๘
 ๑๙๕๙
 ๑๙๖
@@ -39588,7 +37094,6 @@ zygote
 ๑๙๗๒
 ๑๙๗๓
 ๑๙๗๔
-๑๙๗๕
 ๑๙๗๖
 ๑๙๗๘
 ๑๙๗๙
@@ -39602,7 +37107,6 @@ zygote
 ๑๙๘๙
 ๑๙๙
 ๑๙๙๐
-๑๙๙๑
 ๑๙๙๒
 ๑๙๙๓
 ๑๙๙๕
@@ -39628,7 +37132,6 @@ zygote
 ๒๐๐๙
 ๒๐๒
 ๒๐๓
-๒๐๖
 ๒๐๖๙
 ๒๐๗
 ๒๐๗๕
@@ -39647,8 +37150,6 @@ zygote
 ๒๒
 ๒๒๐
 ๒๒๒๙
-๒๒๕๐
-๒๒๕๘
 ๒๒๖
 ๒๒๖๖
 ๒๒๖๙
@@ -39669,7 +37170,6 @@ zygote
 ๒๓๖๙
 ๒๓๗๙
 ๒๓๘
-๒๓๘๖
 ๒๓๘๘
 ๒๓๙๖
 ๒๓๙๙
@@ -39690,7 +37190,6 @@ zygote
 ๒๔๑๓
 ๒๔๑๔
 ๒๔๑๕
-๒๔๑๖
 ๒๔๑๗
 ๒๔๑๘
 ๒๔๑๙
@@ -39896,14 +37395,12 @@ zygote
 ๓๓๘
 ๓๔
 ๓๔๐
-๓๔๖
 ๓๔๗
 ๓๔๙
 ๓๕
 ๓๕๐
 ๓๕๖
 ๓๕๗
-๓๕๘
 ๓๕๙
 ๓๖
 ๓๖๐
@@ -39918,7 +37415,6 @@ zygote
 ๓๘
 ๓๘๐
 ๓๘๑๐
-๓๘๒
 ๓๘๒๙
 ๓๘๓
 ๓๘๕
@@ -39930,9 +37426,7 @@ zygote
 ๓๙๐
 ๓๙๖
 ๓๙๗
-๓๙๙๙
 ๔
-๔ 
 ๔.
 ๔๐
 ๔๐๐
@@ -39954,7 +37448,6 @@ zygote
 ๔๖๐
 ๔๖๙
 ๔๗
-๔๗๐
 ๔๘
 ๔๙
 ๕
@@ -39964,7 +37457,6 @@ zygote
 ๕๐๒
 ๕๑
 ๕๒
-๕๒๙
 ๕๓
 ๕๓๘
 ๕๔
@@ -39975,25 +37467,21 @@ zygote
 ๕๕๐
 ๕๖
 ๕๖๐
-๕๖๕
 ๕๖๖
 ๕๖๙
 ๕๗
 ๕๗๐
 ๕๗๖
-๕๗๙
 ๕๘
 ๕๘๐
 ๕๘๕
 ๕๘๘
 ๕๙
-๕๙๙
 ๖
 ๖.
 ๖๐
 ๖๐๐
 ๖๐๓
-๖๐๖
 ๖๐๗
 ๖๐๘
 ๖๐๙
@@ -40020,7 +37508,6 @@ zygote
 ๖๕๘๙
 ๖๖
 ๖๖/
-๖๖๐
 ๖๖๖
 ๖๖๘
 ๖๖๙
@@ -40044,14 +37531,12 @@ zygote
 ๗๐๘
 ๗๐๙๙
 ๗๑
-๗๑๐
 ๗๒
 ๗๒๐
 ๗๒๖
 ๗๓
 ๗๓๘
 ๗๔
-๗๔๐
 ๗๔๖
 ๗๕
 ๗๕๐
@@ -40064,13 +37549,9 @@ zygote
 ๗๖๖
 ๗๗
 ๗๗๕
-๗๗๖
 ๗๘
 ๗๘๐
-๗๘๑
-๗๘๒
 ๗๘๔
-๗๘๗
 ๗๘๘
 ๗๘๙
 ๗๙
@@ -40086,7 +37567,6 @@ zygote
 ๘/
 ๘๐
 ๘๐๐
-๘๐๘
 ๘๑
 ๘๑๐
 ๘๑๘๙
@@ -40102,27 +37582,21 @@ zygote
 ๘๖๐
 ๘๖๙
 ๘๗
-๘๗๐
 ๘๘
-๘๘๐
 ๘๘๘
 ๙
 ๙๐
-๙๐๐
 ๙๐๙
 ๙๑
 ๙๑๗
 ๙๒
 ๙๒๐
-๙๒๙
 ๙๓
-๙๓๗
 ๙๔
 ๙๔๐
 ๙๔๖
 ๙๕
 ๙๕๐
-๙๕๘
 ๙๕๙๖
 ๙๕๙๗
 ๙๖
@@ -40134,7 +37608,6 @@ zygote
 ๙๘
 ๙๘๕
 ๙๘๖
-๙๘๗
 ๙๙
 ‎
 –

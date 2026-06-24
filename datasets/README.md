@@ -12,11 +12,18 @@ Place these exact filenames in this directory:
 
 | File | Source corpus | Consumed by |
 |---|---|---|
+| `LST20_train_cleaned.jsonl` | LST20 (NECTEC) | dictionary + LM vocabulary source (asset build) |
 | `LST20_test_cleaned.jsonl` | LST20 (NECTEC) | `test/eval_segment.rb lst20`, `test/benchmark_speed.rb`, `test/benchmark_baselines.py` |
-| `BEST_train_cleaned.jsonl` | BEST (NECTEC) | `test/eval_segment.rb best` |
+| `BEST_train_cleaned.jsonl` | BEST (NECTEC) | dictionary vocabulary source; `test/eval_segment.rb best_train` |
+| `BEST_test_cleaned.jsonl` | BEST (NECTEC) | `test/eval_segment.rb best` (held-out eval set) |
 | `VISTEC_test.jsonl`, `VISTEC_train.jsonl` | VISTEC-depa | `test/eval_segment.rb vistec` |
 | `tnhc_test.jsonl` | TNHC | `test/eval_segment.rb tnhc` |
 | `tnhc_train.jsonl` | TNHC | `tools/build_char_entropy.rb` (builds the branching-entropy table) |
+
+`BEST_{train,test}_cleaned.jsonl` are a deduplicated, shuffled 80:20 split (seed=42) of the
+BEST corpus — string-disjoint, so no sentence appears in both. The shipped dictionary is built
+from `BEST_train_cleaned.jsonl` only (plus LST20-train and PyThaiNLP), so `BEST_test` is a
+genuinely held-out evaluation set with no vocabulary leakage.
 
 ## File format
 

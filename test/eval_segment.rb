@@ -9,7 +9,7 @@
 # Gold corpora live in datasets/ (separate from the shipped model in ext/thapthim/assets/):
 #   - tnhc_test.jsonl        (TNHC literary, our dev/anchor set)
 #   - LST20_test_cleaned.jsonl
-#   - BEST_train_cleaned.jsonl
+#   - BEST_test_cleaned.jsonl   (held-out 20% split; the dictionary is decontaminated of it)
 #
 # Usage:
 #   ruby test/eval_segment.rb                  # eval every known corpus
@@ -29,10 +29,11 @@ module SegEval
 
   # short name => filename
   CORPORA = {
-    "tnhc"   => "tnhc_test.jsonl",
-    "lst20"  => "LST20_test_cleaned.jsonl",
-    "best"   => "BEST_train_cleaned.jsonl",
-    "vistec" => "VISTEC_test.jsonl",
+    "tnhc"       => "tnhc_test.jsonl",
+    "lst20"      => "LST20_test_cleaned.jsonl",
+    "best"       => "BEST_test_cleaned.jsonl",   # held-out 20% split (deduped); the fair eval set
+    "best_train" => "BEST_train_cleaned.jsonl",  # 80% split — in the dictionary, do NOT report as a held-out score
+    "vistec"     => "VISTEC_test.jsonl",
   }.freeze
 
   # Read a JSON Lines corpus (one token-array per line), stopping after +limit+ lines
