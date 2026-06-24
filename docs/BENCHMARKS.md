@@ -131,7 +131,10 @@ generation (also the grid-membership test, so no separate boundary set), and per
 Viterbi DP scratch buffers — ~450k → ~2.6M char/s overall; see CHANGELOG.
 
 All figures above are **single-threaded, per-call** — the only basis on which engines are
-comparable (every baseline here is run single-threaded too). The Python binding's
+comparable (every baseline here is run single-threaded too). The thapthim row is the Ruby↔Rust FFI;
+the **Python (PyO3) binding runs the identical engine and assets at ~3.0M char/s single-core**
+(per-call, same LST20 text) — marginally ahead of the Ruby figure because PyO3's call overhead is
+lower, not because the segmentation differs. Beyond single-core, the Python binding's
 `segment_batch` reports a much higher number (~10M char/s on 8 cores) because it releases the GIL
 and fans the batch across all cores with rayon; that is a **multicore deployment-throughput** figure,
 not an engine-speed one, and is **not** comparable to the single-threaded numbers above (any
@@ -147,7 +150,8 @@ SSG is the natural baseline.
 | metric | result |
 |---|--:|
 | agreement with SSG training target (per-word, boundary F1, LST20) | **0.9941** |
-| speed (LST20 test, best-of-5) | **~3.5M char/s** (~23,600 sent/s) |
+| speed (LST20 test, best-of-5, Ruby FFI) | **~3.5M char/s** (~23,600 sent/s) |
+| speed (same text, Python/PyO3, single-core) | ~4.3M char/s |
 | SSG speed (same corpus) | ~0.20M char/s (~1,400 sent/s) |
 
 So syllable segmentation reproduces its SSG target near-perfectly while running **~17× faster than
