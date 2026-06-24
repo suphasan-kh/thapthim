@@ -10,6 +10,7 @@
 use rustc_hash::FxHashMap;
 use daachorse::CharwiseDoubleArrayAhoCorasick;
 use crate::lm_format::{InternedLayer, InternedModel};
+use crate::tcc::TccSegmenter;
 
 mod scoring;
 mod decode;
@@ -53,6 +54,9 @@ impl RuntimeLayer {
 pub struct RuntimeEngine {
     pub word_trie: CharwiseDoubleArrayAhoCorasick<usize>,
     pub syllable_trie: CharwiseDoubleArrayAhoCorasick<usize>,
+    /// The TCC grid segmenter, compiled once at bootstrap. Its master regex is expensive to
+    /// build, so it must be reused across calls rather than reconstructed per `segment`.
+    tcc: TccSegmenter,
     words: RuntimeLayer,
     syllables: RuntimeLayer,
     tccs: RuntimeLayer,
@@ -182,6 +186,7 @@ impl RuntimeEngine {
         RuntimeEngine {
             word_trie,
             syllable_trie,
+            tcc: TccSegmenter::new(),
             words,
             syllables,
             tccs,

@@ -7,7 +7,6 @@ use super::*;
 use std::collections::HashSet;
 use rustc_hash::FxHashMap;
 use daachorse::CharwiseDoubleArrayAhoCorasick;
-use crate::tcc::TccSegmenter;
 
 impl RuntimeEngine {
     /// TCC byte boundaries form the atomic grid. Every word/syllable candidate must begin and
@@ -15,7 +14,7 @@ impl RuntimeEngine {
     /// Returns the boundary positions, a set for O(1) membership, and a position→index map for
     /// measuring span length in TCCs.
     fn tcc_grid(&self, text: &str) -> (Vec<usize>, HashSet<usize>, FxHashMap<usize, usize>) {
-        let positions = TccSegmenter::new().find_byte_positions(text);
+        let positions = self.tcc.find_byte_positions(text);
         let boundary: HashSet<usize> = positions.iter().copied().collect();
         let mut byte_to_idx: FxHashMap<usize, usize> = FxHashMap::default();
         for (i, &p) in positions.iter().enumerate() {
