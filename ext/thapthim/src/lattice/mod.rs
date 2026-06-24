@@ -2,16 +2,19 @@
 //
 // The grid-aligned bigram-Viterbi segmentation engine, split by function group:
 //   mod.rs    — types, tunables, packing helpers, and engine construction (this file)
+//   grid      — task-agnostic grid lattice: `Edge`, the `LatticeModel` trait, and `viterbi`
 //   scoring   — Kneser-Ney bigram log-probability (`score_transition`)
-//   decode    — TCC grid, candidate generation, Viterbi, and the `segment_*` entry points
+//   decode    — TCC grid, candidate generation, the `BigramModel` cost, and `segment_*` entry points
 //   entropy   — branching-entropy OOV-merge post-pass
-// All four share one `RuntimeEngine`; the child modules add `impl RuntimeEngine` blocks and
-// reach its private fields through Rust's ancestor-module visibility.
+// scoring/decode/entropy add `impl RuntimeEngine` blocks and reach its private fields through
+// Rust's ancestor-module visibility; grid is standalone and generic (no `RuntimeEngine` dependency)
+// — the reusable core that word/syllable segmentation, and future G2P / spelling correction, share.
 use rustc_hash::FxHashMap;
 use daachorse::CharwiseDoubleArrayAhoCorasick;
 use crate::lm_format::{InternedLayer, InternedModel};
 use crate::tcc::TccSegmenter;
 
+mod grid;
 mod scoring;
 mod decode;
 mod entropy;
@@ -160,15 +163,6 @@ pub enum LatticeTier {
     Word,
     Syllable,
     Tcc,
-}
-
-/// A grid-aligned candidate span (dictionary word/syllable, or a single-TCC fallback).
-#[derive(Clone, Debug)]
-struct Cand {
-    start: usize,
-    end: usize,
-    text: String,
-    tier: LatticeTier,
 }
 
 fn tier_flag(tier: &LatticeTier) -> u64 {

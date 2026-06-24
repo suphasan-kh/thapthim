@@ -133,7 +133,7 @@ word-level F1 on 4 of 5 Thai corpora (LST20, VISTEC, TNHC, WS1000) and is close 
 part of that margin is a home-corpus advantage, since the neural baselines are BEST-trained and run
 out-of-domain on the other four (the [benchmarks doc](docs/BENCHMARKS.md) reads each tool on its
 home turf too). What's less ambiguous is the cost: it reaches that accuracy at dictionary-class
-speed, ~18× faster than attacut and ~480× faster than deepcut. Its weak spot is recall on
+speed, ~27× faster than attacut and ~740× faster than deepcut. Its weak spot is recall on
 out-of-vocabulary words, where the neural models lead. Full tables, methodology, caveats, and
 reproduction steps are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 

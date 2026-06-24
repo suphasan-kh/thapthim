@@ -117,20 +117,23 @@ Representative best-of-5 on the LST20 test text. Thapthim is measured through it
 
 | engine | char/s | vs thapthim |
 |---|--:|--:|
-| nlpo3 | ~3.8M | 2.3× faster |
-| **thapthim** (either LM) | **~1.68M** | — |
-| newmm | ~1.1M | 0.65× |
-| attacut | ~95k | ~18× slower |
-| deepcut | ~3.5k | ~480× slower |
+| nlpo3 | ~3.8M | 1.5× faster |
+| **thapthim** (either LM) | **~2.6M** | — |
+| newmm | ~1.1M | 0.42× |
+| attacut | ~95k | ~27× slower |
+| deepcut | ~3.5k | ~740× slower |
 
-Thapthim's two LMs run at the same speed. Throughput reflects two hot-path fixes: a splitmix64
-bigram-key hasher and precomputing candidate token ids in the Viterbi decode (~450k → ~1.68M
-char/s overall; see CHANGELOG).
+Thapthim's two LMs run at the same speed. Throughput reflects a series of hot-path improvements: a
+splitmix64 bigram-key hasher, precomputing candidate token ids in the Viterbi decode,
+allocation-free grid candidates (the generic-lattice refactor dropped the per-candidate owned
+`String`), a flat `byte → TCC-index` array that replaces the per-match hashmap probes in candidate
+generation (also the grid-membership test, so no separate boundary set), and per-thread reuse of the
+Viterbi DP scratch buffers — ~450k → ~2.6M char/s overall; see CHANGELOG.
 
 All figures above are **single-threaded, per-call** — the only basis on which engines are
 comparable (every baseline here is run single-threaded too). The Python binding's
-`segment_batch` reports a much higher number (~7.5M char/s) because it releases the GIL and
-fans the batch across all cores with rayon; that is a **multicore deployment-throughput** figure,
+`segment_batch` reports a much higher number (~10M char/s on 8 cores) because it releases the GIL
+and fans the batch across all cores with rayon; that is a **multicore deployment-throughput** figure,
 not an engine-speed one, and is **not** comparable to the single-threaded numbers above (any
 tokenizer can be batched/parallelized the same way). Use the per-call figure for model-vs-model
 comparison; treat batch throughput as "what one machine can push using all cores."
@@ -144,10 +147,10 @@ SSG is the natural baseline.
 | metric | result |
 |---|--:|
 | agreement with SSG training target (per-word, boundary F1, LST20) | **0.9941** |
-| speed (LST20 test, best-of-5) | **~2.24M char/s** (~15,200 sent/s) |
+| speed (LST20 test, best-of-5) | **~3.5M char/s** (~23,600 sent/s) |
 | SSG speed (same corpus) | ~0.20M char/s (~1,400 sent/s) |
 
-So syllable segmentation reproduces its SSG target near-perfectly while running **~11× faster than
+So syllable segmentation reproduces its SSG target near-perfectly while running **~17× faster than
 SSG** — and faster than thapthim's own word segmentation (single Viterbi pass over the smaller
 syllable dictionary, with none of the word path's OOV-run / entropy-merge post-processing).
 (Against raw SSG-on-full-text the boundary F1 is 0.81, but that gap is purely a space/number
@@ -162,10 +165,10 @@ difference.)
   out-of-domain. The cleanest like-for-like is each tool on its home turf — there thapthim is
   competitive rather than ahead (on best: thapthim-BEST 0.950 ≈ attacut 0.945, below deepcut 0.966).
 - **vs the neural models** (attacut, deepcut): Thapthim matches or beats them off-domain while
-  being **~18× faster than attacut and ~480× faster than deepcut**. The neural models only pull
+  being **~27× faster than attacut and ~740× faster than deepcut**. The neural models only pull
   ahead on **best**, the corpus they are trained on — and there the gated **thapthim-BEST** LM
   (0.9496) already edges attacut (0.9454) and trails only deepcut, at a fraction of the cost.
-- **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~2.3× faster than Thapthim but ~14–24
+- **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~1.5× faster than Thapthim but ~14–24
   word-F1 points worse on every corpus; having no statistical model, they plateau well below both
   Thapthim and the neural engines.
 - **Where it fits:** the combination is the unusual part — accuracy competitive with the neural

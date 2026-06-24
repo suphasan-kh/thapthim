@@ -60,9 +60,10 @@ impl RuntimeEngine {
         &self,
         text: &str,
         toks: &[(usize, usize, LatticeTier)],
-        byte_to_idx: &FxHashMap<usize, usize>,
+        byte_to_idx: &[u32],
     ) -> Vec<(usize, usize, LatticeTier)> {
-        let short = |s: usize, e: usize| byte_to_idx[&e] - byte_to_idx[&s] <= self.be_max_tcc;
+        // Token endpoints are always grid boundaries, so these indices are never `NON_BOUNDARY`.
+        let short = |s: usize, e: usize| (byte_to_idx[e] - byte_to_idx[s]) as usize <= self.be_max_tcc;
         let mut out = Vec::with_capacity(toks.len());
         let n = toks.len();
         let mut i = 0;
