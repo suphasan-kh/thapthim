@@ -29,8 +29,12 @@ unsafe fn read_utf8<'a>(ptr: *const c_char) -> std::borrow::Cow<'a, str> {
     String::from_utf8_lossy(unsafe { CStr::from_ptr(ptr) }.to_bytes())
 }
 
+/// # Safety
+/// `raw_text_ptr` must be null or a valid NUL-terminated C string, and `out_size` a writable
+/// `i32` pointer. The returned buffer must be freed with `thapthim_free_array`, passing the
+/// length written to `*out_size`.
 #[unsafe(no_mangle)]
-pub extern "C" fn thapthim_tcc_positions(
+pub unsafe extern "C" fn thapthim_tcc_positions(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
 ) -> *const i32 {
@@ -53,8 +57,13 @@ pub extern "C" fn thapthim_tcc_positions(
 
 /// Zero-Allocation Joint-Lattice Tokenizer FFI Interface
 /// Sweeps text using Bidirectional Viterbi Consensus and returns a flat array of packed u64 tokens
+///
+/// # Safety
+/// `raw_text_ptr` must be null or a valid NUL-terminated C string, and `out_size` a writable
+/// `i32` pointer. The returned buffer must be freed with `thapthim_free_u64_array`, passing the
+/// length written to `*out_size`.
 #[unsafe(no_mangle)]
-pub extern "C" fn thapthim_segment(
+pub unsafe extern "C" fn thapthim_segment(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
 ) -> *const u64 {
@@ -81,8 +90,12 @@ pub extern "C" fn thapthim_segment(
 /// Companion to `thapthim_segment`: returns the syllable-level token stream for the same text,
 /// each token packed identically as [ Start | Length | Tier ]. Syllable boundaries are a
 /// superset of the word boundaries returned by `thapthim_segment`.
+///
+/// # Safety
+/// Same contract as `thapthim_segment`: `raw_text_ptr` null or a valid NUL-terminated C string,
+/// `out_size` writable; free the result with `thapthim_free_u64_array`.
 #[unsafe(no_mangle)]
-pub extern "C" fn thapthim_segment_syllables(
+pub unsafe extern "C" fn thapthim_segment_syllables(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
 ) -> *const u64 {
@@ -103,8 +116,11 @@ pub extern "C" fn thapthim_segment_syllables(
     Box::into_raw(boxed_slice) as *const u64
 }
 
+/// # Safety
+/// `ptr` and `size` must be exactly a pointer and element count previously returned by
+/// `thapthim_tcc_positions`, freed at most once.
 #[unsafe(no_mangle)]
-pub extern "C" fn thapthim_free_array(ptr: *mut i32, size: i32) {
+pub unsafe extern "C" fn thapthim_free_array(ptr: *mut i32, size: i32) {
     if !ptr.is_null() {
         unsafe {
             let _ = Box::from_raw(std::ptr::slice_from_raw_parts_mut(ptr, size as usize));
@@ -113,8 +129,12 @@ pub extern "C" fn thapthim_free_array(ptr: *mut i32, size: i32) {
 }
 
 /// Specialized complementary function to safely free u64 packed token streams
+///
+/// # Safety
+/// `ptr` and `size` must be exactly a pointer and element count previously returned by
+/// `thapthim_segment` or `thapthim_segment_syllables`, freed at most once.
 #[unsafe(no_mangle)]
-pub extern "C" fn thapthim_free_u64_array(ptr: *mut u64, size: i32) {
+pub unsafe extern "C" fn thapthim_free_u64_array(ptr: *mut u64, size: i32) {
     if !ptr.is_null() {
         unsafe {
             let _ = Box::from_raw(std::ptr::slice_from_raw_parts_mut(ptr, size as usize));
