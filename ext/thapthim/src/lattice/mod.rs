@@ -16,13 +16,51 @@ mod scoring;
 mod decode;
 mod entropy;
 
+/// Hasher for the bigram map's packed `(w1_id << 32 | w2_id)` u64 keys. FxHash is a single
+/// multiply, which leaves the low bits (the ones hashbrown uses for the bucket index) poorly
+/// mixed for these structured keys — they cluster, so probe chains grow long and each `get` walks
+/// several cache lines. Measured: an FxHash probe into the word-bigram map costs ~165–490 ns vs
+/// ~8 ns once the key is fully avalanched. We apply the splitmix64 finalizer (full avalanche at
+/// ~two multiplies, no crypto cost) so distribution no longer depends on the key's internal
+/// structure. Only the WORD/SYLLABLE/TCC bigram maps use this; String-keyed maps keep FxHash.
+#[derive(Default, Clone)]
+struct BuildU64Mix;
+
+impl std::hash::BuildHasher for BuildU64Mix {
+    type Hasher = U64MixHasher;
+    fn build_hasher(&self) -> U64MixHasher {
+        U64MixHasher(0)
+    }
+}
+
+struct U64MixHasher(u64);
+
+impl std::hash::Hasher for U64MixHasher {
+    fn finish(&self) -> u64 {
+        self.0
+    }
+    fn write_u64(&mut self, n: u64) {
+        // splitmix64 finalizer — the only path taken, since every key is a single u64.
+        let mut z = n.wrapping_add(0x9E37_79B9_7F4A_7C15);
+        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
+        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
+        self.0 = z ^ (z >> 31);
+    }
+    fn write(&mut self, _bytes: &[u8]) {
+        unreachable!("BuildU64Mix is only used for u64-keyed bigram maps");
+    }
+}
+
+/// Bigram count table: packed-u64 key → count, hashed with the avalanching `BuildU64Mix`.
+type BigramMap = std::collections::HashMap<u64, u32, BuildU64Mix>;
+
 /// Interned runtime form of one LM layer. Tokens are looked up to dense ids via `token_id`; all
 /// count tables are then id-keyed. `followers[id]` is the Kneser-Ney `N₁₊(w1 •)` term (distinct
 /// types after `w1`), precomputed at load so the Viterbi hot path never scans the bigram table.
 struct RuntimeLayer {
     token_id: FxHashMap<String, u32>, // token -> id (query-time); the only String store that remains
     unigrams: Vec<(u32, u32)>,        // id -> (count, preceding_contexts)
-    bigrams: FxHashMap<u64, u32>,     // (w1_id << 32 | w2_id) -> count
+    bigrams: BigramMap,               // (w1_id << 32 | w2_id) -> count; avalanching u64 hasher
     followers: Vec<u32>,              // id -> N₁₊(w1 •)
     total_bigram_types: f64,          // |bigrams|, hoisted out of the hot path
 }
@@ -39,7 +77,7 @@ impl RuntimeLayer {
         }
 
         let mut followers = vec![0u32; n];
-        let mut bigrams = FxHashMap::default();
+        let mut bigrams = BigramMap::default();
         bigrams.reserve(layer.bigrams.len());
         for (key, count) in layer.bigrams {
             followers[(key >> 32) as usize] += 1; // each packed key is unique -> N₁₊(w1 •)
