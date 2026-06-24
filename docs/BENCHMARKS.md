@@ -51,13 +51,15 @@ Representative best-of-5 on the LST20 test text. Thapthim is measured through it
 
 | engine | char/s | vs thapthim |
 |---|--:|--:|
-| nlpo3 | ~3.8M | 2.7× faster |
-| **thapthim** (either LM) | **~1.40M** | — |
-| newmm | ~1.1M | 0.8× |
-| attacut | ~95k | ~15× slower |
-| deepcut | ~3.5k | ~400× slower |
+| nlpo3 | ~3.8M | 2.3× faster |
+| **thapthim** (either LM) | **~1.68M** | — |
+| newmm | ~1.1M | 0.65× |
+| attacut | ~95k | ~18× slower |
+| deepcut | ~3.5k | ~480× slower |
 
-Thapthim's two LMs run at the same speed (the bigram hasher was fixed to splitmix64; see CHANGELOG).
+Thapthim's two LMs run at the same speed. Throughput reflects two hot-path fixes: a splitmix64
+bigram-key hasher and precomputing candidate token ids in the Viterbi decode (~450k → ~1.68M
+char/s overall; see CHANGELOG).
 
 ## Takeaways
 

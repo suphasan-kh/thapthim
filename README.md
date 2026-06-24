@@ -72,8 +72,8 @@ The dictionary, language model, and entropy table are compiled into the gem as d
 ## Benchmarks
 
 On the research-standard `pythainlp.benchmarks` metric, Thapthim leads word-level F1 on 4 of 5
-Thai corpora (LST20, VISTEC, TNHC, WS1000) and is competitive on BEST, while running ~15× faster
-than attacut and ~400× faster than deepcut. Full accuracy/speed tables, methodology, and
+Thai corpora (LST20, VISTEC, TNHC, WS1000) and is competitive on BEST, while running ~18× faster
+than attacut and ~480× faster than deepcut. Full accuracy/speed tables, methodology, and
 reproduction steps are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 
 ## Development
