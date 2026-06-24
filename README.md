@@ -69,6 +69,10 @@ crashes on malformed input.
 
 The dictionary, language model, and entropy table are compiled into the gem as data assets.
 
+For the full pipeline — the multi-granularity lattice, the interned KN-bigram model, the OOV
+back-off and branching-entropy merge, and the decoupled word/syllable Viterbi passes — see
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), with an end-to-end diagram.
+
 ## Benchmarks
 
 On the research-standard `pythainlp.benchmarks` metric, Thapthim leads word-level F1 on 4 of 5
