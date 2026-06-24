@@ -78,6 +78,11 @@ def native_tokenizer(engine):
         return Tokenizer(model="attacut-sc").tokenize
     if engine == "deepcut":
         import deepcut
+        try:  # silence Keras's per-predict progress bars (one per sentence -> MBs of noise)
+            import tensorflow as tf
+            tf.keras.utils.disable_interactive_logging()
+        except Exception:
+            pass
         return deepcut.tokenize
     raise SystemExit(f"unknown engine: {engine}")
 

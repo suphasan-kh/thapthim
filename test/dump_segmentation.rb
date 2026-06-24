@@ -30,7 +30,12 @@ CORPORA = {
 out = ARGV[0] or abort "usage: ruby test/dump_segmentation.rb <out_dir>"
 FileUtils.mkdir_p(out)
 
-CORPORA.each do |short, (fname, lim)|
+# LIMIT env overrides every per-corpus cap (use a large value for a full-size run). Must match
+# the LIMIT passed to test/benchmark_accuracy.py so the scorer reads the same sentence set.
+limit_override = ENV["LIMIT"]&.to_i
+
+CORPORA.each do |short, (fname, cap)|
+  lim = limit_override || cap
   path = File.join(DATASETS, fname)
   File.open(File.join(out, "#{short}.jsonl"), "w") do |f|
     File.foreach(path).first(lim).each do |line|
