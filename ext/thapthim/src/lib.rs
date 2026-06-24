@@ -94,7 +94,8 @@ pub unsafe extern "C" fn thapthim_tcc_positions(
 }
 
 /// Zero-Allocation Joint-Lattice Tokenizer FFI Interface
-/// Sweeps text using Bidirectional Viterbi Consensus and returns a flat array of packed u64 tokens
+/// Segments text with a forward bigram-Viterbi pass over the TCC lattice, followed by a
+/// branching-entropy OOV-merge post-pass, and returns a flat array of packed u64 tokens
 ///
 /// # Safety
 /// `raw_text_ptr` must be null or a valid NUL-terminated C string, and `out_size` a writable

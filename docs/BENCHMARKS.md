@@ -56,6 +56,60 @@ gains. The shipped default is LST20 (highest home peak). The KN absolute discoun
 0.1–0.99 on all three LMs with no meaningful effect (argmax decoding is near-invariant to a uniform
 score shift), so the textbook `d = 0.75` is retained.
 
+## OOV recall — generalization to unknown words
+
+Word-level F1 above is dominated by frequent, in-dictionary words and hides how each engine
+handles words it has never seen. This section stratifies **recall** by dictionary membership
+(SIGHAN-style). One **shared OOV reference** is used for every engine — Thapthim's shipped word
+lexicon (`ext/thapthim/assets/master_words_vocab.txt`, 141,548 words): a gold word is **OOV** iff
+it is absent from that set. Every engine is therefore scored on the *identical* OOV word set, so
+the comparison is apples-to-apples ("of the words Thapthim doesn't know, how many does each model
+recover?"). A gold word is recalled iff its exact `[start,end)` span appears in the prediction;
+whitespace tokens are excluded. Caps match the dump (lst20 5,250 · best 3,000 · vistec 3,000 ·
+tnhc 4,403 · ws1000 993) to bound deepcut's runtime. Last run: 2026-06-25.
+
+### R_oov — recall on out-of-vocabulary words (**bold** = best per corpus)
+
+| corpus | OOV% | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|
+| **lst20**  | 1.6%  | 0.1558 | 0.1558 | 0.1558 | 0.3282 | **0.3506** | 0.1494 | 0.1486 |
+| **best**   | 0.8%  | 0.0667 | 0.0667 | 0.0667 | 0.3833 | **0.5262** | 0.0905 | 0.0452 |
+| **vistec** | 10.0% | 0.2579 | 0.2579 | 0.2578 | 0.2661 | **0.4228** | 0.1858 | 0.2782 |
+| **tnhc**   | 5.0%  | 0.2516 | 0.2512 | 0.2512 | 0.3121 | **0.3735** | 0.2729 | 0.2810 |
+| **ws1000** | 10.4% | 0.4216 | 0.4206 | 0.4206 | 0.5179 | **0.5415** | 0.4191 | 0.3863 |
+| **micro-avg** | 5.1% | 0.2527 | 0.2525 | 0.2524 | 0.2992 | **0.4157** | 0.2128 | 0.2682 |
+
+### R_iv — recall on in-vocabulary words (micro-avg)
+
+| | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| **R_iv** | 0.8960 | 0.8958 | **0.9086** | 0.8554 | 0.8601 | 0.7280 | 0.7262 |
+
+**OOV recall is Thapthim's weakest dimension.** At ~0.25 micro-avg it sits in the *dictionary
+tier* — slightly ahead of nlpo3 (the branching-entropy merge earns a real edge), roughly level
+with newmm, and behind both neural models: ~18% below attacut and **~64% below deepcut**, which
+recovers 1.6× as many unknown words. This is the dictionary-model trade-off: the same approach
+that gives Thapthim the **best in-vocab recall of any engine here** (0.896, and 0.909 with the
+combined LM) cannot invent boundaries for words absent from its lexicon the way a sub-word neural
+model can. OOV is hard for everyone on this data — even deepcut only clears 0.42.
+
+**The LM corpus barely touches OOV recall** — all three LMs land within 0.0003 micro
+(LST20 0.2527 · BEST 0.2525 · COMBINED 0.2524; per-corpus deltas ≤ 0.001). OOV merging is driven
+by the LM-independent branching-entropy post-pass, not the word bigram LM, so swapping LMs leaves
+it flat. The LM instead moves **in-vocab** disambiguation: each single-corpus LM peaks R_iv on its
+home corpus (LST20→lst20, BEST→best 0.955), and the combined LM is the best all-rounder (micro
+R_iv 0.896 → 0.909; BEST 0.865 → 0.925), which is where its word-F1 gains come from. This also explains Thapthim's strong **cross-domain** F1: candidate words come from a
+broad-domain *union* dictionary (LST20∪BEST∪PyThaiNLP) and OOV handling is domain-general, so the
+parts that carry accuracy don't actually depend on the LM's home corpus — consistent with the
+flat LM sweep noted above. The headline F1 lead survives the weak OOV recall because OOV rates are
+low (0.8–10%) and in-vocab recall is dominant; OOV only bites on the high-OOV corpora (vistec,
+ws1000), which is exactly where deepcut closes the F1 gap.
+
+Reproduce: `ruby test/eval_oov.rb` (Thapthim alone, shipped LM) or, for the cross-model table,
+generate the dumps as in [Reproduce](#reproduce) below and run
+`/tmp/thai_bench/bin/python test/eval_oov_compare.py newmm nlpo3 attacut deepcut` plus
+`… eval_oov_compare.py thapthim-LST20 --pred /tmp/pred_lst20`.
+
 ## Speed — pure tokenization throughput
 
 Representative best-of-5 on the LST20 test text. Thapthim is measured through its Ruby↔Rust FFI
