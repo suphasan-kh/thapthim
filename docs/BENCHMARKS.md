@@ -80,6 +80,25 @@ Thapthim's two LMs run at the same speed. Throughput reflects two hot-path fixes
 bigram-key hasher and precomputing candidate token ids in the Viterbi decode (~450k → ~1.68M
 char/s overall; see CHANGELOG).
 
+## Syllable segmentation
+
+`Thapthim.syllables` segments into orthographic syllables via a single syllable-LM Viterbi over the
+TCC grid. Its syllable LM is trained on SSG (PyThaiNLP's `engine="ssg"`) applied per gold word, so
+SSG is the natural baseline.
+
+| metric | result |
+|---|--:|
+| agreement with SSG training target (per-word, boundary F1, LST20) | **0.9941** |
+| speed (LST20 test, best-of-5) | **~2.24M char/s** (~15,200 sent/s) |
+| SSG speed (same corpus) | ~0.20M char/s (~1,400 sent/s) |
+
+So syllable segmentation reproduces its SSG target near-perfectly while running **~11× faster than
+SSG** — and faster than thapthim's own word segmentation (single Viterbi pass over the smaller
+syllable dictionary, with none of the word path's OOV-run / entropy-merge post-processing).
+(Against raw SSG-on-full-text the boundary F1 is 0.81, but that gap is purely a space/number
+tokenization convention — thapthim keeps `" "` and numbers as standalone tokens — not a quality
+difference.)
+
 ## Takeaways
 
 - **Thapthim leads word-level F1 on 4 of 5 corpora** (lst20, vistec, tnhc, ws1000); deepcut wins
