@@ -5,7 +5,7 @@
 #
 # Branching entropy (Harris 1955; Jin & Tanaka-Ishii 2006): at a true word boundary the
 # next character is uncertain (high Shannon entropy); inside a word it is nearly determined
-# (low entropy). We build TWO directional tables from tnhc_train.json:
+# (low entropy). We build TWO directional tables from tnhc_train.jsonl:
 #
 #   F  forward  right-branching : key = left context x,  H = entropy of the NEXT char after x
 #   B  backward left-branching  : key = right context y, H = entropy of the PREV char before y
@@ -24,15 +24,15 @@ require "json"
 K   = 4   # keep in sync with BE_MAX_CTX in lattice/mod.rs
 MIN = 5
 
-src = File.expand_path("../datasets/tnhc_train.json", __dir__)
+src = File.expand_path("../datasets/tnhc_train.jsonl", __dir__)
 out = File.expand_path("../ext/thapthim/assets/char_entropy.txt", __dir__)
-
-sents = JSON.parse(File.read(src))
 
 fwd_next = Hash.new { |h, k| h[k] = Hash.new(0) } # left_ctx  -> {next_char => count}
 bwd_prev = Hash.new { |h, k| h[k] = Hash.new(0) } # right_ctx -> {prev_char => count}
 
-sents.each do |tokens|
+File.foreach(src) do |line|
+  next if line.strip.empty?
+  tokens = JSON.parse(line)
   chars = tokens.join.chars
   n = chars.size
   (0...n).each do |i|

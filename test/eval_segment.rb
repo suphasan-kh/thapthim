@@ -3,21 +3,21 @@
 # Word-level segmentation evaluation harness for Thapthim.
 #
 # Reports micro-averaged word-span F1 (a predicted word is correct iff BOTH of its
-# boundaries match the gold word) plus throughput, for any gold corpus stored as a
-# JSON array-of-arrays (each inner array = one sentence's gold token list).
+# boundaries match the gold word) plus throughput, for any gold corpus stored as
+# JSON Lines (one JSON array per line = one sentence's gold token list).
 #
 # Gold corpora live in datasets/ (separate from the shipped model in ext/thapthim/assets/):
-#   - tnhc_test.json         (TNHC literary, our dev/anchor set)
-#   - LST20_test_cleaned.json
-#   - BEST_train_cleaned.json
+#   - tnhc_test.jsonl        (TNHC literary, our dev/anchor set)
+#   - LST20_test_cleaned.jsonl
+#   - BEST_train_cleaned.jsonl
 #
 # Usage:
-#   ruby test/eval_segment.rb                 # eval every known corpus
-#   ruby test/eval_segment.rb tnhc lst20      # eval a subset by short name
-#   ruby test/eval_segment.rb /path/file.json # eval an explicit corpus file
+#   ruby test/eval_segment.rb                  # eval every known corpus
+#   ruby test/eval_segment.rb tnhc lst20       # eval a subset by short name
+#   ruby test/eval_segment.rb /path/file.jsonl # eval an explicit corpus file
 #
 # Env:
-#   THAPTHIM_EVAL_LIMIT=2000   # cap sentences (handy for the 79MB BEST file)
+#   THAPTHIM_EVAL_LIMIT=2000   # cap sentences (handy for the 74MB BEST file)
 #   THAPTHIM_EVAL_WARM=1       # run a warm-up pass before timing (steadier speed)
 #
 require "json"
@@ -29,11 +29,23 @@ module SegEval
 
   # short name => filename
   CORPORA = {
-    "tnhc"   => "tnhc_test.json",
-    "lst20"  => "LST20_test_cleaned.json",
-    "best"   => "BEST_train_cleaned.json",
-    "vistec" => "VISTEC_test.json",
+    "tnhc"   => "tnhc_test.jsonl",
+    "lst20"  => "LST20_test_cleaned.jsonl",
+    "best"   => "BEST_train_cleaned.jsonl",
+    "vistec" => "VISTEC_test.jsonl",
   }.freeze
+
+  # Read a JSON Lines corpus (one token-array per line), stopping after +limit+ lines
+  # so the 74MB BEST file never fully materializes when a cap is set.
+  def self.read_jsonl(path, limit)
+    rows = []
+    File.foreach(path) do |line|
+      next if line.strip.empty?
+      rows << JSON.parse(line)
+      break if limit && rows.size >= limit
+    end
+    rows
+  end
 
   # Turn a token list into its set of [start, end) character spans. Tokens tile the
   # sentence exactly, so cumulative char-length gives every word's offset. When
@@ -77,8 +89,7 @@ module SegEval
   end
 
   def self.evaluate(path, name: File.basename(path), limit: nil, warm: false)
-    sentences = JSON.parse(File.read(path))
-    sentences = sentences.first(limit) if limit
+    sentences = read_jsonl(path, limit)
 
     if warm
       sentences.first([sentences.size, 200].min).each { |t| Thapthim.segment(t.join) }
@@ -124,9 +135,9 @@ module SegEval
     if CORPORA.key?(arg)
       [arg, File.join(DATASET_DIR, CORPORA[arg])]
     elsif File.exist?(arg)
-      [File.basename(arg, ".json"), arg]
+      [File.basename(arg, ".jsonl"), arg]
     else
-      warn "skip: no corpus '#{arg}' (known: #{CORPORA.keys.join(", ")} or a JSON path)"
+      warn "skip: no corpus '#{arg}' (known: #{CORPORA.keys.join(", ")} or a JSONL path)"
       nil
     end
   end

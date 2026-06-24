@@ -1,10 +1,11 @@
-import json, time, sys, os
+import json, time, sys, os, itertools
 
 DATASETS = "/Users/louis/Documents/Development/Ruby/thapthim/datasets"
-CORPUS = os.path.join(DATASETS, "LST20_test_cleaned.json")
+CORPUS = os.path.join(DATASETS, "LST20_test_cleaned.jsonl")
 
 def load(n):
-    sents = json.load(open(CORPUS))[:n]
+    with open(CORPUS) as f:
+        sents = [json.loads(line) for line in itertools.islice(f, n)]
     texts = ["".join(s) for s in sents]
     chars = sum(len(t) for t in texts)
     return texts, chars

@@ -16,7 +16,7 @@
 #   VAL ...               the grid of values to try (e.g. 1.5 2.0 2.5)
 #
 # Options:
-#   --corpus NAME[,NAME]  corpus/corpora to evaluate (short name or JSON path).
+#   --corpus NAME[,NAME]  corpus/corpora to evaluate (short name or JSONL path).
 #                         Default: tnhc. RANK is by the FIRST corpus listed.
 #   --metric incl|excl    which F1 to optimize (default: excl = excluding spaces).
 #   --limit N             cap sentences per corpus (passes THAPTHIM_EVAL_LIMIT).
@@ -50,9 +50,9 @@ def die(msg)
 end
 
 # The name eval_segment.rb reports a corpus under: its short name if known, else the
-# JSON file's basename. Used to match parsed F1 back to the requested corpus.
+# JSONL file's basename. Used to match parsed F1 back to the requested corpus.
 def report_name(arg)
-  TEST_CORPORA.include?(arg) ? arg : File.basename(arg, ".json")
+  TEST_CORPORA.include?(arg) ? arg : File.basename(arg, ".jsonl")
 end
 
 # ---- argument parsing -------------------------------------------------------

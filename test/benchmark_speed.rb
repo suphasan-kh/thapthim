@@ -6,12 +6,12 @@
 require "json"
 require_relative "../lib/thapthim"
 
-CORPUS = File.expand_path("../datasets/LST20_test_cleaned.json", __dir__)
+CORPUS = File.expand_path("../datasets/LST20_test_cleaned.jsonl", __dir__)
 
 n    = (ARGV[0] || 3000).to_i
 reps = (ARGV[1] || 3).to_i
 
-texts = JSON.parse(File.read(CORPUS)).first(n).map(&:join)
+texts = File.foreach(CORPUS).first(n).map { |line| JSON.parse(line).join }
 chars = texts.sum(&:length)
 
 texts.first(100).each { |t| Thapthim.segment(t) } # warmup (untimed)

@@ -12,22 +12,20 @@ Place these exact filenames in this directory:
 
 | File | Source corpus | Consumed by |
 |---|---|---|
-| `LST20_test_cleaned.json` | LST20 (NECTEC) | `test/eval_segment.rb lst20`, `test/benchmark_speed.rb`, `test/benchmark_baselines.py` |
-| `BEST_train_cleaned.json` | BEST (NECTEC) | `test/eval_segment.rb best` |
-| `VISTEC_test.json`, `VISTEC_train.json` | VISTEC-depa | `test/eval_segment.rb vistec` |
-| `tnhc_test.json` | TNHC | `test/eval_segment.rb tnhc` |
-| `tnhc_train.json` | TNHC | `tools/build_char_entropy.rb` (builds the branching-entropy table) |
+| `LST20_test_cleaned.jsonl` | LST20 (NECTEC) | `test/eval_segment.rb lst20`, `test/benchmark_speed.rb`, `test/benchmark_baselines.py` |
+| `BEST_train_cleaned.jsonl` | BEST (NECTEC) | `test/eval_segment.rb best` |
+| `VISTEC_test.jsonl`, `VISTEC_train.jsonl` | VISTEC-depa | `test/eval_segment.rb vistec` |
+| `tnhc_test.jsonl` | TNHC | `test/eval_segment.rb tnhc` |
+| `tnhc_train.jsonl` | TNHC | `tools/build_char_entropy.rb` (builds the branching-entropy table) |
 
 ## File format
 
-Each file is JSON: an **array of sentences**, where each sentence is an **array of gold token
+Each file is JSON Lines: **one sentence per line**, where each line is an **array of gold token
 strings** that tile the sentence exactly (whitespace is a token). Example:
 
-```json
-[
-  ["ฉัน", "รัก", "ภาษา", "ไทย"],
-  ["รมว.", "ไอซีที", " ", "ยืนยัน"]
-]
+```jsonl
+["ฉัน", "รัก", "ภาษา", "ไทย"]
+["รมว.", "ไอซีที", " ", "ยืนยัน"]
 ```
 
 The `*_cleaned` files are **preprocessed** (normalization/cleaning applied before evaluation). The
