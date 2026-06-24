@@ -56,6 +56,59 @@ All methods accept any input and harden it on the way in: non–UTF-8 encodings 
 transcoded, invalid bytes are scrubbed, and embedded NUL bytes are stripped, so segmentation never
 crashes on malformed input.
 
+## Python
+
+The same Rust engine is exposed to Python through [PyO3](https://pyo3.rs), built with
+[maturin](https://www.maturin.rs). The API mirrors the Ruby one (identical engine, assets, and
+results); only the surface syntax differs.
+
+### Installation
+
+> Not yet published to PyPI. Build from source for now — this needs a **Rust toolchain**
+> (`rustc` / `cargo`, via [rustup](https://rustup.rs)) and **Python ≥ 3.8**.
+
+```bash
+git clone https://github.com/suphasan-kh/thapthim.git
+cd thapthim
+python3 -m venv .venv && source .venv/bin/activate   # recommended
+pip install maturin
+
+maturin develop --release    # compile + install into the active venv (editable workflow)
+# or
+maturin build --release      # just produce a wheel under target/wheels/
+```
+
+`maturin develop` installs straight into the active virtualenv. `maturin build` writes a `.whl`
+you can `pip install` elsewhere — but a native wheel is specific to the Python version, OS, and CPU
+architecture it was built on, so it only installs on a matching interpreter.
+
+### Usage
+
+```python
+import thapthim
+
+# Word and syllable segmentation — the main entry points.
+thapthim.segment("ฉันกินข้าว")              # ['ฉัน', 'กิน', 'ข้าว']
+thapthim.syllables("ฉันกินข้าว")            # ['ฉัน', 'กิน', 'ข้าว']
+
+# Optional normalization before segmenting (parity with the Ruby `normalize:` option).
+thapthim.segment("  ฉัน   กิน  ", normalize=True)
+thapthim.std_normalize("  ฉัน   กิน  ")      # 'ฉัน กิน'
+
+# Thai Character Cluster (TCC) segmentation — the smallest inseparable units.
+thapthim.tcc_segment("ฉันกินข้าว")          # ['ฉั', 'น', 'กิ', 'น', 'ข้า', 'ว']
+
+# Character offsets instead of substrings.
+thapthim.segment_offsets("ฉันกิน")          # [(0, 3), (3, 6)]
+
+# Batch path: segments a list in one boundary crossing, releasing the GIL and
+# fanning across cores — for bulk throughput, not single-call latency.
+thapthim.segment_batch(["ฉันกิน", "ข้าว"])  # [['ฉัน', 'กิน'], ['ข้าว']]
+```
+
+Like the Ruby side, every entry point hardens its input (transcodes non–UTF-8, scrubs invalid
+bytes, strips NULs), so segmentation never crashes on malformed text.
+
 ## How it works
 
 1. **TCC grid** — the input is divided into Thai Character Clusters, the smallest units that can
@@ -75,9 +128,13 @@ back-off and branching-entropy merge, and the decoupled word/syllable Viterbi pa
 
 ## Benchmarks
 
-On the research-standard `pythainlp.benchmarks` metric, Thapthim leads word-level F1 on 4 of 5
-Thai corpora (LST20, VISTEC, TNHC, WS1000) and is competitive on BEST, while running ~18× faster
-than attacut and ~480× faster than deepcut. Full accuracy/speed tables, methodology, and
+On the research-standard `pythainlp.benchmarks` metric, the shipped LST20 model posts the highest
+word-level F1 on 4 of 5 Thai corpora (LST20, VISTEC, TNHC, WS1000) and is close on BEST — though
+part of that margin is a home-corpus advantage, since the neural baselines are BEST-trained and run
+out-of-domain on the other four (the [benchmarks doc](docs/BENCHMARKS.md) reads each tool on its
+home turf too). What's less ambiguous is the cost: it reaches that accuracy at dictionary-class
+speed, ~18× faster than attacut and ~480× faster than deepcut. Its weak spot is recall on
+out-of-vocabulary words, where the neural models lead. Full tables, methodology, caveats, and
 reproduction steps are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 
 ## Development

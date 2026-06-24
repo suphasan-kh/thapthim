@@ -156,9 +156,11 @@ difference.)
 
 ## Takeaways
 
-- **Thapthim leads word-level F1 on 4 of 5 corpora** (lst20, vistec, tnhc, ws1000); deepcut wins
-  its home corpus **best** (0.9659). The shipped **thapthim-LST20** is best overall on lst20 and
-  vistec and competitive everywhere else.
+- **Thapthim posts the top word-level F1 on 4 of 5 corpora** (lst20, vistec, tnhc, ws1000); deepcut
+  wins its home corpus **best** (0.9659). Read this with the home-corpus caveat below: the four it
+  tops include its own training corpus (lst20) and three on which the neural baselines run
+  out-of-domain. The cleanest like-for-like is each tool on its home turf — there thapthim is
+  competitive rather than ahead (on best: thapthim-BEST 0.950 ≈ attacut 0.945, below deepcut 0.966).
 - **vs the neural models** (attacut, deepcut): Thapthim matches or beats them off-domain while
   being **~18× faster than attacut and ~480× faster than deepcut**. The neural models only pull
   ahead on **best**, the corpus they are trained on — and there the gated **thapthim-BEST** LM
@@ -166,8 +168,10 @@ difference.)
 - **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~2.3× faster than Thapthim but ~14–24
   word-F1 points worse on every corpus; having no statistical model, they plateau well below both
   Thapthim and the neural engines.
-- **Sweet spot:** Thapthim sits where the others don't — near-top accuracy across domains at
-  high (dictionary-class) throughput.
+- **Where it fits:** the combination is the unusual part — accuracy competitive with the neural
+  models across domains, at dictionary-class throughput, with in-vocab recall the strongest here.
+  The trade-off is OOV recall (~0.25 micro, the dictionary tier — see the OOV section), so on
+  high-OOV text the neural models close in.
 
 ## Caveats
 
