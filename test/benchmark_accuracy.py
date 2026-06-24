@@ -82,11 +82,16 @@ def native_tokenizer(engine):
     raise SystemExit(f"unknown engine: {engine}")
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    argv = sys.argv[1:]
+    pred_dir = None
+    if "--pred" in argv:
+        i = argv.index("--pred")
+        pred_dir = argv[i + 1]
+        del argv[i:i + 2]  # drop the flag AND its value before reading positionals
+    args = [a for a in argv if not a.startswith("--")]
     if not args:
         raise SystemExit("usage: benchmark_accuracy.py <engine> [corpus] [--pred <dir>]")
     engine = args[0]
-    pred_dir = sys.argv[sys.argv.index("--pred") + 1] if "--pred" in sys.argv else None
     only = args[1] if len(args) > 1 else None
     limit_env = int(os.environ["LIMIT"]) if "LIMIT" in os.environ else None
 
