@@ -48,6 +48,31 @@ unsafe fn read_utf8<'a>(ptr: *const c_char) -> std::borrow::Cow<'a, str> {
     String::from_utf8_lossy(unsafe { CStr::from_ptr(ptr) }.to_bytes())
 }
 
+/// Runs an FFI body returning a `(buffer, element count)` pair, converting any Rust panic into a
+/// null/zero result instead of letting it unwind across the C ABI (unwinding through `extern "C"`
+/// aborts the process). `*out_size` receives the count, or 0 on panic. The returned buffer must be
+/// reclaimed by the matching `thapthim_free_*`.
+fn ffi_array<T>(out_size: *mut i32, body: impl FnOnce() -> (*const T, i32)) -> *const T {
+    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(body)) {
+        Ok((ptr, len)) => {
+            unsafe { *out_size = len; }
+            ptr
+        }
+        Err(_) => {
+            unsafe { *out_size = 0; }
+            std::ptr::null()
+        }
+    }
+}
+
+/// `ffi_array` counterpart for entry points returning a single owned pointer (null on panic).
+fn ffi_ptr(body: impl FnOnce() -> *mut c_char) -> *mut c_char {
+    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(body)) {
+        Ok(p) => p,
+        Err(_) => std::ptr::null_mut(),
+    }
+}
+
 /// # Safety
 /// `raw_text_ptr` must be null or a valid NUL-terminated C string, and `out_size` a writable
 /// `i32` pointer. The returned buffer must be freed with `thapthim_free_array`, passing the
@@ -57,20 +82,15 @@ pub unsafe extern "C" fn thapthim_tcc_positions(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
 ) -> *const i32 {
-    if raw_text_ptr.is_null() {
-        unsafe { *out_size = 0; }
-        return std::ptr::null();
-    }
-
-    let text_cow = unsafe { read_utf8(raw_text_ptr) };
-    let text: &str = &text_cow;
-
-    let positions = get_tcc().find_positions(text);
-
-    unsafe { *out_size = positions.len() as i32; }
-
-    let boxed_slice = positions.into_boxed_slice();
-    Box::into_raw(boxed_slice) as *const i32
+    ffi_array(out_size, || {
+        if raw_text_ptr.is_null() {
+            return (std::ptr::null(), 0);
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        let positions = get_tcc().find_positions(&text_cow);
+        let len = positions.len() as i32;
+        (Box::into_raw(positions.into_boxed_slice()) as *const i32, len)
+    })
 }
 
 /// Zero-Allocation Joint-Lattice Tokenizer FFI Interface
@@ -85,24 +105,17 @@ pub unsafe extern "C" fn thapthim_segment(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
 ) -> *const u64 {
-    if raw_text_ptr.is_null() {
-        unsafe { *out_size = 0; }
-        return std::ptr::null();
-    }
-
-    let text_cow = unsafe { read_utf8(raw_text_ptr) };
-    let text: &str = &text_cow;
-
-    // Access the shared global engine instantly (O(1) after bootstrap initialization)
-    let engine = get_engine();
-
-    // Word-only Viterbi (no syllable work unless the input has OOV spans).
-    let packed_tokens = engine.segment_words(text);
-
-    unsafe { *out_size = packed_tokens.len() as i32; }
-
-    let boxed_slice = packed_tokens.into_boxed_slice();
-    Box::into_raw(boxed_slice) as *const u64
+    ffi_array(out_size, || {
+        if raw_text_ptr.is_null() {
+            return (std::ptr::null(), 0);
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        // Shared global engine (O(1) after bootstrap); word-only Viterbi (no syllable work unless
+        // the input has OOV spans).
+        let packed_tokens = get_engine().segment_words(&text_cow);
+        let len = packed_tokens.len() as i32;
+        (Box::into_raw(packed_tokens.into_boxed_slice()) as *const u64, len)
+    })
 }
 
 /// Companion to `thapthim_segment`: returns the syllable-level token stream for the same text,
@@ -117,21 +130,15 @@ pub unsafe extern "C" fn thapthim_segment_syllables(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
 ) -> *const u64 {
-    if raw_text_ptr.is_null() {
-        unsafe { *out_size = 0; }
-        return std::ptr::null();
-    }
-
-    let text_cow = unsafe { read_utf8(raw_text_ptr) };
-    let text: &str = &text_cow;
-
-    let engine = get_engine();
-    let packed_tokens = engine.segment_syllables(text);
-
-    unsafe { *out_size = packed_tokens.len() as i32; }
-
-    let boxed_slice = packed_tokens.into_boxed_slice();
-    Box::into_raw(boxed_slice) as *const u64
+    ffi_array(out_size, || {
+        if raw_text_ptr.is_null() {
+            return (std::ptr::null(), 0);
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        let packed_tokens = get_engine().segment_syllables(&text_cow);
+        let len = packed_tokens.len() as i32;
+        (Box::into_raw(packed_tokens.into_boxed_slice()) as *const u64, len)
+    })
 }
 
 /// Normalizes Thai text (shared `std_normalize`) and returns a freshly allocated, NUL-terminated
@@ -142,15 +149,17 @@ pub unsafe extern "C" fn thapthim_segment_syllables(
 /// `raw_text_ptr` must be null or a valid NUL-terminated C string.
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn thapthim_normalize(raw_text_ptr: *const c_char) -> *mut c_char {
-    if raw_text_ptr.is_null() {
-        return std::ptr::null_mut();
-    }
-    let text_cow = unsafe { read_utf8(raw_text_ptr) };
-    let normalized = crate::normalize::std_normalize(&text_cow);
-    match CString::new(normalized) {
-        Ok(c) => c.into_raw(),
-        Err(_) => std::ptr::null_mut(),
-    }
+    ffi_ptr(|| {
+        if raw_text_ptr.is_null() {
+            return std::ptr::null_mut();
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        let normalized = crate::normalize::std_normalize(&text_cow);
+        match CString::new(normalized) {
+            Ok(c) => c.into_raw(),
+            Err(_) => std::ptr::null_mut(),
+        }
+    })
 }
 
 /// Frees a string returned by `thapthim_normalize`.

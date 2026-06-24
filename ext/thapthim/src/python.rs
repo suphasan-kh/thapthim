@@ -10,8 +10,10 @@
 //
 // Decode strategy: the heavy engine work runs with the GIL released; the resulting tokens are then
 // materialised *directly* into Python `str` objects from the source byte slices (one copy each, no
-// intermediate Rust `String`, and `from_utf8_unchecked` since the engine guarantees valid UTF-8
-// boundaries). This is leaner than collecting a `Vec<String>` and letting PyO3 re-copy it.
+// intermediate Rust `String`). This is leaner than collecting a `Vec<String>` and letting PyO3
+// re-copy it. `from_utf8_lossy` is used (not `_unchecked`): engine boundaries are always valid
+// UTF-8 boundaries so it borrows without allocating in practice, but it stays memory-safe even if
+// that invariant were ever violated — no `unsafe` anywhere in this binding.
 
 use pyo3::prelude::*;
 use pyo3::types::PyString;
@@ -39,10 +41,11 @@ fn decode_pystrings<'py>(py: Python<'py>, text: &str, packed: &[u64]) -> Vec<Bou
         .iter()
         .map(|&tok| {
             let (start, len) = unpack(tok);
-            // SAFETY: engine tokens span TCC boundaries, which are always valid UTF-8 boundaries,
-            // so this slice is guaranteed valid UTF-8 — skip the redundant validation scan.
-            let s = unsafe { std::str::from_utf8_unchecked(&bytes[start..start + len]) };
-            PyString::new(py, s)
+            // Engine tokens span TCC boundaries (valid UTF-8 boundaries), so this is Borrowed in
+            // practice — no alloc. Lossy keeps it safe regardless; the byte-slice index is itself
+            // bounds-checked (a bad offset would panic → Python exception, never UB).
+            let s = String::from_utf8_lossy(&bytes[start..start + len]);
+            PyString::new(py, s.as_ref())
         })
         .collect()
 }
@@ -55,8 +58,7 @@ fn decode_packed(text: &str, packed: &[u64]) -> Vec<String> {
         .iter()
         .map(|&tok| {
             let (start, len) = unpack(tok);
-            // SAFETY: as in decode_pystrings — TCC boundaries are valid UTF-8 boundaries.
-            unsafe { std::str::from_utf8_unchecked(&bytes[start..start + len]) }.to_owned()
+            String::from_utf8_lossy(&bytes[start..start + len]).into_owned()
         })
         .collect()
 }
@@ -113,9 +115,10 @@ fn tcc_segment<'py>(py: Python<'py>, text: &str) -> Vec<Bound<'py, PyString>> {
     positions
         .windows(2)
         .map(|w| {
-            // SAFETY: TCC byte positions fall on valid UTF-8 boundaries.
-            let s = unsafe { std::str::from_utf8_unchecked(&bytes[w[0]..w[1]]) };
-            PyString::new(py, s)
+            // TCC byte positions fall on valid UTF-8 boundaries → Borrowed in practice; lossy
+            // keeps it safe regardless, with no `unsafe`.
+            let s = String::from_utf8_lossy(&bytes[w[0]..w[1]]);
+            PyString::new(py, s.as_ref())
         })
         .collect()
 }
