@@ -8,7 +8,10 @@ build-backend = "maturin"
 [project]
 name = "thapthim"
 version = "0.1.0"
-description = "Thai word, syllable, and TCC segmentation — native Rust engine"
+# The source code is MIT, but the bundled model assets derive from non-commercial corpora, so the
+# wheel AS DISTRIBUTED is non-commercial / research / open-source only — same posture as the gem.
+# See THIRD_PARTY_NOTICES.md (also bundled below). Kept in sync with thapthim.gemspec.
+description = "Thai word, syllable, and TCC segmentation (native Rust engine). Non-commercial / research / open-source use only — see THIRD_PARTY_NOTICES.md."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { file = "LICENSE.txt" }
@@ -17,6 +20,9 @@ classifiers = [
   "Programming Language :: Rust",
   "Programming Language :: Python :: Implementation :: CPython",
   "Topic :: Text Processing :: Linguistic",
+  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: Apache Software License",
+  "License :: Free for non-commercial use",
 ]
 
 [tool.maturin]
@@ -26,3 +32,11 @@ manifest-path = "ext/thapthim/Cargo.toml"
 module-name = "thapthim"
 features = ["python"]
 no-default-features = true
+# Bundle the same attribution artifacts the gem ships so the wheel is self-documenting: the MIT
+# scope note, the third-party notices (PyThaiNLP Apache-2.0 port of the TCC grammar + the BEST/LST20
+# non-commercial corpus terms), and the full Apache-2.0 text. Included in both sdist and wheel.
+include = [
+  { path = "LICENSE.txt", format = ["sdist", "wheel"] },
+  { path = "THIRD_PARTY_NOTICES.md", format = ["sdist", "wheel"] },
+  { path = "licenses/Apache-2.0.txt", format = ["sdist", "wheel"] },
+]
