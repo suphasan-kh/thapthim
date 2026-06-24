@@ -46,6 +46,13 @@ Gem::Specification.new do |spec|
         # and the example that mints it from the released gem.
         f == "ext/thapthim/assets/joint_lm_interned_best.bin" ||
         f == "ext/thapthim/examples/build_interned_lm.rs" ||
+        # Build-only LM inputs (~63MB): the six Kneser-Ney count files and the String-keyed
+        # joint_lm.bin are what build.rs regenerates the embedded interned LM *from*. The shipped
+        # lib only include_bytes! the committed joint_lm_interned.bin, and build.rs skips any step
+        # whose inputs are missing — so a checkout with just the interned .bin still compiles.
+        # Kept in git for provenance/reproducibility; excluded from the released gem.
+        f.start_with?("ext/thapthim/assets/kn_") ||
+        f == "ext/thapthim/assets/joint_lm.bin" ||
         f.end_with?(".dylib") || f.end_with?(".so") || f.end_with?(".bundle")
     end
   end
