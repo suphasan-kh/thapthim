@@ -13,6 +13,8 @@ module Thapthim
       dlload LIB_PATH
       extern 'void* thapthim_tcc_positions(void*, void*)'
       extern 'void thapthim_free_array(void*, int)'
+      extern 'char* thapthim_normalize(void*)'
+      extern 'void thapthim_free_string(void*)'
     else
       raise LoadError, "Thapthim Core Failure: Native binary missing at #{LIB_PATH}"
     end

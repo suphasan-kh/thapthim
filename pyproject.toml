@@ -1,0 +1,28 @@
+# Python packaging for Thapthim, built by maturin over the same Rust engine as the Ruby gem.
+# This file is independent of the gem build (Rakefile / thapthim.gemspec); the two share only
+# ext/thapthim. Build a wheel with:  maturin build --release   (or `maturin develop` for editable).
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "thapthim"
+version = "0.1.0"
+description = "Thai word, syllable, and TCC segmentation — native Rust engine"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE.txt" }
+keywords = ["thai", "tokenizer", "segmentation", "nlp", "tcc"]
+classifiers = [
+  "Programming Language :: Rust",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Text Processing :: Linguistic",
+]
+
+[tool.maturin]
+# The crate is shared with the Ruby cdylib build; turn off the default `ruby` feature so rb-sys
+# (and its Ruby discovery) never runs during the wheel build, and turn on the PyO3 binding.
+manifest-path = "ext/thapthim/Cargo.toml"
+module-name = "thapthim"
+features = ["python"]
+no-default-features = true

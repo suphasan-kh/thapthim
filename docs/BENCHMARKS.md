@@ -73,6 +73,14 @@ Thapthim's two LMs run at the same speed. Throughput reflects two hot-path fixes
 bigram-key hasher and precomputing candidate token ids in the Viterbi decode (~450k → ~1.68M
 char/s overall; see CHANGELOG).
 
+All figures above are **single-threaded, per-call** — the only basis on which engines are
+comparable (every baseline here is run single-threaded too). The Python binding's
+`segment_batch` reports a much higher number (~7.5M char/s) because it releases the GIL and
+fans the batch across all cores with rayon; that is a **multicore deployment-throughput** figure,
+not an engine-speed one, and is **not** comparable to the single-threaded numbers above (any
+tokenizer can be batched/parallelized the same way). Use the per-call figure for model-vs-model
+comparison; treat batch throughput as "what one machine can push using all cores."
+
 ## Syllable segmentation
 
 `Thapthim.syllables` segments into orthographic syllables via a single syllable-LM Viterbi over the

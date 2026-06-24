@@ -9,6 +9,13 @@ name = "thapthim"
 crate-type = ["cdylib", "rlib"]
 
 [features]
+# `ruby` (default) pulls in rb-sys for the rake/rb_sys mkmf build of the Ruby cdylib. The Python
+# wheel build turns it off (`maturin --no-default-features --features python`) so rb-sys' Ruby
+# discovery never runs in a Python-only environment. The two bindings share one engine; only the
+# outer FFI layer differs.
+default = ["ruby"]
+ruby = ["dep:rb-sys"]
+python = ["dep:pyo3", "dep:rayon"]
 # Off by default: the alternate BEST-trained LM (assets/joint_lm_interned_best.bin) is kept in the
 # repo for experiments but NOT embedded into the shipped binary. Build with `--features best_lm`
 # (and run with THAPTHIM_LM=best) to evaluate it. Keeps the default gem ~11MB smaller.
@@ -19,12 +26,17 @@ combined_lm = []
 
 [dependencies]
 regex = "1.10"
+fancy-regex = "0.13" # std_normalize needs lookbehind (remove_spaces_before_marks); plain regex can't
 daachorse = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 bincode = "1.3"
 rustc-hash = "1.1" # Incredibly fast lookup hashes optimized for compiler/NLP tokens
+# Python binding (feature = "python"): native CPython extension over the same RuntimeEngine.
+# `extension-module` keeps the wheel from linking libpython so it stays portable across interpreters.
+pyo3 = { version = "0.23", features = ["extension-module"], optional = true }
+rayon = { version = "1.10", optional = true } # intra-batch multicore for segment_batch
 
 [build-dependencies]
-rb-sys = "0.9" # Standard cross-boundary system wrapper
+rb-sys = { version = "0.9", optional = true } # Ruby cross-boundary build glue (ruby feature only)
 serde = { version = "1.0", features = ["derive"] } # build.rs re-encodes the LM to the interned asset
 bincode = "1.3"
