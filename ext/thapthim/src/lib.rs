@@ -103,35 +103,11 @@ pub extern "C" fn thapthim_segment_syllables(
     Box::into_raw(boxed_slice) as *const u64
 }
 
-/// EXPERIMENTAL A/B variant: word segmentation with syllables as first-class lattice candidates
-/// (all scored under the word LM). Wired only for evaluation against `thapthim_segment`.
-#[unsafe(no_mangle)]
-pub extern "C" fn thapthim_segment_joint(
-    raw_text_ptr: *const c_char,
-    out_size: *mut i32,
-) -> *const u64 {
-    if raw_text_ptr.is_null() {
-        unsafe { *out_size = 0; }
-        return std::ptr::null();
-    }
-
-    let text_cow = unsafe { read_utf8(raw_text_ptr) };
-    let text: &str = &text_cow;
-
-    let engine = get_engine();
-    let packed_tokens = engine.segment_words_joint(text);
-
-    unsafe { *out_size = packed_tokens.len() as i32; }
-
-    let boxed_slice = packed_tokens.into_boxed_slice();
-    Box::into_raw(boxed_slice) as *const u64
-}
-
 #[unsafe(no_mangle)]
 pub extern "C" fn thapthim_free_array(ptr: *mut i32, size: i32) {
     if !ptr.is_null() {
         unsafe {
-            let _ = Box::from_raw(std::slice::from_raw_parts_mut(ptr, size as usize));
+            let _ = Box::from_raw(std::ptr::slice_from_raw_parts_mut(ptr, size as usize));
         }
     }
 }
@@ -141,7 +117,7 @@ pub extern "C" fn thapthim_free_array(ptr: *mut i32, size: i32) {
 pub extern "C" fn thapthim_free_u64_array(ptr: *mut u64, size: i32) {
     if !ptr.is_null() {
         unsafe {
-            let _ = Box::from_raw(std::slice::from_raw_parts_mut(ptr, size as usize));
+            let _ = Box::from_raw(std::ptr::slice_from_raw_parts_mut(ptr, size as usize));
         }
     }
 }

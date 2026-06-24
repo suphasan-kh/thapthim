@@ -19,6 +19,12 @@ pub struct TccSegmenter {
     tcc_regex: Regex,
 }
 
+impl Default for TccSegmenter {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TccSegmenter {
     pub fn new() -> Self {
         let c = "[ก-ฮ]";

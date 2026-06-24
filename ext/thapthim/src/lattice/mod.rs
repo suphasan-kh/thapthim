@@ -202,15 +202,14 @@ impl RuntimeEngine {
         let mut bwd = FxHashMap::default();
         for line in raw.lines() {
             let mut it = line.splitn(3, '\t');
-            if let (Some(dir), Some(ctx), Some(ent)) = (it.next(), it.next(), it.next()) {
-                if let Ok(h) = ent.parse::<f32>() {
+            if let (Some(dir), Some(ctx), Some(ent)) = (it.next(), it.next(), it.next())
+                && let Ok(h) = ent.parse::<f32>() {
                     match dir {
                         "F" => { fwd.insert(ctx.to_string(), h); }
                         "B" => { bwd.insert(ctx.to_string(), h); }
                         _ => {}
                     }
                 }
-            }
         }
         (fwd, bwd)
     }

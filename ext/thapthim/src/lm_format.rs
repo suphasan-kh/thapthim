@@ -54,7 +54,7 @@ fn id(tok: &str, id_of: &mut HashMap<String, u32>, vocab: &mut Vec<String>) -> u
 
 /// Lossless re-encode of one layer: assign dense ids (unigram tokens first, then bigram-only
 /// tokens), pack bigram keys to u64, and build a dense unigram table indexed by id.
-pub fn intern_layer(layer: &LayerCounts) -> InternedLayer {
+fn intern_layer(layer: &LayerCounts) -> InternedLayer {
     let mut id_of: HashMap<String, u32> = HashMap::new();
     let mut vocab: Vec<String> = Vec::new();
 
@@ -103,11 +103,10 @@ fn parse_unigrams(path: &str) -> HashMap<String, (usize, usize)> {
             continue;
         }
         let mut it = line.split('\t');
-        if let (Some(tok), Some(c), Some(p)) = (it.next(), it.next(), it.next()) {
-            if let (Ok(c), Ok(p)) = (c.parse(), p.parse()) {
+        if let (Some(tok), Some(c), Some(p)) = (it.next(), it.next(), it.next())
+            && let (Ok(c), Ok(p)) = (c.parse(), p.parse()) {
                 m.insert(tok.to_string(), (c, p));
             }
-        }
     }
     m
 }
@@ -121,11 +120,10 @@ fn parse_bigrams(path: &str) -> HashMap<String, usize> {
             continue;
         }
         let mut it = line.split('\t');
-        if let (Some(w1), Some(w2), Some(c)) = (it.next(), it.next(), it.next()) {
-            if let Ok(c) = c.parse() {
+        if let (Some(w1), Some(w2), Some(c)) = (it.next(), it.next(), it.next())
+            && let Ok(c) = c.parse() {
                 m.insert(format!("{w1}\t{w2}"), c); // key matches score_transition's "w1\tw2"
             }
-        }
     }
     m
 }

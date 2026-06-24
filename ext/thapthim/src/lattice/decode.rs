@@ -109,7 +109,7 @@ impl RuntimeEngine {
                     for &p in prevs {
                         if let Some(&ps) = dp.get(&p) {
                             let s = ps + self.score_transition(lm_tier, &cands[p].text, &c.text);
-                            if b.map_or(true, |(bs, _)| s > bs) {
+                            if b.is_none_or(|(bs, _)| s > bs) {
                                 b = Some((s, Some(p)));
                             }
                         }
@@ -126,11 +126,10 @@ impl RuntimeEngine {
         let mut best_end: Option<(f64, usize)> = None;
         if let Some(ends) = ending_at.get(&re) {
             for &i in ends {
-                if let Some(&s) = dp.get(&i) {
-                    if best_end.map_or(true, |(bs, _)| s > bs) {
+                if let Some(&s) = dp.get(&i)
+                    && best_end.is_none_or(|(bs, _)| s > bs) {
                         best_end = Some((s, i));
                     }
-                }
             }
         }
 
@@ -175,12 +174,11 @@ impl RuntimeEngine {
             match c.tier {
                 LatticeTier::Word => spans.push((c.start, c.end, true)),
                 _ => {
-                    if let Some(last) = spans.last_mut() {
-                        if !last.2 && last.1 == c.start {
+                    if let Some(last) = spans.last_mut()
+                        && !last.2 && last.1 == c.start {
                             last.1 = c.end;
                             continue;
                         }
-                    }
                     spans.push((c.start, c.end, false));
                 }
             }
@@ -245,38 +243,6 @@ impl RuntimeEngine {
         cands.extend(self.tcc_fallback(text, &positions));
 
         self.decode_best_path(&cands, 0, byte_len, &LatticeTier::Syllable)
-            .iter()
-            .map(|c| pack(c.start, c.end, tier_flag(&c.tier)))
-            .collect()
-    }
-
-    /// EXPERIMENT (A/B vs `segment_words`). Word segmentation where dictionary syllables are
-    /// first-class candidates in the word lattice alongside words and the TCC floor — all scored
-    /// under the WORD LM (one consistent space, so no cross-tier scale issue). Syllables can thus
-    /// influence boundary placement, not just fill OOV spans after the fact. Risk: a known word
-    /// may lose to its cheaper syllable pieces (over-segmentation), hence the measurement.
-    pub fn segment_words_joint(&self, text: &str) -> Vec<u64> {
-        let byte_len = text.len();
-        if byte_len == 0 {
-            return Vec::new();
-        }
-        let (positions, boundary, byte_to_idx) = self.tcc_grid(text);
-        if positions.len() < 2 {
-            return Vec::new();
-        }
-
-        let mut cands =
-            self.dict_candidates(&self.word_trie, text, LatticeTier::Word, &boundary, &byte_to_idx);
-        cands.extend(self.dict_candidates(
-            &self.syllable_trie,
-            text,
-            LatticeTier::Syllable,
-            &boundary,
-            &byte_to_idx,
-        ));
-        cands.extend(self.tcc_fallback(text, &positions));
-
-        self.decode_best_path(&cands, 0, byte_len, &LatticeTier::Word)
             .iter()
             .map(|c| pack(c.start, c.end, tier_flag(&c.tier)))
             .collect()
