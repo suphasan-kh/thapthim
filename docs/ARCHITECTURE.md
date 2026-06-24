@@ -141,3 +141,29 @@ reconciled path is emitted via native bit-shifting as a flat vector of packed 64
 | `THAPTHIM_BE_THRESHOLD` | 1.0 | branching-entropy merge threshold for OOV-run repair (`0` disables the pass) |
 | `THAPTHIM_KN_DISCOUNT` | 0.75 | Kneser-Ney absolute discount (argmax is near-invariant; see BENCHMARKS) |
 | `THAPTHIM_LM` | LST20 | selects the LM tier when a gated `best`/`combined` build is loaded |
+
+## Extensibility
+
+The Viterbi decoder is not specific to segmentation. The shortest-path core lives in
+`lattice/grid.rs` as a task-agnostic engine: an `Edge<P>` is a grid-aligned span `[start, end)`
+carrying an arbitrary payload `P`, and the `LatticeModel` trait supplies the cost — a per-edge
+context (`contexts`), a sentence-initial context (`start_ctx`), an optional emission/node cost
+(`node_cost`, default `0.0`), and a first-order transition score (`transition`). `viterbi` runs the
+exact first-order DP over the edges confined to a byte region and returns the best path. The trait
+is monomorphized per model, so this generality costs no dynamic dispatch.
+
+Word and syllable segmentation are simply the **first** instantiation: `BigramModel` in `decode.rs`
+sets `Payload = LatticeTier`, `Ctx = Option<u32>` (the interned token id), `node_cost = 0.0`, and
+`transition = ` the Kneser-Ney bigram score. The branching-entropy merge and OOV-run coalescing stay
+*outside* the core as segmentation-specific orchestration.
+
+The planned deterministic tasks plug in the same way — new candidate generation plus a `LatticeModel`
+impl, never touching `grid.rs`:
+
+- **G2P** — edges are span→reading candidates; `Ctx` is a phoneme-unit id; `node_cost` carries a
+  grapheme→phoneme rule prior; `transition` is a phoneme-sequence model.
+- **Spelling correction** — edges are dictionary words within an edit-distance bound; `node_cost`
+  carries the edit penalty (the first real use of `node_cost`); `transition` is the word LM.
+
+Tasks with no path search — soundex, ISO-11940 transliteration, normalization, sentiment — are
+deterministic transforms that sit beside the lattice rather than inside it.
