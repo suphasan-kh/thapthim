@@ -23,45 +23,38 @@ deepcut 0.7.0.0 (TensorFlow 2.21), nlpo3 1.4.0.
 | nlpo3 | dictionary maximal-matching (Rust newmm) | LEXiTRON-style dict |
 | newmm | dictionary maximal-matching (PyThaiNLP) | LEXiTRON-style dict |
 
+Full test sets — lst20 5,250 · best 27,834 · vistec 10,000 · tnhc 4,403 · ws1000 993 sentences.
+Columns are the three thapthim LMs (LST20 ships; BEST and COMBINED are gated, not shipped — same
+engine, different training corpus) and the four baselines. All engines reconstructed every sentence
+exactly (0 mismatches).
+
 ## Word-level F1 (research metric; **bold** = best per corpus)
 
-| corpus | thapthim-LST20 | thapthim-BEST | attacut | deepcut | nlpo3 | newmm |
-|---|--:|--:|--:|--:|--:|--:|
-| **lst20**  | **0.9481** | 0.8698 | 0.8532 | 0.8522 | 0.7135 | 0.7124 |
-| **best**   | 0.8734 | 0.9488 | 0.9455 | **0.9656** | 0.6863 | 0.6836 |
-| **vistec** | **0.8135** | 0.8058 | 0.7844 | 0.7972 | 0.7487 | 0.7670 |
-| **tnhc**   | 0.7916 | **0.8077** | 0.7667 | 0.7764 | 0.7084 | 0.7095 |
-| **ws1000** | 0.8280 | **0.8288** | 0.8261 | 0.8243 | 0.7525 | 0.7487 |
+| corpus | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| **lst20**  | **0.9481** | 0.8698 | 0.9361 | 0.8532 | 0.8522 | 0.7135 | 0.7124 |
+| **best**   | 0.8755 | 0.9496 | 0.9246 | 0.9454 | **0.9659** | 0.6870 | 0.6839 |
+| **vistec** | **0.8124** | 0.8050 | 0.8072 | 0.7843 | 0.7971 | 0.7480 | 0.7667 |
+| **tnhc**   | 0.7916 | **0.8077** | 0.8076 | 0.7667 | 0.7764 | 0.7084 | 0.7095 |
+| **ws1000** | 0.8280 | 0.8288 | **0.8330** | 0.8261 | 0.8243 | 0.7525 | 0.7487 |
+| **macro-avg** | 0.8511 | 0.8522 | **0.8617** | 0.8351 | 0.8432 | 0.7219 | 0.7242 |
 
 ## Char-level F1 (boundary detection)
 
-| corpus | thapthim-LST20 | thapthim-BEST | attacut | deepcut | nlpo3 | newmm |
-|---|--:|--:|--:|--:|--:|--:|
-| **lst20**  | **0.9781** | 0.9496 | 0.9420 | 0.9413 | 0.8901 | 0.8899 |
-| **best**   | 0.9494 | 0.9761 | 0.9768 | **0.9864** | 0.8767 | 0.8745 |
-| **vistec** | **0.9217** | 0.9186 | 0.9145 | 0.9190 | 0.8973 | 0.9059 |
-| **tnhc**   | 0.9178 | **0.9237** | 0.9006 | 0.9068 | 0.8873 | 0.8876 |
-| **ws1000** | 0.9292 | 0.9289 | **0.9316** | 0.9307 | 0.9006 | 0.9024 |
+| corpus | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| **lst20**  | **0.9781** | 0.9496 | 0.9738 | 0.9420 | 0.9413 | 0.8901 | 0.8899 |
+| **best**   | 0.9500 | 0.9763 | 0.9674 | 0.9771 | **0.9865** | 0.8770 | 0.8747 |
+| **vistec** | **0.9212** | 0.9182 | 0.9192 | 0.9146 | 0.9192 | 0.8970 | 0.9060 |
+| **tnhc**   | 0.9178 | **0.9237** | 0.9237 | 0.9006 | 0.9068 | 0.8873 | 0.8876 |
+| **ws1000** | 0.9292 | 0.9289 | 0.9304 | **0.9316** | 0.9307 | 0.9006 | 0.9024 |
 
-All engines reconstructed every sentence exactly (0 mismatches), so the spans are directly comparable.
-
-### Gated thapthim LMs (word-level F1)
-
-The engine is identical; only the language-model training corpus differs. Neither ships by default.
-
-| corpus | thapthim-LST20 (shipped) | thapthim-BEST | thapthim-COMBINED |
-|---|--:|--:|--:|
-| lst20 | **0.9481** | 0.8698 | 0.9361 |
-| best | 0.8734 | **0.9488** | 0.9235 |
-| vistec | **0.8135** | 0.8058 | 0.8087 |
-| tnhc | 0.7916 | **0.8077** | 0.8076 |
-| ws1000 | 0.8280 | 0.8288 | **0.8330** |
-| **macro-avg** | 0.8509 | 0.8522 | **0.8618** |
-
-Each single-corpus LM wins its home corpus; **COMBINED** is the best all-rounder (highest macro-average,
-never collapses), trading a little LST20/VISTEC peak for large BEST/TNHC gains. The KN absolute discount
-was swept over 0.1–0.99 on all three LMs and found to have no meaningful effect on word-F1 (argmax
-decoding is near-invariant to a uniform score shift), so the textbook `d = 0.75` is retained.
+Among thapthim's LMs (engine identical, only the training corpus differs): each single-corpus LM wins
+its home corpus, while **COMBINED** is the best all-rounder — highest word-F1 macro-average (0.862)
+of *any* engine here, and it never collapses, trading a little LST20/VISTEC peak for large BEST/TNHC
+gains. The shipped default is LST20 (highest home peak). The KN absolute discount was swept over
+0.1–0.99 on all three LMs with no meaningful effect (argmax decoding is near-invariant to a uniform
+score shift), so the textbook `d = 0.75` is retained.
 
 ## Speed — pure tokenization throughput
 
@@ -102,13 +95,13 @@ difference.)
 ## Takeaways
 
 - **Thapthim leads word-level F1 on 4 of 5 corpora** (lst20, vistec, tnhc, ws1000); deepcut wins
-  its home corpus **best** (0.9656). The shipped **thapthim-LST20** is best overall on lst20 and
+  its home corpus **best** (0.9659). The shipped **thapthim-LST20** is best overall on lst20 and
   vistec and competitive everywhere else.
 - **vs the neural models** (attacut, deepcut): Thapthim matches or beats them off-domain while
-  being **~15× faster than attacut and ~400× faster than deepcut**. The neural models only pull
+  being **~18× faster than attacut and ~480× faster than deepcut**. The neural models only pull
   ahead on **best**, the corpus they are trained on — and there the gated **thapthim-BEST** LM
-  (0.9488) already edges attacut (0.9455) and trails only deepcut, at a fraction of the cost.
-- **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~2.7× faster than Thapthim but ~14–24
+  (0.9496) already edges attacut (0.9454) and trails only deepcut, at a fraction of the cost.
+- **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~2.3× faster than Thapthim but ~14–24
   word-F1 points worse on every corpus; having no statistical model, they plateau well below both
   Thapthim and the neural engines.
 - **Sweet spot:** Thapthim sits where the others don't — near-top accuracy across domains at
@@ -127,15 +120,15 @@ difference.)
   BEST-trained DeepCut dropping to ORCHID 0.66 / TNHC 0.63 / Wisesight 0.81 cross-domain; our
   deepcut matches the paper on BEST (0.966 vs 0.963), confirming the harness. So thapthim's lead on
   the non-BEST corpora is partly its home advantage against the baselines' cross-domain handicap —
-  the cleanest like-for-like is each tool on its home corpus (on BEST: thapthim-BEST 0.949 ≈ attacut
-  0.946, below deepcut 0.966).
+  the cleanest like-for-like is each tool on its home corpus (on BEST: thapthim-BEST 0.950 ≈ attacut
+  0.945, below deepcut 0.966).
 - **Metric averaging.** We report **micro** F1 (TP/FP/FN aggregated over the corpus). Some papers
   (e.g. AttaCut, UnifiedCut) report **macro** F1 (mean ± std of per-sentence F1), which runs a few
   tenths to ~1.5 points lower here and is not directly comparable to these numbers.
 - **Held-out splits.** Thapthim's dictionary is decontaminated of the BEST test split, so
   thapthim-BEST's `best` score is a fair held-out number, not memorization.
-- **Sentence caps.** `best` and `vistec` are capped at 3,000 sentences to bound deepcut's runtime;
-  `lst20` (5,250), `tnhc` (4,403) and `ws1000` (993) are full test sets. Override with `LIMIT=N`.
+- **Full test sets.** Every corpus is scored at full size (lst20 5,250 · best 27,834 · vistec 10,000
+  · tnhc 4,403 · ws1000 993). For a quick smoke run, cap each corpus with `LIMIT=N`.
 
 ## Reproduce
 
