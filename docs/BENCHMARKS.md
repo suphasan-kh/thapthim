@@ -17,6 +17,7 @@ deepcut 0.7.0.0 (TensorFlow 2.21), nlpo3 1.4.0.
 |---|---|---|
 | **thapthim-LST20** | dictionary lattice + KN-bigram Viterbi (this gem, shipped default) | LST20 |
 | **thapthim-BEST** | same engine, alternate LM (gated `best_lm` feature, not shipped) | BEST |
+| **thapthim-COMBINED** | same engine, LST20∪BEST word LM (gated `combined_lm` feature, not shipped) | LST20+BEST |
 | attacut (`attacut-sc`) | neural (CNN) | BEST |
 | deepcut | neural (CNN/LSTM) | BEST |
 | nlpo3 | dictionary maximal-matching (Rust newmm) | LEXiTRON-style dict |
@@ -43,6 +44,24 @@ deepcut 0.7.0.0 (TensorFlow 2.21), nlpo3 1.4.0.
 | **ws1000** | 0.9292 | 0.9289 | **0.9316** | 0.9307 | 0.9006 | 0.9024 |
 
 All engines reconstructed every sentence exactly (0 mismatches), so the spans are directly comparable.
+
+### Gated thapthim LMs (word-level F1)
+
+The engine is identical; only the language-model training corpus differs. Neither ships by default.
+
+| corpus | thapthim-LST20 (shipped) | thapthim-BEST | thapthim-COMBINED |
+|---|--:|--:|--:|
+| lst20 | **0.9481** | 0.8698 | 0.9361 |
+| best | 0.8734 | **0.9488** | 0.9235 |
+| vistec | **0.8135** | 0.8058 | 0.8087 |
+| tnhc | 0.7916 | **0.8077** | 0.8076 |
+| ws1000 | 0.8280 | 0.8288 | **0.8330** |
+| **macro-avg** | 0.8509 | 0.8522 | **0.8618** |
+
+Each single-corpus LM wins its home corpus; **COMBINED** is the best all-rounder (highest macro-average,
+never collapses), trading a little LST20/VISTEC peak for large BEST/TNHC gains. The KN absolute discount
+was swept over 0.1–0.99 on all three LMs and found to have no meaningful effect on word-F1 (argmax
+decoding is near-invariant to a uniform score shift), so the textbook `d = 0.75` is retained.
 
 ## Speed — pure tokenization throughput
 

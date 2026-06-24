@@ -118,13 +118,14 @@ impl RuntimeEngine {
         for &i in &order {
             let c = &cands[i];
             let best: Option<(f64, Option<usize>)> = if c.start == rs {
-                Some((layer.score(space_id, cand_ids[i], self.oov_penalty), None))
+                Some((layer.score(space_id, cand_ids[i], self.oov_penalty, self.kn_discount), None))
             } else {
                 let mut b: Option<(f64, Option<usize>)> = None;
                 if let Some(prevs) = ending_at.get(&c.start) {
                     for &p in prevs {
                         if reached[p] {
-                            let s = dp[p] + layer.score(cand_ids[p], cand_ids[i], self.oov_penalty);
+                            let s = dp[p]
+                                + layer.score(cand_ids[p], cand_ids[i], self.oov_penalty, self.kn_discount);
                             if b.is_none_or(|(bs, _)| s > bs) {
                                 b = Some((s, Some(p)));
                             }

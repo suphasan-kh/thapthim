@@ -115,6 +115,9 @@ pub struct RuntimeEngine {
     /// backoff branch). Larger = trust dictionary-only/unseen words less, so an attested
     /// decomposition wins over a junk dict entry like `กอดอก`. Set via `THAPTHIM_OOV_PENALTY`.
     oov_penalty: f64,
+    /// Absolute-discount mass `d` for the Kneser-Ney bigram model: subtracted from each seen
+    /// bigram count and recycled as the backoff weight. Set via `THAPTHIM_KN_DISCOUNT`.
+    kn_discount: f64,
     /// Max length (in TCC clusters, NOT characters) of a dictionary word candidate; longer matches
     /// are dropped from the lattice. Set via `THAPTHIM_MAX_WORD_TCC` (`0` = no cap).
     max_word_tcc: usize,
@@ -137,6 +140,13 @@ const BE_MERGE_MAX_TCC: usize = 2;
 /// fixing junk-dict-word over-merges like กอดอก→กอ|ดอก|ไม้. Higher helps LST20/TNHC more but
 /// over-segments VISTEC's heavier OOV tail. `0.0` restores legacy scoring.
 const DEFAULT_OOV_PENALTY: f64 = 2.0;
+
+/// Default Kneser-Ney absolute discount when `THAPTHIM_KN_DISCOUNT` is unset. 0.75 is the textbook
+/// single-discount value. A sweep over 0.1–0.99 (LST20 and LST20∪BEST LMs, all five eval corpora)
+/// found word-F1 essentially flat — every delta ≤ ~0.002 (LST20) / ~0.005 (combined), i.e. noise:
+/// Viterbi takes the argmax path and the discount shifts all bigram log-probs near-uniformly, so it
+/// rarely flips a decision. Kept tunable, but 0.75 is retained as validated.
+const DEFAULT_KN_DISCOUNT: f64 = 0.75;
 
 /// Default max length (in TCC clusters) of a dictionary word candidate. Tuned by sweep: LST20 F1
 /// is a flat plateau over 10–12 TCC (peak 10 = 0.9480 vs 12 = 0.9476, noise) and collapses below 8
@@ -205,6 +215,8 @@ impl RuntimeEngine {
         let lm_bytes: &[u8] = match std::env::var("THAPTHIM_LM").ok().as_deref() {
             #[cfg(feature = "best_lm")]
             Some("best") => &include_bytes!("../../assets/joint_lm_interned_best.bin")[..],
+            #[cfg(feature = "combined_lm")]
+            Some("combined") => &include_bytes!("../../assets/joint_lm_interned_combined.bin")[..],
             _ => &include_bytes!("../../assets/joint_lm_interned.bin")[..],
         };
         let model: InternedModel = bincode::deserialize(lm_bytes)
@@ -230,6 +242,10 @@ impl RuntimeEngine {
             .ok()
             .and_then(|s| s.parse::<usize>().ok())
             .unwrap_or(DEFAULT_MAX_WORD_TCC);
+        let kn_discount = std::env::var("THAPTHIM_KN_DISCOUNT")
+            .ok()
+            .and_then(|s| s.parse::<f64>().ok())
+            .unwrap_or(DEFAULT_KN_DISCOUNT);
 
         RuntimeEngine {
             word_trie,
@@ -243,6 +259,7 @@ impl RuntimeEngine {
             be_threshold,
             be_max_tcc,
             oov_penalty,
+            kn_discount,
             max_word_tcc,
         }
     }

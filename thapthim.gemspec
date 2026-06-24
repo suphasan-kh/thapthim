@@ -45,6 +45,9 @@ Gem::Specification.new do |spec|
         # embedded under the off-by-default `best_lm` cargo feature). Excludes the +24MB asset
         # and the example that mints it from the released gem.
         f == "ext/thapthim/assets/joint_lm_interned_best.bin" ||
+        # Experimental LST20∪BEST combined LM: gated behind the `combined_lm` feature, kept in git
+        # for experiments, not shipped (same rationale as the BEST LM above).
+        f == "ext/thapthim/assets/joint_lm_interned_combined.bin" ||
         f == "ext/thapthim/examples/build_interned_lm.rs" ||
         # Build-only LM inputs (~63MB): the six Kneser-Ney count files and the String-keyed
         # joint_lm.bin are what build.rs regenerates the embedded interned LM *from*. The shipped

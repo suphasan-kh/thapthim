@@ -15,8 +15,7 @@ impl RuntimeLayer {
     /// makes the log argument 0), so callers must track node reachability separately rather than
     /// treating a NEG_INFINITY score as "unreached".
     #[inline]
-    pub(super) fn score(&self, id1: Option<u32>, id2: Option<u32>, oov_penalty: f64) -> f64 {
-        let d = 0.75;
+    pub(super) fn score(&self, id1: Option<u32>, id2: Option<u32>, oov_penalty: f64, d: f64) -> f64 {
         let total_bigram_types = self.total_bigram_types;
 
         // A token absent from the layer's vocab is exactly the old `count == 0` case.
@@ -58,6 +57,11 @@ impl RuntimeEngine {
     /// avoid re-hashing the same token string on every incident edge.
     pub fn score_transition(&self, lm_tier: &LatticeTier, w1: &str, w2: &str) -> f64 {
         let layer = self.layer(lm_tier);
-        layer.score(layer.token_id.get(w1).copied(), layer.token_id.get(w2).copied(), self.oov_penalty)
+        layer.score(
+            layer.token_id.get(w1).copied(),
+            layer.token_id.get(w2).copied(),
+            self.oov_penalty,
+            self.kn_discount,
+        )
     }
 }

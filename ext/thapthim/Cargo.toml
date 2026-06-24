@@ -13,6 +13,9 @@ crate-type = ["cdylib", "rlib"]
 # repo for experiments but NOT embedded into the shipped binary. Build with `--features best_lm`
 # (and run with THAPTHIM_LM=best) to evaluate it. Keeps the default gem ~11MB smaller.
 best_lm = []
+# Experimental: LM trained on LST20 ∪ BEST word counts (assets/joint_lm_interned_combined.bin).
+# Same gating rationale as best_lm — kept out of the default build; select with THAPTHIM_LM=combined.
+combined_lm = []
 
 [dependencies]
 regex = "1.10"
