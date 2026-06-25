@@ -141,6 +141,17 @@ not an engine-speed one, and is **not** comparable to the single-threaded number
 tokenizer can be batched/parallelized the same way). Use the per-call figure for model-vs-model
 comparison; treat batch throughput as "what one machine can push using all cores."
 
+**Cold start vs. sustained throughput.** The numbers above are *sustained* per-call throughput
+(warm loop, best-of-5) — the steady state of any long-lived process. Separately, the first call in a
+fresh process pays a one-time **bootstrap of ~0.2 s**: deserializing the embedded Kneser-Ney LM,
+compiling the ~30-branch TCC regex, and building the daachorse tries. That cost is **per-process,
+not per-call**, and is dominated by model loading — *not* by the per-call workspace reuse (the
+thread-local Viterbi scratch is a few KB, allocated once per thread; its own cost is microseconds,
+invisible against bootstrap). After bootstrap, every call — including the first — runs at the
+steady-state speed above. So read the table as sustained throughput, and budget an extra ~0.2 s of
+model-load latency once per process (relevant only to a short-lived invocation, e.g. a CLI that
+segments one string and exits; amortized to nothing in any server or batch workload).
+
 ## Syllable segmentation
 
 `Thapthim.syllables` segments into orthographic syllables via a single syllable-LM Viterbi over the
