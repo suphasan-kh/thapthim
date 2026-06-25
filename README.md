@@ -98,6 +98,32 @@ maturin build --release           # just produce a wheel under target/wheels/
 the Python version, OS, and CPU architecture it was built on, so it only installs on a matching
 interpreter.
 
+### Google Colab / Jupyter
+
+Colab and most notebook images ship Python but **no Rust toolchain**, so install one first, then
+build straight from the repo. Run these in two cells (or one):
+
+```python
+# 1. Install a Rust toolchain — Colab has none by default (~30s).
+!curl https://sh.rustup.rs -sSf | sh -s -- -y
+import os
+os.environ["PATH"] += ":" + os.path.expanduser("~/.cargo/bin")
+```
+
+```python
+# 2. Build + install thapthim from source (~1–3 min to compile the engine).
+!pip install "git+https://github.com/suphasan-kh/thapthim.git"
+```
+
+```python
+import thapthim
+thapthim.segment("ฉันกินข้าว")     # ['ฉัน', 'กิน', 'ข้าว']
+thapthim.syllables("ฉันกินข้าว")   # ['ฉัน', 'กิน', 'ข้าว']
+```
+
+No runtime restart is needed. On a **local Jupyter** where Rust is already installed, skip step 1 —
+just run the `!pip install "git+…"` cell (or `!pip install .` from a local clone).
+
 ### Usage
 
 ```python
