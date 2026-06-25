@@ -161,6 +161,28 @@ fallback — *not* the dictionary or the LM. This extends the "the LM corpus bar
 result above: **neither the dictionary nor the LM moves it.** The gap to the neural models is
 therefore structural to the dictionary-lattice approach, not an artifact of which corpus was used.
 
+**The TNHC-tuned entropy merge is not an unfair advantage on the other corpora.** The intro flags
+two non-method advantages; the tables above neutralise the dictionary by going single-corpus, and
+turn the merge *off* — but that leaves open whether the merge, tuned on TNHC, would flatter Thapthim
+if switched on. So we re-ran each fair build three ways: merge **off**, merge **on with the shipped
+TNHC table**, and merge **on with a table retrained on that build's own corpus** (BEST or LST20;
+`THAPTHIM_ENTROPY` + `tools/build_char_entropy_from.rb`, on the `fair-best-eval` branch — the table
+is unsupervised, built from raw character streams, so any corpus can train it). The result:
+
+- **On word-F1 the merge is neutral everywhere except TNHC** — every off/on/native triple lands
+  within ±0.002, well inside noise, on lst20/best/vistec/ws1000.
+- **Its one real win is on TNHC text, and that win does *not* come from same-corpus tuning.** On the
+  tnhc corpus the merge adds +0.005–0.008 F1 and ~+0.02 OOV recall — but the **TNHC table beats the
+  corpus-native table there** (BEST·fair 0.7876 vs 0.7865; LST20·fair 0.7720 vs 0.7692). It is a
+  domain effect of TNHC's literary/historical text, not the eval set leaking into a tuned knob — a
+  table retrained on the eval corpus does no better.
+- **Same-corpus entropy buys a little off-domain OOV recall, but trades precision for it.** The
+  largest shift is LST20·fair on vistec, R_oov 0.253 → 0.271, yet F1 stays flat (0.7816 → 0.7828) as
+  precision falls in step. Net macro word-F1 moves < 0.002 in every condition.
+
+So the headline fair tables (merge off) neither help nor hurt Thapthim versus turning it on, and the
+shipped TNHC tuning carries no hidden advantage on the four non-TNHC corpora.
+
 ## Speed — pure tokenization throughput
 
 Representative best-of-5 on the LST20 test text. Thapthim is measured through its Ruby↔Rust FFI
