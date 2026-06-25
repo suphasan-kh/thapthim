@@ -135,7 +135,7 @@ comparable (every baseline here is run single-threaded too). The thapthim row is
 the **Python (PyO3) binding runs the identical engine and assets at ~3.0M char/s single-core**
 (per-call, same LST20 text) — marginally ahead of the Ruby figure because PyO3's call overhead is
 lower, not because the segmentation differs. Beyond single-core, the Python binding's
-`segment_batch` reports a much higher number (~10M char/s on 8 cores) because it releases the GIL
+`word_segment_batch` reports a much higher number (~10M char/s on 8 cores) because it releases the GIL
 and fans the batch across all cores with rayon; that is a **multicore deployment-throughput** figure,
 not an engine-speed one, and is **not** comparable to the single-threaded numbers above (any
 tokenizer can be batched/parallelized the same way). Use the per-call figure for model-vs-model
@@ -154,7 +154,7 @@ segments one string and exits; amortized to nothing in any server or batch workl
 
 ## Syllable segmentation
 
-`Thapthim.syllables` segments into orthographic syllables via a single syllable-LM Viterbi over the
+`Thapthim.syllable_segment` segments into orthographic syllables via a single syllable-LM Viterbi over the
 TCC grid. Its syllable LM is trained on SSG (PyThaiNLP's `engine="ssg"`) applied per gold word, so
 SSG is the natural baseline.
 

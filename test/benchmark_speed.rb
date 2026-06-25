@@ -1,6 +1,6 @@
 # test/benchmark_speed.rb
 #
-# Controlled, warm throughput benchmark for Thapthim.segment, using the same protocol as the
+# Controlled, warm throughput benchmark for Thapthim.word_segment, using the same protocol as the
 # Python baseline bench (warmup excluded, fixed corpus, best-of-N repetitions). Run:
 #   ruby test/benchmark_speed.rb [N_SENTENCES] [REPS]
 require "json"
@@ -14,11 +14,11 @@ reps = (ARGV[1] || 3).to_i
 texts = File.foreach(CORPUS).first(n).map { |line| JSON.parse(line).join }
 chars = texts.sum(&:length)
 
-texts.first(100).each { |t| Thapthim.segment(t) } # warmup (untimed)
+texts.first(100).each { |t| Thapthim.word_segment(t) } # warmup (untimed)
 
 times = Array.new(reps) do
   t0 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-  texts.each { |t| Thapthim.segment(t) }
+  texts.each { |t| Thapthim.word_segment(t) }
   Process.clock_gettime(Process::CLOCK_MONOTONIC) - t0
 end
 

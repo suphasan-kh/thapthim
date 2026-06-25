@@ -78,7 +78,7 @@ module OovEval
 
     sentences.each do |gold_tokens|
       text = gold_tokens.join
-      pred_spans = SegEval.spans(Thapthim.segment(text), true)
+      pred_spans = SegEval.spans(Thapthim.word_segment(text), true)
 
       each_word_span(gold_tokens) do |word, s, e|
         recalled = pred_spans.include?([s, e])

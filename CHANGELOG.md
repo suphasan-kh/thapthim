@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+- **Breaking (pre-1.0): renamed the segmentation API for consistency** — every entry point is now
+  `<unit>_segment`. Ruby: `segment` → `word_segment`, `syllables` → `syllable_segment` (`tcc_segment`
+  unchanged). Python: `segment` → `word_segment`, `syllables` → `syllable_segment`, `segment_offsets`
+  → `word_segment_offsets`, `segment_batch` → `word_segment_batch`. The `normalize:`/`normalize=`
+  options and all behavior are unchanged.
 - Generalized the segmentation lattice into a task-agnostic grid engine (`lattice/grid.rs`:
   `Edge<P>`, the `LatticeModel` trait, and `viterbi`), with word/syllable segmentation as its
   first instantiation (`BigramModel`). Output is bit-identical (LST20 F1 0.9476, TNHC 0.7916,

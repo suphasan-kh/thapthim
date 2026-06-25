@@ -8,8 +8,8 @@ aligned to Thai Character Cluster (TCC) boundaries, scored with a Kneser-Ney big
 via Viterbi decoding, with branching-entropy back-off for out-of-vocabulary spans.
 
 ```ruby
-Thapthim.segment("ฉันกินข้าว")    # => ["ฉัน", "กิน", "ข้าว"]
-Thapthim.syllables("ฉันกินข้าว")  # => ["ฉัน", "กิน", "ข้าว"]
+Thapthim.word_segment("ฉันกินข้าว")    # => ["ฉัน", "กิน", "ข้าว"]
+Thapthim.syllable_segment("ฉันกินข้าว")  # => ["ฉัน", "กิน", "ข้าว"]
 ```
 
 ## Installation
@@ -37,16 +37,16 @@ Building the native extension requires a **Rust toolchain** (`rustc` / `cargo`, 
 require "thapthim"
 
 # Word segmentation — the main entry point.
-Thapthim.segment("ฉันกินข้าว")
+Thapthim.word_segment("ฉันกินข้าว")
 # => ["ฉัน", "กิน", "ข้าว"]
 
 # Syllable segmentation — boundaries are a superset of the word boundaries.
-Thapthim.syllables("ฉันกินข้าว")
+Thapthim.syllable_segment("ฉันกินข้าว")
 # => ["ฉัน", "กิน", "ข้าว"]
 
 # Optional text normalization before segmenting (collapses spaces, reorders vowels,
 # strips zero-width characters, removes repeated marks, etc.).
-Thapthim.segment("  ฉัน   กิน  ", normalize: true)
+Thapthim.word_segment("  ฉัน   กิน  ", normalize: true)
 
 # Normalize on its own.
 Thapthim.std_normalize("  ฉัน   กิน  ")
@@ -117,8 +117,8 @@ os.environ["PATH"] += ":" + os.path.expanduser("~/.cargo/bin")
 
 ```python
 import thapthim
-thapthim.segment("ฉันกินข้าว")     # ['ฉัน', 'กิน', 'ข้าว']
-thapthim.syllables("ฉันกินข้าว")   # ['ฉัน', 'กิน', 'ข้าว']
+thapthim.word_segment("ฉันกินข้าว")     # ['ฉัน', 'กิน', 'ข้าว']
+thapthim.syllable_segment("ฉันกินข้าว")   # ['ฉัน', 'กิน', 'ข้าว']
 ```
 
 No runtime restart is needed. On a **local Jupyter** where Rust is already installed, skip step 1 —
@@ -130,22 +130,22 @@ just run the `!pip install "git+…"` cell (or `!pip install .` from a local clo
 import thapthim
 
 # Word and syllable segmentation — the main entry points.
-thapthim.segment("ฉันกินข้าว")              # ['ฉัน', 'กิน', 'ข้าว']
-thapthim.syllables("ฉันกินข้าว")            # ['ฉัน', 'กิน', 'ข้าว']
+thapthim.word_segment("ฉันกินข้าว")              # ['ฉัน', 'กิน', 'ข้าว']
+thapthim.syllable_segment("ฉันกินข้าว")            # ['ฉัน', 'กิน', 'ข้าว']
 
 # Optional normalization before segmenting (parity with the Ruby `normalize:` option).
-thapthim.segment("  ฉัน   กิน  ", normalize=True)
+thapthim.word_segment("  ฉัน   กิน  ", normalize=True)
 thapthim.std_normalize("  ฉัน   กิน  ")      # 'ฉัน กิน'
 
 # Thai Character Cluster (TCC) segmentation — the smallest inseparable units.
 thapthim.tcc_segment("ฉันกินข้าว")          # ['ฉั', 'น', 'กิ', 'น', 'ข้า', 'ว']
 
-# Character offsets instead of substrings.
-thapthim.segment_offsets("ฉันกิน")          # [(0, 3), (3, 6)]
+# Byte offsets instead of substrings — (start_byte, length_byte) per word.
+thapthim.word_segment_offsets("ฉันกิน")          # [(0, 9), (9, 9)]
 
 # Batch path: segments a list in one boundary crossing, releasing the GIL and
 # fanning across cores — for bulk throughput, not single-call latency.
-thapthim.segment_batch(["ฉันกิน", "ข้าว"])  # [['ฉัน', 'กิน'], ['ข้าว']]
+thapthim.word_segment_batch(["ฉันกิน", "ข้าว"])  # [['ฉัน', 'กิน'], ['ข้าว']]
 ```
 
 Like the Ruby side, every entry point hardens its input (transcodes non–UTF-8, scrubs invalid

@@ -11,13 +11,13 @@ class TestFfiSafety < Minitest::Test
   # --- many alloc/free cycles must not corrupt state or drift results --------------
 
   def test_repeated_calls_stay_correct
-    expected = Thapthim.segment("ฉันกินข้าวที่ร้านอาหารไทย")
+    expected = Thapthim.word_segment("ฉันกินข้าวที่ร้านอาหารไทย")
     2_000.times do |i|
       # interleave the four entry points so their buffers churn together
       Thapthim.tcc_positions("ก")
-      Thapthim.syllables("ฉัน")
+      Thapthim.syllable_segment("ฉัน")
       Thapthim.std_normalize("  ก  ข  ")
-      assert_equal expected, Thapthim.segment("ฉันกินข้าวที่ร้านอาหารไทย"),
+      assert_equal expected, Thapthim.word_segment("ฉันกินข้าวที่ร้านอาหารไทย"),
                    "result drifted on iteration #{i} (memory corruption / stale buffer?)"
     end
   end
@@ -27,7 +27,7 @@ class TestFfiSafety < Minitest::Test
   def test_large_input_token_count_and_losslessness
     unit = "ฉันรักภาษาไทย"
     big = unit * 5_000
-    tokens = Thapthim.segment(big)
+    tokens = Thapthim.word_segment(big)
     assert_equal 20_000, tokens.length, "expected 4 words x 5000 repetitions"
     assert_equal big, tokens.join, "large input must remain lossless"
   end
@@ -37,7 +37,7 @@ class TestFfiSafety < Minitest::Test
   def test_distinct_inputs_do_not_bleed_into_each_other
     inputs = (1..500).map { |n| "คำที่#{n} " }
     inputs.each do |s|
-      assert_equal s, Thapthim.segment(s).join,
+      assert_equal s, Thapthim.word_segment(s).join,
                    "input #{s.inspect} did not round-trip — possible buffer reuse bug"
     end
   end
@@ -46,13 +46,13 @@ class TestFfiSafety < Minitest::Test
 
   def test_concurrent_segmentation_is_correct
     sentence = "ทนายปีศาจ เนี่ยเริ่มต้นจากแซมกับซันและก็ทีมเขียนบท"
-    expected = Thapthim.segment(sentence)
+    expected = Thapthim.word_segment(sentence)
 
     errors = Queue.new
     threads = 8.times.map do
       Thread.new do
         300.times do
-          got = Thapthim.segment(sentence)
+          got = Thapthim.word_segment(sentence)
           errors << got unless got == expected
         end
       rescue => e
@@ -70,8 +70,8 @@ class TestFfiSafety < Minitest::Test
       Thread.new do
         150.times do
           case i % 4
-          when 0 then Thapthim.segment("ฉันกินข้าว")
-          when 1 then Thapthim.syllables("ฉันกินข้าว")
+          when 0 then Thapthim.word_segment("ฉันกินข้าว")
+          when 1 then Thapthim.syllable_segment("ฉันกินข้าว")
           when 2 then Thapthim.tcc_segment("ฉันกินข้าว")
           else        Thapthim.std_normalize("  ก  ข  ")
           end
@@ -87,8 +87,8 @@ class TestFfiSafety < Minitest::Test
 
   def test_empty_token_path_is_stable
     1_000.times do
-      assert_equal [], Thapthim.segment("")
-      assert_equal [], Thapthim.segment(0.chr * 3) # all-NUL -> sanitizes to empty
+      assert_equal [], Thapthim.word_segment("")
+      assert_equal [], Thapthim.word_segment(0.chr * 3) # all-NUL -> sanitizes to empty
     end
   end
 

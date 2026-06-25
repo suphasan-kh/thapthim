@@ -120,7 +120,7 @@ reconciled path is emitted via native bit-shifting as a flat vector of packed 64
               +---------------------+  +---------------------+
                           |                       |
                           v                       v
-                  Thapthim.segment        Thapthim.syllables
+                  Thapthim.word_segment        Thapthim.syllable_segment
                           |                       |
                           +── byteslice original buffer ──+
 

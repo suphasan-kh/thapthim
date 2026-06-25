@@ -42,14 +42,14 @@ module Thapthim
   # Pass +normalize: true+ to first run the input through +std_normalize+ (collapse repeated
   # vowels, strip zero-width/dangling marks, reorder vowels) for noisy/OCR-derived text. Note
   # the returned tokens are then substrings of the *normalized* text, not the original.
-  def self.segment(input_text, normalize: false)
+  def self.word_segment(input_text, normalize: false)
     text = normalize ? std_normalize(input_text.to_s) : input_text
     decode_tokens(text, 'thapthim_segment')
   end
 
   # Syllable-level segmentation. Returns an array of syllable strings; their boundaries are a
-  # superset of the word boundaries returned by +segment+. See +segment+ for +normalize:+.
-  def self.syllables(input_text, normalize: false)
+  # superset of the word boundaries returned by +word_segment+. See +word_segment+ for +normalize:+.
+  def self.syllable_segment(input_text, normalize: false)
     text = normalize ? std_normalize(input_text.to_s) : input_text
     decode_tokens(text, 'thapthim_segment_syllables')
   end

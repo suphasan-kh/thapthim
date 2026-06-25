@@ -22,14 +22,14 @@ with open(CORPUS, encoding="utf-8") as f:
 chars = sum(len(s) for s in texts)
 
 for s in texts[:100]:  # warmup (untimed)
-    t.segment(s)
+    t.word_segment(s)
 
 # Per-call loop (directly comparable to the Ruby benchmark).
 loop_times = []
 for _ in range(reps):
     t0 = time.perf_counter()
     for s in texts:
-        t.segment(s)
+        t.word_segment(s)
     loop_times.append(time.perf_counter() - t0)
 best, mean = min(loop_times), sum(loop_times) / len(loop_times)
 print("thapthim-py  n=%d chars=%d reps=%d | best=%9.0f char/s  mean=%9.0f char/s  (%6.0f sent/s)"
@@ -39,7 +39,7 @@ print("thapthim-py  n=%d chars=%d reps=%d | best=%9.0f char/s  mean=%9.0f char/s
 batch_times = []
 for _ in range(reps):
     t0 = time.perf_counter()
-    t.segment_batch(texts)
+    t.word_segment_batch(texts)
     batch_times.append(time.perf_counter() - t0)
 bbest = min(batch_times)
 print("thapthim-py  segment_batch                | best=%9.0f char/s  (%6.0f sent/s)  [GIL-released, multicore]"

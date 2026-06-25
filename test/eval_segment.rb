@@ -93,7 +93,7 @@ module SegEval
     sentences = read_jsonl(path, limit)
 
     if warm
-      sentences.first([sentences.size, 200].min).each { |t| Thapthim.segment(t.join) }
+      sentences.first([sentences.size, 200].min).each { |t| Thapthim.word_segment(t.join) }
     end
 
     tp = fp = fn = 0
@@ -105,7 +105,7 @@ module SegEval
     sentences.each do |gold_tokens|
       text = gold_tokens.join
       chars += text.length
-      pred_tokens = Thapthim.segment(text)
+      pred_tokens = Thapthim.word_segment(text)
       mismatches += 1 unless pred_tokens.join == text
 
       g  = spans(gold_tokens, false)

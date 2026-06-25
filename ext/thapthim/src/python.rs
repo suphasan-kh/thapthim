@@ -73,10 +73,10 @@ fn std_normalize(py: Python<'_>, text: &str) -> String {
 /// Word-level segmentation. Returns the list of word substrings.
 ///
 /// `normalize=True` runs `std_normalize` first (the returned tokens are then substrings of the
-/// normalized text, not the original) — matching the Ruby `segment(text, normalize: true)`.
+/// normalized text, not the original) — matching the Ruby `word_segment(text, normalize: true)`.
 #[pyfunction]
 #[pyo3(signature = (text, normalize=false))]
-fn segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
+fn word_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
     let owned = text.to_owned();
     // Release the GIL across the (Python-free) heavy work: the engine is a read-only `&'static`
     // singleton, so N Python threads can run segmentation on N cores concurrently.
@@ -88,11 +88,11 @@ fn segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, 
     decode_pystrings(py, &text, &packed)
 }
 
-/// Syllable-level segmentation. Boundaries are a superset of `segment`'s word boundaries.
-/// See `segment` for `normalize`.
+/// Syllable-level segmentation. Boundaries are a superset of `word_segment`'s word boundaries.
+/// See `word_segment` for `normalize`.
 #[pyfunction]
 #[pyo3(signature = (text, normalize=false))]
-fn syllables<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
+fn syllable_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
     let owned = text.to_owned();
     let (text, packed) = py.allow_threads(move || {
         let text = if normalize { rust_normalize(&owned) } else { owned };
@@ -134,7 +134,7 @@ fn tcc_positions(py: Python<'_>, text: &str) -> Vec<i32> {
 /// Performance lever: word boundaries as raw `(start_byte, length_byte)` tuples, with no per-token
 /// string allocation — for benchmarking pure engine throughput or doing your own slicing.
 #[pyfunction]
-fn segment_offsets(py: Python<'_>, text: &str) -> Vec<(usize, usize)> {
+fn word_segment_offsets(py: Python<'_>, text: &str) -> Vec<(usize, usize)> {
     let owned = text.to_owned();
     py.allow_threads(move || get_engine().segment_words(&owned).iter().map(|&t| unpack(t)).collect())
 }
@@ -143,7 +143,7 @@ fn segment_offsets(py: Python<'_>, text: &str) -> Vec<(usize, usize)> {
 /// whole batch and the items are segmented across cores with rayon (engine is `Sync`), so this
 /// scales with available CPUs independently of Python-level threading.
 #[pyfunction]
-fn segment_batch(py: Python<'_>, texts: Vec<String>) -> Vec<Vec<String>> {
+fn word_segment_batch(py: Python<'_>, texts: Vec<String>) -> Vec<Vec<String>> {
     py.allow_threads(move || {
         let engine = get_engine();
         texts
@@ -157,11 +157,11 @@ fn segment_batch(py: Python<'_>, texts: Vec<String>) -> Vec<Vec<String>> {
 fn thapthim(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__doc__", "Thai word/syllable/TCC segmentation over the Thapthim Rust engine.")?;
     m.add_function(wrap_pyfunction!(std_normalize, m)?)?;
-    m.add_function(wrap_pyfunction!(segment, m)?)?;
-    m.add_function(wrap_pyfunction!(syllables, m)?)?;
+    m.add_function(wrap_pyfunction!(word_segment, m)?)?;
+    m.add_function(wrap_pyfunction!(syllable_segment, m)?)?;
     m.add_function(wrap_pyfunction!(tcc_segment, m)?)?;
     m.add_function(wrap_pyfunction!(tcc_positions, m)?)?;
-    m.add_function(wrap_pyfunction!(segment_offsets, m)?)?;
-    m.add_function(wrap_pyfunction!(segment_batch, m)?)?;
+    m.add_function(wrap_pyfunction!(word_segment_offsets, m)?)?;
+    m.add_function(wrap_pyfunction!(word_segment_batch, m)?)?;
     Ok(())
 }
