@@ -20,8 +20,13 @@ Thapthim.syllables("ฉันกินข้าว")  # => ["ฉัน", "กิ
 git clone https://github.com/suphasan-kh/thapthim.git
 cd thapthim
 bundle install
-bundle exec rake compile   # builds the Rust extension
+bundle exec rake install   # builds the Rust extension and installs the gem
 ```
+
+`rake install` builds the native extension and installs the gem into your local gem repo, so
+`require "thapthim"` then works from anywhere. For in-repo development, run `bundle exec rake
+compile` instead — it builds the extension in place; then run your code with `bundle exec`
+(or `ruby -Ilib`) so the freshly built `lib/` is on the load path.
 
 Building the native extension requires a **Rust toolchain** (`rustc` / `cargo`, via
 [rustup](https://rustup.rs)) in addition to Ruby ≥ 3.2.
@@ -70,17 +75,28 @@ results); only the surface syntax differs.
 ```bash
 git clone https://github.com/suphasan-kh/thapthim.git
 cd thapthim
-python3 -m venv .venv && source .venv/bin/activate   # recommended
-pip install maturin
-
-maturin develop --release    # compile + install into the active venv (editable workflow)
-# or
-maturin build --release      # just produce a wheel under target/wheels/
+pip install .                # builds the Rust engine and installs thapthim (simplest)
 ```
 
-`maturin develop` installs straight into the active virtualenv. `maturin build` writes a `.whl`
-you can `pip install` elsewhere — but a native wheel is specific to the Python version, OS, and CPU
-architecture it was built on, so it only installs on a matching interpreter.
+`pip install .` is self-contained: it builds the extension through the maturin backend (pulled in
+automatically — no separate install) and installs `thapthim` into the current environment. Use a
+virtualenv first if you want to keep it isolated
+(`python3 -m venv .venv && source .venv/bin/activate`).
+
+For an **editable / iterative** workflow, install maturin and use `develop` instead — this path
+*does* require an active virtualenv:
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install 'maturin>=1.7,<2.0'   # version pinned to match pyproject.toml
+maturin develop --release         # compile + install into the venv; re-run after Rust changes
+# or
+maturin build --release           # just produce a wheel under target/wheels/
+```
+
+`maturin build` writes a `.whl` you can `pip install` elsewhere — but a native wheel is specific to
+the Python version, OS, and CPU architecture it was built on, so it only installs on a matching
+interpreter.
 
 ### Usage
 
