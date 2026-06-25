@@ -49,15 +49,15 @@ reconciled path is emitted via native bit-shifting as a flat vector of packed 64
 ## Pipeline
 
 ```
-========= BUILD TIME  (build.rs, run once) =========================
+========= BUILD TIME =================================================
 
- kn_{words,syll,tcc}_*.txt  ──>  joint_lm.bin  ──>  joint_lm_interned.bin
- (Kneser-Ney counts,                                interned u32 ids + packed-u64
- LST20 train ONLY)                                  bigrams, N1+ precomputed  ─┐
-                                                                              │
- tnhc_train.json  ──>  char_entropy.txt  (fwd/bwd Shannon entropy)  ─────────>├─ embedded
-                                                                              │  in binary
- master_{word,syll}_vocab.txt   (LST20 ∪ BEST ∪ PyThaiNLP)  ─────────────────┘
+  Kneser-Ney count tables   ─build.rs─>   interned bigram LM
+  (word / syll / TCC tiers,               (dense u32 ids, packed-u64
+   LST20 train ONLY)                       bigrams, N1+ precomputed)  ─┐
+                                                                       │
+  char-successor entropy table  (fwd/bwd Shannon, from TNHC)  ────────>├─ embedded
+                                                                       │  in binary
+  master dictionary  (word + syllable vocab: LST20 ∪ BEST ∪ PyThaiNLP) ┘
 
                               │  deserialized once at bootstrap
                               v
@@ -130,6 +130,22 @@ reconciled path is emitted via native bit-shifting as a flat vector of packed 64
      (3) THAPTHIM_BE_MAX_TCC   = 2    (max token length eligible to merge)
      (4) THAPTHIM_BE_THRESHOLD = 1.0  (0 disables the merge pass)
 ```
+
+## Assets
+
+The diagram above names assets conceptually; these are the literal files under
+`ext/thapthim/assets/`. All are committed in-repo and produced offline by the corpus
+notebook, except the two interned `.bin`s, which `build.rs` regenerates from the count
+tables at build time.
+
+| concept in diagram | file(s) | role |
+|---|---|---|
+| Kneser-Ney count tables | `kn_{words,syllables,tccs}_{unigrams,bigrams}.txt` | human-readable KN counts; `build.rs` input (LST20 train only) |
+| _(intermediate)_ | `joint_lm.bin` | string-keyed LM emitted by `build.rs` step 1 |
+| interned bigram LM | `joint_lm_interned.bin` | compact embedded LM (default, LST20); the one loaded at runtime |
+| interned bigram LM _(gated)_ | `joint_lm_interned_{best,combined}.bin` | alternate LMs, embedded only under the `best_lm`/`combined_lm` cargo feature |
+| char-successor entropy table | `char_entropy.txt` | fwd/bwd Shannon entropy for the branching-entropy merge (from TNHC) |
+| master dictionary | `master_{words,syllables}_vocab.txt` | word + syllable vocab (LST20 ∪ BEST ∪ PyThaiNLP) |
 
 ## Runtime knobs
 
