@@ -110,6 +110,57 @@ generate the dumps as in [Reproduce](#reproduce) below and run
 `/tmp/thai_bench/bin/python test/eval_oov_compare.py newmm nlpo3 attacut deepcut` plus
 `… eval_oov_compare.py thapthim-LST20 --pred /tmp/pred_lst20`.
 
+## Fair comparison — corpus-controlled (single-corpus dictionary, no entropy merge)
+
+The tables above flatter Thapthim in two ways that aren't about the segmentation *method*: the
+shipped dictionary is a broad **union** (LST20 ∪ BEST ∪ PyThaiNLP), and the branching-entropy merge
+is tuned on TNHC — whereas the neural baselines are plain BEST-trained. To compare like-for-like, we
+strip Thapthim to a **single-corpus build**: dictionary *and* n-gram LM from one corpus only, and the
+branching-entropy merge **off**. `thapthim-LST20·fair` and `thapthim-BEST·fair` below are exactly
+that — the word vocabulary is the unique tokens of that corpus's train split, the LM is that corpus's
+LM (`THAPTHIM_LM`), the merge is disabled (`THAPTHIM_BE_THRESHOLD=0`), and the OOV reference stays the
+shared union lexicon as above. (The single-corpus dictionary override and the `eval_fair` measurement
+harness live on the `fair-best-eval` branch.)
+
+### Word-level F1 (single-corpus, no entropy; **bold** = best per corpus)
+
+| corpus | LST20·fair | BEST·fair | attacut (BEST) | deepcut (BEST) |
+|---|--:|--:|--:|--:|
+| **lst20**  | **0.9485** | 0.8434 | 0.8532 | 0.8522 |
+| **best**   | 0.8636 | 0.9462 | 0.9454 | **0.9659** |
+| **vistec** | 0.7816 | 0.7787 | 0.7843 | **0.7971** |
+| **tnhc**   | 0.7638 | **0.7823** | 0.7667 | 0.7764 |
+| **ws1000** | 0.8139 | 0.8105 | **0.8261** | 0.8243 |
+| **macro-avg** | 0.8343 | 0.8322 | 0.8351 | **0.8432** |
+
+- **Home advantage dominates.** Each single-corpus model wins its own corpus by a wide margin —
+  LST20·fair on lst20 (0.949 vs the BEST model's 0.843, **+0.11**) and BEST·fair on best (0.946 vs
+  0.864, **+0.08**). Most apparent cross-tool gaps are home-vs-away, not method quality.
+- **Controlled for corpus, the deterministic method is a peer of the neural models, slightly
+  behind.** Fair macro-avg ≈ 0.832–0.834 vs attacut 0.835 / deepcut 0.843. It beats attacut on its
+  home corpus and on tnhc; the neural models generalise a little better on the other away corpora.
+- **The shipped system's cross-domain lead is the union dictionary, not the algorithm.** Re-adding
+  union coverage + entropy lifts each fair build by **~0.02–0.03 off-home** (where the union carries
+  the *other* domains' vocabulary) but only **~0.003 on-home**. A broad-coverage dictionary is a
+  real, cheap, deterministic advantage — but a *separate* one from the Viterbi method.
+
+### OOV recall (single-corpus, no entropy)
+
+| corpus | LST20·fair | BEST·fair | attacut | deepcut |
+|---|--:|--:|--:|--:|
+| **lst20**  | 0.157 | 0.154 | 0.328 | 0.351 |
+| **best**   | 0.073 | 0.073 | 0.383 | 0.526 |
+| **vistec** | 0.253 | 0.250 | 0.266 | 0.423 |
+| **tnhc**   | 0.231 | 0.229 | 0.312 | 0.374 |
+| **ws1000** | 0.422 | 0.420 | 0.518 | 0.542 |
+
+**OOV recall is invariant to the training corpus.** The LST20-only and BEST-only builds land within
+~0.003 of each other on every corpus (and within noise of the shipped numbers). A word that's OOV to
+the union is OOV to either single-corpus dictionary too, and recall on it is fixed by the syllabify
+fallback — *not* the dictionary or the LM. This extends the "the LM corpus barely touches OOV recall"
+result above: **neither the dictionary nor the LM moves it.** The gap to the neural models is
+therefore structural to the dictionary-lattice approach, not an artifact of which corpus was used.
+
 ## Speed — pure tokenization throughput
 
 Representative best-of-5 on the LST20 test text. Thapthim is measured through its Ruby↔Rust FFI
