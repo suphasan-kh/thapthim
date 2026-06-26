@@ -93,9 +93,13 @@ pub unsafe extern "C" fn thapthim_tcc_positions(
     })
 }
 
-/// Zero-Allocation Joint-Lattice Tokenizer FFI Interface
-/// Segments text with a forward bigram-Viterbi pass over the TCC lattice, followed by a
-/// branching-entropy OOV-merge post-pass, and returns a flat array of packed u64 tokens
+/// Word-segmentation FFI entry point. Despite the asset name (`joint_lm` = the three KN bigram
+/// layers co-packaged in one file), the decode is a word-first *cascade*, not a joint word⊗syllable
+/// optimization: a forward Kneser-Ney bigram Viterbi runs over a single TCC-grid lattice that mixes
+/// dictionary-word edges with one-cluster character fallback (so the dict-word vs OOV-run choice is
+/// made in that one pass), then only the resulting OOV spans are syllabified in a lazy second pass,
+/// then the branching-entropy OOV-merge post-pass runs. Returns a flat array of packed u64 tokens.
+/// (Fully in-vocabulary text triggers no syllable work at all — see `segment_words`.)
 ///
 /// # Safety
 /// `raw_text_ptr` must be null or a valid NUL-terminated C string, and `out_size` a writable

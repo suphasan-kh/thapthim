@@ -18,9 +18,13 @@ Over that grid, a character-wise Double-Array Aho-Corasick automaton (`daachorse
 from a unified dictionary (LST20 ∪ BEST ∪ the PyThaiNLP lexicon), streams the text and emits every
 overlapping **word** and **syllable** candidate up to a bounded length — `THAPTHIM_MAX_WORD_TCC`
 (default 12, counted in TCC clusters, fixed empirically where LST20 accuracy plateaus across 10–12,
-not read off a paper's character percentile). Each candidate snaps to the grid, so the three
-granularities stay strictly nested: every word boundary is a syllable boundary, every syllable
-boundary a TCC boundary. The candidates fill a flat, `Vec`-backed multi-granularity lattice.
+not read off a paper's character percentile). Each candidate snaps to the grid; the
+load-bearing invariant the decode uses is that every word boundary is a TCC boundary
+(`word ⊂ TCC`), which holds *exactly* because the grid is computed by deterministic rule, never a
+probabilistic guess. (The fuller nesting — every word boundary also a syllable boundary, every
+syllable boundary a TCC boundary — is a property of the *gold* segmentation, not something the word
+pass computes; see **The grid invariant** below.) The candidates fill a flat, `Vec`-backed
+multi-granularity lattice.
 
 Transitions are scored by a **Kneser-Ney–smoothed bigram language model trained solely on LST20** —
 one consistently annotated backbone, free of cross-criteria contamination. The model is interned
@@ -50,6 +54,37 @@ lazily syllabifies only the OOV spans it must, while a dedicated syllable Viterb
 backbone yields a full orthographic-syllable tiling — both anchored to the shared TCC grid. The
 reconciled path is emitted via native bit-shifting as a flat vector of packed 64-bit tokens,
 `[ Start | Length | Tier ]`, referencing the original byte buffer.
+
+## The grid invariant: `word ⊂ TCC`, not `word ⊂ syllable`
+
+The three granularities nest in the *gold* segmentation — every true word boundary is a true
+syllable boundary, every true syllable boundary a true TCC boundary — because a word is built from
+whole syllables and a syllable from whole TCCs. That nesting is a fact about Thai: true of any
+correct analysis, independent of any algorithm. It is **not** something the engine computes or
+maintains.
+
+The decoder leans on only the **outer** half of it, `word ⊂ TCC`. Word candidates snap to the TCC
+grid, and that costs nothing precisely because every gold word boundary is a gold TCC boundary — the
+grid can never exclude a boundary the word decode would want. The word pass goes **straight from TCC
+to word**; it never computes syllables. (Syllables appear only in the lazy second pass over spans
+the word decode already left OOV, where they subdivide *within* a span whose edges are already
+fixed — so even there nothing relies on `word ⊂ syllable` to recover a word boundary.)
+
+Why anchor on TCC rather than syllables, when the gold nesting holds for both? Because only one
+level is *reproducible exactly* by the engine:
+
+- **TCC the engine computes = TCC gold**, exactly — the deterministic regex grammar, no
+  probabilities. So `word ⊂ TCC_computed` holds with certainty; the grid is the true superset, and
+  aligning word candidates to it is lossless.
+- **Syllables the engine would compute ≠ syllables gold** — syllabification is a probabilistic
+  decision (a trained Viterbi/CRF guess). So `word ⊂ syllable_computed` can fail even though
+  `word ⊂ syllable_gold` is exact. Constraining word candidates to a *guessed* syllabification
+  forecloses 0.15–1.6% of gold word boundaries (measured across LST20, BEST, VISTEC, TNHC, ws1000)
+  before the word LM ever runs — a recall ceiling the deterministic TCC grid does not impose.
+
+Stated as architecture, this is why the engine is a word-first **cascade** over a deterministic grid
+rather than a joint word⊗syllable decode: it never commits to an *ambiguous* syllable cut upstream
+of the word decision.
 
 ## Pipeline
 
@@ -93,8 +128,8 @@ reconciled path is emitted via native bit-shifting as a flat vector of packed 64
                                  v
                    +-----------------------------+
                    | MULTI-GRANULARITY LATTICE   |
-                   | (flat Vec): boundaries      |
-                   | nested: word in syll in tcc |
+                   | (flat Vec): candidates snap |
+                   | to TCC grid  (word ⊂ tcc)   |
                    +-----------------------------+
                           |                  |
                           v                  v
