@@ -6,7 +6,6 @@
 // Kneser-Ney bigram). `viterbi` returns the maximum-score path. Word/syllable segmentation is the
 // first instantiation (see decode.rs `BigramModel`); G2P and spelling correction are future ones,
 // differing only in their candidate generation and `LatticeModel` impl — never this file.
-use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 
 /// A grid-aligned candidate: occupies byte span `[start, end)` on the TCC grid, carrying a
@@ -46,17 +45,22 @@ pub trait LatticeModel {
 /// word pass, then one per OOV span) don't re-allocate the DP arrays each time. Every buffer is
 /// cleared and refilled per use, so only its capacity — the high-water mark of the largest decode
 /// on this thread, a few KB — persists. None of the buffers depend on `M::Ctx`, so one concrete
-/// `Scratch` serves every `LatticeModel`. The per-end `ending_at` buckets live here too: clearing
-/// the map keeps its table and reuses each bucket `Vec`'s capacity rather than freeing it. NB
-/// `viterbi` must not recurse on one thread (it does not: each `segment_*` decodes sequentially);
-/// a nested call would panic borrowing this.
+/// `Scratch` serves every `LatticeModel`. The predecessor (`ending_at`) and processing-order
+/// (`starting_at`) buckets live here too, both indexed by *dense grid index* (not byte position) so
+/// a lookup is an array index, never a hash; the `touched_*` lists record which buckets a call
+/// filled so resets touch only those, reusing every bucket `Vec`'s capacity. NB `viterbi` must not
+/// recurse on one thread (it does not: each `segment_*` decodes sequentially); a nested call would
+/// panic borrowing this.
 #[derive(Default)]
 struct Scratch {
     order: Vec<usize>,
     dp: Vec<f64>,
     bp: Vec<Option<usize>>,
     reached: Vec<bool>,
-    ending_at: FxHashMap<usize, Vec<usize>>,
+    ending_at: Vec<Vec<usize>>,
+    starting_at: Vec<Vec<usize>>,
+    touched_end: Vec<usize>,
+    touched_start: Vec<usize>,
 }
 
 thread_local! {
@@ -69,11 +73,16 @@ thread_local! {
 /// transition may score `NEG_INFINITY` (a seen token with no followers and a zero bigram count).
 /// `ctx` must be `model.contexts(edges)`, taken as a parameter so a caller can build it once and
 /// reuse it across several regions (the OOV-span syllable decode does exactly that).
+/// `pos_idx` maps a byte offset to its dense grid index (the caller's `byte_to_idx`); every edge
+/// endpoint and the region bounds `rs`/`re` are grid points, so their `pos_idx` entries are valid.
+/// `n_positions` is the grid size (`positions.len()`), sizing the `ending_at` bucket array.
 pub fn viterbi<M: LatticeModel>(
     edges: &[Edge<M::Payload>],
     ctx: &[M::Ctx],
     rs: usize,
     re: usize,
+    pos_idx: &[u32],
+    n_positions: usize,
     model: &M,
 ) -> Vec<usize> {
     if rs >= re {
@@ -83,25 +92,54 @@ pub fn viterbi<M: LatticeModel>(
     let n = edges.len();
 
     SCRATCH.with_borrow_mut(|s| {
-        let Scratch { order, dp, bp, reached, ending_at } = s;
+        let Scratch { order, dp, bp, reached, ending_at, starting_at, touched_end, touched_start } = s;
 
-        // In-region node indices, in ascending index order, used to populate `ending_at` (so each
-        // bucket is index-ordered, fixing the predecessor tie-break) before `order` is sorted.
+        // Flat buckets keyed by dense grid index — no hashing. Reset only the predecessor buckets
+        // filled last call (`starting_at` is reset during the flatten below); `touched_start` is
+        // cleared here and rebuilt during the fill.
+        if ending_at.len() < n_positions {
+            ending_at.resize_with(n_positions, Vec::new);
+        }
+        if starting_at.len() < n_positions {
+            starting_at.resize_with(n_positions, Vec::new);
+        }
+        for &b in touched_end.iter() {
+            ending_at[b].clear();
+        }
+        touched_end.clear();
+        touched_start.clear();
+
+        // Single ascending-node-index pass: bucket each in-region edge by dense END index
+        // (predecessor lists) and by dense START index (processing order). Index-order fill keeps
+        // every bucket index-ordered — the predecessor tie-break the DP below relies on.
+        for i in 0..n {
+            if edges[i].start < rs || edges[i].end > re {
+                continue;
+            }
+            let e = pos_idx[edges[i].end] as usize;
+            if ending_at[e].is_empty() {
+                touched_end.push(e);
+            }
+            ending_at[e].push(i);
+            let st = pos_idx[edges[i].start] as usize;
+            if starting_at[st].is_empty() {
+                touched_start.push(st);
+            }
+            starting_at[st].push(i);
+        }
+
+        // Processing order = nodes by ascending dense start index. Counting sort: sort only the
+        // distinct start buckets (far fewer than nodes), then concatenate — O(k log k + n) vs the
+        // old O(n log n). Equal-start nodes are independent, so their order never affects the path.
+        // Each `starting_at` bucket is cleared as it is drained, leaving the array clean next call.
+        touched_start.sort_unstable();
         order.clear();
-        order.extend((0..n).filter(|&i| edges[i].start >= rs && edges[i].end <= re));
-
-        // Clear keeps the map's table and each bucket's capacity; `or_default` reuses an emptied
-        // bucket when its key recurs, so steady-state decoding allocates no bucket storage.
-        for v in ending_at.values_mut() {
-            v.clear();
+        for &b in touched_start.iter() {
+            for &i in &starting_at[b] {
+                order.push(i);
+            }
+            starting_at[b].clear();
         }
-        for &i in order.iter() {
-            ending_at.entry(edges[i].end).or_default().push(i);
-        }
-
-        // Predecessors have strictly smaller start, and equal-start nodes are independent, so an
-        // unstable sort by start is a valid processing order and never perturbs the result.
-        order.sort_unstable_by_key(|&i| edges[i].start);
 
         dp.clear();
         dp.resize(n, f64::NEG_INFINITY);
@@ -116,13 +154,11 @@ pub fn viterbi<M: LatticeModel>(
                 Some((model.transition(start, ctx[i]) + local, None))
             } else {
                 let mut b: Option<(f64, Option<usize>)> = None;
-                if let Some(prevs) = ending_at.get(&edges[i].start) {
-                    for &p in prevs {
-                        if reached[p] {
-                            let s = dp[p] + model.transition(ctx[p], ctx[i]) + local;
-                            if b.is_none_or(|(bs, _)| s > bs) {
-                                b = Some((s, Some(p)));
-                            }
+                for &p in &ending_at[pos_idx[edges[i].start] as usize] {
+                    if reached[p] {
+                        let s = dp[p] + model.transition(ctx[p], ctx[i]) + local;
+                        if b.is_none_or(|(bs, _)| s > bs) {
+                            b = Some((s, Some(p)));
                         }
                     }
                 }
@@ -136,11 +172,9 @@ pub fn viterbi<M: LatticeModel>(
         }
 
         let mut best_end: Option<(f64, usize)> = None;
-        if let Some(ends) = ending_at.get(&re) {
-            for &i in ends {
-                if reached[i] && best_end.is_none_or(|(bs, _)| dp[i] > bs) {
-                    best_end = Some((dp[i], i));
-                }
+        for &i in &ending_at[pos_idx[re] as usize] {
+            if reached[i] && best_end.is_none_or(|(bs, _)| dp[i] > bs) {
+                best_end = Some((dp[i], i));
             }
         }
 

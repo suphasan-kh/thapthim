@@ -168,7 +168,7 @@ impl RuntimeEngine {
             word_ctx.push(word_model.layer.token_id.get(&text[fb.start..fb.end]).copied());
             word_cands.push(fb.clone());
         }
-        let word_path = viterbi(&word_cands, &word_ctx, 0, byte_len, &word_model);
+        let word_path = viterbi(&word_cands, &word_ctx, 0, byte_len, &byte_to_idx, positions.len(), &word_model);
 
         // Coalesce OOV pieces into maximal spans for re-syllabification. A piece is OOV if it is a
         // TCC fallback OR a dictionary "word" that is a single bare consonant (`is_bare_consonant`):
@@ -215,7 +215,7 @@ impl RuntimeEngine {
                     (c, ids)
                 });
                 let syl_model = self.bigram_model(text, &LatticeTier::Syllable);
-                for &i in &viterbi(&entry.0, &entry.1, s, e, &syl_model) {
+                for &i in &viterbi(&entry.0, &entry.1, s, e, &byte_to_idx, positions.len(), &syl_model) {
                     let sy = &entry.0[i];
                     toks.push((sy.start, sy.end, sy.payload.clone()));
                 }
@@ -256,7 +256,7 @@ impl RuntimeEngine {
         let model = self.bigram_model(text, &LatticeTier::Syllable);
         let ctx = model.contexts(&cands);
 
-        viterbi(&cands, &ctx, 0, byte_len, &model)
+        viterbi(&cands, &ctx, 0, byte_len, &byte_to_idx, positions.len(), &model)
             .iter()
             .map(|&i| pack(cands[i].start, cands[i].end, tier_flag(&cands[i].payload)))
             .collect()
