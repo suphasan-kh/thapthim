@@ -6,8 +6,8 @@ for accuracy and speed numbers see [BENCHMARKS.md](BENCHMARKS.md).
 
 ## Summary
 
-Thapthim segments Thai text in a single near-linear sweep that stays anchored to one substrate
-end to end: the **Thai Character Cluster (TCC) grid**. A rule-based regular-expression segmenter
+Thapthim segments Thai text in a single near-linear sweep that stays anchored to one substrate:
+the **Thai Character Cluster (TCC) grid**. A rule-based regular-expression segmenter
 first tiles the raw bytes into TCCs — the smallest orthographically inseparable units — holding
 angle-bracket markup and western runs (URLs, decimals, Thai-numeral sequences, `@`-handles,
 `#`-tags, identifiers) together as single clusters, matching the syllabifier's own western-token
@@ -37,7 +37,7 @@ the low-bit clustering that a plain multiply-hash exhibits on structured keys �
 
 Decoding is **word-first**: one Viterbi pass with full back-pointer recovery selects the globally
 optimal word path. Spans the dictionary cannot cover are priced through an explicit
-**out-of-vocabulary back-off** carrying a calibrated, runtime-tunable penalty (`THAPTHIM_OOV_PENALTY`,
+**out-of-vocabulary back-off** carrying a tunable penalty (`THAPTHIM_OOV_PENALTY`,
 default 2.0), so an unattested dictionary entry can no longer out-score the decomposition it ought to
 defer to. Over-segmented unknown runs are then repaired by a **branching-entropy pass**
 (`THAPTHIM_BE_THRESHOLD`): a forward/backward character-successor model (Shannon entropy harvested

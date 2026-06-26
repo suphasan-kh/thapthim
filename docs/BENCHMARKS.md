@@ -218,10 +218,8 @@ comparison; treat batch throughput as "what one machine can push using all cores
 (warm loop, best-of-5) — the steady state of any long-lived process. Separately, the first call in a
 fresh process pays a one-time **bootstrap of ~0.2 s**: deserializing the embedded Kneser-Ney LM,
 compiling the ~30-branch TCC regex, and building the daachorse tries. That cost is **per-process,
-not per-call**, and is dominated by model loading — *not* by the per-call workspace reuse (the
-thread-local Viterbi scratch is a few KB, allocated once per thread; its own cost is microseconds,
-invisible against bootstrap). After bootstrap, every call — including the first — runs at the
-steady-state speed above. So read the table as sustained throughput, and budget an extra ~0.2 s of
+not per-call**, and is dominated by model loading. So read the table as sustained throughput, and
+budget an extra ~0.2 s of
 model-load latency once per process (relevant only to a short-lived invocation, e.g. a CLI that
 segments one string and exits; amortized to nothing in any server or batch workload).
 
@@ -256,10 +254,10 @@ difference.)
   out-of-domain. The cleanest like-for-like is each tool on its home turf — there thapthim is
   competitive rather than ahead (on best: thapthim-BEST 0.950 ≈ attacut 0.945, below deepcut 0.966).
 - **vs the neural models** (attacut, deepcut): Thapthim matches or beats them off-domain while
-  being **~27× faster than attacut and ~740× faster than deepcut**. The neural models only pull
+  being **~30× faster than attacut and ~820× faster than deepcut**. The neural models only pull
   ahead on **best**, the corpus they are trained on — and there the gated **thapthim-BEST** LM
   (0.9496) already edges attacut (0.9454) and trails only deepcut, at a fraction of the cost.
-- **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~1.5× faster than Thapthim but ~14–24
+- **vs the dictionary tools** (nlpo3, newmm): nlpo3 is ~1.3× faster than Thapthim but ~14–24
   word-F1 points worse on every corpus; having no statistical model, they plateau well below both
   Thapthim and the neural engines.
 - **Where it fits:** the combination is the unusual part — accuracy competitive with the neural
