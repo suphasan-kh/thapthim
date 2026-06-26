@@ -25,11 +25,11 @@ fn is_bare_consonant(s: &str) -> bool {
 }
 
 /// The Kneser-Ney bigram cost over one LM layer — the segmentation instantiation of `LatticeModel`.
-/// A node's context is its surface token's id in `layer` (resolved by slicing `text`, no owned
-/// String per candidate); the transition is `RuntimeLayer::score`. `node_cost` stays the default
-/// `0.0`, so the decoded path is bit-identical to the pre-refactor `decode_best_path`.
+/// A node's context (its surface token's id in `layer`) is resolved by the caller in `build_lattice`
+/// and handed to `viterbi`, so this model supplies only `start_ctx` and the `transition` price
+/// (`RuntimeLayer::score`). `node_cost` stays the default `0.0`, so the decoded path is bit-identical
+/// to the pre-refactor `decode_best_path`.
 struct BigramModel<'a> {
-    text: &'a str,
     layer: &'a RuntimeLayer,
     oov_penalty: f64,
     kn: f64,
@@ -43,24 +43,16 @@ impl LatticeModel for BigramModel<'_> {
         self.layer.token_id.get(" ").copied()
     }
 
-    fn contexts(&self, edges: &[Edge<LatticeTier>]) -> Vec<Option<u32>> {
-        edges
-            .iter()
-            .map(|e| self.layer.token_id.get(&self.text[e.start..e.end]).copied())
-            .collect()
-    }
-
     fn transition(&self, prev: Option<u32>, cur: Option<u32>) -> f64 {
         self.layer.score(prev, cur, self.oov_penalty, self.kn)
     }
 }
 
 impl RuntimeEngine {
-    /// The bigram cost model for `tier`'s LM layer, bound to `text` for the decode of one call.
-    /// Cheap (four field copies); the per-node work happens in `BigramModel::contexts`.
-    fn bigram_model<'a>(&'a self, text: &'a str, tier: &LatticeTier) -> BigramModel<'a> {
+    /// The bigram cost model for `tier`'s LM layer. Cheap (three field copies); the per-node context
+    /// is built once in `build_lattice` and the transition cost computed in `RuntimeLayer::score`.
+    fn bigram_model(&self, tier: &LatticeTier) -> BigramModel<'_> {
         BigramModel {
-            text,
             layer: self.layer(tier),
             oov_penalty: self.oov_penalty,
             kn: self.kn_discount,
@@ -83,20 +75,23 @@ impl RuntimeEngine {
         (positions, byte_to_idx)
     }
 
-    /// Overlapping dictionary matches from a charwise trie, kept only when grid-aligned and within
-    /// `max_word_tcc` TCC clusters, returned with each edge's LM context id resolved from the
-    /// precomputed `dict_lm` table (the trie match's value is the dict line index) — no per-edge
-    /// surface-string hashing. (The reference paper's word-length figure is in characters; this cap
-    /// is in TCC clusters and was tuned empirically — LST20 plateaus at 10–12 TCC; see
-    /// THAPTHIM_MAX_WORD_TCC.) Grid-alignment and span length are read from one `byte_to_idx` array
-    /// index per endpoint: a non-`NON_BOUNDARY` value *is* the boundary proof. Shared by the word
-    /// and syllable decodes — only the trie / `dict_lm` / tier differ.
-    fn dict_candidates_ctx(
+    /// The full grid lattice for one tier over `text`, with each edge's bigram context: every
+    /// grid-aligned dictionary match within `max_word_tcc` clusters (context read from the
+    /// precomputed `dict_lm` table by the trie match's value — no surface-string hashing), followed
+    /// by the always-present single-TCC fallback chain that guarantees a complete path (context
+    /// hashed, since those one-cluster surfaces are text-specific and not dictionary entries).
+    /// `ctx[i]` is `edges[i]`'s context, in order. Shared by the word pass, the standalone syllable
+    /// pass, and the OOV sub-pass — only the trie / `dict_lm` / tier differ. (The reference paper's
+    /// word-length figure is in characters; this cap is in TCC clusters, tuned empirically — LST20
+    /// plateaus at 10–12; see THAPTHIM_MAX_WORD_TCC. Grid-alignment and span length come from one
+    /// `byte_to_idx` index per endpoint: a non-`NON_BOUNDARY` value *is* the boundary proof.)
+    fn build_lattice(
         &self,
         trie: &CharwiseDoubleArrayAhoCorasick<usize>,
         dict_lm: &[Option<u32>],
         tier: LatticeTier,
         text: &str,
+        positions: &[usize],
         byte_to_idx: &[u32],
     ) -> (Vec<Edge<LatticeTier>>, Vec<Option<u32>>) {
         // `0` disables the cap (accept any dictionary match); see THAPTHIM_MAX_WORD_TCC.
@@ -114,16 +109,12 @@ impl RuntimeEngine {
                 }
             }
         }
+        let layer = self.layer(&tier);
+        for w in positions.windows(2) {
+            ctx.push(layer.token_id.get(&text[w[0]..w[1]]).copied());
+            cands.push(Edge { start: w[0], end: w[1], payload: LatticeTier::Tcc });
+        }
         (cands, ctx)
-    }
-
-    /// One node per TCC: the always-present fallback chain guaranteeing a complete path through
-    /// any region (OOV spans in the word decode, and the floor for the syllable decode).
-    fn tcc_fallback(&self, positions: &[usize]) -> Vec<Edge<LatticeTier>> {
-        positions
-            .windows(2)
-            .map(|w| Edge { start: w[0], end: w[1], payload: LatticeTier::Tcc })
-            .collect()
     }
 
     /// Word segmentation (single word-LM Viterbi). Spans the dictionary cannot cover come back
@@ -138,18 +129,10 @@ impl RuntimeEngine {
         if positions.len() < 2 {
             return Vec::new();
         }
-        let fallback = self.tcc_fallback(&positions);
 
-        // Dictionary candidates carry their LM context from the precomputed table (no per-edge
-        // string hash); the TCC fallback edges (single clusters, not dict entries) resolve theirs
-        // by lookup. Same edge/context ordering as the old `dict_candidates` + `contexts` pass.
-        let (mut word_cands, mut word_ctx) =
-            self.dict_candidates_ctx(&self.word_trie, &self.word_dict_lm, LatticeTier::Word, text, &byte_to_idx);
-        let word_model = self.bigram_model(text, &LatticeTier::Word);
-        for fb in &fallback {
-            word_ctx.push(word_model.layer.token_id.get(&text[fb.start..fb.end]).copied());
-            word_cands.push(fb.clone());
-        }
+        let (word_cands, word_ctx) =
+            self.build_lattice(&self.word_trie, &self.word_dict_lm, LatticeTier::Word, text, &positions, &byte_to_idx);
+        let word_model = self.bigram_model(&LatticeTier::Word);
         let word_path = viterbi(&word_cands, &word_ctx, 0, byte_len, &byte_to_idx, positions.len(), &word_model);
 
         // Coalesce OOV pieces into maximal spans for re-syllabification. A piece is OOV if it is a
@@ -186,21 +169,16 @@ impl RuntimeEngine {
                 toks.push((s, e, LatticeTier::Word));
             } else {
                 let entry = syl.get_or_insert_with(|| {
-                    let (mut c, mut ids) = self.dict_candidates_ctx(
+                    self.build_lattice(
                         &self.syllable_trie,
                         &self.syllable_dict_lm,
                         LatticeTier::Syllable,
                         text,
+                        &positions,
                         &byte_to_idx,
-                    );
-                    let m = self.bigram_model(text, &LatticeTier::Syllable);
-                    for fb in fallback.iter().cloned() {
-                        ids.push(m.layer.token_id.get(&text[fb.start..fb.end]).copied());
-                        c.push(fb);
-                    }
-                    (c, ids)
+                    )
                 });
-                let syl_model = self.bigram_model(text, &LatticeTier::Syllable);
+                let syl_model = self.bigram_model(&LatticeTier::Syllable);
                 for &i in &viterbi(&entry.0, &entry.1, s, e, &byte_to_idx, positions.len(), &syl_model) {
                     let sy = &entry.0[i];
                     toks.push((sy.start, sy.end, sy.payload.clone()));
@@ -232,18 +210,15 @@ impl RuntimeEngine {
             return Vec::new();
         }
 
-        let (mut cands, mut ctx) = self.dict_candidates_ctx(
+        let (cands, ctx) = self.build_lattice(
             &self.syllable_trie,
             &self.syllable_dict_lm,
             LatticeTier::Syllable,
             text,
+            &positions,
             &byte_to_idx,
         );
-        let model = self.bigram_model(text, &LatticeTier::Syllable);
-        for fb in self.tcc_fallback(&positions) {
-            ctx.push(model.layer.token_id.get(&text[fb.start..fb.end]).copied());
-            cands.push(fb);
-        }
+        let model = self.bigram_model(&LatticeTier::Syllable);
 
         viterbi(&cands, &ctx, 0, byte_len, &byte_to_idx, positions.len(), &model)
             .iter()

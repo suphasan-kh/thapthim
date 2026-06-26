@@ -202,16 +202,18 @@ tables at build time.
 
 The Viterbi decoder is not specific to segmentation. The shortest-path core lives in
 `lattice/grid.rs` as a task-agnostic engine: an `Edge<P>` is a grid-aligned span `[start, end)`
-carrying an arbitrary payload `P`, and the `LatticeModel` trait supplies the cost — a per-edge
-context (`contexts`), a sentence-initial context (`start_ctx`), an optional emission/node cost
-(`node_cost`, default `0.0`), and a first-order transition score (`transition`). `viterbi` runs the
-exact first-order DP over the edges confined to a byte region and returns the best path. The trait
-is monomorphized per model, so this generality costs no dynamic dispatch.
+carrying an arbitrary payload `P`, and the `LatticeModel` trait supplies the cost — a sentence-initial
+context (`start_ctx`), an optional emission/node cost (`node_cost`, default `0.0`), and a first-order
+transition score (`transition`). Each edge's per-node context (`Ctx`) is resolved up front by the
+candidate builder and handed to `viterbi` as the `ctx` slice, so the trait stays cost-only. `viterbi`
+runs the exact first-order DP over the edges confined to a byte region and returns the best path. The
+trait is monomorphized per model, so this generality costs no dynamic dispatch.
 
-Word and syllable segmentation are simply the **first** instantiation: `BigramModel` in `decode.rs`
-sets `Payload = LatticeTier`, `Ctx = Option<u32>` (the interned token id), `node_cost = 0.0`, and
-`transition = ` the Kneser-Ney bigram score. The branching-entropy merge and OOV-run coalescing stay
-*outside* the core as segmentation-specific orchestration.
+Word and syllable segmentation are simply the **first** instantiation: `build_lattice` in `decode.rs`
+emits the candidates with their contexts, and `BigramModel` sets `Payload = LatticeTier`,
+`Ctx = Option<u32>` (the interned token id), `node_cost = 0.0`, and `transition = ` the Kneser-Ney
+bigram score. The branching-entropy merge and OOV-run coalescing stay *outside* the core as
+segmentation-specific orchestration.
 
 The planned deterministic tasks plug in the same way — new candidate generation plus a `LatticeModel`
 impl, never touching `grid.rs`:

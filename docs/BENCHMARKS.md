@@ -196,12 +196,12 @@ Representative best-of-5 on the LST20 test text. Thapthim is measured through it
 | attacut | ~95k | ~27× slower |
 | deepcut | ~3.5k | ~740× slower |
 
-Thapthim's two LMs run at the same speed. Throughput reflects a series of hot-path improvements: a
-splitmix64 bigram-key hasher, precomputing candidate token ids in the Viterbi decode,
-allocation-free grid candidates (the generic-lattice refactor dropped the per-candidate owned
-`String`), a flat `byte → TCC-index` array that replaces the per-match hashmap probes in candidate
-generation (also the grid-membership test, so no separate boundary set), and per-thread reuse of the
-Viterbi DP scratch buffers — ~450k → ~2.6M char/s overall; see CHANGELOG.
+Thapthim's two LMs run at the same speed. Throughput comes from a series of output-identical hot-path
+wins (detail in CHANGELOG): a splitmix64 bigram-key hasher; candidate contexts resolved by token id
+rather than surface-string hashing; allocation-free grid candidates; a flat `byte → TCC-index` array
+in place of per-match hashmap probes; dense grid-index predecessor buckets and a counting sort in the
+Viterbi DP (replacing a hashmap probe and an O(n log n) sort); and per-thread scratch reuse — from
+~450k char/s originally to the figures above.
 
 All figures above are **single-threaded, per-call** — the only basis on which engines are
 comparable (every baseline here is run single-threaded too). The thapthim row is the Ruby↔Rust FFI;

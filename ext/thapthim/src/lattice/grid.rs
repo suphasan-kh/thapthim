@@ -19,16 +19,14 @@ pub struct Edge<P> {
 
 /// A first-order (bigram) cost over a grid lattice. `Ctx` is the per-node state a node exposes as
 /// the "previous" token for the next transition — for the bigram LM that is the token id
-/// (`Option<u32>`), resolved once per node by `contexts`, exactly as the old `candidate_ids` did.
+/// (`Option<u32>`). Each node's `Ctx` is resolved once by the candidate builder and passed to
+/// `viterbi` as the `ctx` slice, so this trait supplies only the start context and the costs.
 pub trait LatticeModel {
     type Payload;
     type Ctx: Copy;
 
     /// Context active at a region's start — the sentence-initial token (`" "` in the LM today).
     fn start_ctx(&self) -> Self::Ctx;
-
-    /// Resolve every edge's context once, up front, for the decode hot path (no per-edge hashing).
-    fn contexts(&self, edges: &[Edge<Self::Payload>]) -> Vec<Self::Ctx>;
 
     /// Local (emission) score added once when a node is finalised, independent of the predecessor.
     /// `0.0` for plain segmentation; an edit/rule penalty for correction/G2P. Defaulted so the
@@ -71,8 +69,9 @@ thread_local! {
 /// path as edge indices into `edges`. A node's predecessors are the edges ending at its start, so
 /// ascending-start order scores them first; `reached` stays a separate flag because a legitimate
 /// transition may score `NEG_INFINITY` (a seen token with no followers and a zero bigram count).
-/// `ctx` must be `model.contexts(edges)`, taken as a parameter so a caller can build it once and
-/// reuse it across several regions (the OOV-span syllable decode does exactly that).
+/// `ctx[i]` is `edges[i]`'s context (built by the caller in `build_lattice`), taken as a parameter
+/// so it can be built once and reused across several regions (the OOV-span syllable decode does
+/// exactly that).
 /// `pos_idx` maps a byte offset to its dense grid index (the caller's `byte_to_idx`); every edge
 /// endpoint and the region bounds `rs`/`re` are grid points, so their `pos_idx` entries are valid.
 /// `n_positions` is the grid size (`positions.len()`), sizing the `ending_at` bucket array.
