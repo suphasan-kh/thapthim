@@ -47,10 +47,16 @@ impl TccSegmenter {
 
         // Two protective rules, placed first so they win over the `.` single-char fallback:
         //  1. `<[^<>]*>` keeps an angle-bracket tag (e.g. <NE>, </NE>, <Hello>) as ONE cluster.
-        //  2. `[A-Za-z0-9_.,@:/#-]+` keeps a contiguous Latin/digit run — including punctuation
-        //     wedged between alphanumerics (3.5, URLs, @handles, #tags, ranges) — as ONE cluster,
-        //     matching ssg's western-token convention. Both the word and syllable decodes build on
-        //     this shared grid, so it groups consistently for both (modern text gain; see below).
+        //  2. `[@#]?[A-Za-z0-9_]+(?:[.,@:/#-]+[A-Za-z0-9_]+)*` keeps a contiguous Latin/digit run
+        //     as ONE cluster, matching ssg's western-token convention. The connector punctuation
+        //     (`. , @ : / # -`) is ANCHORED — it may only appear *between* two alphanumeric runs
+        //     (3.5, URLs, ranges, a@b.com), never leading or trailing, with `@`/`#` the sole
+        //     exception that may lead (@handles, #tags). The anchoring matters next to Thai script:
+        //     the old unanchored class let a separator lead, so a date like `พ.ศ.2568` had its
+        //     abbreviation period stolen forward into a `.2568` token (and `พ.ศ.` could never be
+        //     reassembled by the dictionary). Freeing that period lets it bind back: `พ.ศ.`|`2568`.
+        //     Both the word and syllable decodes build on this shared grid, so it groups
+        //     consistently for both (modern text gain; see below).
         // (Mirrors the training-time western/markup token protection.)
         // Fallback is `[\s\S]` (every character, incl. newlines/control), not `.` — plain `.`
         // skips `\n`, leaving a gap in the grid so the newline gets glued to its neighbour.
@@ -63,7 +69,7 @@ impl TccSegmenter {
         //     ASCII `digit.digit` 614:9 (the analogous case; LST20/VISTEC have no Thai-numeral
         //     separator examples). Only BEST's older convention splits these — not followed.
         let master_pattern = format!(
-            r"<[^<>]*>|[A-Za-z0-9_.,@:/#-]+|[๐-๙]+(?:[.,:][๐-๙]+)*|{}|[\s\S]",
+            r"<[^<>]*>|[@#]?[A-Za-z0-9_]+(?:[.,@:/#-]+[A-Za-z0-9_]+)*|[๐-๙]+(?:[.,:][๐-๙]+)*|{}|[\s\S]",
             compiled_rules.join("|")
         );
 

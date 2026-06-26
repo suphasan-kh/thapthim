@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+- **Fix: Thai abbreviation periods no longer get stolen by an adjacent number.** The western-token
+  TCC rule was an unanchored class (`[A-Za-z0-9_.,@:/#-]+`), so a connector like `.` could *lead* a
+  cluster — e.g. `พ.ศ.2568` split as `พ.ศ`·`.2568`, emitting a token that starts with a stray period
+  and leaving `พ.ศ.` unrecoverable by the dictionary. The connectors (`. , @ : / # -`) are now
+  ANCHORED between two alphanumeric runs (`[@#]?[A-Za-z0-9_]+(?:[.,@:/#-]+[A-Za-z0-9_]+)*`), with
+  `@`/`#` the only ones that may lead (handles, tags). Dates/abbreviations now segment correctly
+  (`พ.ศ.`·`2568`, `กทม.`·`50000`), and all western tokens (`3.5`, `5-6`, phone numbers, URLs,
+  `@handle`, `#tag`, `covid19`) are unchanged. Word-span F1 (incl. spaces) up on every corpus —
+  TNHC 0.7919→0.7945, LST20 0.9555→0.9571, BEST 0.8739→0.8754, VISTEC 0.8283→0.8291; precision and
+  recall both up, 0 reconstruction mismatches.
 - **Fix: single bare consonants no longer fragment OOV runs into sub-syllabic junk.** The word
   vocabulary carries all 43 Thai consonants as degenerate one-letter entries, which let the word
   Viterbi tile an unknown transliteration with them — e.g. `บลัชออน` → `บ`·`ลั`·`ช`·`ออน`, leaking a
