@@ -124,10 +124,12 @@ pub struct RuntimeEngine {
     /// Max length (in TCC clusters, NOT characters) of a dictionary word candidate; longer matches
     /// are dropped from the lattice. Set via `THAPTHIM_MAX_WORD_TCC` (`0` = no cap).
     max_word_tcc: usize,
-    /// `word_trie` value (dict line index) → that word's id in the word LM layer (`None` if the LM
-    /// never saw it). Precomputed so the word decode resolves a dictionary candidate's bigram
-    /// context by one array index instead of re-hashing its surface string in `contexts`.
+    /// Trie value (dict line index) → that entry's id in the corresponding LM layer (`None` if the
+    /// LM never saw it). Precomputed so a decode resolves a dictionary candidate's bigram context by
+    /// one array index instead of re-hashing its surface string. `word_dict_lm` serves the word
+    /// decode, `syllable_dict_lm` the syllable decode (both the standalone pass and the OOV sub-pass).
     word_dict_lm: Vec<Option<u32>>,
+    syllable_dict_lm: Vec<Option<u32>>,
 }
 
 /// Longest context fed to the branching-entropy tables. Must match K in build_char_entropy.rb.
@@ -223,13 +225,19 @@ impl RuntimeEngine {
         let syllables = RuntimeLayer::from_interned(model.syllables);
         let tccs = RuntimeLayer::from_interned(model.tccs);
 
-        // Map each word-trie value (a `words_raw` line index) to that word's LM id once, so the
-        // word decode reads a dictionary candidate's context from this array instead of hashing
-        // its surface string per edge. Indexed by line number to match `with_values`' values.
+        // Map each trie value (a vocab-file line index) to that entry's LM id once, so a decode
+        // reads a dictionary candidate's context from this array instead of hashing its surface
+        // string per edge. Indexed by line number to match `with_values`' values.
         let mut word_dict_lm = vec![None; words_raw.lines().count()];
         for (idx, line) in words_raw.lines().enumerate() {
             if !line.is_empty() {
                 word_dict_lm[idx] = words.token_id.get(line).copied();
+            }
+        }
+        let mut syllable_dict_lm = vec![None; syllables_raw.lines().count()];
+        for (idx, line) in syllables_raw.lines().enumerate() {
+            if !line.is_empty() {
+                syllable_dict_lm[idx] = syllables.token_id.get(line).copied();
             }
         }
 
@@ -270,6 +278,7 @@ impl RuntimeEngine {
             kn_discount,
             max_word_tcc,
             word_dict_lm,
+            syllable_dict_lm,
         }
     }
 

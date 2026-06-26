@@ -71,7 +71,7 @@ impl RuntimeEngine {
     /// end on one of these, which is what guarantees the nested word ⊂ syllable ⊂ TCC invariant.
     /// Returns the boundary positions and a `byte offset → TCC index` array (length `text.len()+1`,
     /// `NON_BOUNDARY` where the offset is not a grid point). A flat array — not a hashmap — because
-    /// `dict_candidates` probes it twice for *every* overlapping dictionary match (far more probes
+    /// `dict_candidates_ctx` probes it twice for *every* overlapping dictionary match (far more probes
     /// than there are boundaries), and an array index is a cache hit where a hash probe is not. The
     /// array doubles as the grid-membership test: a non-sentinel value *is* the boundary proof.
     fn tcc_grid(&self, text: &str) -> (Vec<usize>, Vec<u32>) {
@@ -83,21 +83,26 @@ impl RuntimeEngine {
         (positions, byte_to_idx)
     }
 
-    /// Overlapping dictionary matches from a charwise trie, kept only when grid-aligned and
-    /// within `max_word_tcc` TCC clusters. (The reference paper's word-length figure is in
-    /// characters; this cap is in TCC clusters and was tuned empirically — LST20 plateaus at
-    /// 10–12 TCC; see THAPTHIM_MAX_WORD_TCC.) Grid-alignment and span length are read from one
-    /// `byte_to_idx` array index per endpoint: a non-`NON_BOUNDARY` value *is* the boundary proof.
-    fn dict_candidates(
+    /// Overlapping dictionary matches from a charwise trie, kept only when grid-aligned and within
+    /// `max_word_tcc` TCC clusters, returned with each edge's LM context id resolved from the
+    /// precomputed `dict_lm` table (the trie match's value is the dict line index) — no per-edge
+    /// surface-string hashing. (The reference paper's word-length figure is in characters; this cap
+    /// is in TCC clusters and was tuned empirically — LST20 plateaus at 10–12 TCC; see
+    /// THAPTHIM_MAX_WORD_TCC.) Grid-alignment and span length are read from one `byte_to_idx` array
+    /// index per endpoint: a non-`NON_BOUNDARY` value *is* the boundary proof. Shared by the word
+    /// and syllable decodes — only the trie / `dict_lm` / tier differ.
+    fn dict_candidates_ctx(
         &self,
         trie: &CharwiseDoubleArrayAhoCorasick<usize>,
-        text: &str,
+        dict_lm: &[Option<u32>],
         tier: LatticeTier,
+        text: &str,
         byte_to_idx: &[u32],
-    ) -> Vec<Edge<LatticeTier>> {
+    ) -> (Vec<Edge<LatticeTier>>, Vec<Option<u32>>) {
         // `0` disables the cap (accept any dictionary match); see THAPTHIM_MAX_WORD_TCC.
         let max_tcc = if self.max_word_tcc == 0 { usize::MAX } else { self.max_word_tcc };
         let mut cands = Vec::new();
+        let mut ctx = Vec::new();
         for m in trie.find_overlapping_iter(text) {
             let (s, e) = (m.start(), m.end());
             let (si, ei) = (byte_to_idx[s], byte_to_idx[e]);
@@ -105,31 +110,7 @@ impl RuntimeEngine {
                 let len_tcc = (ei - si) as usize;
                 if len_tcc >= 1 && len_tcc <= max_tcc {
                     cands.push(Edge { start: s, end: e, payload: tier.clone() });
-                }
-            }
-        }
-        cands
-    }
-
-    /// Like `dict_candidates`, but also returns each edge's word-LM context id resolved from the
-    /// precomputed `word_dict_lm` table (the trie match's value is the dict line index) instead of
-    /// hashing the surface string. Word decode only — the hot path; other passes use `contexts`.
-    fn word_dict_candidates_ctx(
-        &self,
-        text: &str,
-        byte_to_idx: &[u32],
-    ) -> (Vec<Edge<LatticeTier>>, Vec<Option<u32>>) {
-        let max_tcc = if self.max_word_tcc == 0 { usize::MAX } else { self.max_word_tcc };
-        let mut cands = Vec::new();
-        let mut ctx = Vec::new();
-        for m in self.word_trie.find_overlapping_iter(text) {
-            let (s, e) = (m.start(), m.end());
-            let (si, ei) = (byte_to_idx[s], byte_to_idx[e]);
-            if si != NON_BOUNDARY && ei != NON_BOUNDARY {
-                let len_tcc = (ei - si) as usize;
-                if len_tcc >= 1 && len_tcc <= max_tcc {
-                    cands.push(Edge { start: s, end: e, payload: LatticeTier::Word });
-                    ctx.push(self.word_dict_lm[m.value()]);
+                    ctx.push(dict_lm[m.value()]);
                 }
             }
         }
@@ -161,8 +142,9 @@ impl RuntimeEngine {
 
         // Dictionary candidates carry their LM context from the precomputed table (no per-edge
         // string hash); the TCC fallback edges (single clusters, not dict entries) resolve theirs
-        // by lookup. Same edge/context ordering as the old `dict_candidates` + `contexts`.
-        let (mut word_cands, mut word_ctx) = self.word_dict_candidates_ctx(text, &byte_to_idx);
+        // by lookup. Same edge/context ordering as the old `dict_candidates` + `contexts` pass.
+        let (mut word_cands, mut word_ctx) =
+            self.dict_candidates_ctx(&self.word_trie, &self.word_dict_lm, LatticeTier::Word, text, &byte_to_idx);
         let word_model = self.bigram_model(text, &LatticeTier::Word);
         for fb in &fallback {
             word_ctx.push(word_model.layer.token_id.get(&text[fb.start..fb.end]).copied());
@@ -204,14 +186,18 @@ impl RuntimeEngine {
                 toks.push((s, e, LatticeTier::Word));
             } else {
                 let entry = syl.get_or_insert_with(|| {
-                    let mut c = self.dict_candidates(
+                    let (mut c, mut ids) = self.dict_candidates_ctx(
                         &self.syllable_trie,
-                        text,
+                        &self.syllable_dict_lm,
                         LatticeTier::Syllable,
+                        text,
                         &byte_to_idx,
                     );
-                    c.extend(fallback.iter().cloned());
-                    let ids = self.bigram_model(text, &LatticeTier::Syllable).contexts(&c);
+                    let m = self.bigram_model(text, &LatticeTier::Syllable);
+                    for fb in fallback.iter().cloned() {
+                        ids.push(m.layer.token_id.get(&text[fb.start..fb.end]).copied());
+                        c.push(fb);
+                    }
                     (c, ids)
                 });
                 let syl_model = self.bigram_model(text, &LatticeTier::Syllable);
@@ -246,15 +232,18 @@ impl RuntimeEngine {
             return Vec::new();
         }
 
-        let mut cands = self.dict_candidates(
+        let (mut cands, mut ctx) = self.dict_candidates_ctx(
             &self.syllable_trie,
-            text,
+            &self.syllable_dict_lm,
             LatticeTier::Syllable,
+            text,
             &byte_to_idx,
         );
-        cands.extend(self.tcc_fallback(&positions));
         let model = self.bigram_model(text, &LatticeTier::Syllable);
-        let ctx = model.contexts(&cands);
+        for fb in self.tcc_fallback(&positions) {
+            ctx.push(model.layer.token_id.get(&text[fb.start..fb.end]).copied());
+            cands.push(fb);
+        }
 
         viterbi(&cands, &ctx, 0, byte_len, &byte_to_idx, positions.len(), &model)
             .iter()
