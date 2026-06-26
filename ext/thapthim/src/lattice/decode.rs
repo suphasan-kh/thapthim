@@ -111,6 +111,31 @@ impl RuntimeEngine {
         cands
     }
 
+    /// Like `dict_candidates`, but also returns each edge's word-LM context id resolved from the
+    /// precomputed `word_dict_lm` table (the trie match's value is the dict line index) instead of
+    /// hashing the surface string. Word decode only — the hot path; other passes use `contexts`.
+    fn word_dict_candidates_ctx(
+        &self,
+        text: &str,
+        byte_to_idx: &[u32],
+    ) -> (Vec<Edge<LatticeTier>>, Vec<Option<u32>>) {
+        let max_tcc = if self.max_word_tcc == 0 { usize::MAX } else { self.max_word_tcc };
+        let mut cands = Vec::new();
+        let mut ctx = Vec::new();
+        for m in self.word_trie.find_overlapping_iter(text) {
+            let (s, e) = (m.start(), m.end());
+            let (si, ei) = (byte_to_idx[s], byte_to_idx[e]);
+            if si != NON_BOUNDARY && ei != NON_BOUNDARY {
+                let len_tcc = (ei - si) as usize;
+                if len_tcc >= 1 && len_tcc <= max_tcc {
+                    cands.push(Edge { start: s, end: e, payload: LatticeTier::Word });
+                    ctx.push(self.word_dict_lm[m.value()]);
+                }
+            }
+        }
+        (cands, ctx)
+    }
+
     /// One node per TCC: the always-present fallback chain guaranteeing a complete path through
     /// any region (OOV spans in the word decode, and the floor for the syllable decode).
     fn tcc_fallback(&self, positions: &[usize]) -> Vec<Edge<LatticeTier>> {
@@ -134,11 +159,15 @@ impl RuntimeEngine {
         }
         let fallback = self.tcc_fallback(&positions);
 
-        let mut word_cands =
-            self.dict_candidates(&self.word_trie, text, LatticeTier::Word, &byte_to_idx);
-        word_cands.extend(fallback.iter().cloned());
+        // Dictionary candidates carry their LM context from the precomputed table (no per-edge
+        // string hash); the TCC fallback edges (single clusters, not dict entries) resolve theirs
+        // by lookup. Same edge/context ordering as the old `dict_candidates` + `contexts`.
+        let (mut word_cands, mut word_ctx) = self.word_dict_candidates_ctx(text, &byte_to_idx);
         let word_model = self.bigram_model(text, &LatticeTier::Word);
-        let word_ctx = word_model.contexts(&word_cands);
+        for fb in &fallback {
+            word_ctx.push(word_model.layer.token_id.get(&text[fb.start..fb.end]).copied());
+            word_cands.push(fb.clone());
+        }
         let word_path = viterbi(&word_cands, &word_ctx, 0, byte_len, &word_model);
 
         // Coalesce OOV pieces into maximal spans for re-syllabification. A piece is OOV if it is a

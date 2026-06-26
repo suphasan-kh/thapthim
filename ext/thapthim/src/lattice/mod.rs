@@ -124,6 +124,10 @@ pub struct RuntimeEngine {
     /// Max length (in TCC clusters, NOT characters) of a dictionary word candidate; longer matches
     /// are dropped from the lattice. Set via `THAPTHIM_MAX_WORD_TCC` (`0` = no cap).
     max_word_tcc: usize,
+    /// `word_trie` value (dict line index) → that word's id in the word LM layer (`None` if the LM
+    /// never saw it). Precomputed so the word decode resolves a dictionary candidate's bigram
+    /// context by one array index instead of re-hashing its surface string in `contexts`.
+    word_dict_lm: Vec<Option<u32>>,
 }
 
 /// Longest context fed to the branching-entropy tables. Must match K in build_char_entropy.rb.
@@ -219,6 +223,16 @@ impl RuntimeEngine {
         let syllables = RuntimeLayer::from_interned(model.syllables);
         let tccs = RuntimeLayer::from_interned(model.tccs);
 
+        // Map each word-trie value (a `words_raw` line index) to that word's LM id once, so the
+        // word decode reads a dictionary candidate's context from this array instead of hashing
+        // its surface string per edge. Indexed by line number to match `with_values`' values.
+        let mut word_dict_lm = vec![None; words_raw.lines().count()];
+        for (idx, line) in words_raw.lines().enumerate() {
+            if !line.is_empty() {
+                word_dict_lm[idx] = words.token_id.get(line).copied();
+            }
+        }
+
         let (char_entropy_fwd, char_entropy_bwd) = Self::load_char_entropy();
         let be_threshold = std::env::var("THAPTHIM_BE_THRESHOLD")
             .ok()
@@ -255,6 +269,7 @@ impl RuntimeEngine {
             oov_penalty,
             kn_discount,
             max_word_tcc,
+            word_dict_lm,
         }
     }
 
