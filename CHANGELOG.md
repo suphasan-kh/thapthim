@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+- **Fix: single bare consonants no longer fragment OOV runs into sub-syllabic junk.** The word
+  vocabulary carries all 43 Thai consonants as degenerate one-letter entries, which let the word
+  Viterbi tile an unknown transliteration with them — e.g. `บลัชออน` → `บ`·`ลั`·`ช`·`ออน`, leaking a
+  bare TCC cluster (`ลั`, an incomplete syllable) into the word output. The OOV-span coalescer now
+  treats a one-letter-consonant "word" as out-of-vocabulary and folds it into the adjacent OOV run,
+  so the whole run is syllabified as a unit (`บ`·`ลัช`·`ออน`). Genuine one-letter words (`ณ`, `ธ`)
+  are unaffected: an isolated one becomes a length-1 OOV span and re-emerges as the identical surface
+  token (boundary-neutral). Word-span F1 (incl. spaces) improves on every corpus with no regression —
+  TNHC 0.7908→0.7919, LST20 0.9552→0.9555, BEST 0.8738→0.8739, VISTEC 0.8257→0.8283 (heaviest OOV
+  tail, largest gain); precision up across the board. In-vocabulary segmentation is byte-identical.
 - **Breaking (pre-1.0): renamed the segmentation API for consistency** — every entry point is now
   `<unit>_segment`. Ruby: `segment` → `word_segment`, `syllables` → `syllable_segment` (`tcc_segment`
   unchanged). Python: `segment` → `word_segment`, `syllables` → `syllable_segment`, `segment_offsets`

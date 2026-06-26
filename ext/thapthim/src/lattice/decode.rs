@@ -12,6 +12,18 @@ use daachorse::CharwiseDoubleArrayAhoCorasick;
 /// `u32::MAX` is safe: a real index is `< positions.len()`, far below this on any real input.
 pub(super) const NON_BOUNDARY: u32 = u32::MAX;
 
+/// A token that is exactly one bare Thai consonant (U+0E01..=U+0E2E, nothing else). The word
+/// vocabulary carries all 43 consonants as degenerate one-letter entries; inside an OOV region the
+/// Viterbi will happily tile a transliteration with them (บ|ลั|ช), which both fragments the run and
+/// leaks a sub-syllabic TCC into the word output. `segment_words` treats such a "word" as OOV
+/// fallback so the whole run is syllabified as one. (`ณ`/`ธ` are genuine one-letter words, but an
+/// *isolated* one becomes a length-1 OOV span and re-emerges as the identical surface token, so this
+/// folding is boundary-neutral for them — see the call site.)
+fn is_bare_consonant(s: &str) -> bool {
+    let mut chars = s.chars();
+    matches!((chars.next(), chars.next()), (Some(c), None) if ('\u{0E01}'..='\u{0E2E}').contains(&c))
+}
+
 /// The Kneser-Ney bigram cost over one LM layer — the segmentation instantiation of `LatticeModel`.
 /// A node's context is its surface token's id in `layer` (resolved by slicing `text`, no owned
 /// String per candidate); the transition is `RuntimeLayer::score`. `node_cost` stays the default
@@ -129,22 +141,28 @@ impl RuntimeEngine {
         let word_ctx = word_model.contexts(&word_cands);
         let word_path = viterbi(&word_cands, &word_ctx, 0, byte_len, &word_model);
 
-        // Coalesce consecutive TCC-fallback nodes into maximal OOV spans.
+        // Coalesce OOV pieces into maximal spans for re-syllabification. A piece is OOV if it is a
+        // TCC fallback OR a dictionary "word" that is a single bare consonant (`is_bare_consonant`):
+        // letting those degenerate one-letter entries tile a transliterated run fragments it and
+        // leaks a bare TCC into the output, so we fold them into the adjacent OOV span and let the
+        // whole run be syllabified as one (บ|ลั|ช → บ|ลัช). An isolated single consonant simply
+        // forms a length-1 OOV span and re-emerges as the same surface token (boundary-neutral).
         let mut spans: Vec<(usize, usize, bool)> = Vec::new();
         for &idx in &word_path {
             let c = &word_cands[idx];
-            match c.payload {
-                LatticeTier::Word => spans.push((c.start, c.end, true)),
-                _ => {
-                    if let Some(last) = spans.last_mut()
-                        && !last.2
-                        && last.1 == c.start
-                    {
-                        last.1 = c.end;
-                        continue;
-                    }
-                    spans.push((c.start, c.end, false));
+            let is_oov = !matches!(c.payload, LatticeTier::Word)
+                || is_bare_consonant(&text[c.start..c.end]);
+            if is_oov {
+                if let Some(last) = spans.last_mut()
+                    && !last.2
+                    && last.1 == c.start
+                {
+                    last.1 = c.end;
+                    continue;
                 }
+                spans.push((c.start, c.end, false));
+            } else {
+                spans.push((c.start, c.end, true));
             }
         }
 

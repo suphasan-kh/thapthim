@@ -40,6 +40,11 @@ defer to. Over-segmented unknown runs are then repaired by a **branching-entropy
 offline from the TNHC literary corpus) dissolves spurious internal cuts in coined or foreign words,
 fusing short low-entropy fragments while leaving genuine high-entropy boundaries intact.
 
+A single bare Thai consonant (the vocab carries all 43 as degenerate one-letter entries) is treated
+as OOV when coalescing, not as a real word, so it cannot tile an unknown run into sub-syllabic
+fragments (`บลัช` → `บ`·`ลัช`, never `บ`·`ลั`·`ช`); a genuine isolated one-letter word (`ณ`, `ธ`)
+just forms a length-1 OOV span and re-emerges as the same token, so the rule is boundary-neutral.
+
 Word and syllable resolution are **decoupled into two independent passes** for speed — the word pass
 lazily syllabifies only the OOV spans it must, while a dedicated syllable Viterbi over the same
 backbone yields a full orthographic-syllable tiling — both anchored to the shared TCC grid. The
