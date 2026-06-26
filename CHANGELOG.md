@@ -30,13 +30,18 @@
   first instantiation (`BigramModel`). Output is bit-identical (LST20 F1 0.9476, TNHC 0.7916,
   0 reconstruction mismatches). Lays the groundwork for G2P and spelling correction as further
   `LatticeModel` instantiations.
-- Word/syllable segmentation throughput up ~55% (word ~1.68M → ~2.6M char/s, syllable
-  ~2.24M → ~3.5M char/s) from a series of hot-path cleanups: allocation-free grid candidates
-  (no per-candidate owned `String`), a flat `byte → TCC-index` array replacing the per-match
-  hashmap probes in candidate generation (also the grid-membership test, so no separate boundary
-  set), an unstable sort of the Viterbi node list instead of a stable clone, per-thread reuse of
-  the Viterbi DP scratch buffers, and the pre-existing splitmix64 bigram-key hasher + id precompute.
-  All accuracy numbers unchanged (LST20 F1 0.9476, TNHC 0.7916, 0 reconstruction mismatches).
+- Word/syllable segmentation throughput up ~75% (word ~1.68M → ~2.9M char/s, syllable
+  ~2.24M → ~4.0M char/s; Python single-core ~3.2M / ~4.9M, batch ~11M on 8 cores) from a series of
+  output-identical hot-path improvements: allocation-free grid candidates (no per-candidate owned
+  `String`); a flat `byte → TCC-index` array replacing the per-match hashmap probes in candidate
+  generation (also the grid-membership test, so no separate boundary set); dictionary-candidate
+  contexts resolved by id from a precomputed line-index→token-id table instead of re-hashing
+  surfaces; dense grid-index Viterbi predecessor buckets with a counting sort over the distinct
+  start positions (replacing a per-node byte-keyed hashmap probe and an O(n log n) node sort); a
+  single `build_lattice` shared by the word, syllable, and OOV-span decodes; per-thread reuse of the
+  Viterbi DP scratch buffers; and the splitmix64 bigram-key hasher. Accuracy unchanged (LST20 F1
+  0.9476, TNHC 0.7916, 0 reconstruction mismatches), verified byte-identical by a digest over all
+  corpora.
 
 ## [0.1.0] - 2026-06-09
 

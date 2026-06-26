@@ -190,11 +190,11 @@ Representative best-of-5 on the LST20 test text. Thapthim is measured through it
 
 | engine | char/s | vs thapthim |
 |---|--:|--:|
-| nlpo3 | ~3.8M | 1.5× faster |
-| **thapthim** (either LM) | **~2.6M** | — |
-| newmm | ~1.1M | 0.42× |
-| attacut | ~95k | ~27× slower |
-| deepcut | ~3.5k | ~740× slower |
+| nlpo3 | ~3.8M | 1.3× faster |
+| **thapthim** (either LM) | **~2.9M** | — |
+| newmm | ~1.1M | 0.38× |
+| attacut | ~95k | ~30× slower |
+| deepcut | ~3.5k | ~820× slower |
 
 Thapthim's two LMs run at the same speed. Throughput comes from a series of output-identical hot-path
 wins (detail in CHANGELOG): a splitmix64 bigram-key hasher; candidate contexts resolved by token id
@@ -205,10 +205,10 @@ Viterbi DP (replacing a hashmap probe and an O(n log n) sort); and per-thread sc
 
 All figures above are **single-threaded, per-call** — the only basis on which engines are
 comparable (every baseline here is run single-threaded too). The thapthim row is the Ruby↔Rust FFI;
-the **Python (PyO3) binding runs the identical engine and assets at ~3.0M char/s single-core**
+the **Python (PyO3) binding runs the identical engine and assets at ~3.2M char/s single-core**
 (per-call, same LST20 text) — marginally ahead of the Ruby figure because PyO3's call overhead is
 lower, not because the segmentation differs. Beyond single-core, the Python binding's
-`word_segment_batch` reports a much higher number (~10M char/s on 8 cores) because it releases the GIL
+`word_segment_batch` reports a much higher number (~11M char/s on 8 cores) because it releases the GIL
 and fans the batch across all cores with rayon; that is a **multicore deployment-throughput** figure,
 not an engine-speed one, and is **not** comparable to the single-threaded numbers above (any
 tokenizer can be batched/parallelized the same way). Use the per-call figure for model-vs-model
@@ -234,8 +234,8 @@ SSG is the natural baseline.
 | metric | result |
 |---|--:|
 | agreement with SSG training target (per-word, boundary F1, LST20) | **0.9941** |
-| speed (LST20 test, best-of-5, Ruby FFI) | **~3.5M char/s** (~23,600 sent/s) |
-| speed (same text, Python/PyO3, single-core) | ~4.3M char/s |
+| speed (LST20 test, best-of-5, Ruby FFI) | **~4.0M char/s** (~26,900 sent/s) |
+| speed (same text, Python/PyO3, single-core) | ~4.9M char/s |
 | SSG speed (`engine="ssg"`, same corpus) | ~0.20M char/s (~1,340 sent/s) |
 | dict speed (`engine="dict"`, same corpus) | ~0.48M char/s (~3,250 sent/s) |
 
