@@ -187,7 +187,19 @@ fn pack(start: usize, end: usize, flag: u64) -> u64 {
 
 impl RuntimeEngine {
     pub fn bootstrap() -> Self {
-        let words_raw = include_str!("../../assets/master_words_vocab.txt");
+        // Word dictionary: the embedded union vocab by default. `THAPTHIM_WORD_VOCAB=<path>` swaps in
+        // an external one-word-per-line file — used by the corpus-controlled "fair" benchmark to run a
+        // single-corpus dictionary on the otherwise-identical shipped engine. The LM/entropy assets are
+        // unchanged, so this isolates dictionary coverage from the segmentation method.
+        let words_owned;
+        let words_raw: &str = match std::env::var("THAPTHIM_WORD_VOCAB").ok() {
+            Some(path) => {
+                words_owned = std::fs::read_to_string(&path)
+                    .unwrap_or_else(|e| panic!("THAPTHIM_WORD_VOCAB {path}: {e}"));
+                &words_owned
+            }
+            None => include_str!("../../assets/master_words_vocab.txt"),
+        };
         let mut word_patterns = Vec::new();
         for (idx, line) in words_raw.lines().enumerate() {
             if !line.is_empty() {
