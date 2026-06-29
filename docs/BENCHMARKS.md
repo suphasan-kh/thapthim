@@ -8,8 +8,11 @@ stripped before scoring, per the reference preprocessing):
 - **char-level F1** — word-boundary detection: every character is labelled start-of-word or not.
 - **word-level F1** — a predicted word is correct iff **both** of its boundaries match the gold word.
 
-Last run: 2026-06-24 · Apple M1 (8 cores) · pythainlp 5.3.4, attacut 1.0.6 (`attacut-sc`),
-deepcut 0.7.0.0 (TensorFlow 2.21), nlpo3 1.4.0.
+Last run: thapthim columns (all three LMs) re-measured 2026-06-29 on `main` @ 4f6b2df, after the
+`274ec01` single-consonant-fold and `82caf74` western-anchor decode fixes (+F1 all corpora); the
+non-thapthim baselines are unchanged from 2026-06-24 (those are other tools, unaffected). Apple M1
+(8 cores) · pythainlp 5.3.4, attacut 1.0.6 (`attacut-sc`), deepcut 0.7.0.0 (TensorFlow 2.21),
+nlpo3 1.4.0.
 
 ## Engines
 
@@ -32,25 +35,25 @@ exactly (0 mismatches).
 
 | corpus | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| **lst20**  | **0.9481** | 0.8698 | 0.9361 | 0.8532 | 0.8522 | 0.7135 | 0.7124 |
-| **best**   | 0.8755 | 0.9496 | 0.9246 | 0.9454 | **0.9659** | 0.6870 | 0.6839 |
-| **vistec** | **0.8124** | 0.8050 | 0.8072 | 0.7843 | 0.7971 | 0.7480 | 0.7667 |
-| **tnhc**   | 0.7916 | **0.8077** | 0.8076 | 0.7667 | 0.7764 | 0.7084 | 0.7095 |
-| **ws1000** | 0.8280 | 0.8288 | **0.8330** | 0.8261 | 0.8243 | 0.7525 | 0.7487 |
-| **macro-avg** | 0.8511 | 0.8522 | **0.8617** | 0.8351 | 0.8432 | 0.7219 | 0.7242 |
+| **lst20**  | **0.9503** | 0.8711 | 0.9379 | 0.8532 | 0.8522 | 0.7135 | 0.7124 |
+| **best**   | 0.8749 | 0.9510 | 0.9255 | 0.9454 | **0.9659** | 0.6870 | 0.6839 |
+| **vistec** | **0.8175** | 0.8106 | 0.8131 | 0.7843 | 0.7971 | 0.7480 | 0.7667 |
+| **tnhc**   | 0.7953 | **0.8111** | 0.8110 | 0.7667 | 0.7764 | 0.7084 | 0.7095 |
+| **ws1000** | 0.8309 | 0.8312 | **0.8364** | 0.8261 | 0.8243 | 0.7525 | 0.7487 |
+| **macro-avg** | 0.8538 | 0.8550 | **0.8648** | 0.8351 | 0.8432 | 0.7219 | 0.7242 |
 
 ## Char-level F1 (boundary detection)
 
 | corpus | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| **lst20**  | **0.9781** | 0.9496 | 0.9738 | 0.9420 | 0.9413 | 0.8901 | 0.8899 |
-| **best**   | 0.9500 | 0.9763 | 0.9674 | 0.9771 | **0.9865** | 0.8770 | 0.8747 |
-| **vistec** | **0.9212** | 0.9182 | 0.9192 | 0.9146 | 0.9192 | 0.8970 | 0.9060 |
-| **tnhc**   | 0.9178 | **0.9237** | 0.9237 | 0.9006 | 0.9068 | 0.8873 | 0.8876 |
-| **ws1000** | 0.9292 | 0.9289 | 0.9304 | **0.9316** | 0.9307 | 0.9006 | 0.9024 |
+| **lst20**  | **0.9793** | 0.9505 | 0.9748 | 0.9420 | 0.9413 | 0.8901 | 0.8899 |
+| **best**   | 0.9501 | 0.9772 | 0.9680 | 0.9771 | **0.9865** | 0.8770 | 0.8747 |
+| **vistec** | **0.9240** | 0.9211 | 0.9224 | 0.9146 | 0.9192 | 0.8970 | 0.9060 |
+| **tnhc**   | 0.9200 | **0.9258** | 0.9258 | 0.9006 | 0.9068 | 0.8873 | 0.8876 |
+| **ws1000** | 0.9314 | 0.9308 | **0.9332** | 0.9316 | 0.9307 | 0.9006 | 0.9024 |
 
 Among thapthim's LMs (engine identical, only the training corpus differs): each single-corpus LM wins
-its home corpus, while **COMBINED** is the best all-rounder — highest word-F1 macro-average (0.862)
+its home corpus, while **COMBINED** is the best all-rounder — highest word-F1 macro-average (0.865)
 of *any* engine here, and it never collapses, trading a little LST20/VISTEC peak for large BEST/TNHC
 gains. The shipped default is LST20 (highest home peak). The KN absolute discount was swept over
 0.1–0.99 on all three LMs with no meaningful effect (argmax decoding is near-invariant to a uniform
@@ -66,39 +69,40 @@ it is absent from that set. Every engine is therefore scored on the *identical* 
 the comparison is apples-to-apples ("of the words Thapthim doesn't know, how many does each model
 recover?"). A gold word is recalled iff its exact `[start,end)` span appears in the prediction;
 whitespace tokens are excluded. Caps match the dump (lst20 5,250 · best 3,000 · vistec 3,000 ·
-tnhc 4,403 · ws1000 993) to bound deepcut's runtime. Last run: 2026-06-25.
+tnhc 4,403 · ws1000 993) to bound deepcut's runtime. Last run: thapthim columns re-measured
+2026-06-29 (`main` @ 4f6b2df, post-decode-fix); baselines unchanged from 2026-06-25.
 
 ### R_oov — recall on out-of-vocabulary words (**bold** = best per corpus)
 
 | corpus | OOV% | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|
-| **lst20**  | 1.6%  | 0.1558 | 0.1558 | 0.1558 | 0.3282 | **0.3506** | 0.1494 | 0.1486 |
-| **best**   | 0.8%  | 0.0667 | 0.0667 | 0.0667 | 0.3833 | **0.5262** | 0.0905 | 0.0452 |
-| **vistec** | 10.0% | 0.2579 | 0.2579 | 0.2578 | 0.2661 | **0.4228** | 0.1858 | 0.2782 |
-| **tnhc**   | 5.0%  | 0.2516 | 0.2512 | 0.2512 | 0.3121 | **0.3735** | 0.2729 | 0.2810 |
-| **ws1000** | 10.4% | 0.4216 | 0.4206 | 0.4206 | 0.5179 | **0.5415** | 0.4191 | 0.3863 |
-| **micro-avg** | 5.1% | 0.2527 | 0.2525 | 0.2524 | 0.2992 | **0.4157** | 0.2128 | 0.2682 |
+| **lst20**  | 1.6%  | 0.1629 | 0.1629 | 0.1629 | 0.3282 | **0.3506** | 0.1494 | 0.1486 |
+| **best**   | 0.8%  | 0.0738 | 0.0738 | 0.0738 | 0.3833 | **0.5262** | 0.0905 | 0.0452 |
+| **vistec** | 10.0% | 0.2704 | 0.2703 | 0.2703 | 0.2661 | **0.4228** | 0.1858 | 0.2782 |
+| **tnhc**   | 5.0%  | 0.2709 | 0.2710 | 0.2703 | 0.3121 | **0.3735** | 0.2729 | 0.2810 |
+| **ws1000** | 10.4% | 0.4293 | 0.4283 | 0.4283 | 0.5179 | **0.5415** | 0.4191 | 0.3863 |
+| **micro-avg** | 5.1% | 0.2657 | 0.2656 | 0.2655 | 0.2992 | **0.4157** | 0.2128 | 0.2682 |
 
 ### R_iv — recall on in-vocabulary words (micro-avg)
 
 | | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| **R_iv** | 0.8960 | 0.8958 | **0.9086** | 0.8554 | 0.8601 | 0.7280 | 0.7262 |
+| **R_iv** | 0.8979 | 0.8981 | **0.9109** | 0.8554 | 0.8601 | 0.7280 | 0.7262 |
 
 **OOV recall is Thapthim's weakest dimension.** At ~0.25 micro-avg it sits in the *dictionary
 tier* — slightly ahead of nlpo3 (the branching-entropy merge earns a real edge), roughly level
-with newmm, and behind both neural models: ~18% below attacut and **~64% below deepcut**, which
+with newmm, and behind both neural models: ~13% below attacut and **~57% below deepcut**, which
 recovers 1.6× as many unknown words. This is the dictionary-model trade-off: the same approach
-that gives Thapthim the **best in-vocab recall of any engine here** (0.896, and 0.909 with the
+that gives Thapthim the **best in-vocab recall of any engine here** (0.898, and 0.911 with the
 combined LM) cannot invent boundaries for words absent from its lexicon the way a sub-word neural
 model can. OOV is hard for everyone on this data — even deepcut only clears 0.42.
 
-**The LM corpus barely touches OOV recall** — all three LMs land within 0.0003 micro
-(LST20 0.2527 · BEST 0.2525 · COMBINED 0.2524; per-corpus deltas ≤ 0.001). OOV merging is driven
+**The LM corpus barely touches OOV recall** — all three LMs land within 0.0002 micro
+(LST20 0.2657 · BEST 0.2656 · COMBINED 0.2655; per-corpus deltas ≤ 0.001). OOV merging is driven
 by the LM-independent branching-entropy post-pass, not the word bigram LM, so swapping LMs leaves
 it flat. The LM instead moves **in-vocab** disambiguation: each single-corpus LM peaks R_iv on its
-home corpus (LST20→lst20, BEST→best 0.955), and the combined LM is the best all-rounder (micro
-R_iv 0.896 → 0.909; BEST 0.865 → 0.925), which is where its word-F1 gains come from. This also explains Thapthim's strong **cross-domain** F1: candidate words come from a
+home corpus (LST20→lst20, BEST→best 0.958), and the combined LM is the best all-rounder (micro
+R_iv 0.898 → 0.911; BEST 0.867 → 0.927), which is where its word-F1 gains come from. This also explains Thapthim's strong **cross-domain** F1: candidate words come from a
 broad-domain *union* dictionary (LST20∪BEST∪PyThaiNLP) and OOV handling is domain-general, so the
 parts that carry accuracy don't actually depend on the LM's home corpus — consistent with the
 flat LM sweep noted above. The headline F1 lead survives the weak OOV recall because OOV rates are
@@ -121,6 +125,11 @@ that — the word vocabulary is the unique tokens of that corpus's train split, 
 LM (`THAPTHIM_LM`), the merge is disabled (`THAPTHIM_BE_THRESHOLD=0`), and the OOV reference stays the
 shared union lexicon as above. (The single-corpus dictionary override and the `eval_fair` measurement
 harness live on the `fair-best-eval` branch.)
+
+> **Note:** the fair-comparison numbers below predate the 2026-06-27 decode fixes (`274ec01`,
+> `82caf74`) and were **not** re-measured in the 2026-06-29 refresh — their harness lives on the
+> `fair-best-eval` branch, not `main`. Expect them to shift up by ~+0.002–0.005 (as the shipped
+> tables did) when re-run; the qualitative corpus-controlled conclusion is unaffected.
 
 ### Word-level F1 (single-corpus, no entropy; **bold** = best per corpus)
 
