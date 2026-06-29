@@ -214,23 +214,24 @@ string and exits), amortized to nothing in any server/batch workload.
 
 ## Syllable segmentation
 
-`Thapthim.syllable_segment` segments into orthographic syllables via a single syllable-LM Viterbi over the
-TCC grid. Its syllable LM is trained on SSG (PyThaiNLP's `engine="ssg"`) applied per gold word, so
-SSG is the natural baseline.
+`Thapthim.syllable_segment` segments into orthographic syllables via a single syllable-LM Viterbi over
+the TCC grid — the same lattice engine as the word path, with a syllable dictionary and LM. Its
+syllable LM is trained on SSG (PyThaiNLP's `engine="ssg"`) applied per gold word, so SSG is the natural
+baseline.
 
 | metric | result |
 |---|--:|
 | agreement with SSG training target (per-word, boundary F1, LST20) | **0.9941** |
-| speed (LST20 test, best-of-5, Ruby FFI) | **~4.0M char/s** (~26,900 sent/s) |
-| speed (same text, Python/PyO3, single-core) | ~4.9M char/s |
-| SSG speed (`engine="ssg"`, same corpus) | ~0.20M char/s (~1,340 sent/s) |
-| dict speed (`engine="dict"`, same corpus) | ~0.48M char/s (~3,250 sent/s) |
 
-So syllable segmentation reproduces its SSG target near-perfectly while running **~17× faster than
-SSG** and **~7× faster than PyThaiNLP's `engine="dict"`** syllable tokenizer — and faster than
-thapthim's own word pass (one Viterbi over the smaller syllable dict, no OOV/entropy post-processing).
-(Against raw SSG-on-full-text the boundary F1 is 0.81, but that gap is a space/number tokenization
-convention — thapthim keeps `" "` and numbers as standalone tokens — not a quality difference.)
+So the syllable tokenizer reproduces its SSG target near-perfectly. (Against raw SSG-on-full-text the
+boundary F1 is 0.81, but that gap is a space/number tokenization convention — thapthim keeps `" "` and
+numbers as standalone tokens — not a quality difference.)
+
+Method: a minimum-cluster + n-gram-Viterbi syllabifier — the established approach to Thai
+syllabification (Jucksriporn & Sornil 2011; cf. Aroonmanakun 2002), here at bigram order with KN
+smoothing — reused on the shared lattice engine. It is not among PyThaiNLP's syllable engines (CRF
+`ssg`/`han_solo`, maximal-matching `dict`, trigram `tltk`), but it is a known recipe, so this is a
+utility, not a contribution.
 
 ## Takeaways
 
