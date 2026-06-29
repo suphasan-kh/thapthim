@@ -91,11 +91,14 @@ The dictionary, language model, and entropy table ship as compiled-in data asset
 
 ## Benchmarks
 
-On the research-standard `pythainlp.benchmarks` metric the shipped LST20 model posts the top
-word-level F1 on 4 of 5 Thai corpora at dictionary-class speed (~30× faster than attacut, ~820×
-faster than deepcut). Part of that margin is a home-corpus advantage (the neural baselines are
-BEST-trained, run out-of-domain on the other four); its weak spot is out-of-vocabulary recall, where
-the neural models lead. Full tables, methodology, and caveats: [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
+On the research-standard `pythainlp.benchmarks` metric the shipped LST20 model is competitive with the
+neural baselines — topping them on 4 of 5 Thai corpora — at dictionary-class speed (~30× faster than
+attacut, ~820× faster than deepcut, single-threaded). Read that with care: part of the margin is a
+home-corpus advantage (the neural baselines are BEST-trained, run out-of-domain on the other four), the
+dictionary tool nlpO3 is faster still, and out-of-vocabulary recall is a weak spot where the neural
+models lead. The architecture is a well-known one (dictionary + n-gram Viterbi); the contribution is
+the controlled finding and the compact artifact. Full tables, methodology, and caveats:
+[docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 
 ## Development
 

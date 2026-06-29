@@ -239,13 +239,16 @@ utility, not a contribution.
   Read with the home-corpus caveat: those four include thapthim's own training corpus (lst20) plus
   three where the neural baselines run out-of-domain. Cleanest like-for-like is each tool on home turf
   — there thapthim is competitive, not ahead (best: thapthim-BEST 0.950 ≈ attacut 0.945, < deepcut 0.966).
-- **vs neural:** matches/beats them off-domain at **~30× attacut / ~820× deepcut** speed; they pull
-  ahead only on **best** (their training corpus), where gated thapthim-BEST (0.9496) already edges
-  attacut and trails only deepcut, at a fraction of the cost.
+- **vs neural:** competitive off-domain — where the neural baselines run cross-domain (BEST-trained) —
+  at **~30× attacut / ~820× deepcut** speed (single-threaded); they pull ahead on **best**, their
+  training corpus, where gated thapthim-BEST (0.9496) already edges attacut and trails only deepcut, at
+  a fraction of the cost.
 - **vs dictionary tools:** nlpo3 is ~1.3× faster but ~14–24 word-F1 points worse on every corpus —
   with no statistical model they plateau well below thapthim and the neural engines.
-- **Where it fits:** accuracy competitive with neural across domains, at dictionary-class throughput,
-  strongest in-vocab recall here. Trade-off is OOV recall (~0.25 micro), so high-OOV text narrows the gap.
+- **Where it fits:** accuracy competitive with neural in-domain (corpus-controlled), at dictionary-class
+  throughput, strongest in-vocab recall here. Trade-off is OOV recall (~0.25 micro), so high-OOV text
+  narrows the gap. The architecture is established (dictionary + n-gram Viterbi; Kawtrakul & Thumkanon
+  1997); the contribution is the controlled finding, not the method.
 
 ## Caveats
 

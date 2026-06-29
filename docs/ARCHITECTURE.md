@@ -5,11 +5,17 @@ it works** section in the [README](../README.md); numbers: [BENCHMARKS.md](BENCH
 
 ## Summary
 
+The word path is the established dictionary + n-gram best-path approach to Thai word segmentation
+(Kawtrakul & Thumkanon 1997; over the character-cluster grid as in Kruengkrai & Isahara 2006) — not a
+new architecture. What Thapthim adds is engineering (a compact, fast, dependency-free build) and a
+measured finding (see [BENCHMARKS.md](BENCHMARKS.md)): probabilistic decoding beats the dominant
+maximal-matching baseline (Sornlertlamvanich 1993) by a wide margin with the dictionary held constant.
+
 Thapthim segments in a single near-linear sweep anchored to one substrate: the **Thai Character
-Cluster (TCC) grid**. A rule-based regex segmenter tiles the raw bytes into TCCs — the smallest
-orthographically inseparable units — holding markup and western runs (URLs, decimals, Thai-numeral
-sequences, `@`-handles, `#`-tags, identifiers) together as single clusters. This grid is both the
-internal coordinate system and a public capability (`tcc_segment`).
+Cluster (TCC) grid** (Theeramunkong & Sornlertlamvanich 2000). A rule-based regex segmenter tiles the
+raw bytes into TCCs — the smallest orthographically inseparable units — holding markup and western runs
+(URLs, decimals, Thai-numeral sequences, `@`-handles, `#`-tags, identifiers) together as single
+clusters. This grid is both the internal coordinate system and a public capability (`tcc_segment`).
 
 Over the grid, a character-wise Double-Array Aho-Corasick automaton (`daachorse::charwise`), built
 from a unified dictionary (LST20 ∪ BEST ∪ PyThaiNLP), emits every overlapping **word** and
