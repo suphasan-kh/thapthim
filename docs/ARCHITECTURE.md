@@ -1,90 +1,60 @@
 # Thapthim Architecture
 
-How Thapthim turns spaceless Thai text into word and syllable boundaries — the full pipeline,
-end to end. For the short version see the **How it works** section in the [README](../README.md);
-for accuracy and speed numbers see [BENCHMARKS.md](BENCHMARKS.md).
+How Thapthim turns spaceless Thai text into word and syllable boundaries. Short version: the **How
+it works** section in the [README](../README.md); numbers: [BENCHMARKS.md](BENCHMARKS.md).
 
 ## Summary
 
-Thapthim segments Thai text in a single near-linear sweep that stays anchored to one substrate:
-the **Thai Character Cluster (TCC) grid**. A rule-based regular-expression segmenter
-first tiles the raw bytes into TCCs — the smallest orthographically inseparable units — holding
-angle-bracket markup and western runs (URLs, decimals, Thai-numeral sequences, `@`-handles,
-`#`-tags, identifiers) together as single clusters, matching the syllabifier's own western-token
-convention. This grid is both the internal coordinate system and a first-class capability exposed
-to Ruby (`tcc_segment`).
+Thapthim segments in a single near-linear sweep anchored to one substrate: the **Thai Character
+Cluster (TCC) grid**. A rule-based regex segmenter tiles the raw bytes into TCCs — the smallest
+orthographically inseparable units — holding markup and western runs (URLs, decimals, Thai-numeral
+sequences, `@`-handles, `#`-tags, identifiers) together as single clusters. This grid is both the
+internal coordinate system and a public capability (`tcc_segment`).
 
-Over that grid, a character-wise Double-Array Aho-Corasick automaton (`daachorse::charwise`), built
-from a unified dictionary (LST20 ∪ BEST ∪ the PyThaiNLP lexicon), streams the text and emits every
-overlapping **word** and **syllable** candidate up to a bounded length — `THAPTHIM_MAX_WORD_TCC`
-(default 12, counted in TCC clusters, fixed empirically where LST20 accuracy plateaus across 10–12,
-not read off a paper's character percentile). Each candidate snaps to the grid; the
-load-bearing invariant the decode uses is that every word boundary is a TCC boundary
-(`word ⊂ TCC`), which holds *exactly* because the grid is computed by deterministic rule, never a
-probabilistic guess. (The fuller nesting — every word boundary also a syllable boundary, every
-syllable boundary a TCC boundary — is a property of the *gold* segmentation, not something the word
-pass computes; see **The grid invariant** below.) The candidates fill a flat, `Vec`-backed
-multi-granularity lattice.
+Over the grid, a character-wise Double-Array Aho-Corasick automaton (`daachorse::charwise`), built
+from a unified dictionary (LST20 ∪ BEST ∪ PyThaiNLP), emits every overlapping **word** and
+**syllable** candidate up to `THAPTHIM_MAX_WORD_TCC` clusters (default 12, set where LST20 accuracy
+plateaus across 10–12). Candidates snap to the grid and fill a flat `Vec`-backed multi-granularity
+lattice. The decode relies on the invariant that every word boundary is a TCC boundary
+(`word ⊂ TCC`) — exact because the grid is computed by deterministic rule (see below).
 
-Transitions are scored by a **Kneser-Ney–smoothed bigram language model trained solely on LST20** —
-one consistently annotated backbone, free of cross-criteria contamination. The model is interned
-into dense integer token-ids with bigram keys folded into packed 64-bit words
-(`w1_id << 32 | w2_id`), collapsing hundreds of thousands of heap-allocated string keys into a
-compact table; per-context follower and continuation counts (N₁₊) are compiled once at bootstrap so
-the hot path never rescans the n-grams, and the interned asset is regenerated in-repo at build time
-from human-readable KN count tables. (The u64 keys are hashed with a splitmix64 finalizer to defeat
-the low-bit clustering that a plain multiply-hash exhibits on structured keys — a ~3× decode win.)
+Transitions are scored by a **Kneser-Ney bigram LM trained solely on LST20** (one consistently
+annotated backbone). It is interned into dense integer ids with bigram keys packed into 64-bit words
+(`w1 << 32 | w2`), with follower/continuation counts (N₁₊) precomputed at bootstrap so the hot path
+never rescans n-grams. (Keys use a splitmix64 finalizer to avoid low-bit clustering — a ~3× decode
+win.)
 
-Decoding is **word-first**: one Viterbi pass with full back-pointer recovery selects the globally
-optimal word path. Spans the dictionary cannot cover are priced through an explicit
-**out-of-vocabulary back-off** carrying a tunable penalty (`THAPTHIM_OOV_PENALTY`,
-default 2.0), so an unattested dictionary entry can no longer out-score the decomposition it ought to
-defer to. Over-segmented unknown runs are then repaired by a **branching-entropy pass**
-(`THAPTHIM_BE_THRESHOLD`): a forward/backward character-successor model (Shannon entropy harvested
-offline from the TNHC literary corpus) dissolves spurious internal cuts in coined or foreign words,
-fusing short low-entropy fragments while leaving genuine high-entropy boundaries intact.
+Decoding is **word-first**: one Viterbi pass picks the optimal word path. Spans the dictionary can't
+cover are priced through an **OOV back-off** with a tunable penalty (`THAPTHIM_OOV_PENALTY`, default
+2.0), so an unattested dictionary entry can't out-score the decomposition it should defer to.
+Over-segmented unknown runs are then repaired by a **branching-entropy pass**
+(`THAPTHIM_BE_THRESHOLD`): a forward/backward character-successor model (Shannon entropy from the
+TNHC corpus) dissolves spurious internal cuts in coined/foreign words while leaving genuine
+high-entropy boundaries intact. A single bare Thai consonant is treated as OOV when coalescing, so it
+can't tile an unknown run into sub-syllabic fragments (`บลัช` → `บ`·`ลัช`, not `บ`·`ลั`·`ช`);
+genuine one-letter words (`ณ`, `ธ`) re-emerge unchanged, so the rule is boundary-neutral.
 
-A single bare Thai consonant (the vocab carries all 43 as degenerate one-letter entries) is treated
-as OOV when coalescing, not as a real word, so it cannot tile an unknown run into sub-syllabic
-fragments (`บลัช` → `บ`·`ลัช`, never `บ`·`ลั`·`ช`); a genuine isolated one-letter word (`ณ`, `ธ`)
-just forms a length-1 OOV span and re-emerges as the same token, so the rule is boundary-neutral.
-
-Word and syllable resolution are **decoupled into two independent passes** for speed — the word pass
-lazily syllabifies only the OOV spans it must, while a dedicated syllable Viterbi over the same
-backbone yields a full orthographic-syllable tiling — both anchored to the shared TCC grid. The
-reconciled path is emitted via native bit-shifting as a flat vector of packed 64-bit tokens,
-`[ Start | Length | Tier ]`, referencing the original byte buffer.
+Word and syllable resolution are **two independent passes** for speed — the word pass lazily
+syllabifies only the OOV spans it must, while a dedicated syllable Viterbi yields a full
+orthographic-syllable tiling, both on the shared grid. Output is a flat vector of packed 64-bit
+tokens, `[ Start | Length | Tier ]`, referencing the original byte buffer.
 
 ## The grid invariant: `word ⊂ TCC`, not `word ⊂ syllable`
 
-The three granularities nest in the *gold* segmentation — every true word boundary is a true
-syllable boundary, every true syllable boundary a true TCC boundary — because a word is built from
-whole syllables and a syllable from whole TCCs. That nesting is a fact about Thai: true of any
-correct analysis, independent of any algorithm. It is **not** something the engine computes or
-maintains.
+All three granularities nest in the *gold* segmentation (word ⊂ syllable ⊂ TCC) — a fact about Thai,
+not something the engine computes. The decoder leans only on the **outer** half, `word ⊂ TCC`, and
+anchors on TCC rather than syllables because only one level is reproducible *exactly*:
 
-The decoder leans on only the **outer** half of it, `word ⊂ TCC`. Word candidates snap to the TCC
-grid, and that costs nothing precisely because every gold word boundary is a gold TCC boundary — the
-grid can never exclude a boundary the word decode would want. The word pass goes **straight from TCC
-to word**; it never computes syllables. (Syllables appear only in the lazy second pass over spans
-the word decode already left OOV, where they subdivide *within* a span whose edges are already
-fixed — so even there nothing relies on `word ⊂ syllable` to recover a word boundary.)
+- **TCC computed = TCC gold**, exactly (deterministic regex, no probabilities). So `word ⊂ TCC`
+  holds with certainty; the grid never excludes a boundary the word decode wants.
+- **Syllables computed ≠ syllables gold** — syllabification is a probabilistic guess. Constraining
+  word candidates to a *guessed* syllabification forecloses 0.15–1.6% of gold word boundaries
+  (measured across LST20/BEST/VISTEC/TNHC/ws1000) before the word LM runs — a recall ceiling the TCC
+  grid does not impose.
 
-Why anchor on TCC rather than syllables, when the gold nesting holds for both? Because only one
-level is *reproducible exactly* by the engine:
-
-- **TCC the engine computes = TCC gold**, exactly — the deterministic regex grammar, no
-  probabilities. So `word ⊂ TCC_computed` holds with certainty; the grid is the true superset, and
-  aligning word candidates to it is lossless.
-- **Syllables the engine would compute ≠ syllables gold** — syllabification is a probabilistic
-  decision (a trained Viterbi/CRF guess). So `word ⊂ syllable_computed` can fail even though
-  `word ⊂ syllable_gold` is exact. Constraining word candidates to a *guessed* syllabification
-  forecloses 0.15–1.6% of gold word boundaries (measured across LST20, BEST, VISTEC, TNHC, ws1000)
-  before the word LM ever runs — a recall ceiling the deterministic TCC grid does not impose.
-
-Stated as architecture, this is why the engine is a word-first **cascade** over a deterministic grid
-rather than a joint word⊗syllable decode: it never commits to an *ambiguous* syllable cut upstream
-of the word decision.
+So the engine is a word-first **cascade** over a deterministic grid, not a joint word⊗syllable
+decode: it never commits to an ambiguous syllable cut upstream of the word decision. (The lazy
+syllable pass only subdivides *within* spans whose edges are already fixed.)
 
 ## Pipeline
 
@@ -173,55 +143,45 @@ of the word decision.
 
 ## Assets
 
-The diagram above names assets conceptually; these are the literal files under
-`ext/thapthim/assets/`. All are committed in-repo and produced offline by the corpus
-notebook, except the two interned `.bin`s, which `build.rs` regenerates from the count
-tables at build time.
+Literal files under `ext/thapthim/assets/`, all committed in-repo and built offline by the corpus
+notebook — except the interned `.bin`s, which `build.rs` regenerates from the count tables at build.
 
-| concept in diagram | file(s) | role |
+| concept | file(s) | role |
 |---|---|---|
-| Kneser-Ney count tables | `kn_{words,syllables,tccs}_{unigrams,bigrams}.txt` | human-readable KN counts; `build.rs` input (LST20 train only) |
-| _(intermediate)_ | `joint_lm.bin` | string-keyed LM emitted by `build.rs` step 1 |
-| interned bigram LM | `joint_lm_interned.bin` | compact embedded LM (default, LST20); the one loaded at runtime |
-| interned bigram LM _(gated)_ | `joint_lm_interned_{best,combined}.bin` | alternate LMs, embedded only under the `best_lm`/`combined_lm` cargo feature |
-| char-successor entropy table | `char_entropy.txt` | fwd/bwd Shannon entropy for the branching-entropy merge (from TNHC) |
+| KN count tables | `kn_{words,syllables,tccs}_{unigrams,bigrams}.txt` | human-readable KN counts; `build.rs` input (LST20 train only) |
+| interned bigram LM | `joint_lm_interned.bin` | compact embedded LM (default, LST20); loaded at runtime (`joint_lm.bin` is the build.rs intermediate) |
+| interned LM _(gated)_ | `joint_lm_interned_{best,combined}.bin` | alternate LMs, embedded only under the `best_lm`/`combined_lm` cargo feature |
+| entropy table | `char_entropy.txt` | fwd/bwd Shannon entropy for the branching-entropy merge (from TNHC) |
 | master dictionary | `master_{words,syllables}_vocab.txt` | word + syllable vocab (LST20 ∪ BEST ∪ PyThaiNLP) |
 
 ## Runtime knobs
 
 | env var | default | effect |
 |---|--:|---|
-| `THAPTHIM_MAX_WORD_TCC` | 12 | max dictionary candidate length, counted in TCC clusters (`0` = no cap) |
-| `THAPTHIM_OOV_PENALTY` | 2.0 | log-prob penalty on transitions out of an LM-unseen word (OOV back-off) |
+| `THAPTHIM_MAX_WORD_TCC` | 12 | max dictionary candidate length, in TCC clusters (`0` = no cap) |
+| `THAPTHIM_OOV_PENALTY` | 2.0 | log-prob penalty on transitions out of an LM-unseen word |
 | `THAPTHIM_BE_MAX_TCC` | 2 | max token length (TCC clusters) eligible for a branching-entropy merge |
-| `THAPTHIM_BE_THRESHOLD` | 1.0 | branching-entropy merge threshold for OOV-run repair (`0` disables the pass) |
-| `THAPTHIM_KN_DISCOUNT` | 0.75 | Kneser-Ney absolute discount (argmax is near-invariant; see BENCHMARKS) |
+| `THAPTHIM_BE_THRESHOLD` | 1.0 | branching-entropy merge threshold (`0` disables the pass) |
+| `THAPTHIM_KN_DISCOUNT` | 0.75 | Kneser-Ney absolute discount (argmax near-invariant; see BENCHMARKS) |
 | `THAPTHIM_LM` | LST20 | selects the LM tier when a gated `best`/`combined` build is loaded |
+| `THAPTHIM_WORD_VOCAB` | _(embedded)_ | swap the word dictionary for an external one-word-per-line file (eval/custom-dict) |
 
 ## Extensibility
 
-The Viterbi decoder is not specific to segmentation. The shortest-path core lives in
-`lattice/grid.rs` as a task-agnostic engine: an `Edge<P>` is a grid-aligned span `[start, end)`
-carrying an arbitrary payload `P`, and the `LatticeModel` trait supplies the cost — a sentence-initial
-context (`start_ctx`), an optional emission/node cost (`node_cost`, default `0.0`), and a first-order
-transition score (`transition`). Each edge's per-node context (`Ctx`) is resolved up front by the
-candidate builder and handed to `viterbi` as the `ctx` slice, so the trait stays cost-only. `viterbi`
-runs the exact first-order DP over the edges confined to a byte region and returns the best path. The
-trait is monomorphized per model, so this generality costs no dynamic dispatch.
+The Viterbi core in `lattice/grid.rs` is task-agnostic: an `Edge<P>` is a grid-aligned span carrying
+an arbitrary payload `P`, and the `LatticeModel` trait supplies the cost (`start_ctx`, optional
+`node_cost`, first-order `transition`). Per-node context is resolved up front by the candidate
+builder, so the trait stays cost-only and is monomorphized per model (no dynamic dispatch).
 
-Word and syllable segmentation are simply the **first** instantiation: `build_lattice` in `decode.rs`
-emits the candidates with their contexts, and `BigramModel` sets `Payload = LatticeTier`,
-`Ctx = Option<u32>` (the interned token id), `node_cost = 0.0`, and `transition = ` the Kneser-Ney
-bigram score. The branching-entropy merge and OOV-run coalescing stay *outside* the core as
-segmentation-specific orchestration.
+Word/syllable segmentation is the first instantiation: `build_lattice` (in `decode.rs`) emits
+candidates, and `BigramModel` sets `transition =` the KN bigram score. The branching-entropy merge
+and OOV coalescing stay *outside* the core as segmentation-specific orchestration. Planned
+deterministic tasks plug in the same way (new candidates + a `LatticeModel`, never touching
+`grid.rs`):
 
-The planned deterministic tasks plug in the same way — new candidate generation plus a `LatticeModel`
-impl, never touching `grid.rs`:
-
-- **G2P** — edges are span→reading candidates; `Ctx` is a phoneme-unit id; `node_cost` carries a
-  grapheme→phoneme rule prior; `transition` is a phoneme-sequence model.
+- **G2P** — edges are span→reading candidates; `transition` a phoneme-sequence model.
 - **Spelling correction** — edges are dictionary words within an edit-distance bound; `node_cost`
-  carries the edit penalty (the first real use of `node_cost`); `transition` is the word LM.
+  carries the edit penalty (first real use of `node_cost`); `transition` the word LM.
 
-Tasks with no path search — soundex, ISO-11940 transliteration, normalization, sentiment — are
-deterministic transforms that sit beside the lattice rather than inside it.
+Tasks with no path search (soundex, ISO-11940 transliteration, normalization) are deterministic
+transforms beside the lattice, not inside it.
