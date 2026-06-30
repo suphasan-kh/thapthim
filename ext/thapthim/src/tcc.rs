@@ -45,9 +45,20 @@ impl TccSegmenter {
             .map(|rule| rule.replace("c", c).replace("t", t).replace("k", &k))
             .collect();
 
+        // `w` is one "foreign word" character: any Unicode letter or combining mark, plus the
+        // ASCII digits/underscore, MINUS the Thai script (`--\p{Thai}`, which Thai TCC rules own).
+        // It broadens the old ASCII-only `[A-Za-z0-9_]` so a contiguous non-Thai run groups as ONE
+        // cluster instead of shredding to single chars: diacritic Latin (dòufu, tōfu — the diacritic
+        // is a precomposed `\p{L}` or a decomposed `\p{M}`), CJK (豆腐), Hangul (두부), and any other
+        // non-Thai script. ASCII digits 0-9 are kept explicitly (digits are `\p{Nd}`, not `\p{L}`);
+        // Thai digits stay excluded so rule 3 below still owns them.
+        let w = r"[\p{L}\p{M}0-9_--\p{Thai}]";
+        // The western/foreign-token rule, built from `w` (see rule 2 below).
+        let western = format!(r"[@#]?{w}+(?:[.,@:/#-]+{w}+)*");
+
         // Two protective rules, placed first so they win over the `.` single-char fallback:
         //  1. `<[^<>]*>` keeps an angle-bracket tag (e.g. <NE>, </NE>, <Hello>) as ONE cluster.
-        //  2. `[@#]?[A-Za-z0-9_]+(?:[.,@:/#-]+[A-Za-z0-9_]+)*` keeps a contiguous Latin/digit run
+        //  2. `[@#]?w+(?:[.,@:/#-]+w+)*` keeps a contiguous non-Thai (Latin/digit/CJK/…) run
         //     as ONE cluster, matching ssg's western-token convention. The connector punctuation
         //     (`. , @ : / # -`) is ANCHORED — it may only appear *between* two alphanumeric runs
         //     (3.5, URLs, ranges, a@b.com), never leading or trailing, with `@`/`#` the sole
@@ -69,7 +80,7 @@ impl TccSegmenter {
         //     ASCII `digit.digit` 614:9 (the analogous case; LST20/VISTEC have no Thai-numeral
         //     separator examples). Only BEST's older convention splits these — not followed.
         let master_pattern = format!(
-            r"<[^<>]*>|[@#]?[A-Za-z0-9_]+(?:[.,@:/#-]+[A-Za-z0-9_]+)*|[๐-๙]+(?:[.,:][๐-๙]+)*|{}|[\s\S]",
+            r"<[^<>]*>|{western}|[๐-๙]+(?:[.,:][๐-๙]+)*|{}|[\s\S]",
             compiled_rules.join("|")
         );
 
