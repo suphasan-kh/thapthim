@@ -55,8 +55,10 @@ module Thapthim
     return [0] if text.empty?
 
     text_pointer = Fiddle::Pointer.to_ptr(text)
-    size_buffer = Fiddle::Pointer.malloc(Fiddle::SIZEOF_INT)
-    
+    # RUBY_FREE so the out-param buffer is reclaimed at GC — malloc without a free
+    # function is never freed and leaks 4 bytes per call.
+    size_buffer = Fiddle::Pointer.malloc(Fiddle::SIZEOF_INT, Fiddle::RUBY_FREE)
+
     func = NativeBridge['thapthim_tcc_positions']
     raw_array_address = func.call(text_pointer.to_i, size_buffer.to_i)
     return [0] if raw_array_address == 0 || raw_array_address.nil?
@@ -64,11 +66,14 @@ module Thapthim
     raw_array_ptr = Fiddle::Pointer.new(raw_array_address)
 
     total_elements = size_buffer[0, Fiddle::SIZEOF_INT].unpack1('i')
-    positions = raw_array_ptr[0, total_elements * Fiddle::SIZEOF_INT].unpack('i*')
-    
-    free_func = NativeBridge['thapthim_free_array']
-    free_func.call(raw_array_ptr.to_i, total_elements)
-    
+    begin
+      positions = raw_array_ptr[0, total_elements * Fiddle::SIZEOF_INT].unpack('i*')
+    ensure
+      # The element count is what free needs to reconstruct the slice, so it is read before
+      # this block; the ensure keeps the Rust buffer from leaking if the copy-out raises.
+      NativeBridge['thapthim_free_array'].call(raw_array_ptr.to_i, total_elements)
+    end
+
     positions
   end
 

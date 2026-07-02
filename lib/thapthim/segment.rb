@@ -18,16 +18,22 @@ module Thapthim
     return [] if text.empty?
 
     text_pointer = Fiddle::Pointer.to_ptr(text)
-    size_buffer = Fiddle::Pointer.malloc(Fiddle::SIZEOF_INT)
+    # RUBY_FREE so the out-param buffer is reclaimed at GC — malloc without a free
+    # function is never freed and leaks 4 bytes per call.
+    size_buffer = Fiddle::Pointer.malloc(Fiddle::SIZEOF_INT, Fiddle::RUBY_FREE)
 
     raw_address = NativeBridge[fn_name].call(text_pointer.to_i, size_buffer.to_i)
     return [] if raw_address.nil? || raw_address == 0
 
     raw_ptr = Fiddle::Pointer.new(raw_address)
     count = size_buffer[0, Fiddle::SIZEOF_INT].unpack1('i')
-    packed = count.zero? ? [] : raw_ptr[0, count * 8].unpack('Q*')
-
-    NativeBridge['thapthim_free_u64_array'].call(raw_ptr.to_i, count)
+    begin
+      packed = count.zero? ? [] : raw_ptr[0, count * 8].unpack('Q*')
+    ensure
+      # The count is what free needs to reconstruct the slice, so it is read before this
+      # block; the ensure keeps the Rust buffer from leaking if the copy-out raises.
+      NativeBridge['thapthim_free_u64_array'].call(raw_ptr.to_i, count)
+    end
 
     packed.map do |token|
       start = token >> 32

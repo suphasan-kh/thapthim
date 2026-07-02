@@ -25,9 +25,11 @@ module Thapthim
     return "" if result_address.nil? || result_address == 0
 
     # `to_s` reads the NUL-terminated C string into a fresh (binary) Ruby String, so the buffer is
-    # safe to free immediately afterward.
-    normalized = Fiddle::Pointer.new(result_address).to_s.force_encoding(Encoding::UTF_8)
-    NativeBridge['thapthim_free_string'].call(result_address)
-    normalized
+    # safe to free immediately afterward; the ensure keeps it from leaking if the copy raises.
+    begin
+      Fiddle::Pointer.new(result_address).to_s.force_encoding(Encoding::UTF_8)
+    ensure
+      NativeBridge['thapthim_free_string'].call(result_address)
+    end
   end
 end
