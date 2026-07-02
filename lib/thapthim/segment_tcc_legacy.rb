@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2026 Thapthim Project Contributor suphasan-kh
 # SPDX-FileType: SOURCE
 # SPDX-License-Identifier: Apache-2.0
-=begin 
+=begin
 The implementation of tokenizer according to Thai Character Clusters (TCCs) rules proposed by `Theeramunkong et al. 2000. \
     <https://doi.org/10.1145/355214.355225>`_
 
@@ -11,6 +11,16 @@ Credits:
     * Grammar: Wittawat Jitkrittum (`link to the source file \
       <https://github.com/wittawatj/jtcc/blob/master/TCC.g>`_)
     * Python code: Korakot Chaovavanich
+
+STATUS: reference-only. This is the original pure-Ruby port of the PyThaiNLP grammar, kept as
+provenance for the Rust port in ext/thapthim/src/tcc.rs. Nothing in the gem calls it — the shipped
+`tcc_segment`/`tcc_positions` route to the Rust engine. The two grammars are NOT identical:
+    * the Ruby rules use lookaheads (`(?=[เ-ไก-ฮ]|$)`), which the Rust `regex` crate cannot
+      express — the Rust grammar drops them (and adjusts the `k` suffixes accordingly);
+    * the Rust grammar adds the western/markup/Thai-numeral grouping rules and the `[\s\S]`
+      full-coverage fallback.
+The Rust grammar is the one validated by the benchmark suite; do not treat this file as the
+source of truth.
 =end
 
 module Thapthim

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # Build the Rust extension and run the fast correctness suite (rake default excludes the
+  # long-running performance benchmark).
+  ruby:
+    name: Ruby ${{ matrix.ruby }} / ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, ruby: "3.2" }   # oldest supported (required_ruby_version)
+          - { os: ubuntu-latest, ruby: "3.4" }
+          - { os: ubuntu-latest, ruby: "3.5" }   # fiddle is a bundled gem here — exercises the runtime dep
+          - { os: macos-latest,  ruby: "3.4" }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Compile extension
+        run: bundle exec rake compile
+      - name: Run tests
+        run: bundle exec rake test
+
+  # Smoke-test the PyO3 wheel: build with maturin over the same crate (ruby feature off) and
+  # verify the module segments correctly.
+  python:
+    name: Python wheel smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build wheel
+        run: |
+          pip install 'maturin>=1.9,<2.0'
+          maturin build --release --out dist
+      - name: Install and smoke-test
+        run: |
+          pip install dist/*.whl
+          python -c "
+          import thapthim
+          assert thapthim.word_segment('ฉันกินข้าว') == ['ฉัน', 'กิน', 'ข้าว'], thapthim.word_segment('ฉันกินข้าว')
+          assert ''.join(thapthim.syllable_segment('ฉันกินข้าว')) == 'ฉันกินข้าว'
+          assert thapthim.std_normalize('  ก  ข  ') == 'ก ข'
+          print('wheel smoke OK')
+          "
