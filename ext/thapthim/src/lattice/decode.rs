@@ -12,6 +12,38 @@ use daachorse::CharwiseDoubleArrayAhoCorasick;
 /// `u32::MAX` is safe: a real index is `< positions.len()`, far below this on any real input.
 pub(super) const NON_BOUNDARY: u32 = u32::MAX;
 
+/// Longest byte span one packed token can carry — the 24-bit Length field of the
+/// [ Start:32 | Length:24 | Tier:8 ] packing (see `pack`).
+const MAX_TOKEN_BYTES: usize = 0xFF_FFFF;
+
+/// Pack the span `[start, end)`, splitting it into several tokens if it exceeds the 24-bit
+/// Length field — otherwise the overflow bits would silently corrupt the Start field and the
+/// caller would byteslice garbage. Reachable, though only on pathological input: a contiguous
+/// non-Thai run of >16MB is a *single* TCC cluster (the western-token rule), so it reaches the
+/// output as one fallback token. Cuts prefer the highest grid boundary inside the window (keeps
+/// tokens grid-aligned); a window with no grid point (one giant cluster) cuts at the highest
+/// char boundary instead (always within 4 bytes), so every token stays valid UTF-8. The hot
+/// path pays one comparison per token.
+fn pack_split(out: &mut Vec<u64>, text: &str, byte_to_idx: &[u32], span: (usize, usize, u64)) {
+    let (mut start, end, flag) = span;
+    while end - start > MAX_TOKEN_BYTES {
+        let limit = start + MAX_TOKEN_BYTES;
+        let mut cut = limit;
+        while cut > start && byte_to_idx[cut] == NON_BOUNDARY {
+            cut -= 1;
+        }
+        if cut == start {
+            cut = limit;
+            while !text.is_char_boundary(cut) {
+                cut -= 1;
+            }
+        }
+        out.push(pack(start, cut, flag));
+        start = cut;
+    }
+    out.push(pack(start, end, flag));
+}
+
 /// A token that is exactly one bare Thai consonant (U+0E01..=U+0E2E, nothing else). The word
 /// vocabulary carries all 43 consonants as degenerate one-letter entries; inside an OOV region the
 /// Viterbi will happily tile a transliteration with them (บ|ลั|ช), which both fragments the run and
@@ -194,7 +226,11 @@ impl RuntimeEngine {
             toks
         };
 
-        toks.iter().map(|(s, e, t)| pack(*s, *e, tier_flag(t))).collect()
+        let mut out = Vec::with_capacity(toks.len());
+        for (s, e, t) in &toks {
+            pack_split(&mut out, text, &byte_to_idx, (*s, *e, tier_flag(t)));
+        }
+        out
     }
 
     /// Syllable segmentation (single syllable-LM Viterbi over the whole text). Independent of the
@@ -220,9 +256,12 @@ impl RuntimeEngine {
         );
         let model = self.bigram_model(&LatticeTier::Syllable);
 
-        viterbi(&cands, &ctx, 0, byte_len, &byte_to_idx, positions.len(), &model)
-            .iter()
-            .map(|&i| pack(cands[i].start, cands[i].end, tier_flag(&cands[i].payload)))
-            .collect()
+        let path = viterbi(&cands, &ctx, 0, byte_len, &byte_to_idx, positions.len(), &model);
+        let mut out = Vec::with_capacity(path.len());
+        for &i in &path {
+            let c = &cands[i];
+            pack_split(&mut out, text, &byte_to_idx, (c.start, c.end, tier_flag(&c.payload)));
+        }
+        out
     }
 }

@@ -96,6 +96,32 @@ class TestInputHardening < Minitest::Test
     assert_equal 20_000, Thapthim.word_segment(big).length
   end
 
+  # --- a token can never exceed the 24-bit packed Length field ---------------------
+  # A contiguous non-Thai run is ONE TCC cluster by design, so a >16MB blob would reach the
+  # output as a single token whose length overflows into the Start bits — silently corrupting
+  # the offsets. The engine must split such spans instead (grid points first, char boundaries
+  # inside a single giant cluster).
+
+  MAX_TOKEN_BYTES = 0xFF_FFFF # the packed [ Start:32 | Length:24 | Tier:8 ] length field
+
+  def test_token_longer_than_length_field_is_split_losslessly
+    blob = "a" * 17_000_000 # one giant western-token TCC cluster
+    tokens = Thapthim.word_segment(blob)
+    assert_operator tokens.length, :>, 1, "an oversized cluster must be split"
+    assert_equal blob, tokens.join, "the split must stay lossless"
+    assert(tokens.all? { |t| t.bytesize <= MAX_TOKEN_BYTES },
+           "every token must fit the 24-bit length field")
+  end
+
+  def test_oversized_token_split_lands_on_char_boundaries
+    blob = "é" * 8_500_000 # 17MB of 2-byte chars: a naive byte-offset cut would break UTF-8
+    tokens = Thapthim.word_segment(blob)
+    assert_operator tokens.length, :>, 1
+    assert_equal blob, tokens.join
+    assert(tokens.all? { |t| t.valid_encoding? && t.bytesize <= MAX_TOKEN_BYTES },
+           "split tokens must be valid UTF-8 and fit the length field")
+  end
+
   # --- the original motivating sentence no longer produces the bogus กอดอก token --
   # (the OOV-penalty fix splits the run as กอ|ดอก|ไม้ rather than gluing กอดอก).
 
