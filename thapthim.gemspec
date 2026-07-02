@@ -26,11 +26,9 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/suphasan-kh/thapthim"
   spec.metadata["changelog_uri"] = "https://github.com/suphasan-kh/thapthim/blob/main/CHANGELOG.md"
 
-  # Uncomment the line below to require MFA for gem pushes.
-  # This helps protect your gem from supply chain attacks by ensuring
-  # no one can publish a new version without multi-factor authentication.
+  # Require MFA for gem pushes (supply-chain protection).
   # See: https://guides.rubygems.org/mfa-requirement-opt-in/
-  # spec.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -38,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
     ls.readlines("\x0", chomp: true).reject do |f|
       (f == gemspec) ||
-        f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml]) ||
+        f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .standard.yml .github/]) ||
         f.start_with?("target/") || f.start_with?("tmp/") ||
         f.start_with?("test/") || f.start_with?("datasets/") || f.start_with?("tools/") ||
         # Alternate BEST-trained LM: kept in git for experiments, but not shipped (it is only
@@ -63,16 +61,17 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
-
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://guides.rubygems.org/make-your-own-gem/
-  
   # 1. Instructs RubyGems to execute your compilation file on installation
   spec.extensions = ["ext/thapthim/extconf.rb"]
 
-  # 2. Ensures the compilation tool is present during the asset building phase
-  spec.add_development_dependency "rb_sys", "~> 0.9"
+  # 2. Runtime dependencies. Both must be RUNTIME (not development) deps:
+  #    - rb_sys: extconf.rb `require`s rb_sys/mkmf on the END USER's machine at `gem install`
+  #      time, where development dependencies are not installed.
+  #    - fiddle: the FFI layer; a default gem through Ruby 3.4 but a bundled gem from Ruby 3.5,
+  #      so it must be declared for the require to resolve under Bundler on 3.5+.
+  spec.add_dependency "rb_sys", "~> 0.9"
+  spec.add_dependency "fiddle", "~> 1.1"
+
+  # 3. Build tooling needed only for in-repo development (rake compile), not at install time.
   spec.add_development_dependency "rake-compiler", "~> 1.2"
 end

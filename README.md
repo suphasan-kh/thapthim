@@ -55,7 +55,7 @@ the API mirrors Ruby (identical engine, assets, results). Needs a Rust toolchain
 ```bash
 pip install .                       # build + install from a clone (simplest)
 # editable workflow (needs a venv):
-pip install 'maturin>=1.7,<2.0' && maturin develop --release
+pip install 'maturin>=1.9,<2.0' && maturin develop --release
 ```
 
 ```python

@@ -67,7 +67,7 @@ fn decode_packed(text: &str, packed: &[u64]) -> Vec<String> {
 #[pyfunction]
 fn std_normalize(py: Python<'_>, text: &str) -> String {
     let owned = text.to_owned();
-    py.allow_threads(move || rust_normalize(&owned))
+    py.detach(move || rust_normalize(&owned))
 }
 
 /// Word-level segmentation. Returns the list of word substrings.
@@ -80,7 +80,7 @@ fn word_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<
     let owned = text.to_owned();
     // Release the GIL across the (Python-free) heavy work: the engine is a read-only `&'static`
     // singleton, so N Python threads can run segmentation on N cores concurrently.
-    let (text, packed) = py.allow_threads(move || {
+    let (text, packed) = py.detach(move || {
         let text = if normalize { rust_normalize(&owned) } else { owned };
         let packed = get_engine().segment_words(&text);
         (text, packed)
@@ -94,7 +94,7 @@ fn word_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<
 #[pyo3(signature = (text, normalize=false))]
 fn syllable_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
     let owned = text.to_owned();
-    let (text, packed) = py.allow_threads(move || {
+    let (text, packed) = py.detach(move || {
         let text = if normalize { rust_normalize(&owned) } else { owned };
         let packed = get_engine().segment_syllables(&text);
         (text, packed)
@@ -107,7 +107,7 @@ fn syllable_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bo
 fn tcc_segment<'py>(py: Python<'py>, text: &str) -> Vec<Bound<'py, PyString>> {
     let owned = text.to_owned();
     let (owned, positions) =
-        py.allow_threads(move || {
+        py.detach(move || {
             let positions = get_tcc().find_byte_positions(&owned);
             (owned, positions)
         });
@@ -128,7 +128,7 @@ fn tcc_segment<'py>(py: Python<'py>, text: &str) -> Vec<Bound<'py, PyString>> {
 #[pyfunction]
 fn tcc_positions(py: Python<'_>, text: &str) -> Vec<i32> {
     let owned = text.to_owned();
-    py.allow_threads(move || get_tcc().find_positions(&owned))
+    py.detach(move || get_tcc().find_positions(&owned))
 }
 
 /// Performance lever: word boundaries as raw `(start_byte, length_byte)` tuples, with no per-token
@@ -136,7 +136,7 @@ fn tcc_positions(py: Python<'_>, text: &str) -> Vec<i32> {
 #[pyfunction]
 fn word_segment_offsets(py: Python<'_>, text: &str) -> Vec<(usize, usize)> {
     let owned = text.to_owned();
-    py.allow_threads(move || get_engine().segment_words(&owned).iter().map(|&t| unpack(t)).collect())
+    py.detach(move || get_engine().segment_words(&owned).iter().map(|&t| unpack(t)).collect())
 }
 
 /// Performance lever: word-segment a batch in one boundary crossing. The GIL is released for the
@@ -144,7 +144,7 @@ fn word_segment_offsets(py: Python<'_>, text: &str) -> Vec<(usize, usize)> {
 /// scales with available CPUs independently of Python-level threading.
 #[pyfunction]
 fn word_segment_batch(py: Python<'_>, texts: Vec<String>) -> Vec<Vec<String>> {
-    py.allow_threads(move || {
+    py.detach(move || {
         let engine = get_engine();
         texts
             .par_iter()

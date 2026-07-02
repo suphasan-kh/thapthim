@@ -1,5 +1,29 @@
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-02
+
+- **Fix: the Ruby FFI layer no longer leaks memory.** The 4-byte out-parameter buffer passed to
+  every native call was allocated with `Fiddle::Pointer.malloc` and no free function, so it was
+  never reclaimed — every `word_segment`/`syllable_segment`/`tcc_positions` call leaked 4 bytes.
+  The buffer now carries `Fiddle::RUBY_FREE`; additionally, every native buffer/string free is
+  wrapped in `ensure` so a Ruby exception between the call and the free cannot leak the Rust-side
+  allocation.
+- **Fix: packaging — the published gem would not have installed.** `rb_sys` is required by
+  `extconf.rb` on the end user's machine at `gem install` time, but was declared as a development
+  dependency (not installed for users); it is now a runtime dependency. `fiddle` (a bundled — no
+  longer default — gem since Ruby 3.5) is now declared as a runtime dependency so the FFI layer
+  resolves under Bundler on 3.5+. `rubygems_mfa_required` is enabled.
+- **Fix: tokens longer than the 24-bit packed Length field are now split instead of silently
+  corrupting.** A contiguous non-Thai run is held as ONE TCC cluster by design, so a pathological
+  >16MB ASCII/Latin blob reached the output as a single token whose length overflowed into the
+  Start bits, producing garbage offsets. Oversized spans are now split at grid boundaries (or char
+  boundaries inside a single giant cluster), preserving losslessness and valid-UTF-8 tokens on
+  arbitrary input.
+- Added GitHub Actions CI: Ruby build + test matrix (Linux/macOS) and a Python wheel smoke job.
+- Documented `segment_tcc_legacy.rb` as reference-only provenance for the Rust TCC grammar (the
+  two grammars intentionally differ; the Rust one is the validated source of truth), and removed
+  a dead singleton-class `include` in `lib/thapthim.rb`.
+
 - **Fix: Thai abbreviation periods no longer get stolen by an adjacent number.** The western-token
   TCC rule was an unanchored class (`[A-Za-z0-9_.,@:/#-]+`), so a connector like `.` could *lead* a
   cluster — e.g. `พ.ศ.2568` split as `พ.ศ`·`.2568`, emitting a token that starts with a stray period

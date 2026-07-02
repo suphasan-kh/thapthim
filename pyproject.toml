@@ -2,12 +2,12 @@
 # This file is independent of the gem build (Rakefile / thapthim.gemspec); the two share only
 # ext/thapthim. Build a wheel with:  maturin build --release   (or `maturin develop` for editable).
 [build-system]
-requires = ["maturin>=1.7,<2.0"]
+requires = ["maturin>=1.9,<2.0"]
 build-backend = "maturin"
 
 [project]
 name = "thapthim"
-version = "0.1.0"
+version = "0.2.0"
 # The source code is MIT, but the bundled model assets derive from non-commercial corpora, so the
 # wheel AS DISTRIBUTED is non-commercial / research / open-source only — same posture as the gem.
 # See THIRD_PARTY_NOTICES.md (also bundled below). Kept in sync with thapthim.gemspec.
