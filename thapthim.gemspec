@@ -8,12 +8,14 @@ Gem::Specification.new do |spec|
   spec.authors = ["suphasan-kh"]
   spec.email = ["suphasan2004@gmail.com"]
 
-  spec.summary = "Thai word and syllable segmentation, backed by a native Rust extension"
-  spec.description = "Thapthim segments Thai text into words and orthographic syllables using a " \
-    "dictionary lattice aligned to Thai Character Cluster (TCC) boundaries, scored with a " \
-    "Kneser-Ney bigram language model via Viterbi decoding, with branching-entropy back-off for " \
-    "out-of-vocabulary spans. The gem as distributed is for non-commercial / research / " \
-    "open-source use only (see THIRD_PARTY_NOTICES.md)."
+  spec.summary = "Thai natural language processing for Ruby, backed by a native Rust engine"
+  spec.description = "Thapthim is a Thai NLP gem for Ruby — filling the gap PyThaiNLP fills for " \
+    "Python. It currently ships word, syllable, and TCC segmentation (dictionary lattice over " \
+    "Thai Character Cluster boundaries, scored with a Kneser-Ney bigram language model via " \
+    "Viterbi decoding, with branching-entropy back-off for out-of-vocabulary spans) and text " \
+    "normalization; further tasks (spelling correction, G2P) are planned on the same engine. " \
+    "The gem as distributed is for non-commercial / research / open-source use only " \
+    "(see THIRD_PARTY_NOTICES.md)."
   spec.homepage = "https://github.com/suphasan-kh/thapthim"
   # Source code is MIT, but the bundled model assets derive from non-commercial corpora
   # (BEST: CC-BY-NC-SA-3.0; LST20: NECTEC non-commercial). Both apply — the gem as distributed

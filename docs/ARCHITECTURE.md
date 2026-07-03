@@ -1,7 +1,9 @@
 # Thapthim Architecture
 
-How Thapthim turns spaceless Thai text into word and syllable boundaries. Short version: the **How
-it works** section in the [README](../README.md); numbers: [BENCHMARKS.md](BENCHMARKS.md).
+How Thapthim turns spaceless Thai text into word and syllable boundaries — the segmentation
+pipeline, Thapthim's first capability (planned tasks that reuse this machinery: see
+[Extensibility](#extensibility)). Short version: the **How segmentation works** section in the
+[README](../README.md); numbers: [BENCHMARKS.md](BENCHMARKS.md).
 
 ## Summary
 

@@ -1,16 +1,48 @@
 # Thapthim (ทับทิม)
 
-Thai word and syllable segmentation for Ruby (and Python), backed by a native Rust extension.
+Thai natural language processing for Ruby (and Python), backed by a native Rust engine.
 
-Thai is written without spaces between words, so almost any Thai NLP task starts with segmentation.
-Thapthim splits Thai text into **words** and **orthographic syllables** using a dictionary lattice
-aligned to Thai Character Cluster (TCC) boundaries, scored with a Kneser-Ney bigram language model
-via Viterbi decoding, with a branching-entropy back-off for out-of-vocabulary spans.
+Ruby has no dedicated Thai NLP library the way Python has [PyThaiNLP](https://pythainlp.org).
+Thapthim aims to fill that gap: one gem for processing Thai text. Because Thai is written without
+spaces between words, almost every downstream task starts with **segmentation** — so that is the
+foundation Thapthim ships first, alongside text normalization. Further tasks are planned on the
+same engine (see [Roadmap](#roadmap)).
 
 ```ruby
 Thapthim.word_segment("ฉันกินข้าว")      # => ["ฉัน", "กิน", "ข้าว"]
 Thapthim.syllable_segment("ฉันกินข้าว")  # => ["ฉัน", "กิน", "ข้าว"]
 ```
+
+## Capabilities
+
+Shipping today:
+
+- **Word segmentation** (`word_segment`) — dictionary-lattice decoding over Thai Character Cluster
+  (TCC) boundaries, scored with a Kneser-Ney bigram language model via Viterbi, with a
+  branching-entropy back-off for out-of-vocabulary spans.
+- **Syllable segmentation** (`syllable_segment`) — orthographic syllables from an independent
+  syllable-level pass on the same grid.
+- **TCC segmentation** (`tcc_segment`) — the smallest orthographically inseparable units.
+- **Text normalization** (`std_normalize`) — whitespace collapsing, vowel/tone-mark reordering,
+  zero-width–character stripping, repeated/dangling-mark cleanup (orthographic-level correction).
+- **Robust input handling** — non–UTF-8 (e.g. TIS-620) transcoding, invalid-byte and NUL scrubbing.
+
+## Roadmap
+
+The Viterbi lattice core is task-agnostic (see
+[Extensibility](docs/ARCHITECTURE.md#extensibility)) — new tasks plug in as a candidate set plus a
+cost model, on the engine that already ships. Planned, in rough order:
+
+- **Spelling correction** — lexical-level correction (dictionary words within an edit-distance
+  bound, ranked by the word LM), layered on top of the orthographic cleanup `std_normalize`
+  already performs.
+- **Grapheme-to-phoneme (G2P)** — span→reading candidates scored by a phoneme-sequence model.
+- **Transliteration & romanization** — deterministic transforms (e.g. ISO 11940) beside the
+  lattice.
+- **Soundex** — Thai phonetic hashing for fuzzy name matching.
+
+APIs for these will follow the same shape as segmentation: module-level functions, hardened input,
+identical behavior from Ruby and Python.
 
 ## Installation (Ruby)
 
@@ -76,7 +108,7 @@ import os; os.environ["PATH"] += ":" + os.path.expanduser("~/.cargo/bin")
 !pip install "git+https://github.com/suphasan-kh/thapthim.git"   # ~1–3 min to compile
 ```
 
-## How it works
+## How segmentation works
 
 1. **TCC grid** — text is split into Thai Character Clusters, the smallest units that can't be split
    mid-word; all candidate boundaries snap to this grid.

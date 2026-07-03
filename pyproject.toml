@@ -11,7 +11,7 @@ version = "0.2.0"
 # The source code is MIT, but the bundled model assets derive from non-commercial corpora, so the
 # wheel AS DISTRIBUTED is non-commercial / research / open-source only — same posture as the gem.
 # See THIRD_PARTY_NOTICES.md (also bundled below). Kept in sync with thapthim.gemspec.
-description = "Thai word, syllable, and TCC segmentation (native Rust engine). Non-commercial / research / open-source use only — see THIRD_PARTY_NOTICES.md."
+description = "Thai NLP (word/syllable/TCC segmentation, normalization; more tasks planned) on a native Rust engine. Non-commercial / research / open-source use only — see THIRD_PARTY_NOTICES.md."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { file = "LICENSE.txt" }
