@@ -2,8 +2,9 @@
 
 Thai natural language processing for Ruby (and Python), backed by a native Rust engine.
 
-Ruby has no dedicated Thai NLP library the way Python has [PyThaiNLP](https://pythainlp.org).
-Thapthim aims to fill that gap: one gem for processing Thai text. Because Thai is written without
+Ruby has no comprehensive Thai NLP toolkit the way Python has [PyThaiNLP](https://pythainlp.org) —
+existing gems are single-task word-segmentation wrappers around C or Rust engines, most of them
+unmaintained. Thapthim aims to fill that gap: one gem for processing Thai text. Because Thai is written without
 spaces between words, almost every downstream task starts with **segmentation** — so that is the
 foundation Thapthim ships first, alongside text normalization. Further tasks are planned on the
 same engine (see [Roadmap](#roadmap)).
