@@ -41,7 +41,7 @@ CORPORA.each do |short, (fname, cap)|
     File.foreach(path).first(lim).each do |line|
       next if line.strip.empty?
       text = JSON.parse(line).join
-      f.puts JSON.generate(Thapthim.word_segment(text))
+      f.puts JSON.generate(Thapthim.word_segment(text, keep_whitespace: true))
     end
   end
   warn "  #{short}: #{[File.foreach(path).count, lim].min} sentences"

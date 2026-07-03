@@ -37,7 +37,7 @@ class TestFfiSafety < Minitest::Test
   def test_distinct_inputs_do_not_bleed_into_each_other
     inputs = (1..500).map { |n| "คำที่#{n} " }
     inputs.each do |s|
-      assert_equal s, Thapthim.word_segment(s).join,
+      assert_equal s, Thapthim.word_segment(s, keep_whitespace: true).join,
                    "input #{s.inspect} did not round-trip — possible buffer reuse bug"
     end
   end

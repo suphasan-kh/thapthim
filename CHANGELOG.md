@@ -1,5 +1,21 @@
 ## [Unreleased]
 
+- **Hardening: FFI count overflow and null out-parameter.** The array-returning C entry points
+  computed the element count as `len() as i32`; on a >2GB input the count could wrap negative,
+  and that poisoned value later reached the matching `thapthim_free_*` where it would
+  reconstruct the allocation with a wildly wrong length (undefined behavior). Results whose
+  count would not fit an `i32` now return null/0 instead (`into_ffi_buffer`). `ffi_array` also
+  returns null up front when the `out_size` pointer is null rather than dereferencing it —
+  defense-in-depth for direct C-ABI callers; the Ruby layer always passes a valid buffer.
+- **Whitespace-only tokens are now omitted by default** (breaking). `word_segment` and
+  `syllable_segment` gain a `keep_whitespace:` option (Ruby) / `keep_whitespace=` keyword
+  (Python, also on `word_segment_offsets` and `word_segment_batch`), defaulting to false.
+  Pass `keep_whitespace: true` to restore the previous behavior, where the tokens are a
+  lossless tiling of the input (`tokens.join == text`). The filter (Unicode `White_Space`,
+  whole-token) runs in the shared Rust core, so Ruby and Python agree exactly. Evaluation
+  scripts that do boundary math against gold corpora were updated to pass
+  `keep_whitespace: true`.
+
 ## [0.2.0] - 2026-07-02
 
 - **Fix: the Ruby FFI layer no longer leaks memory.** The 4-byte out-parameter buffer passed to

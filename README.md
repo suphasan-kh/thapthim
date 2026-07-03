@@ -29,17 +29,21 @@ Shipping today:
 
 ## Roadmap
 
-The Viterbi lattice core is task-agnostic (see
-[Extensibility](docs/ARCHITECTURE.md#extensibility)) — new tasks plug in as a candidate set plus a
-cost model, on the engine that already ships. Planned, in rough order:
+Planned next capabilities, in priority order. The sequence-labeling tasks plug into the
+task-agnostic Viterbi lattice core (see [Extensibility](docs/ARCHITECTURE.md#extensibility)) as a
+candidate set plus a cost model; the rest are deterministic transforms beside it.
 
-- **Spelling correction** — lexical-level correction (dictionary words within an edit-distance
-  bound, ranked by the word LM), layered on top of the orthographic cleanup `std_normalize`
-  already performs.
-- **Grapheme-to-phoneme (G2P)** — span→reading candidates scored by a phoneme-sequence model.
-- **Transliteration & romanization** — deterministic transforms (e.g. ISO 11940) beside the
-  lattice.
-- **Soundex** — Thai phonetic hashing for fuzzy name matching.
+- **Sentence segmentation** — Thai marks sentence breaks with spaces, ambiguously (a space is
+  also a phrase/clause separator); a boundary classifier over the segmented word stream,
+  trainable from LST20's sentence layer.
+- **POS tagging** — HMM-style Viterbi over `(word, tag)` candidates, trained on LST20's POS
+  layer (the same corpus backbone as the word LM, so no new license constraints).
+- **Spelling suggestion & correction (`spell` / `correct`)** — dictionary words within an
+  edit-distance bound, ranked by the word LM; layered on top of the orthographic cleanup
+  `std_normalize` already performs.
+- **Transliteration / romanization** — deterministic script transforms (e.g. ISO 11940).
+- **Number–text conversion (num-text)** — numbers to Thai number words and back
+  (including Thai numerals ๐–๙).
 
 APIs for these will follow the same shape as segmentation: module-level functions, hardened input,
 identical behavior from Ruby and Python.
@@ -66,6 +70,11 @@ require "thapthim"
 
 Thapthim.word_segment("ฉันกินข้าว")        # => ["ฉัน", "กิน", "ข้าว"]
 Thapthim.syllable_segment("ฉันกินข้าว")    # boundaries are a superset of the word boundaries
+
+# Whitespace-only tokens are omitted by default; keep them when you need the tokens to
+# reassemble losslessly into the input (tokens.join == text).
+Thapthim.word_segment("ฉัน กิน")                          # => ["ฉัน", "กิน"]
+Thapthim.word_segment("ฉัน กิน", keep_whitespace: true)   # => ["ฉัน", " ", "กิน"]
 
 # Optional normalization before segmenting (collapses spaces, reorders vowels, strips
 # zero-width chars, removes repeated marks).
@@ -94,6 +103,7 @@ pip install 'maturin>=1.9,<2.0' && maturin develop --release
 import thapthim
 thapthim.word_segment("ฉันกินข้าว")               # ['ฉัน', 'กิน', 'ข้าว']
 thapthim.syllable_segment("ฉันกินข้าว")
+thapthim.word_segment("ฉัน กิน", keep_whitespace=True)  # whitespace omitted by default
 thapthim.word_segment("  ฉัน  ", normalize=True)
 thapthim.tcc_segment("ฉันกินข้าว")
 thapthim.word_segment_offsets("ฉันกิน")           # [(0, 9), (9, 9)]  (start_byte, length)

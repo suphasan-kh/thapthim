@@ -5,10 +5,11 @@ module Thapthim
   end
 
   # Word-level segmentation. Returns the input split into word tokens.
-  def self.word_segment: (untyped input_text, ?normalize: bool) -> Array[String]
+  # Whitespace-only tokens are omitted unless +keep_whitespace+ is true.
+  def self.word_segment: (untyped input_text, ?normalize: bool, ?keep_whitespace: bool) -> Array[String]
 
   # Syllable-level segmentation. Boundaries are a superset of +word_segment+'s.
-  def self.syllable_segment: (untyped input_text, ?normalize: bool) -> Array[String]
+  def self.syllable_segment: (untyped input_text, ?normalize: bool, ?keep_whitespace: bool) -> Array[String]
 
   # Thai Character Cluster segmentation — the smallest inseparable units.
   def self.tcc_segment: (untyped input_text) -> Array[String]

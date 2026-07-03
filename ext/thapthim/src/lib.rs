@@ -48,11 +48,42 @@ unsafe fn read_utf8<'a>(ptr: *const c_char) -> std::borrow::Cow<'a, str> {
     String::from_utf8_lossy(unsafe { CStr::from_ptr(ptr) }.to_bytes())
 }
 
+/// True when the packed token's surface is entirely whitespace (Unicode `White_Space`). Both
+/// language bindings use this to implement their `keep_whitespace: false` default: the engine
+/// itself always tiles the full input (losslessness is an engine invariant — whitespace runs come
+/// back as tokens like any other span); dropping them is presentation, done here at the boundary
+/// so Ruby and Python agree exactly on what counts as whitespace.
+pub(crate) fn is_whitespace_token(text: &str, tok: u64) -> bool {
+    let start = (tok >> 32) as usize;
+    let len = ((tok >> 8) & 0xFF_FFFF) as usize;
+    text.as_bytes()
+        .get(start..start + len)
+        .is_some_and(|b| !b.is_empty() && String::from_utf8_lossy(b).chars().all(char::is_whitespace))
+}
+
+/// Leaks `v` into a raw `(pointer, count)` pair for the C boundary. Returns null/0 instead when
+/// the count would not fit the `i32` out-parameter: `len() as i32` on a >2GB result would wrap
+/// negative, and that poisoned count later reaches the matching `thapthim_free_*` where it would
+/// reconstruct the slice with a wildly wrong length (undefined behavior). Refusing the result is
+/// the only safe answer the current ABI can give.
+fn into_ffi_buffer<T>(v: Vec<T>) -> (*const T, i32) {
+    if v.len() > i32::MAX as usize {
+        return (std::ptr::null(), 0);
+    }
+    let len = v.len() as i32;
+    (Box::into_raw(v.into_boxed_slice()) as *const T, len)
+}
+
 /// Runs an FFI body returning a `(buffer, element count)` pair, converting any Rust panic into a
 /// null/zero result instead of letting it unwind across the C ABI (unwinding through `extern "C"`
 /// aborts the process). `*out_size` receives the count, or 0 on panic. The returned buffer must be
-/// reclaimed by the matching `thapthim_free_*`.
+/// reclaimed by the matching `thapthim_free_*`. A null `out_size` yields null without running
+/// `body` — the count is the only way the caller can copy out or free the buffer, so a result
+/// without it could only leak or corrupt.
 fn ffi_array<T>(out_size: *mut i32, body: impl FnOnce() -> (*const T, i32)) -> *const T {
+    if out_size.is_null() {
+        return std::ptr::null();
+    }
     match std::panic::catch_unwind(std::panic::AssertUnwindSafe(body)) {
         Ok((ptr, len)) => {
             unsafe { *out_size = len; }
@@ -87,9 +118,7 @@ pub unsafe extern "C" fn thapthim_tcc_positions(
             return (std::ptr::null(), 0);
         }
         let text_cow = unsafe { read_utf8(raw_text_ptr) };
-        let positions = get_tcc().find_positions(&text_cow);
-        let len = positions.len() as i32;
-        (Box::into_raw(positions.into_boxed_slice()) as *const i32, len)
+        into_ffi_buffer(get_tcc().find_positions(&text_cow))
     })
 }
 
@@ -101,6 +130,9 @@ pub unsafe extern "C" fn thapthim_tcc_positions(
 /// then the branching-entropy OOV-merge post-pass runs. Returns a flat array of packed u64 tokens.
 /// (Fully in-vocabulary text triggers no syllable work at all — see `segment_words`.)
 ///
+/// `keep_whitespace == 0` drops whitespace-only tokens from the stream (the language-level
+/// default); nonzero keeps them, making the tokens a lossless tiling of the input.
+///
 /// # Safety
 /// `raw_text_ptr` must be null or a valid NUL-terminated C string, and `out_size` a writable
 /// `i32` pointer. The returned buffer must be freed with `thapthim_free_u64_array`, passing the
@@ -109,6 +141,7 @@ pub unsafe extern "C" fn thapthim_tcc_positions(
 pub unsafe extern "C" fn thapthim_segment(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
+    keep_whitespace: i32,
 ) -> *const u64 {
     ffi_array(out_size, || {
         if raw_text_ptr.is_null() {
@@ -117,15 +150,18 @@ pub unsafe extern "C" fn thapthim_segment(
         let text_cow = unsafe { read_utf8(raw_text_ptr) };
         // Shared global engine (O(1) after bootstrap); word-only Viterbi (no syllable work unless
         // the input has OOV spans).
-        let packed_tokens = get_engine().segment_words(&text_cow);
-        let len = packed_tokens.len() as i32;
-        (Box::into_raw(packed_tokens.into_boxed_slice()) as *const u64, len)
+        let mut packed_tokens = get_engine().segment_words(&text_cow);
+        if keep_whitespace == 0 {
+            packed_tokens.retain(|&t| !is_whitespace_token(&text_cow, t));
+        }
+        into_ffi_buffer(packed_tokens)
     })
 }
 
 /// Companion to `thapthim_segment`: returns the syllable-level token stream for the same text,
 /// each token packed identically as [ Start | Length | Tier ]. Syllable boundaries are a
-/// superset of the word boundaries returned by `thapthim_segment`.
+/// superset of the word boundaries returned by `thapthim_segment`. `keep_whitespace` behaves as
+/// in `thapthim_segment`.
 ///
 /// # Safety
 /// Same contract as `thapthim_segment`: `raw_text_ptr` null or a valid NUL-terminated C string,
@@ -134,15 +170,18 @@ pub unsafe extern "C" fn thapthim_segment(
 pub unsafe extern "C" fn thapthim_segment_syllables(
     raw_text_ptr: *const c_char,
     out_size: *mut i32,
+    keep_whitespace: i32,
 ) -> *const u64 {
     ffi_array(out_size, || {
         if raw_text_ptr.is_null() {
             return (std::ptr::null(), 0);
         }
         let text_cow = unsafe { read_utf8(raw_text_ptr) };
-        let packed_tokens = get_engine().segment_syllables(&text_cow);
-        let len = packed_tokens.len() as i32;
-        (Box::into_raw(packed_tokens.into_boxed_slice()) as *const u64, len)
+        let mut packed_tokens = get_engine().segment_syllables(&text_cow);
+        if keep_whitespace == 0 {
+            packed_tokens.retain(|&t| !is_whitespace_token(&text_cow, t));
+        }
+        into_ffi_buffer(packed_tokens)
     })
 }
 

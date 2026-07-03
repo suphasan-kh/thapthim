@@ -106,7 +106,7 @@ module SegEval
     sentences.each do |gold_tokens|
       text = gold_tokens.join
       chars += text.length
-      pred_tokens = Thapthim.word_segment(text)
+      pred_tokens = Thapthim.word_segment(text, keep_whitespace: true)
       mismatches += 1 unless pred_tokens.join == text
 
       g  = spans(gold_tokens, false)

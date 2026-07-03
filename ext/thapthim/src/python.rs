@@ -74,29 +74,47 @@ fn std_normalize(py: Python<'_>, text: &str) -> String {
 ///
 /// `normalize=True` runs `std_normalize` first (the returned tokens are then substrings of the
 /// normalized text, not the original) — matching the Ruby `word_segment(text, normalize: true)`.
+/// `keep_whitespace=True` keeps whitespace-only tokens (making the tokens a lossless tiling of
+/// the input); by default they are dropped — matching Ruby `keep_whitespace:`.
 #[pyfunction]
-#[pyo3(signature = (text, normalize=false))]
-fn word_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
+#[pyo3(signature = (text, normalize=false, keep_whitespace=false))]
+fn word_segment<'py>(
+    py: Python<'py>,
+    text: &str,
+    normalize: bool,
+    keep_whitespace: bool,
+) -> Vec<Bound<'py, PyString>> {
     let owned = text.to_owned();
     // Release the GIL across the (Python-free) heavy work: the engine is a read-only `&'static`
     // singleton, so N Python threads can run segmentation on N cores concurrently.
     let (text, packed) = py.detach(move || {
         let text = if normalize { rust_normalize(&owned) } else { owned };
-        let packed = get_engine().segment_words(&text);
+        let mut packed = get_engine().segment_words(&text);
+        if !keep_whitespace {
+            packed.retain(|&t| !crate::is_whitespace_token(&text, t));
+        }
         (text, packed)
     });
     decode_pystrings(py, &text, &packed)
 }
 
 /// Syllable-level segmentation. Boundaries are a superset of `word_segment`'s word boundaries.
-/// See `word_segment` for `normalize`.
+/// See `word_segment` for `normalize` and `keep_whitespace`.
 #[pyfunction]
-#[pyo3(signature = (text, normalize=false))]
-fn syllable_segment<'py>(py: Python<'py>, text: &str, normalize: bool) -> Vec<Bound<'py, PyString>> {
+#[pyo3(signature = (text, normalize=false, keep_whitespace=false))]
+fn syllable_segment<'py>(
+    py: Python<'py>,
+    text: &str,
+    normalize: bool,
+    keep_whitespace: bool,
+) -> Vec<Bound<'py, PyString>> {
     let owned = text.to_owned();
     let (text, packed) = py.detach(move || {
         let text = if normalize { rust_normalize(&owned) } else { owned };
-        let packed = get_engine().segment_syllables(&text);
+        let mut packed = get_engine().segment_syllables(&text);
+        if !keep_whitespace {
+            packed.retain(|&t| !crate::is_whitespace_token(&text, t));
+        }
         (text, packed)
     });
     decode_pystrings(py, &text, &packed)
@@ -133,22 +151,38 @@ fn tcc_positions(py: Python<'_>, text: &str) -> Vec<i32> {
 
 /// Performance lever: word boundaries as raw `(start_byte, length_byte)` tuples, with no per-token
 /// string allocation — for benchmarking pure engine throughput or doing your own slicing.
+/// `keep_whitespace` behaves as in `word_segment`.
 #[pyfunction]
-fn word_segment_offsets(py: Python<'_>, text: &str) -> Vec<(usize, usize)> {
+#[pyo3(signature = (text, keep_whitespace=false))]
+fn word_segment_offsets(py: Python<'_>, text: &str, keep_whitespace: bool) -> Vec<(usize, usize)> {
     let owned = text.to_owned();
-    py.detach(move || get_engine().segment_words(&owned).iter().map(|&t| unpack(t)).collect())
+    py.detach(move || {
+        let mut packed = get_engine().segment_words(&owned);
+        if !keep_whitespace {
+            packed.retain(|&t| !crate::is_whitespace_token(&owned, t));
+        }
+        packed.iter().map(|&t| unpack(t)).collect()
+    })
 }
 
 /// Performance lever: word-segment a batch in one boundary crossing. The GIL is released for the
 /// whole batch and the items are segmented across cores with rayon (engine is `Sync`), so this
-/// scales with available CPUs independently of Python-level threading.
+/// scales with available CPUs independently of Python-level threading. `keep_whitespace` behaves
+/// as in `word_segment`.
 #[pyfunction]
-fn word_segment_batch(py: Python<'_>, texts: Vec<String>) -> Vec<Vec<String>> {
+#[pyo3(signature = (texts, keep_whitespace=false))]
+fn word_segment_batch(py: Python<'_>, texts: Vec<String>, keep_whitespace: bool) -> Vec<Vec<String>> {
     py.detach(move || {
         let engine = get_engine();
         texts
             .par_iter()
-            .map(|t| decode_packed(t, &engine.segment_words(t)))
+            .map(|t| {
+                let mut packed = engine.segment_words(t);
+                if !keep_whitespace {
+                    packed.retain(|&tok| !crate::is_whitespace_token(t, tok));
+                }
+                decode_packed(t, &packed)
+            })
             .collect()
     })
 }

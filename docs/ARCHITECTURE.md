@@ -187,9 +187,18 @@ and OOV coalescing stay *outside* the core as segmentation-specific orchestratio
 deterministic tasks plug in the same way (new candidates + a `LatticeModel`, never touching
 `grid.rs`):
 
-- **G2P** — edges are span→reading candidates; `transition` a phoneme-sequence model.
-- **Spelling correction** — edges are dictionary words within an edit-distance bound; `node_cost`
-  carries the edit penalty (first real use of `node_cost`); `transition` the word LM.
+- **POS tagging** — edges are `(word, tag)` candidates from a tag lexicon; `transition` the
+  tag-bigram model, `node_cost` the emission `-log P(word | tag)`. Trainable from LST20's POS
+  layer (the LM's existing corpus backbone — no new license constraints). Pipelined tagging of
+  segmented output first; the lattice also admits joint segmentation+tagging later, since
+  competing word spans and their tags can share one grid. OOV words need a tag-prior fallback
+  (suffix/shape heuristics or noun-default).
+- **Spelling suggestion & correction** — edges are dictionary words within an edit-distance
+  bound; `node_cost` carries the edit penalty; `transition` the word LM.
 
-Tasks with no path search (soundex, ISO-11940 transliteration, normalization) are deterministic
-transforms beside the lattice, not inside it.
+**Sentence segmentation** sits between the two kinds: a boundary decision over the segmented word
+stream (Thai spaces are ambiguous between sentence and phrase breaks), trainable from LST20's
+sentence layer — a per-boundary classifier rather than a lattice search.
+
+Tasks with no path search (ISO-11940 transliteration/romanization, number↔Thai-text conversion,
+normalization) are deterministic transforms beside the lattice, not inside it.
