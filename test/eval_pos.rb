@@ -8,6 +8,11 @@
 # where a future suffix model / CRF would pay off, and which balloons off-domain). Also prints the
 # worst confusions so the errors are legible.
 #
+# Space tokens (LST20's `_`, tagged PU) are EXCLUDED from scoring: they are ~16% of tokens and
+# trivially 100% correct (space is PU by formatting convention, not a tagging decision), so counting
+# them inflates every figure. They are still passed to the tagger as context — only the scoring skips
+# them, so the numbers reflect real word tagging.
+#
 # The corpus is the full tagged LST20 (4-column `token \t POS \t NER \t clause`, blank line = sentence
 # boundary), NOT the segmentation-only jsonl. Known-word membership is built from the train split's
 # token column, canonicalized the same way the model was (convention 1: `_`/whitespace -> space).
@@ -72,14 +77,17 @@ module PosEval
     sentences = read_sentences(test_dir)
 
     total = correct = 0
+    tagged = 0 # all tokens decoded (incl. spaces) — for throughput, distinct from scored `total`
     known_n = known_ok = 0
     oov_n = oov_ok = 0
     confusion = Hash.new(0) # [gold, pred] => count, for mismatches only
 
     started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     sentences.each do |words, gold|
-      pred = Thapthim.pos_tag(words).map(&:last)
+      pred = Thapthim.pos_tag(words).map(&:last) # tag the full stream so spaces still give context
+      tagged += words.length
       words.each_index do |i|
+        next if words[i] == " " # exclude the space token from scoring (PU by convention, not a decision)
         ok = pred[i] == gold[i]
         total += 1
         correct += 1 if ok
@@ -96,13 +104,13 @@ module PosEval
     elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started
 
     pct = ->(ok, n) { n.zero? ? 0.0 : 100.0 * ok / n }
-    puts "sentences: #{sentences.length}"
-    puts "tokens:    #{total}"
+    puts "sentences:     #{sentences.length}"
+    puts "scored tokens: #{total}  (spaces excluded)"
     puts format("overall accuracy: %.2f%%  (%d/%d)", pct.call(correct, total), correct, total)
     puts format("  known-word:  %.2f%%  (%d/%d)", pct.call(known_ok, known_n), known_ok, known_n)
     puts format("  OOV-word:    %.2f%%  (%d/%d,  %.2f%% of tokens)",
                 pct.call(oov_ok, oov_n), oov_ok, oov_n, pct.call(oov_n, total))
-    puts format("throughput:  %.0f tokens/s", total / elapsed)
+    puts format("throughput:  %.0f tokens/s (all %d decoded)", tagged / elapsed, tagged)
 
     puts "top confusions (gold -> pred : count):"
     confusion.sort_by { |_, c| -c }.first(10).each do |(gold, pred), c|

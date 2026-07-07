@@ -6,7 +6,7 @@
   foreign-script/karan/noun-affix→`NN`). The LST20-trained model ships embedded, so it works with no
   setup (`THAPTHIM_POS_MODEL` overrides for experiments). `pos_tag` takes a token array, or a string
   it segments first (cascade); returns `[surface, tag]` pairs; same in Ruby and Python. Held-out LST20
-  token accuracy ~94% — a textbook baseline, not a contribution.
+  token accuracy ~93% (spaces excluded from scoring) — a textbook baseline, not a contribution.
 - **Hardening: FFI count overflow and null out-parameter.** The array-returning C entry points
   computed the element count as `len() as i32`; on a >2GB input the count could wrap negative,
   and that poisoned value later reached the matching `thapthim_free_*` where it would

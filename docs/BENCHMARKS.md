@@ -186,17 +186,20 @@ by known vs OOV word.
 
 | metric | result |
 |---|--:|
-| overall token accuracy (LST20 test, gold tokens) | **94.03%** |
-| known-word accuracy | 94.45% |
+| overall token accuracy (LST20 test, gold tokens, spaces excluded) | **92.90%** |
+| known-word accuracy | 93.37% |
 | OOV-word accuracy | 70.23% |
-| OOV share of tokens (in-domain) | 1.71% |
+| OOV share of scored tokens | 2.03% |
 
-Full set: 5,250 sentences · 207,278 tokens; decode ≈ 760K tokens/s single-threaded (Ruby FFI). A
-bigram HMM is the textbook baseline, so this is a utility, not a contribution: ~94% is in the expected
-band (LST20 neural taggers ~96–97%; the gap is the independence assumption, CRF territory). Top
-confusions are content-word ambiguities a bigram can't resolve (NN↔NU, AV↔VV, CL↔NN). OOV is only ~1.7%
-of tokens in-domain; a Witten-Bell unknown model plus a few orthographic rules (digit→`NU`, symbol→`PU`,
-foreign/karan/affix→`NN`) handle it, and cross-domain accuracy will be lower. Reproduce:
+Full set: 5,250 sentences · 207,278 tokens, of which **174,074 are scored** — the LST20 space token
+`_`→PU is ~16% of tokens and trivially 100% correct (space is PU by formatting, not a tagging
+decision), so it is excluded from scoring (still fed to the tagger as context). Decode ≈ 700K tokens/s
+single-threaded (Ruby FFI). A bigram HMM is the textbook baseline, so this is a utility, not a
+contribution: ~93% is in the expected band (LST20 neural taggers ~96–97%; the gap is the independence
+assumption, CRF territory). Top confusions are content-word ambiguities a bigram can't resolve (NN↔NU,
+AV↔VV, CL↔NN). OOV is only ~2% of scored tokens in-domain; a Witten-Bell unknown model plus a few
+orthographic rules (digit→`NU`, symbol→`PU`, foreign/karan/affix→`NN`) handle it, and cross-domain
+accuracy will be lower. Reproduce:
 `ruby test/eval_pos.rb datasets/LST20_full_train datasets/LST20_full_test`.
 
 ## Takeaways
