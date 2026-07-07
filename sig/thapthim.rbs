@@ -11,6 +11,11 @@ module Thapthim
   # Syllable-level segmentation. Boundaries are a superset of +word_segment+'s.
   def self.syllable_segment: (untyped input_text, ?normalize: bool, ?keep_whitespace: bool) -> Array[String]
 
+  # Part-of-speech tagging (LST20 16-tag set). Returns [surface, tag] pairs. A String is segmented
+  # first (cascade); an Array is tagged as already-segmented tokens. +normalize+ applies only to the
+  # String path.
+  def self.pos_tag: (String | Array[String] input, ?normalize: bool) -> Array[[String, String]]
+
   # Thai Character Cluster segmentation — the smallest inseparable units.
   def self.tcc_segment: (untyped input_text) -> Array[String]
 

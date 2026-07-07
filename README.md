@@ -24,6 +24,8 @@ Shipping today:
 - **Syllable segmentation** (`syllable_segment`) — orthographic syllables from an independent
   syllable-level pass on the same grid.
 - **TCC segmentation** (`tcc_segment`) — the smallest orthographically inseparable units.
+- **Part-of-speech tagging** (`pos_tag`) — a standard first-order HMM over the 16-tag LST20 tagset.
+  Tags a token array, or a string it segments first (cascade).
 - **Text normalization** (`std_normalize`) — whitespace collapsing, vowel/tone-mark reordering,
   zero-width–character stripping, repeated/dangling-mark cleanup (orthographic-level correction).
 - **Robust input handling** — non–UTF-8 (e.g. TIS-620) transcoding, invalid-byte and NUL scrubbing.
@@ -37,8 +39,6 @@ candidate set plus a cost model; the rest are deterministic transforms beside it
 - **Sentence segmentation** — Thai marks sentence breaks with spaces, ambiguously (a space is
   also a phrase/clause separator); a boundary classifier over the segmented word stream,
   trainable from LST20's sentence layer.
-- **POS tagging** — HMM-style Viterbi over `(word, tag)` candidates, trained on LST20's POS
-  layer (the same corpus backbone as the word LM, so no new license constraints).
 - **Spelling suggestion & correction (`spell` / `correct`)** — dictionary words within an
   edit-distance bound, ranked by the word LM; layered on top of the orthographic cleanup
   `std_normalize` already performs.
@@ -84,6 +84,11 @@ Thapthim.std_normalize("  ฉัน   กิน  ")    # => "ฉัน กิน
 
 # Thai Character Clusters — the lowest-level inseparable units.
 Thapthim.tcc_segment("ฉันกินข้าว")         # => ["ฉั", "น", "กิ", "น", "ข้า", "ว"]
+
+# Part-of-speech tagging (LST20 16-tag set) → [surface, tag] pairs. A string is segmented first
+# (cascade); pass an array to tag already-segmented tokens directly.
+Thapthim.pos_tag("ฉันกินข้าว")             # => [["ฉัน", "PR"], ["กิน", "VV"], ["ข้าว", "NN"]]
+Thapthim.pos_tag(["ฉัน", "กิน", "ข้าว"])   # tag gold tokens directly (isolates the tagger)
 ```
 
 Every entry point hardens its input — non–UTF-8 (e.g. TIS-620) is transcoded, invalid bytes and
@@ -107,6 +112,8 @@ thapthim.syllable_segment("ฉันกินข้าว")
 thapthim.word_segment("ฉัน กิน", keep_whitespace=False)  # whitespace kept by default
 thapthim.word_segment("  ฉัน  ", normalize=True)
 thapthim.tcc_segment("ฉันกินข้าว")
+thapthim.pos_tag("ฉันกินข้าว")                    # [('ฉัน', 'PR'), ('กิน', 'VV'), ('ข้าว', 'NN')]
+thapthim.pos_tag(["ฉัน", "กิน", "ข้าว"])          # tag already-segmented tokens
 thapthim.word_segment_offsets("ฉันกิน")           # [(0, 9), (9, 9)]  (start_byte, length)
 thapthim.word_segment_batch(["ฉันกิน", "ข้าว"])   # bulk: releases the GIL, fans across cores
 ```

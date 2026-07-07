@@ -1,9 +1,10 @@
 # Thapthim Architecture
 
-How Thapthim turns spaceless Thai text into word and syllable boundaries — the segmentation
-pipeline, Thapthim's first capability (planned tasks that reuse this machinery: see
-[Extensibility](#extensibility)). Short version: the **How segmentation works** section in the
-[README](../README.md); numbers: [BENCHMARKS.md](BENCHMARKS.md).
+How Thapthim turns spaceless Thai text into word and syllable boundaries — the segmentation pipeline,
+Thapthim's core. (A small standalone [POS tagger](#part-of-speech-tagging) rides alongside it; planned
+tasks that reuse the segmentation machinery: see [Extensibility](#extensibility).) Short version: the
+**How segmentation works** section in the [README](../README.md); numbers:
+[BENCHMARKS.md](BENCHMARKS.md).
 
 ## Summary
 
@@ -149,6 +150,23 @@ syllable pass only subdivides *within* spans whose edges are already fixed.)
      (4) THAPTHIM_BE_THRESHOLD = 1.0  (0 disables the merge pass)
 ```
 
+## Part-of-speech tagging
+
+A small standalone capability — a textbook first-order (bigram) HMM in `src/pos/`, decoded by its own
+dense Viterbi, **not** a `grid.rs` instantiation. The one architectural note worth making is *why* it
+is standalone: a segmentation lattice is sparse and variable-span (what `grid.rs`'s bucketed Viterbi
+is tuned for), whereas a POS lattice is dense and fixed-width — every token slot exposes all 16 tags —
+so a flat `n × 16` DP with a `16 × 16` inner loop is simpler and cheaper than the sparse machinery. POS
+reuses the surrounding conventions (embedded bincode asset, FFI/global, LST20 backbone), not the core.
+
+The model (`assets/pos_hmm.bin`, built offline from LST20 by `examples/train_pos_hmm.rs`) is the usual
+HMM tables in natural-log form — initial, transition (add-λ smoothed), and emission (Witten-Bell,
+which also gives a per-tag unknown-word distribution). Unknown words fall back to that UNK model plus a
+few orthographic rules (digit→`NU`, symbol→`PU`, foreign-script/karan/noun-affix→`NN`; see the code
+for specifics and the measured precisions). `pos_tag` tags a token array, or a string it segments first
+(cascade, not joint), so a segmentation error can't contaminate the POS result; Ruby and Python share
+it. Numbers: [BENCHMARKS](BENCHMARKS.md#part-of-speech-tagging).
+
 ## Assets
 
 Literal files under `ext/thapthim/assets/`, all committed in-repo and built offline by the corpus
@@ -161,6 +179,7 @@ notebook — except the interned `.bin`s, which `build.rs` regenerates from the 
 | interned LM _(gated)_ | `joint_lm_interned_{best,combined}.bin` | alternate LMs, embedded only under the `best_lm`/`combined_lm` cargo feature |
 | entropy table | `char_entropy.txt` | fwd/bwd Shannon entropy for the branching-entropy merge (from TNHC) |
 | master dictionary | `master_{words,syllables}_vocab.txt` | word + syllable vocab (LST20 ∪ BEST ∪ PyThaiNLP) |
+| POS HMM | `pos_hmm.bin` | embedded first-order HMM for `pos_tag` (init/transition/emission/UNK tables; minted from LST20 by `examples/train_pos_hmm.rs`) |
 
 ## Runtime knobs
 
@@ -173,6 +192,7 @@ notebook — except the interned `.bin`s, which `build.rs` regenerates from the 
 | `THAPTHIM_KN_DISCOUNT` | 0.75 | Kneser-Ney absolute discount (argmax near-invariant; see BENCHMARKS) |
 | `THAPTHIM_LM` | LST20 | selects the LM tier when a gated `best`/`combined` build is loaded |
 | `THAPTHIM_WORD_VOCAB` | _(embedded)_ | swap the word dictionary for an external one-word-per-line file (eval/custom-dict) |
+| `THAPTHIM_POS_MODEL` | _(embedded)_ | swap the POS model for an external `pos_hmm.bin` (experiments); default is the embedded asset |
 
 ## Extensibility
 
@@ -183,18 +203,20 @@ builder, so the trait stays cost-only and is monomorphized per model (no dynamic
 
 Word/syllable segmentation is the first instantiation: `build_lattice` (in `decode.rs`) emits
 candidates, and `BigramModel` sets `transition =` the KN bigram score. The branching-entropy merge
-and OOV coalescing stay *outside* the core as segmentation-specific orchestration. Planned
-deterministic tasks plug in the same way (new candidates + a `LatticeModel`, never touching
-`grid.rs`):
+and OOV coalescing stay *outside* the core as segmentation-specific orchestration. Tasks with a
+**sparse, variable-span** candidate set plug in the same way (new candidates + a `LatticeModel`,
+never touching `grid.rs`):
 
-- **POS tagging** — edges are `(word, tag)` candidates from a tag lexicon; `transition` the
-  tag-bigram model, `node_cost` the emission `-log P(word | tag)`. Trainable from LST20's POS
-  layer (the LM's existing corpus backbone — no new license constraints). Pipelined tagging of
-  segmented output first; the lattice also admits joint segmentation+tagging later, since
-  competing word spans and their tags can share one grid. OOV words need a tag-prior fallback
-  (suffix/shape heuristics or noun-default).
 - **Spelling suggestion & correction** — edges are dictionary words within an edit-distance
   bound; `node_cost` carries the edit penalty; `transition` the word LM.
+
+Not every sequence task belongs on the lattice, though. **POS tagging** already shipped, as a
+*standalone* dense HMM (see [Part-of-speech tagging](#part-of-speech-tagging)) — its candidate set is
+dense and fixed-width, so the bucketed sparse Viterbi would be pure overhead. The lattice is the right
+tool for variable-span dictionary search, not for a fixed tag set; POS reuses the surrounding
+conventions instead of the core. (The grid *could* host a joint segmentation+tagging decode later —
+competing word spans and their tags sharing one grid — but that is a different, heavier design than
+the shipped pipelined tagger.)
 
 **Sentence segmentation** sits between the two kinds: a boundary decision over the segmented word
 stream (Thai spaces are ambiguous between sentence and phrase breaks), trainable from LST20's

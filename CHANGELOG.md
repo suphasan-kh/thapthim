@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+- **Part-of-speech tagging (`pos_tag`).** A standard first-order HMM over the 16-tag LST20 tagset
+  (add-λ transitions, Witten-Bell emissions), decoded by a small dense Viterbi. Unknown words fall
+  back to a tag-discriminative UNK model plus a few orthographic rules (digit→`NU`, symbol→`PU`,
+  foreign-script/karan/noun-affix→`NN`). The LST20-trained model ships embedded, so it works with no
+  setup (`THAPTHIM_POS_MODEL` overrides for experiments). `pos_tag` takes a token array, or a string
+  it segments first (cascade); returns `[surface, tag]` pairs; same in Ruby and Python. Held-out LST20
+  token accuracy ~94% — a textbook baseline, not a contribution.
 - **Hardening: FFI count overflow and null out-parameter.** The array-returning C entry points
   computed the element count as `len() as i32`; on a >2GB input the count could wrap negative,
   and that poisoned value later reached the matching `thapthim_free_*` where it would

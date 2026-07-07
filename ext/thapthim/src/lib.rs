@@ -10,6 +10,12 @@ pub mod lm_format;
 // lib/thapthim/normalize_std.rb). Always built — both the C FFI and the PyO3 layer call it.
 pub mod normalize;
 
+// First-order HMM part-of-speech tagger (standalone dense decode; consumes segmented tokens). `pub`
+// so examples/train_pos_hmm.rs can reach the tagset + model types. FFI wiring is a later step — see
+// the module header. Some fields are dead until the runtime constructor lands; silence for now.
+#[allow(dead_code)]
+pub mod pos;
+
 // Python (PyO3) binding — same engine, different outer layer. Gated so the default Ruby build is
 // untouched and rb-sys/pyo3 never coexist in one compile.
 #[cfg(feature = "python")]
@@ -20,6 +26,7 @@ use std::os::raw::c_char;
 use std::sync::OnceLock;
 use crate::tcc::TccSegmenter;
 use crate::lattice::RuntimeEngine;
+use crate::pos::HmmTagger;
 
 // Thread-safe global single allocation instance lock for the 40MB engine matrix
 static ENGINE: OnceLock<RuntimeEngine> = OnceLock::new();
@@ -38,6 +45,20 @@ static TCC_SEGMENTER: OnceLock<TccSegmenter> = OnceLock::new();
 
 pub(crate) fn get_tcc() -> &'static TccSegmenter {
     TCC_SEGMENTER.get_or_init(TccSegmenter::new)
+}
+
+// Process-global POS tagger. The shipped model (assets/pos_hmm.bin, a bincode HMM minted by
+// `cargo run --example train_pos_hmm` from LST20) is embedded in the binary and loaded with no
+// filesystem access — so `pos_tag` works out of the box, exactly like segmentation's embedded LM.
+// `THAPTHIM_POS_MODEL=<path>` overrides it with an external model for experiments (mirrors
+// `THAPTHIM_LM`); the trainer and eval use that override to point at a work-in-progress model.
+static POS_TAGGER: OnceLock<HmmTagger> = OnceLock::new();
+
+pub(crate) fn get_pos_tagger() -> &'static HmmTagger {
+    POS_TAGGER.get_or_init(|| match std::env::var("THAPTHIM_POS_MODEL") {
+        Ok(path) => HmmTagger::load_from_path(&path),
+        Err(_) => HmmTagger::from_bytes(include_bytes!("../assets/pos_hmm.bin")),
+    })
 }
 
 /// Reads a (non-null) C string pointer as UTF-8, replacing any invalid bytes with
@@ -204,6 +225,66 @@ pub unsafe extern "C" fn thapthim_normalize(raw_text_ptr: *const c_char) -> *mut
             Err(_) => std::ptr::null_mut(),
         }
     })
+}
+
+/// POS-tags an already-segmented token sequence. Tokens arrive as one concatenated UTF-8 buffer plus
+/// a per-token byte-length array — not a delimited string, because a whitespace token can itself be a
+/// space or newline, so no byte is safe as a separator. Returns a freshly allocated array of exactly
+/// `n_tokens` tag ids (dense `Pos` ids, 0..16, in `Pos::ALL` order), which the caller must free with
+/// `thapthim_free_u8_array`. The model is loaded once from `THAPTHIM_POS_MODEL` on first call.
+///
+/// This is the pipeline (cascade) surface: the caller segments first (the Ruby layer calls
+/// `word_segment`), then hands the tokens here. The tagger itself never segments.
+///
+/// # Safety
+/// `concat_ptr` must point to at least `sum(lengths)` readable bytes; `lengths_ptr` to `n_tokens`
+/// readable `i32`s; `out_size` must be writable. Free the result with `thapthim_free_u8_array`,
+/// passing the length written to `*out_size`.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn thapthim_pos_tag(
+    concat_ptr: *const c_char,
+    lengths_ptr: *const i32,
+    n_tokens: i32,
+    out_size: *mut i32,
+) -> *const u8 {
+    ffi_array(out_size, || {
+        if concat_ptr.is_null() || lengths_ptr.is_null() || n_tokens <= 0 {
+            return (std::ptr::null(), 0);
+        }
+        let n = n_tokens as usize;
+        let lengths = unsafe { std::slice::from_raw_parts(lengths_ptr, n) };
+        let total: usize = lengths.iter().map(|&l| l.max(0) as usize).sum();
+        let bytes = unsafe { std::slice::from_raw_parts(concat_ptr as *const u8, total) };
+
+        // Split the flat buffer back into tokens by the given byte-lengths. `off + l <= total` always
+        // (total is their sum), so the slice never goes out of bounds. Ruby hands clean UTF-8; a
+        // mismatched length that splits a codepoint yields "" rather than aborting across the ABI.
+        let mut tokens: Vec<&str> = Vec::with_capacity(n);
+        let mut off = 0usize;
+        for &l in lengths {
+            let l = l.max(0) as usize;
+            tokens.push(std::str::from_utf8(&bytes[off..off + l]).unwrap_or(""));
+            off += l;
+        }
+
+        let ids: Vec<u8> =
+            get_pos_tagger().tag(&tokens).into_iter().map(|t| t.idx() as u8).collect();
+        into_ffi_buffer(ids)
+    })
+}
+
+/// Frees a `u8` tag-id array returned by `thapthim_pos_tag`.
+///
+/// # Safety
+/// `ptr` and `size` must be exactly a pointer and element count previously returned by
+/// `thapthim_pos_tag`, freed at most once.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn thapthim_free_u8_array(ptr: *mut u8, size: i32) {
+    if !ptr.is_null() {
+        unsafe {
+            let _ = Box::from_raw(std::ptr::slice_from_raw_parts_mut(ptr, size as usize));
+        }
+    }
 }
 
 /// Frees a string returned by `thapthim_normalize`.

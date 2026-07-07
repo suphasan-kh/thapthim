@@ -21,8 +21,18 @@ use pyo3::wrap_pyfunction;
 use rayon::prelude::*;
 
 use crate::get_engine;
+use crate::get_pos_tagger;
 use crate::get_tcc;
 use crate::normalize::std_normalize as rust_normalize;
+
+/// Dual-mode input for `pos_tag`, mirroring the Ruby API. Order matters: `Text` is tried first so a
+/// Python `str` binds to it — a bare `str` would otherwise satisfy `Vec<String>` too (PyO3 sees a
+/// str as a sequence of 1-char strings), which is the wrong reading.
+#[derive(FromPyObject)]
+enum PosInput {
+    Text(String),
+    Tokens(Vec<String>),
+}
 
 // Each engine token packs [ Start:32 | Length:24 | Tier:8 ] as UTF-8 *byte* offsets into the source.
 #[inline]
@@ -188,6 +198,38 @@ fn word_segment_batch(py: Python<'_>, texts: Vec<String>, keep_whitespace: bool)
     })
 }
 
+/// Part-of-speech tag a Thai sentence (parity with the Ruby `pos_tag`). Cascade, not joint:
+///   * a `str` is segmented with `word_segment` (keep_whitespace, so the space token LST20 tags PU is
+///     preserved as in training) then tagged;
+///   * a `list[str]` is treated as already-segmented gold tokens and tagged directly — use this for
+///     evaluation so a segmentation error never contaminates the POS result.
+///
+/// Returns a list of `(surface, tag)` tuples. `normalize` applies only to the `str` path. The model
+/// is loaded once from the `THAPTHIM_POS_MODEL` env var (a `pos_hmm.bin` built by the
+/// `train_pos_hmm` example). Same engine and model as the Ruby binding, so results are identical.
+#[pyfunction]
+#[pyo3(signature = (input, normalize=false))]
+fn pos_tag(py: Python<'_>, input: PosInput, normalize: bool) -> Vec<(String, &'static str)> {
+    // Resolve to a token list: segment a str (GIL released for the engine work), or take the tokens.
+    let tokens: Vec<String> = match input {
+        PosInput::Tokens(toks) => toks,
+        PosInput::Text(text) => py.detach(move || {
+            let text = if normalize { rust_normalize(&text) } else { text };
+            // keep_whitespace parity: the space token is meaningful to the tagger, so keep all tokens.
+            let packed = get_engine().segment_words(&text);
+            decode_packed(&text, &packed)
+        }),
+    };
+    if tokens.is_empty() {
+        return Vec::new();
+    }
+    // Decode is pure Rust — release the GIL so N Python threads tag on N cores (model is &'static).
+    py.detach(move || {
+        let tags = get_pos_tagger().tag(&tokens);
+        tokens.into_iter().zip(tags).map(|(surface, tag)| (surface, tag.as_str())).collect()
+    })
+}
+
 #[pymodule]
 fn thapthim(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__doc__", "Thai word/syllable/TCC segmentation over the Thapthim Rust engine.")?;
@@ -198,5 +240,6 @@ fn thapthim(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(tcc_positions, m)?)?;
     m.add_function(wrap_pyfunction!(word_segment_offsets, m)?)?;
     m.add_function(wrap_pyfunction!(word_segment_batch, m)?)?;
+    m.add_function(wrap_pyfunction!(pos_tag, m)?)?;
     Ok(())
 }
