@@ -72,10 +72,10 @@ require "thapthim"
 Thapthim.word_segment("ฉันกินข้าว")        # => ["ฉัน", "กิน", "ข้าว"]
 Thapthim.syllable_segment("ฉันกินข้าว")    # boundaries are a superset of the word boundaries
 
-# Whitespace-only tokens are omitted by default; keep them when you need the tokens to
-# reassemble losslessly into the input (tokens.join == text).
-Thapthim.word_segment("ฉัน กิน")                          # => ["ฉัน", "กิน"]
-Thapthim.word_segment("ฉัน กิน", keep_whitespace: true)   # => ["ฉัน", " ", "กิน"]
+# Whitespace-only tokens are kept by default (matching PyThaiNLP), so the tokens reassemble
+# losslessly into the input (tokens.join == text); pass keep_whitespace: false to drop them.
+Thapthim.word_segment("ฉัน กิน")                           # => ["ฉัน", " ", "กิน"]
+Thapthim.word_segment("ฉัน กิน", keep_whitespace: false)   # => ["ฉัน", "กิน"]
 
 # Optional normalization before segmenting (collapses spaces, reorders vowels, strips
 # zero-width chars, removes repeated marks).
@@ -104,7 +104,7 @@ pip install 'maturin>=1.9,<2.0' && maturin develop --release
 import thapthim
 thapthim.word_segment("ฉันกินข้าว")               # ['ฉัน', 'กิน', 'ข้าว']
 thapthim.syllable_segment("ฉันกินข้าว")
-thapthim.word_segment("ฉัน กิน", keep_whitespace=True)  # whitespace omitted by default
+thapthim.word_segment("ฉัน กิน", keep_whitespace=False)  # whitespace kept by default
 thapthim.word_segment("  ฉัน  ", normalize=True)
 thapthim.tcc_segment("ฉันกินข้าว")
 thapthim.word_segment_offsets("ฉันกิน")           # [(0, 9), (9, 9)]  (start_byte, length)

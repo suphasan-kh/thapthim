@@ -74,10 +74,11 @@ fn std_normalize(py: Python<'_>, text: &str) -> String {
 ///
 /// `normalize=True` runs `std_normalize` first (the returned tokens are then substrings of the
 /// normalized text, not the original) — matching the Ruby `word_segment(text, normalize: true)`.
-/// `keep_whitespace=True` keeps whitespace-only tokens (making the tokens a lossless tiling of
-/// the input); by default they are dropped — matching Ruby `keep_whitespace:`.
+/// `keep_whitespace=True` (the default, matching PyThaiNLP's `word_tokenize`) keeps
+/// whitespace-only tokens, making the tokens a lossless tiling of the input; pass
+/// `keep_whitespace=False` to drop them — matching Ruby `keep_whitespace:`.
 #[pyfunction]
-#[pyo3(signature = (text, normalize=false, keep_whitespace=false))]
+#[pyo3(signature = (text, normalize=false, keep_whitespace=true))]
 fn word_segment<'py>(
     py: Python<'py>,
     text: &str,
@@ -101,7 +102,7 @@ fn word_segment<'py>(
 /// Syllable-level segmentation. Boundaries are a superset of `word_segment`'s word boundaries.
 /// See `word_segment` for `normalize` and `keep_whitespace`.
 #[pyfunction]
-#[pyo3(signature = (text, normalize=false, keep_whitespace=false))]
+#[pyo3(signature = (text, normalize=false, keep_whitespace=true))]
 fn syllable_segment<'py>(
     py: Python<'py>,
     text: &str,
@@ -153,7 +154,7 @@ fn tcc_positions(py: Python<'_>, text: &str) -> Vec<i32> {
 /// string allocation — for benchmarking pure engine throughput or doing your own slicing.
 /// `keep_whitespace` behaves as in `word_segment`.
 #[pyfunction]
-#[pyo3(signature = (text, keep_whitespace=false))]
+#[pyo3(signature = (text, keep_whitespace=true))]
 fn word_segment_offsets(py: Python<'_>, text: &str, keep_whitespace: bool) -> Vec<(usize, usize)> {
     let owned = text.to_owned();
     py.detach(move || {
@@ -170,7 +171,7 @@ fn word_segment_offsets(py: Python<'_>, text: &str, keep_whitespace: bool) -> Ve
 /// scales with available CPUs independently of Python-level threading. `keep_whitespace` behaves
 /// as in `word_segment`.
 #[pyfunction]
-#[pyo3(signature = (texts, keep_whitespace=false))]
+#[pyo3(signature = (texts, keep_whitespace=true))]
 fn word_segment_batch(py: Python<'_>, texts: Vec<String>, keep_whitespace: bool) -> Vec<Vec<String>> {
     py.detach(move || {
         let engine = get_engine();

@@ -7,14 +7,13 @@
   count would not fit an `i32` now return null/0 instead (`into_ffi_buffer`). `ffi_array` also
   returns null up front when the `out_size` pointer is null rather than dereferencing it —
   defense-in-depth for direct C-ABI callers; the Ruby layer always passes a valid buffer.
-- **Whitespace-only tokens are now omitted by default** (breaking). `word_segment` and
+- **`keep_whitespace:` option added; defaults to keeping whitespace.** `word_segment` and
   `syllable_segment` gain a `keep_whitespace:` option (Ruby) / `keep_whitespace=` keyword
-  (Python, also on `word_segment_offsets` and `word_segment_batch`), defaulting to false.
-  Pass `keep_whitespace: true` to restore the previous behavior, where the tokens are a
-  lossless tiling of the input (`tokens.join == text`). The filter (Unicode `White_Space`,
-  whole-token) runs in the shared Rust core, so Ruby and Python agree exactly. Evaluation
-  scripts that do boundary math against gold corpora were updated to pass
-  `keep_whitespace: true`.
+  (Python, also on `word_segment_offsets` and `word_segment_batch`), defaulting to `true` to
+  match PyThaiNLP's `word_tokenize`. With the default, the tokens are a lossless tiling of the
+  input (`tokens.join == text`); pass `keep_whitespace: false` to drop whitespace-only tokens.
+  The filter (Unicode `White_Space`, whole-token) runs in the shared Rust core, so Ruby and
+  Python agree exactly.
 
 ## [0.2.0] - 2026-07-02
 

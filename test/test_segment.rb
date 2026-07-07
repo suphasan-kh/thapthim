@@ -2,8 +2,8 @@
 # Behavioural + invariant tests for the word/syllable segmentation API
 # (Thapthim.word_segment / Thapthim.syllable_segment). The input-hardening contract lives in
 # test_input_hardening.rb; this file pins down the *correctness* properties:
-#   - losslessness   : with keep_whitespace: true, tokens reassemble exactly into the
-#                      (sanitized) input; the default omits whitespace-only tokens
+#   - losslessness   : by default (keep_whitespace: true) tokens reassemble exactly into the
+#                      (sanitized) input; keep_whitespace: false omits whitespace-only tokens
 #   - syllable nesting: word boundaries are a strict subset of syllable boundaries
 #   - output contract : always an Array of valid-UTF-8, NUL-free Strings
 #   - determinism     : identical input -> identical output
@@ -52,8 +52,8 @@ class TestSegment < Minitest::Test
   end
 
   # --- losslessness: nothing is dropped, duplicated, or reordered -----------------
-  # keep_whitespace: true is the lossless mode; the default drops whitespace-only tokens
-  # (pinned in the keep_whitespace section below).
+  # keep_whitespace: true is the lossless mode and is now the default; keep_whitespace: false
+  # drops whitespace-only tokens (pinned in the keep_whitespace section below).
 
   def test_segment_is_lossless
     CORPUS.each do |s|
@@ -112,15 +112,21 @@ class TestSegment < Minitest::Test
   end
 
   # --- keep_whitespace: -------------------------------------------------------------
-  # Whitespace-only tokens are omitted by default; keep_whitespace: true preserves them
-  # verbatim (the lossless mode).
+  # Whitespace-only tokens are kept by default (the lossless mode, matching PyThaiNLP);
+  # keep_whitespace: false drops them.
 
-  def test_whitespace_omitted_by_default
-    assert_equal ["ฉัน", "กิน"], Thapthim.word_segment("ฉัน กิน")
-    assert_equal [], Thapthim.word_segment("   ")
-    assert_equal ["ก", "ข", "ค"], Thapthim.word_segment("ก\nข\tค")
-    assert_equal Thapthim.word_segment("ฉัน กิน", keep_whitespace: false),
+  def test_whitespace_kept_by_default
+    assert_equal ["ฉัน", " ", "กิน"], Thapthim.word_segment("ฉัน กิน")
+    assert_equal "   ", Thapthim.word_segment("   ").join
+    assert_equal "ก\nข\tค", Thapthim.word_segment("ก\nข\tค").join
+    assert_equal Thapthim.word_segment("ฉัน กิน", keep_whitespace: true),
                  Thapthim.word_segment("ฉัน กิน")
+  end
+
+  def test_keep_whitespace_false_drops_whitespace
+    assert_equal ["ฉัน", "กิน"], Thapthim.word_segment("ฉัน กิน", keep_whitespace: false)
+    assert_equal [], Thapthim.word_segment("   ", keep_whitespace: false)
+    assert_equal ["ก", "ข", "ค"], Thapthim.word_segment("ก\nข\tค", keep_whitespace: false)
   end
 
   def test_keep_whitespace_preserves_verbatim
@@ -129,19 +135,20 @@ class TestSegment < Minitest::Test
     assert_equal "ก\nข\tค", Thapthim.word_segment("ก\nข\tค", keep_whitespace: true).join
   end
 
-  def test_default_only_removes_whitespace_tokens
-    # The default must differ from keep_whitespace: true by exactly the whitespace tokens —
+  def test_keep_whitespace_false_only_removes_whitespace_tokens
+    # keep_whitespace: false must differ from the default by exactly the whitespace tokens —
     # never by boundary placement.
     CORPUS.each do |s|
-      kept = Thapthim.word_segment(s, keep_whitespace: true)
-      assert_equal kept.reject { |t| t.match?(/\A[[:space:]]+\z/) }, Thapthim.word_segment(s),
-                   "default output must be the kept output minus whitespace: #{s.inspect}"
+      kept = Thapthim.word_segment(s)
+      assert_equal kept.reject { |t| t.match?(/\A[[:space:]]+\z/) },
+                   Thapthim.word_segment(s, keep_whitespace: false),
+                   "keep_whitespace: false output must be the default minus whitespace: #{s.inspect}"
     end
   end
 
   def test_syllable_segment_honors_keep_whitespace
-    assert_equal "ฉัน กิน", Thapthim.syllable_segment("ฉัน กิน", keep_whitespace: true).join
-    refute_includes Thapthim.syllable_segment("ฉัน กิน"), " "
+    assert_equal "ฉัน กิน", Thapthim.syllable_segment("ฉัน กิน").join
+    refute_includes Thapthim.syllable_segment("ฉัน กิน", keep_whitespace: false), " "
   end
 
   # --- astral / combining sequences survive byte-for-byte -------------------------
@@ -173,7 +180,7 @@ class TestSegment < Minitest::Test
   def test_normalize_false_is_the_default
     raw = "  ฉัน   กิน  "
     assert_equal Thapthim.word_segment(raw), Thapthim.word_segment(raw, normalize: false)
-    # keep_whitespace so the collapsed spacing is visible (both variants drop it otherwise)
+    # keep_whitespace (the default) so the collapsed spacing is visible in both variants
     refute_equal Thapthim.word_segment(raw, normalize: true, keep_whitespace: true),
                  Thapthim.word_segment(raw, normalize: false, keep_whitespace: true)
   end

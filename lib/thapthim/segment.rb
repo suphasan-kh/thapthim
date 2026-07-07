@@ -13,7 +13,7 @@ module Thapthim
   # Calls a native segmentation function that returns a packed u64 token stream and decodes it
   # back into substrings of the original text. Each token packs [ Start:32 | Length:24 | Tier:8 ]
   # as byte offsets, so we slice on bytes (TCC boundaries are always valid UTF-8 boundaries).
-  # Whitespace-only tokens are dropped on the Rust side unless +keep_whitespace+ is true.
+  # Whitespace-only tokens are kept on the Rust side unless +keep_whitespace+ is false.
   def self.decode_tokens(input_text, fn_name, keep_whitespace)
     text = sanitize_input(input_text)
     return [] if text.empty?
@@ -50,10 +50,10 @@ module Thapthim
   # vowels, strip zero-width/dangling marks, reorder vowels) for noisy/OCR-derived text. Note
   # the returned tokens are then substrings of the *normalized* text, not the original.
   #
-  # Whitespace-only tokens are omitted by default. Pass +keep_whitespace: true+ to include
-  # them, which makes the returned tokens a lossless tiling of the input
-  # (<tt>tokens.join == text</tt>).
-  def self.word_segment(input_text, normalize: false, keep_whitespace: false)
+  # Whitespace-only tokens are kept by default (matching PyThaiNLP's +word_tokenize+), which
+  # makes the returned tokens a lossless tiling of the input (<tt>tokens.join == text</tt>).
+  # Pass +keep_whitespace: false+ to drop them.
+  def self.word_segment(input_text, normalize: false, keep_whitespace: true)
     text = normalize ? std_normalize(input_text.to_s) : input_text
     decode_tokens(text, 'thapthim_segment', keep_whitespace)
   end
@@ -61,7 +61,7 @@ module Thapthim
   # Syllable-level segmentation. Returns an array of syllable strings; their boundaries are a
   # superset of the word boundaries returned by +word_segment+. See +word_segment+ for
   # +normalize:+ and +keep_whitespace:+.
-  def self.syllable_segment(input_text, normalize: false, keep_whitespace: false)
+  def self.syllable_segment(input_text, normalize: false, keep_whitespace: true)
     text = normalize ? std_normalize(input_text.to_s) : input_text
     decode_tokens(text, 'thapthim_segment_syllables', keep_whitespace)
   end
