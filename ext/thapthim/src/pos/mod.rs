@@ -235,6 +235,13 @@ impl HmmTagger {
         self.vocab.contains_key(canon_surface(word))
     }
 
+    /// Public emission accessor for experiments/tools (e.g. a trigram A/B): `log P(word | tag)` using
+    /// the exact known-word lookup + OOV shape/UNK fallback the decoder uses, so a harness can vary
+    /// only the transition model while holding emission fixed.
+    pub fn emission_logprob(&self, word: &str, tag: usize) -> f64 {
+        self.emission(&self.resolve(word), tag)
+    }
+
     /// log P(cur | prev) — a flat transition-matrix lookup.
     #[inline]
     fn transition(&self, prev: usize, cur: usize) -> f64 {

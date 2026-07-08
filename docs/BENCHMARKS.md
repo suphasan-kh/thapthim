@@ -202,6 +202,12 @@ orthographic rules (digit→`NU`, symbol→`PU`, foreign/karan/affix→`NN`) han
 accuracy will be lower. Reproduce:
 `ruby test/eval_pos.rb datasets/LST20_full_train datasets/LST20_full_test`.
 
+A bigram-vs-trigram A/B (`cargo run --release --example pos_trigram_ab`) is kept as an experiment,
+**not shipped**: a second-order (deleted-interpolation) HMM adds +0.77 overall in-domain (→93.67%),
+almost all of it OOV (70→88%). But that OOV gain is likely specific to LST20's stereotyped sequences
+(dates/numbers) — transfer is unverified (no second POS corpus) — the known-word gain is only +0.41,
+and the trigram decode is ~9× slower raw (~2.5–3× end-to-end). The shipped tagger stays bigram.
+
 ## Takeaways
 
 - **Top word-F1 on 4 of 5 corpora** (deepcut wins best, 0.966) — but those four include thapthim's
