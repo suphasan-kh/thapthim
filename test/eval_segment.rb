@@ -35,6 +35,7 @@ module SegEval
     "best_train" => "BEST_train_cleaned.jsonl",  # 80% split — in the dictionary, do NOT report as a held-out score
     "vistec"     => "VISTEC_test.jsonl",
     "ws1000"     => "ws1000.jsonl",              # 993-sentence eval-only set (matches BENCHMARKS.md)
+    "orchid"     => "orchid_test.jsonl",         # ORCHID97 (out-of-domain academic; built by tools/orchid_to_jsonl.rb)
   }.freeze
 
   # Read a JSON Lines corpus (one token-array per line), stopping after +limit+ lines

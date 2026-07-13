@@ -5,9 +5,9 @@ Thapthim vs the common Thai word-segmentation engines, scored with the research-
 scoring). **char-F1** = per-character boundary detection; **word-F1** = a word is correct iff *both*
 boundaries match.
 
-Last run: thapthim (all three LMs) re-measured 2026-06-29 on `main` @ 4f6b2df, post decode fixes
-`274ec01`/`82caf74`; baselines from 2026-06-24. Apple M1 · pythainlp 5.3.4, attacut 1.0.6
-(`attacut-sc`), deepcut 0.7.0.0 (TF 2.21), nlpo3 1.4.0.
+All engines measured on a single code state (Apple M1) · pythainlp 5.3.4, attacut 1.0.6
+(`attacut-sc`), deepcut 0.7.0.0 (TF 2.21), nlpo3 1.4.0 — including the ORCHID97 rows, so every number
+is internally comparable.
 
 ## Engines
 
@@ -21,7 +21,8 @@ Last run: thapthim (all three LMs) re-measured 2026-06-29 on `main` @ 4f6b2df, p
 | nlpo3 | dictionary maximal-matching (Rust newmm) | LEXiTRON-style dict |
 | newmm | dictionary maximal-matching (PyThaiNLP) | LEXiTRON-style dict |
 
-Full test sets: lst20 5,250 · best 27,834 · vistec 10,000 · tnhc 4,403 · ws1000 993 sentences. LST20
+Full test sets: lst20 5,250 · best 27,834 · vistec 10,000 · tnhc 4,403 · ws1000 993 · orchid 23,170
+sentences (orchid & best/vistec are capped in scoring — see caps below). LST20
 ships; BEST/COMBINED are gated (same engine, different LM). All engines reconstructed every sentence
 exactly.
 
@@ -35,6 +36,7 @@ exactly.
 | **tnhc**   | 0.7953 | **0.8111** | 0.8110 | 0.7667 | 0.7764 | 0.7084 | 0.7095 |
 | **ws1000** | 0.8309 | 0.8312 | **0.8364** | 0.8261 | 0.8243 | 0.7525 | 0.7487 |
 | **macro-avg** | 0.8538 | 0.8550 | **0.8648** | 0.8351 | 0.8432 | 0.7219 | 0.7242 |
+| **orchid** | 0.7374 | 0.7416 | 0.7341 | 0.7219 | 0.7244 | **0.7612** | 0.7517 |
 
 ## Char-level F1 (boundary detection)
 
@@ -45,22 +47,20 @@ exactly.
 | **vistec** | **0.9240** | 0.9211 | 0.9224 | 0.9146 | 0.9192 | 0.8970 | 0.9060 |
 | **tnhc**   | 0.9200 | **0.9258** | 0.9258 | 0.9006 | 0.9068 | 0.8873 | 0.8876 |
 | **ws1000** | 0.9314 | 0.9308 | **0.9332** | 0.9316 | 0.9307 | 0.9006 | 0.9024 |
+| **orchid** | 0.8946 | 0.8955 | 0.8933 | 0.8889 | 0.8890 | **0.9004** | 0.8955 |
 
 Among thapthim's LMs (engine identical, only the training corpus differs), each single-corpus LM wins
-its home corpus; **COMBINED** is the best all-rounder — top word-F1 macro (0.865) of any engine here,
-and never collapses. Shipped default is LST20 (highest home peak). The KN discount, swept 0.1–0.99 on
-all three LMs, had no meaningful effect (argmax is near-invariant to a uniform shift), so `d = 0.75`
-is kept.
+its home corpus; **COMBINED** is the best all-rounder — top word-F1 macro (0.865) of any engine here. Shipped default is LST20 (highest home peak). The KN discount is `d = 0.75`.
 
 ## OOV recall — generalization to unknown words
 
 Word-F1 is dominated by frequent in-dictionary words and hides how each engine handles unseen ones.
-This stratifies **recall** by dictionary membership (SIGHAN-style), using one **shared OOV reference**
+This stratifies **recall** by dictionary membership, using one **shared OOV reference**
 for every engine — Thapthim's shipped lexicon (141,548 words); a gold word is OOV iff absent from it,
 so every engine is scored on the identical OOV set. Caps: lst20 5,250 · best 3,000 · vistec 3,000 ·
-tnhc 4,403 · ws1000 993 (bounds deepcut runtime). thapthim re-measured 2026-06-29; baselines 2026-06-25.
+tnhc 4,403 · ws1000 993 · orchid 3,000 (bounds deepcut runtime).
 
-### R_oov (**bold** = best per corpus)
+### R<sub>oov</sub> (**bold** = best per corpus)
 
 | corpus | OOV% | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -70,22 +70,21 @@ tnhc 4,403 · ws1000 993 (bounds deepcut runtime). thapthim re-measured 2026-06-
 | **tnhc**   | 5.0%  | 0.2709 | 0.2710 | 0.2703 | 0.3121 | **0.3735** | 0.2729 | 0.2810 |
 | **ws1000** | 10.4% | 0.4293 | 0.4283 | 0.4283 | 0.5179 | **0.5415** | 0.4191 | 0.3863 |
 | **micro-avg** | 5.1% | 0.2657 | 0.2656 | 0.2655 | 0.2992 | **0.4157** | 0.2128 | 0.2682 |
+| **orchid** | 9.9% | 0.2697 | 0.2697 | 0.2697 | 0.3017 | **0.3213** | 0.2517 | 0.2278 |
 
-### R_iv — recall on in-vocabulary words (micro-avg)
+### R<sub>iv</sub> — recall on in-vocabulary words (micro-avg)
 
 | | LST20 | BEST | COMBINED | attacut | deepcut | nlpo3 | newmm |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| **R_iv** | 0.8979 | 0.8981 | **0.9109** | 0.8554 | 0.8601 | 0.7280 | 0.7262 |
+| **R<sub>iv</sub>** | 0.8979 | 0.8981 | **0.9109** | 0.8554 | 0.8601 | 0.7280 | 0.7262 |
 
 **OOV recall is Thapthim's weakest dimension** — ~0.25 micro, the dictionary tier: ahead of nlpo3,
 level with newmm, behind both neural (deepcut recovers 1.6× as many). A dictionary model can't invent
-boundaries for words absent from its lexicon — the same design that gives it the best in-vocab recall
-here (0.898, COMBINED 0.911). OOV is hard for all; even deepcut clears only 0.42.
+boundaries for words absent from its lexicon. OOV is hard for all; even deepcut clears only 0.42.
 
-**The LM corpus barely touches OOV recall** (all three LMs within 0.0002 micro): OOV merging is driven
+**The LM corpus barely touches OOV recall**: OOV merging is driven
 by the LM-independent branching-entropy pass, not the bigram. The LM instead moves in-vocab
-disambiguation. So the F1 lead survives weak OOV — candidates come from a broad union dictionary, OOV
-rates are low (0.8–10%), and in-vocab recall dominates; OOV only bites on high-OOV corpora (vistec,
+disambiguation. So the F1 lead survives weak OOV. OOV only bites on high-OOV corpora (vistec,
 ws1000).
 
 Reproduce: `ruby test/eval_oov.rb`, or the cross-model table via the dumps in
@@ -97,8 +96,8 @@ The tables above flatter Thapthim two ways unrelated to the *method*: the shippe
 broad union (LST20 ∪ BEST ∪ PyThaiNLP), and the entropy merge is TNHC-tuned — while the neural
 baselines are plain BEST-trained. The `·fair` builds strip Thapthim to one corpus: dictionary *and* LM
 from a single corpus, merge off (`THAPTHIM_WORD_VOCAB` + `THAPTHIM_BE_THRESHOLD=0`); OOV reference
-unchanged. Re-measured 2026-06-30 post decode-fixes (same code state as above); this lifted the fair
-builds ~+0.01 macro off-domain, which strengthens the conclusion.
+unchanged. Measured on the same code state as above; the fair builds gain ~+0.01 macro off-domain,
+which strengthens the conclusion.
 
 ### Word-level F1 (single-corpus, no entropy; **bold** = best per corpus)
 
@@ -110,6 +109,7 @@ builds ~+0.01 macro off-domain, which strengthens the conclusion.
 | **tnhc**   | 0.7912 | **0.7932** | 0.7667 | 0.7764 |
 | **ws1000** | **0.8281** | 0.8191 | 0.8261 | 0.8243 |
 | **macro-avg** | **0.8482** | 0.8415 | 0.8351 | 0.8432 |
+| **orchid** | 0.7147 | 0.7197 | 0.7219 | **0.7244** |
 
 - **Home advantage dominates** — each single-corpus model wins its own corpus by ~+0.08–0.10; most
   cross-tool gaps are home-vs-away, not method quality.
@@ -130,6 +130,7 @@ builds ~+0.01 macro off-domain, which strengthens the conclusion.
 | **vistec** | 0.267 | 0.266 | 0.266 | 0.423 |
 | **tnhc**   | 0.263 | 0.243 | 0.312 | 0.374 |
 | **ws1000** | 0.437 | 0.430 | 0.518 | 0.542 |
+| **orchid** | 0.272 | 0.272 | 0.302 | 0.321 |
 
 **OOV recall is invariant to the training corpus** — single-corpus builds land within ~0.005–0.02 of
 each other and of shipped: a word OOV to the union is OOV to either single dict, and recall on it is
@@ -140,8 +141,8 @@ dictionary-lattice approach, not a corpus artifact.
 TNHC-table / corpus-native-table: word-F1 is neutral except on TNHC (±0.002 elsewhere); the merge's
 one win is TNHC text (+0.005–0.008 F1), where the TNHC table even beats the native one (a
 literary-domain effect, not leakage); native entropy trades a little off-domain OOV recall for
-precision. So the shipped tuning carries no hidden advantage on the four non-TNHC corpora. *(Pre-06-27
-figures; conclusion qualitative.)*
+precision. So the shipped tuning carries no hidden advantage on the four non-TNHC corpora. *(These
+fair-merge ablation figures predate the current decode fixes — read as qualitative.)*
 
 ## Speed — pure tokenization throughput
 
@@ -210,9 +211,13 @@ and the trigram decode is ~9× slower raw (~2.5–3× end-to-end). The shipped t
 
 ## Takeaways
 
-- **Top word-F1 on 4 of 5 corpora** (deepcut wins best, 0.966) — but those four include thapthim's
-  home corpus and three where the neural baselines run out-of-domain. Like-for-like on home turf,
-  thapthim is competitive, not ahead (best: thapthim-BEST 0.950 ≈ attacut 0.945 < deepcut 0.966).
+- **Top word-F1 on 4 of 6 corpora** (deepcut wins best, 0.966; nlpo3 wins the out-of-domain orchid,
+  0.761) — but those four include thapthim's home corpus and three where the neural baselines run
+  out-of-domain. Like-for-like on home turf, thapthim is competitive, not ahead (best: thapthim-BEST
+  0.950 ≈ attacut 0.945 < deepcut 0.966).
+- **ORCHID is the standard-mismatch stress test** — on the LEXiTRON-era annotation, the dictionary
+  maximal-matchers (nlpo3/newmm) win outright and thapthim/neural all drop to ~0.72–0.74 word-F1;
+  a reminder that the leaderboard is as much about annotation-standard alignment as raw quality.
 - **vs neural:** competitive off-domain at ~30× attacut / ~820× deepcut speed; they lead on best (their
   training corpus).
 - **vs dictionary tools:** ~1.3× slower than nlpo3 but +14–24 word-F1 points on every corpus.
@@ -223,7 +228,9 @@ and the trigram decode is ~9× slower raw (~2.5–3× end-to-end). The shipped t
 ## Caveats
 
 - **Cross-annotation-standard** — each tool favors its training standard; the home-corpus advantage is
-  real, so read each both on home turf and out-of-domain (tnhc, vistec, ws1000).
+  real, so read each both on home turf and out-of-domain (tnhc, vistec, ws1000, and especially
+  **orchid**, whose LEXiTRON-era standard hands the dictionary matchers nlpo3/newmm a home-standard
+  win). ORCHID is kept out of the macro-avg for this reason and reported as a labelled probe row.
 - **Baselines evaluated as shipped (BEST-trained)** — only the best column is in-domain for
   deepcut/attacut; others are cross-domain and would likely be higher retrained. Corroborated by
   UnifiedCut (Wen et al., 2024), and our deepcut matches the paper on best (0.966 vs 0.963).
@@ -235,6 +242,9 @@ and the trigram decode is ~9× slower raw (~2.5–3× end-to-end). The shipped t
 ## Reproduce
 
 ```bash
+# 0. build the derived ORCHID eval corpus from the raw NECTEC file (once; other corpora ship as jsonl)
+ruby tools/orchid_to_jsonl.rb datasets/orchid97.txt datasets/orchid_test.jsonl
+
 # 1. baselines into a throwaway venv (NOT gem deps)
 python3 -m venv /tmp/thai_bench
 /tmp/thai_bench/bin/pip install "pythainlp[benchmarks]" attacut deepcut nlpo3 tensorflow

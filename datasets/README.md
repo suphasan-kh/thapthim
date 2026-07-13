@@ -19,11 +19,22 @@ Place these exact filenames in this directory:
 | `VISTEC_test.jsonl`, `VISTEC_train.jsonl` | VISTEC-depa | `test/eval_segment.rb vistec` |
 | `tnhc_test.jsonl` | TNHC | `test/eval_segment.rb tnhc` |
 | `tnhc_train.jsonl` | TNHC | `tools/build_char_entropy.rb` (builds the branching-entropy table) |
+| `orchid97.txt` | ORCHID97 (NECTEC) | source for `tools/orchid_to_jsonl.rb` (word-seg conversion) |
+| `orchid_test.jsonl` | ORCHID97 (NECTEC) | `test/eval_segment.rb orchid`, `test/benchmark_accuracy.py orchid` |
 
 `BEST_{train,test}_cleaned.jsonl` are a deduplicated, shuffled 80:20 split (seed=42) of the
 BEST corpus — string-disjoint, so no sentence appears in both. The shipped dictionary is built
 from `BEST_train_cleaned.jsonl` only (plus LST20-train and PyThaiNLP), so `BEST_test` is a
 genuinely held-out evaluation set with no vocabulary leakage.
+
+`orchid_test.jsonl` is **derived** — build it from the raw `orchid97.txt` (NECTEC's ORCHID97
+POS corpus, `word/TAG` layout) with `ruby tools/orchid_to_jsonl.rb datasets/orchid97.txt
+datasets/orchid_test.jsonl`. The converter decodes ORCHID's `<space>`/`<minus>`/… escapes and
+deterministically shuffles (seed=42), so a first-N cap is a representative sample. ORCHID is a
+purely **out-of-domain** eval corpus (1980s academic-conference text); it is not used for
+training or asset builds. Note ORCHID glues some date/number expressions into single tokens
+with internal spaces (e.g. `"ที่ 1"`), a genuine annotation-standard difference from the other
+corpora.
 
 ## File format
 

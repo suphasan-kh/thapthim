@@ -43,6 +43,7 @@ CORPORA = [
     ("vistec", "VISTEC_test.jsonl",        3000),
     ("tnhc",   "tnhc_test.jsonl",          4403),
     ("ws1000", "ws1000.jsonl",             993),
+    ("orchid", "orchid_test.jsonl",        3000),
 ]
 
 def load_vocab():
