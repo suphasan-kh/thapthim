@@ -1,0 +1,156 @@
+# SPDX-FileCopyrightText: 2026 Thapthim Project Contributor suphasan-kh
+# SPDX-FileType: SOURCE
+# SPDX-License-Identifier: Apache-2.0
+
+# frozen_string_literal: true
+
+module Thapthim
+  # Deterministic numeral transforms: Buddhist/Common-era year conversion and Thai/Arabic digit
+  # transliteration. Unlike segmentation and normalization these carry no model and no byte-level
+  # subtlety, so they live in pure Ruby rather than the Rust core; a Python mirror is guaranteed
+  # identical (integer arithmetic + a codepoint map over the BMP). The digit converters run input
+  # through +sanitize_input+ so they inherit the same nil/encoding/NUL hardening as the rest of the
+  # public API.
+
+  # The Buddhist Era leads the Common Era by 543 years: BE = CE + 543 (e.g. CE 2025 = BE 2568).
+  ERA_OFFSET = 543
+
+  # Thai digits ๐–๙ (U+0E50–U+0E59) positionally aligned with Arabic 0–9 for a 1:1 +tr+ map.
+  THAI_DIGITS   = "๐๑๒๓๔๕๖๗๘๙"
+  ARABIC_DIGITS = "0123456789"
+
+  # Buddhist Era year → Common Era year. Accepts an Integer or an integer-valued String
+  # (e.g. 2568 or "2568"); raises ArgumentError/TypeError on non-integer input, matching Integer().
+  # Purely arithmetic — no calendar/day handling (Thai and Gregorian year boundaries differ, but
+  # the year-number offset is a fixed 543).
+  def self.be2ce(year)
+    Integer(year) - ERA_OFFSET
+  end
+
+  # Common Era year → Buddhist Era year. See +be2ce+ for input handling.
+  def self.ce2be(year)
+    Integer(year) + ERA_OFFSET
+  end
+
+  # Replace Thai digits ๐–๙ with Arabic 0–9 anywhere in the string; every other character is left
+  # untouched. Returns a hardened UTF-8 String ("" for nil/empty input).
+  def self.thai2arabic_digits(text)
+    sanitize_input(text).tr(THAI_DIGITS, ARABIC_DIGITS)
+  end
+
+  # Replace Arabic digits 0–9 with Thai ๐–๙ anywhere in the string; every other character is left
+  # untouched. Returns a hardened UTF-8 String ("" for nil/empty input).
+  def self.arabic2thai_digits(text)
+    sanitize_input(text).tr(ARABIC_DIGITS, THAI_DIGITS)
+  end
+
+  # --- number → Thai words --------------------------------------------------------
+  #
+  # The reader is +read_int+ (cardinal value reading). +num2text+ and +baht_text+ both delegate to
+  # it and differ only in how they treat the fractional part: +num2text+ speaks a plain decimal
+  # (จุด + digit-by-digit), +baht_text+ treats it as สตางค์. Keeping the currency logic out of the
+  # core reader is deliberate — a number is not always money (see +num2text+ vs +baht_text+).
+
+  # Digit words, indexed 0–9 (index 0 is ศูนย์, only ever spoken for the whole-number zero).
+  DIGIT_WORDS = %w[ศูนย์ หนึ่ง สอง สาม สี่ ห้า หก เจ็ด แปด เก้า].freeze
+  # Place words within a six-digit (sub-million) group, indexed by position: 0=units … 5=แสน.
+  PLACE_WORDS = ["", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"].freeze
+
+  # Read a non-negative Integer as Thai cardinal words. Millions are handled by recursion (Thai
+  # groups by 10^6, so 10^12 reads ล้านล้าน). Encodes the three irregular readings: tens-1 is bare
+  # สิบ (not หนึ่งสิบ), tens-2 is ยี่สิบ (not สองสิบ), and a units-1 that follows any higher place is
+  # เอ็ด (not หนึ่ง) — the +!ret.empty?+ test carries that rule across the ล้าน boundary too.
+  def self.read_int(number)
+    return DIGIT_WORDS[0] if number.zero? # ศูนย์ only for a whole value of zero
+
+    ret = +""
+    if number >= 1_000_000
+      ret << read_int(number / 1_000_000) << "ล้าน"
+      number %= 1_000_000
+    end
+
+    divider = 100_000
+    pos = 5
+    while divider >= 1
+      d = number / divider
+      if d.positive?
+        if divider == 10 && d == 1
+          ret << "สิบ"
+        elsif divider == 10 && d == 2
+          ret << "ยี่สิบ"
+        elsif divider == 1 && d == 1 && !ret.empty?
+          ret << "เอ็ด"
+        else
+          ret << DIGIT_WORDS[d] << PLACE_WORDS[pos]
+        end
+      end
+      number %= divider
+      divider /= 10
+      pos -= 1
+    end
+    ret
+  end
+  private_class_method :read_int
+
+  # Parse an Integer, finite Float, or numeric String (Thai or Arabic digits, optional leading "-"
+  # and fractional part) into [negative?, integer-part String, fractional-digit String]. Raises
+  # ArgumentError on anything that is not a finite number.
+  def self.parse_decimal(input)
+    case input
+    when Integer
+      [input.negative?, input.abs.to_s, ""]
+    when Float
+      raise ArgumentError, "not a finite number: #{input.inspect}" unless input.finite?
+
+      int_s, frac_s = input.abs.to_s.split(".") # Float#to_s is the shortest round-trip form
+      [input.negative?, int_s, frac_s || ""]
+    when String
+      m = thai2arabic_digits(input).strip.match(/\A(-?)(\d+)(?:\.(\d+))?\z/)
+      raise ArgumentError, "not a number: #{input.inspect}" unless m
+
+      [m[1] == "-", m[2], m[3] || ""]
+    else
+      raise ArgumentError, "cannot read as a number: #{input.inspect}"
+    end
+  end
+  private_class_method :parse_decimal
+
+  # Read a number as plain Thai cardinal words — NOT currency. Integers read as a value; a fractional
+  # part is spoken as จุด followed by each digit individually, exactly as given — every digit is kept,
+  # including trailing zeros ("3.50" → "สามจุดห้าศูนย์", 3.0 → "สามจุดศูนย์"). Accepts Integer, finite
+  # Float, or a numeric String (Thai or Arabic digits); a String preserves the digits verbatim,
+  # sidestepping Float rounding. Negatives are prefixed ลบ.
+  def self.num2text(number)
+    negative, int_s, frac_s = parse_decimal(number)
+
+    text = read_int(int_s.to_i)
+    text += "จุด" + frac_s.chars.map { |c| DIGIT_WORDS[c.to_i] }.join unless frac_s.empty?
+    negative ? "ลบ#{text}" : text
+  end
+
+  # Format a monetary amount as Thai baht text (บาท / สตางค์ / ถ้วน). The fractional part is rounded
+  # to two decimal places and read as สตางค์; whole amounts end ถ้วน; a satang-only amount omits บาท.
+  # Accepts Integer, finite Float, or numeric String — Strings round exactly (no Float error).
+  # Negatives are prefixed ลบ. Currency lives here, not in +num2text+, because a number is not always
+  # money and the decimal is read differently (สตางค์, not จุด).
+  def self.baht_text(amount)
+    negative, int_s, frac_s = parse_decimal(amount)
+
+    # Round the fractional part to two digits (satang), carrying into baht if it rounds up to 100.
+    satang = frac_s[0, 2].to_s.ljust(2, "0").to_i
+    satang += 1 if frac_s.length > 2 && frac_s[2].to_i >= 5
+    total_satang = (int_s.to_i * 100) + satang
+    baht = total_satang / 100
+    satang = total_satang % 100
+
+    text =
+      if satang.zero?
+        "#{read_int(baht)}บาทถ้วน"
+      elsif baht.zero?
+        "#{read_int(satang)}สตางค์"
+      else
+        "#{read_int(baht)}บาท#{read_int(satang)}สตางค์"
+      end
+    negative ? "ลบ#{text}" : text
+  end
+end

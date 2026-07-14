@@ -28,6 +28,12 @@ Shipping today:
   Tags a token array, or a string it segments first (cascade).
 - **Text normalization** (`std_normalize`) — whitespace collapsing, vowel/tone-mark reordering,
   zero-width–character stripping, repeated/dangling-mark cleanup (orthographic-level correction).
+- **Number → Thai text** (`num2text`, `baht_text`) — read a number as Thai cardinal words, or as
+  baht/satang currency text (`baht_text` rounds to two satang digits and appends ถ้วน for whole
+  amounts). Accept an Integer, Float, or numeric string.
+- **Numeral & era conversion** (`thai2arabic_digits` / `arabic2thai_digits`, `be2ce` / `ce2be`) —
+  Thai digits ๐–๙ ↔ Arabic 0–9 within a string, and Buddhist ↔ Common era years (offset 543). These
+  four numeral helpers are pure Ruby and not yet exposed in Python.
 - **Robust input handling** — non–UTF-8 (e.g. TIS-620) transcoding, invalid-byte and NUL scrubbing.
 
 ## Roadmap
@@ -43,8 +49,7 @@ candidate set plus a cost model; the rest are deterministic transforms beside it
   edit-distance bound, ranked by the word LM; layered on top of the orthographic cleanup
   `std_normalize` already performs.
 - **Transliteration / romanization** — deterministic script transforms (e.g. ISO 11940).
-- **Number–text conversion (num-text)** — numbers to Thai number words and back
-  (including Thai numerals ๐–๙).
+- **Text → number** — parse Thai number words back to a numeric value (the reverse of `num2text`).
 
 APIs for these will follow the same shape as segmentation: module-level functions, hardened input,
 identical behavior from Ruby and Python.
@@ -89,6 +94,19 @@ Thapthim.tcc_segment("ฉันกินข้าว")         # => ["ฉั", "
 # (cascade); pass an array to tag already-segmented tokens directly.
 Thapthim.pos_tag("ฉันกินข้าว")             # => [["ฉัน", "PR"], ["กิน", "VV"], ["ข้าว", "NN"]]
 Thapthim.pos_tag(["ฉัน", "กิน", "ข้าว"])   # tag gold tokens directly (isolates the tagger)
+
+# Numbers to Thai text. num2text reads the value; a fractional part is spoken digit-by-digit after
+# จุด. baht_text reads it as currency (บาท/สตางค์, ...ถ้วน when whole). Pass a String to keep exact
+# digits — a Float has already dropped trailing zeros (3.50 is 3.5).
+Thapthim.num2text(2568)          # => "สองพันห้าร้อยหกสิบแปด"
+Thapthim.num2text("3.50")        # => "สามจุดห้าศูนย์"
+Thapthim.baht_text(1234.5)       # => "หนึ่งพันสองร้อยสามสิบสี่บาทห้าสิบสตางค์"
+
+# Digit and era conversion.
+Thapthim.thai2arabic_digits("พ.ศ. ๒๕๖๘")   # => "พ.ศ. 2568"
+Thapthim.arabic2thai_digits("2568")         # => "๒๕๖๘"
+Thapthim.be2ce(2568)                        # => 2025  (Buddhist → Common era)
+Thapthim.ce2be(2025)                        # => 2568  (Common → Buddhist era)
 ```
 
 Every entry point hardens its input — non–UTF-8 (e.g. TIS-620) is transcoded, invalid bytes and

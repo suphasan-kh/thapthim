@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+- **Numeral utilities (`num2text`, `baht_text`, `thai2arabic_digits`/`arabic2thai_digits`,
+  `be2ce`/`ce2be`).** Deterministic number helpers, pure Ruby (no engine changes). `num2text` reads
+  a number as Thai cardinal words — encoding the irregular readings (สิบ / ยี่สิบ, units-1 → เอ็ด
+  across the ล้าน boundary) and recursing on ล้าน for arbitrary size — with a fractional part spoken
+  digit-by-digit after จุด. `baht_text` reads it as baht/satang currency text (rounds to two satang
+  digits, appends ถ้วน for whole amounts, omits บาท for satang-only). `thai2arabic_digits` /
+  `arabic2thai_digits` convert Thai ๐–๙ ↔ Arabic 0–9 within a string, leaving all other characters
+  untouched. `be2ce` / `ce2be` convert Buddhist ↔ Common era years (fixed 543 offset). The readers
+  accept an Integer, finite Float, or numeric string (Thai or Arabic digits); a string preserves
+  exact digits, while a Float has already dropped trailing zeros. Ruby only — not yet in Python.
 - **Part-of-speech tagging (`pos_tag`).** A standard first-order HMM over the 16-tag LST20 tagset
   (add-λ transitions, Witten-Bell emissions), decoded by a small dense Viterbi. Unknown words fall
   back to a tag-discriminative UNK model plus a few orthographic rules (digit→`NU`, symbol→`PU`,
