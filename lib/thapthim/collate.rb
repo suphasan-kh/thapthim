@@ -24,15 +24,23 @@ module Thapthim
 
   # Consonants ก–ฮ in alphabet order (ฤ placed after ร, ฦ after ล, as the dictionary does).
   COLLATION_CONSONANTS = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮ"
-  # Primary order = consonants, then the vowel signs in dictionary order.
-  COLLATION_PRIMARY = "#{COLLATION_CONSONANTS}ะัาำิีึืุูเแโใไๅ"
+  # Primary sort units, in dictionary order. Mostly single characters, but ฤๅ and ฦๅ are their own
+  # letters — ordered immediately after ฤ and ฦ (…ร ฤ ฤๅ ล ฦ ฦๅ ว…) — so they are matched as a
+  # two-character digraph before their first character is read alone. Then the vowel signs; a bare ๅ
+  # (not part of ฤๅ/ฦๅ) ranks last.
+  COLLATION_PRIMARY_UNITS = (
+    "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยร".chars +
+    %w[ฤ ฤๅ ล ฦ ฦๅ] +
+    "วศษสหฬอฮ".chars +
+    "ะัาำิีึืุูเแโใไ".chars + %w[ๅ]
+  ).freeze
   # Secondary (compared only after the primary letters tie): maitaikhu, the four tone marks, then
   # thanthakhat (การันต์) and nikhahit. "No mark" ranks 0, below all of these.
   COLLATION_SECONDARY = "็่้๊๋์ํ"
   # The pre-posed (leading) vowels that must be reordered after their consonant.
   COLLATION_LEADING_VOWELS = "เแโใไ"
 
-  PRIMARY_RANK   = COLLATION_PRIMARY.chars.each_with_index.to_h { |c, i| [c, i + 1] }.freeze
+  PRIMARY_RANK   = COLLATION_PRIMARY_UNITS.each_with_index.to_h { |u, i| [u, i + 1] }.freeze
   SECONDARY_RANK = COLLATION_SECONDARY.chars.each_with_index.to_h { |c, i| [c, i + 1] }.freeze
 
   # Sort Thai strings by dictionary order. Without a block, sorts an array of strings; with a block,
@@ -48,18 +56,30 @@ module Thapthim
   # dominates the next. Non-Thai characters sort after Thai, ordered by codepoint (a Thai collator, so
   # rare astral-plane characters may share a bucket). Inherits sanitize_input hardening.
   def self.thai_sort_key(string)
-    reordered = reorder_leading_vowels(sanitize_input(string))
+    # Spaces are ignored (RI convention): "กรุง เทพ" collates the same as "กรุงเทพ".
+    cleaned = sanitize_input(string).gsub(/[[:space:]]/, "")
+    reordered = reorder_leading_vowels(cleaned)
     primary = []
     secondary = []
-    reordered.each do |ch|
-      if (rank = PRIMARY_RANK[ch])
+    i = 0
+    while i < reordered.length
+      ch = reordered[i]
+      digraph = reordered[i + 1] ? ch + reordered[i + 1] : nil
+      if digraph && (rank = PRIMARY_RANK[digraph]) # ฤๅ / ฦๅ read as one letter
         primary << rank
         secondary << 0
+        i += 2
+      elsif (rank = PRIMARY_RANK[ch])
+        primary << rank
+        secondary << 0
+        i += 1
       elsif (tone = SECONDARY_RANK[ch])
         secondary[-1] = tone unless secondary.empty? # attach to the preceding letter's slot
+        i += 1
       else
-        primary << (0x2000 + (ch.ord & 0x1FFF)) # non-Thai: after all Thai letters (rank ≤ 0x1000)
+        primary << (0x2000 + (ch.ord & 0x1FFF)) # non-Thai: after all Thai letters
         secondary << 0
+        i += 1
       end
     end
 
