@@ -1,11 +1,27 @@
 ## [Unreleased]
 
-- **Numeral utilities (`num2text`, `baht_text`, `thai2arabic_digits`/`arabic2thai_digits`,
-  `be2ce`/`ce2be`).** Deterministic number helpers, pure Ruby (no engine changes). `num2text` reads
+- **Thai collation / sort (`thai_sort`, `thai_sort_key`).** ⚠️ Experimental, not yet verified (unit
+  tests pass but the ordering has not been validated at scale / reviewed). Dictionary-order sorting
+  following the Royal Society of Thailand: a leading vowel (เ แ โ ใ ไ) is reordered after the consonant it precedes,
+  and tone marks are compared at a secondary level (so ปา < ป่า < ป้า) — the two things native
+  codepoint sorting gets wrong. `thai_sort` sorts an array of strings, or arbitrary items via a block
+  key; `thai_sort_key` returns an opaque, comparable **binary String** usable with `sort_by`/`min_by`
+  or persisted in an indexed DB column to `ORDER BY` Thai correctly (SQL Thai collation is usually
+  absent or wrong). Non-Thai characters sort after Thai by codepoint. Pure Ruby; Ruby only for now.
+- **Numeral utilities (`num2text`, `text2num`, `baht_text`, `read_digits`,
+  `thai2arabic_digits`/`arabic2thai_digits`, `be2ce`/`ce2be`).** Deterministic number helpers, pure
+  Ruby (no engine changes). `num2text` reads
   a number as Thai cardinal words — encoding the irregular readings (สิบ / ยี่สิบ, units-1 → เอ็ด
   across the ล้าน boundary) and recursing on ล้าน for arbitrary size — with a fractional part spoken
   digit-by-digit after จุด. `baht_text` reads it as baht/satang currency text (rounds to two satang
-  digits, appends ถ้วน for whole amounts, omits บาท for satang-only). `thai2arabic_digits` /
+  digits, appends ถ้วน for whole amounts, omits บาท for satang-only). `read_digits` reads a number
+  digit-by-digit instead of as a value (1234 → "หนึ่งสองสามสี่"), for phone numbers / PINs / years;
+  a string keeps a leading zero, "." reads as จุด, other characters (e.g. dashes) are ignored.
+  `text2num` inverts `num2text` —
+  it tokenizes a spaceless Thai number string into morphemes and rebuilds the value (place words, the
+  ล้าน grouping incl. ล้านล้าน, เอ็ด/ยี่, a leading ลบ, and a จุด decimal), returning an Integer, or a
+  Float when a จุด is present; verified to round-trip `num2text` over 0–100000 and sampled billions.
+  `thai2arabic_digits` /
   `arabic2thai_digits` convert Thai ๐–๙ ↔ Arabic 0–9 within a string, leaving all other characters
   untouched. `be2ce` / `ce2be` convert Buddhist ↔ Common era years (fixed 543 offset). The readers
   accept an Integer, finite Float, or numeric string (Thai or Arabic digits); a string preserves

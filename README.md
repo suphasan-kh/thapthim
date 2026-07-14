@@ -28,12 +28,19 @@ Shipping today:
   Tags a token array, or a string it segments first (cascade).
 - **Text normalization** (`std_normalize`) — whitespace collapsing, vowel/tone-mark reordering,
   zero-width–character stripping, repeated/dangling-mark cleanup (orthographic-level correction).
-- **Number → Thai text** (`num2text`, `baht_text`) — read a number as Thai cardinal words, or as
-  baht/satang currency text (`baht_text` rounds to two satang digits and appends ถ้วน for whole
-  amounts). Accept an Integer, Float, or numeric string.
+- **Number ↔ Thai text** (`num2text`, `baht_text`, `read_digits`, `text2num`) — read a number as Thai
+  cardinal words, as baht/satang currency text (`baht_text` rounds to two satang digits and appends
+  ถ้วน for whole amounts), or digit-by-digit (`read_digits`, for phone numbers / PINs / years);
+  `text2num` parses Thai number words back to a numeric value. The readers accept an Integer, Float,
+  or numeric string.
 - **Numeral & era conversion** (`thai2arabic_digits` / `arabic2thai_digits`, `be2ce` / `ce2be`) —
-  Thai digits ๐–๙ ↔ Arabic 0–9 within a string, and Buddhist ↔ Common era years (offset 543). These
-  four numeral helpers are pure Ruby and not yet exposed in Python.
+  Thai digits ๐–๙ ↔ Arabic 0–9 within a string, and Buddhist ↔ Common era years (offset 543).
+- **Thai collation / sort** (`thai_sort`, `thai_sort_key`) — ⚠️ **experimental, not yet verified** —
+  dictionary-order sorting per the Royal Society of Thailand (leading vowels เ แ โ ใ ไ reorder after
+  their consonant; tone marks secondary). Native Ruby sorts Thai by codepoint, which is wrong.
+  `thai_sort_key` returns a comparable, storable key — use it with `sort_by`/`min_by`, or persist it
+  in a database column to `ORDER BY` Thai correctly. The numeral and collation helpers above are pure
+  Ruby and not yet exposed in Python.
 - **Robust input handling** — non–UTF-8 (e.g. TIS-620) transcoding, invalid-byte and NUL scrubbing.
 
 ## Roadmap
@@ -49,7 +56,6 @@ candidate set plus a cost model; the rest are deterministic transforms beside it
   edit-distance bound, ranked by the word LM; layered on top of the orthographic cleanup
   `std_normalize` already performs.
 - **Transliteration / romanization** — deterministic script transforms (e.g. ISO 11940).
-- **Text → number** — parse Thai number words back to a numeric value (the reverse of `num2text`).
 
 APIs for these will follow the same shape as segmentation: module-level functions, hardened input,
 identical behavior from Ruby and Python.
@@ -101,12 +107,20 @@ Thapthim.pos_tag(["ฉัน", "กิน", "ข้าว"])   # tag gold tokens
 Thapthim.num2text(2568)          # => "สองพันห้าร้อยหกสิบแปด"
 Thapthim.num2text("3.50")        # => "สามจุดห้าศูนย์"
 Thapthim.baht_text(1234.5)       # => "หนึ่งพันสองร้อยสามสิบสี่บาทห้าสิบสตางค์"
+Thapthim.read_digits("081-234")  # => "ศูนย์แปดหนึ่งสองสามสี่"  (each digit; keeps the leading zero)
+Thapthim.text2num("สองพันห้าร้อยหกสิบแปด")  # => 2568  (Integer; Float when a จุด is present)
 
 # Digit and era conversion.
 Thapthim.thai2arabic_digits("พ.ศ. ๒๕๖๘")   # => "พ.ศ. 2568"
 Thapthim.arabic2thai_digits("2568")         # => "๒๕๖๘"
 Thapthim.be2ce(2568)                        # => 2025  (Buddhist → Common era)
 Thapthim.ce2be(2025)                        # => 2568  (Common → Buddhist era)
+
+# Thai dictionary sort (native sort is wrong: it puts เป็ด/ไก่ last, by codepoint).
+Thapthim.thai_sort(["ไก่", "กา", "ขา"])     # => ["กา", "ไก่", "ขา"]
+Thapthim.thai_sort(users) { |u| u.name }    # sort objects by a Thai field
+# thai_sort_key(name) is a comparable binary key: use with sort_by/min_by, or store it in an
+# indexed column and ORDER BY it so the database returns Thai in dictionary order.
 ```
 
 Every entry point hardens its input — non–UTF-8 (e.g. TIS-620) is transcoded, invalid bytes and

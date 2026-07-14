@@ -144,4 +144,72 @@ class TestNumeral < Minitest::Test
     assert_raises(ArgumentError) { Thapthim.num2text("abc") }
     assert_raises(ArgumentError) { Thapthim.num2text(nil) }
   end
+
+  # --- read_digits: digit-by-digit reading ----------------------------------------
+
+  def test_read_digits_speaks_each_digit
+    assert_equal "หนึ่งสองสามสี่", Thapthim.read_digits(1234)
+    assert_equal "ศูนย์",          Thapthim.read_digits(0)
+  end
+
+  def test_read_digits_string_keeps_leading_zero_and_thai_digits
+    assert_equal "ศูนย์แปดหนึ่งสอง", Thapthim.read_digits("๐๘๑๒") # leading zero + Thai digits
+  end
+
+  def test_read_digits_ignores_separators
+    # dashes/spaces in a phone number are skipped, so a formatted and bare form read the same
+    assert_equal Thapthim.read_digits("021234567"), Thapthim.read_digits("02-123-4567")
+  end
+
+  def test_read_digits_decimal_point
+    assert_equal "สามจุดหนึ่งสี่", Thapthim.read_digits("3.14")
+  end
+
+  def test_read_digits_no_digits
+    assert_equal "", Thapthim.read_digits(nil)
+    assert_equal "", Thapthim.read_digits("no digits")
+  end
+
+  # --- text2num: Thai words → number ----------------------------------------------
+
+  def test_text2num_basic_and_irregulars
+    assert_equal 2568, Thapthim.text2num("สองพันห้าร้อยหกสิบแปด")
+    assert_equal 0,    Thapthim.text2num("ศูนย์")
+    assert_equal 10,   Thapthim.text2num("สิบ")
+    assert_equal 11,   Thapthim.text2num("สิบเอ็ด")   # เอ็ด → 1
+    assert_equal 21,   Thapthim.text2num("ยี่สิบเอ็ด") # ยี่ → 2
+    assert_equal 101,  Thapthim.text2num("หนึ่งร้อยเอ็ด")
+  end
+
+  def test_text2num_millions
+    assert_equal 1_000_000,             Thapthim.text2num("หนึ่งล้าน")
+    assert_equal 1_000_001,             Thapthim.text2num("หนึ่งล้านเอ็ด")     # เอ็ด across ล้าน
+    assert_equal 21_000_000,            Thapthim.text2num("ยี่สิบเอ็ดล้าน")
+    assert_equal 1_000_000_000_000,     Thapthim.text2num("หนึ่งล้านล้าน")     # ล้านล้าน = 10^12
+  end
+
+  def test_text2num_negative_and_decimal
+    assert_equal(-5, Thapthim.text2num("ลบห้า"))
+    assert_in_delta 3.14, Thapthim.text2num("สามจุดหนึ่งสี่"), 1e-9
+    assert_in_delta 0.07, Thapthim.text2num("ศูนย์จุดศูนย์เจ็ด"), 1e-9
+    # a decimal returns a value, so a trailing zero is naturally gone (3.50 → 3.5)
+    assert_in_delta 3.5,  Thapthim.text2num("สามจุดห้าศูนย์"), 1e-9
+  end
+
+  def test_text2num_ignores_whitespace
+    assert_equal 2568, Thapthim.text2num("  สองพัน ห้าร้อย หกสิบแปด  ")
+  end
+
+  def test_text2num_rejects_garbage
+    assert_raises(ArgumentError) { Thapthim.text2num("abc") }
+    assert_raises(ArgumentError) { Thapthim.text2num("") }
+    assert_raises(ArgumentError) { Thapthim.text2num(nil) }
+  end
+
+  def test_num2text_text2num_round_trip
+    [0, 1, 9, 10, 11, 20, 21, 99, 100, 101, 111, 2568, 100_001,
+     1_000_000, 1_000_001, 21_000_000, 1_000_000_000_000].each do |n|
+      assert_equal n, Thapthim.text2num(Thapthim.num2text(n)), "round-trip failed for #{n}"
+    end
+  end
 end

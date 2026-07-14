@@ -128,6 +128,20 @@ module Thapthim
     negative ? "ลบ#{text}" : text
   end
 
+  # Read the digits one at a time as Thai words — NOT as a value: 1234 → "หนึ่งสองสามสี่" (the value
+  # reading is "หนึ่งพันสองร้อยสามสิบสี่"; see +num2text+). This is the reading for phone numbers, PINs,
+  # years, and account numbers. Accepts an Integer or a string (Thai or Arabic digits); pass a string
+  # to keep a leading zero ("081" → "ศูนย์แปดหนึ่ง"), which an Integer cannot carry. A "." is read as
+  # จุด; every other character (spaces, dashes in a phone number) is ignored. "" when there are no digits.
+  def self.read_digits(input)
+    thai2arabic_digits(input).chars.filter_map do |ch|
+      case ch
+      when "0".."9" then DIGIT_WORDS[ch.to_i]
+      when "."      then "จุด"
+      end
+    end.join
+  end
+
   # Format a monetary amount as Thai baht text (บาท / สตางค์ / ถ้วน). The fractional part is rounded
   # to two decimal places and read as สตางค์; whole amounts end ถ้วน; a satang-only amount omits บาท.
   # Accepts Integer, finite Float, or numeric String — Strings round exactly (no Float error).
@@ -153,4 +167,92 @@ module Thapthim
       end
     negative ? "ลบ#{text}" : text
   end
+
+  # --- Thai text → number (reverse of num2text) -----------------------------------
+
+  # Digit/quantity words → value. เอ็ด and ยี่ are the positional variants of 1 and 2.
+  UNIT_VALUES = {
+    "ศูนย์" => 0, "หนึ่ง" => 1, "สอง" => 2, "สาม" => 3, "สี่" => 4,
+    "ห้า" => 5, "หก" => 6, "เจ็ด" => 7, "แปด" => 8, "เก้า" => 9,
+    "เอ็ด" => 1, "ยี่" => 2
+  }.freeze
+  # Place multipliers below one million.
+  PLACE_VALUES = { "สิบ" => 10, "ร้อย" => 100, "พัน" => 1_000, "หมื่น" => 10_000, "แสน" => 100_000 }.freeze
+  MILLION_WORD = "ล้าน"
+  MINUS_WORD   = "ลบ"
+  POINT_WORD   = "จุด"
+  # Every recognized morpheme, longest first so tokenization is greedy. (No morpheme is a prefix of
+  # another, so a single left-to-right longest match is unambiguous — Thai number words run together
+  # with no spaces, e.g. "สองพันห้าร้อยหกสิบแปด".)
+  NUMBER_MORPHEMES = (UNIT_VALUES.keys + PLACE_VALUES.keys + [MILLION_WORD, MINUS_WORD, POINT_WORD])
+                     .sort_by { |w| -w.length }.freeze
+
+  # Parse Thai number words back to a numeric value — the inverse of +num2text+. Understands the
+  # place words (สิบ/ร้อย/พัน/หมื่น/แสน), the ล้าน grouping (including repeats, ล้านล้าน = 10^12), the
+  # positional variants เอ็ด/ยี่, a leading ลบ, and a จุด decimal (digits after it read individually).
+  # Returns an Integer for a whole number, a Float when a จุด is present (a value has no trailing
+  # zeros, so "สามจุดห้าศูนย์" → 3.5). Whitespace is ignored; unrecognized input raises ArgumentError.
+  def self.text2num(text)
+    words = sanitize_input(text).gsub(/\s+/, "")
+    raise ArgumentError, "not a number: #{text.inspect}" if words.empty?
+
+    tokens = tokenize_number(words)
+
+    negative = tokens.first == MINUS_WORD
+    tokens = tokens.drop(1) if negative
+    raise ArgumentError, "not a number: #{text.inspect}" if tokens.empty? || tokens.include?(MINUS_WORD)
+
+    point = tokens.index(POINT_WORD)
+    int_tokens  = point ? tokens[0...point] : tokens
+    frac_tokens = point ? tokens[(point + 1)..] : []
+
+    value = read_int_words(int_tokens)
+    unless frac_tokens.empty?
+      frac = frac_tokens.map { |w| UNIT_VALUES[w] || raise(ArgumentError, "not a digit after จุด: #{w}") }.join
+      value = "#{value}.#{frac}".to_f
+    end
+    negative ? -value : value
+  end
+
+  # Greedy left-to-right longest match of the input into known morphemes (see NUMBER_MORPHEMES).
+  def self.tokenize_number(words)
+    tokens = []
+    pos = 0
+    while pos < words.length
+      morpheme = NUMBER_MORPHEMES.find { |w| words[pos, w.length] == w }
+      raise ArgumentError, "unrecognized number word at #{words[pos..].inspect}" if morpheme.nil?
+
+      tokens << morpheme
+      pos += morpheme.length
+    end
+    tokens
+  end
+  private_class_method :tokenize_number
+
+  # Accumulate a token list into a non-negative Integer. +group+ builds the current sub-million value;
+  # each ล้าน folds everything seen so far into +result+ and multiplies by 10^6 (so it composes for
+  # ล้านล้าน). A bare place word (unit still 0, e.g. สิบ = 10) counts its digit as 1.
+  def self.read_int_words(tokens)
+    result = 0
+    group = 0
+    unit = 0
+    tokens.each do |word|
+      if UNIT_VALUES.key?(word)
+        unit = UNIT_VALUES[word]
+      elsif PLACE_VALUES.key?(word)
+        group += (unit.zero? ? 1 : unit) * PLACE_VALUES[word]
+        unit = 0
+      elsif word == MILLION_WORD
+        subtotal = result + group + unit
+        subtotal = 1 if subtotal.zero? # a leading/bare ล้าน means 1,000,000
+        result = subtotal * 1_000_000
+        group = 0
+        unit = 0
+      else
+        raise ArgumentError, "unexpected word: #{word}"
+      end
+    end
+    result + group + unit
+  end
+  private_class_method :read_int_words
 end
