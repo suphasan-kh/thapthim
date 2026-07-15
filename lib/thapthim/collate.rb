@@ -56,8 +56,10 @@ module Thapthim
   # dominates the next. Non-Thai characters sort after Thai, ordered by codepoint (a Thai collator, so
   # rare astral-plane characters may share a bucket). Inherits sanitize_input hardening.
   def self.thai_sort_key(string)
-    # Spaces are ignored (RI convention): "กรุง เทพ" collates the same as "กรุงเทพ".
-    cleaned = sanitize_input(string).gsub(/[[:space:]]/, "")
+    # NFC first so a below-vowel and a tone mark in non-canonical order (e.g. ร + ่ + ู vs ร + ู + ่,
+    # which render identically) collate the same. Spaces are ignored (RI convention): "กรุง เทพ"
+    # collates the same as "กรุงเทพ".
+    cleaned = sanitize_input(string).unicode_normalize(:nfc).gsub(/[[:space:]]/, "")
     reordered = reorder_leading_vowels(cleaned)
     primary = []
     secondary = []

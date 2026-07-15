@@ -125,6 +125,20 @@ class TestCollate < Minitest::Test
     assert_equal ladder, Thapthim.thai_sort(ladder.reverse)
   end
 
+  def test_karan_sorts_after_tone_marks
+    # RI secondary order is ็ ่ ้ ๊ ๋ ์ — thanthakhat/การันต์ (์) is LAST, so a tone mark sorts before it.
+    assert_equal ["แคร่", "แคร์"], Thapthim.thai_sort(["แคร์", "แคร่"]) # ่ (ek) before ์ (karan)
+  end
+
+  def test_nfc_normalizes_combining_mark_order
+    # A below-vowel U+0E39 and a tone U+0E48 in the two possible orders render identically;
+    # they must collate equal (NFC canonicalizes the combining-mark order before keying).
+    canonical     = [0x0E04, 0x0E23, 0x0E39, 0x0E48].pack("U*") # kho ro sara-uu mai-ek
+    non_canonical = [0x0E04, 0x0E23, 0x0E48, 0x0E39].pack("U*") # kho ro mai-ek sara-uu
+    refute_equal canonical, non_canonical, "the two encodings must differ in bytes"
+    assert_equal Thapthim.thai_sort_key(canonical), Thapthim.thai_sort_key(non_canonical)
+  end
+
   def test_handles_empty_and_hardened_input
     assert_equal ["", "กา"], Thapthim.thai_sort(["กา", ""])
     # nil is hardened to "" (not raised), and an empty string sorts first.
