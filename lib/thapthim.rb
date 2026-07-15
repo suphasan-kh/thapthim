@@ -11,6 +11,6 @@ module Thapthim
   class Error < StandardError; end
 end
 
-order = ["tis_table", "valid_tis", "normalize_tis", "normalize_std", "segment_tcc_legacy", "segment_tcc", "segment", "pos", "numeral", "collate"]
+order = ["tis_table", "valid_tis", "normalize_tis", "normalize_std", "segment_tcc_legacy", "segment_tcc", "segment", "pos", "numeral", "collate", "spell"]
 
 order.each { |file| require_relative "thapthim/#{file}"}

@@ -16,6 +16,10 @@ pub mod normalize;
 #[allow(dead_code)]
 pub mod pos;
 
+// Word-level lexical spelling correction (Norvig / noisy-channel over the thai_words dictionary +
+// unigram LM). Built on top of the normalize layer; the sentence-level lattice variant comes later.
+pub mod spell;
+
 // Python (PyO3) binding — same engine, different outer layer. Gated so the default Ruby build is
 // untouched and rb-sys/pyo3 never coexist in one compile.
 #[cfg(feature = "python")]
@@ -59,6 +63,13 @@ pub(crate) fn get_pos_tagger() -> &'static HmmTagger {
         Ok(path) => HmmTagger::load_from_path(&path),
         Err(_) => HmmTagger::from_bytes(include_bytes!("../assets/pos_hmm.bin")),
     })
+}
+
+// Process-global spelling engine (dictionary + unigram frequencies, ~a few MB). Built once.
+static SPELL: OnceLock<crate::spell::SpellEngine> = OnceLock::new();
+
+pub(crate) fn get_spell() -> &'static crate::spell::SpellEngine {
+    SPELL.get_or_init(crate::spell::SpellEngine::bootstrap)
 }
 
 /// Reads a (non-null) C string pointer as UTF-8, replacing any invalid bytes with
@@ -221,6 +232,66 @@ pub unsafe extern "C" fn thapthim_normalize(raw_text_ptr: *const c_char) -> *mut
         let text_cow = unsafe { read_utf8(raw_text_ptr) };
         let normalized = crate::normalize::std_normalize(&text_cow);
         match CString::new(normalized) {
+            Ok(c) => c.into_raw(),
+            Err(_) => std::ptr::null_mut(),
+        }
+    })
+}
+
+/// Returns 1 if the input is a correctly-spelled word (a dictionary entry after normalization),
+/// else 0 (also 0 on null input or a panic).
+///
+/// # Safety
+/// `raw_text_ptr` must be null or a valid NUL-terminated C string.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn thapthim_spell(raw_text_ptr: *const c_char) -> i32 {
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        if raw_text_ptr.is_null() {
+            return false;
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        get_spell().is_word(&text_cow)
+    }));
+    matches!(result, Ok(true)) as i32
+}
+
+/// Ranked spelling suggestions for the input word, newline-joined into one C string (empty string
+/// if there are none). Free with `thapthim_free_string`.
+///
+/// # Safety
+/// `raw_text_ptr` must be null or a valid NUL-terminated C string.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn thapthim_suggest(raw_text_ptr: *const c_char) -> *mut c_char {
+    ffi_ptr(|| {
+        if raw_text_ptr.is_null() {
+            return std::ptr::null_mut();
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        let joined = get_spell()
+            .suggest(&text_cow, crate::spell::MAX_EDITS, crate::spell::SUGGEST_TOP_N)
+            .join("\n");
+        match CString::new(joined) {
+            Ok(c) => c.into_raw(),
+            Err(_) => std::ptr::null_mut(),
+        }
+    })
+}
+
+/// Corrects a single word: a valid word is returned unchanged (normalized), an unknown word becomes
+/// its top-ranked candidate (or is left unchanged if none is close enough). Free with
+/// `thapthim_free_string`.
+///
+/// # Safety
+/// `raw_text_ptr` must be null or a valid NUL-terminated C string.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn thapthim_correct(raw_text_ptr: *const c_char) -> *mut c_char {
+    ffi_ptr(|| {
+        if raw_text_ptr.is_null() {
+            return std::ptr::null_mut();
+        }
+        let text_cow = unsafe { read_utf8(raw_text_ptr) };
+        let corrected = get_spell().correct(&text_cow, crate::spell::MAX_EDITS);
+        match CString::new(corrected) {
             Ok(c) => c.into_raw(),
             Err(_) => std::ptr::null_mut(),
         }
