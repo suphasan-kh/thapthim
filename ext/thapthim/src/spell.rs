@@ -66,47 +66,62 @@ impl DictTrie {
 
     /// Dictionary words within `max` edits of `query`, as (word index, distance).
     fn search(&self, query: &[char], max: usize) -> Vec<(usize, usize)> {
-        let init: Vec<usize> = (0..=query.len()).collect();
+        let qlen = query.len();
+        // Depth-indexed DP rows, reused across the whole walk (no per-node allocation): `rows[d]` is
+        // the row after matching d dictionary characters, grown lazily to the deepest path taken.
+        let mut rows: Vec<Vec<usize>> = vec![(0..=qlen).collect()];
         let mut out = Vec::new();
-        self.walk(0, &init, &init, None, query, max, &mut out);
+        self.walk(0, 0, None, query, max, &mut rows, &mut out);
         out
     }
 
-    // `prev_row` is the DP row of this node; `prev2_row` the parent's row (for transposition);
-    // `parent_char` the edge char into this node. Each child extends one dictionary character.
+    // At `depth`, `rows[depth]` is this node's row and `rows[depth-1]` the parent's (for
+    // transposition); `parent_char` is the edge char into this node. Each child fills `rows[depth+1]`.
     fn walk(
         &self,
         node: usize,
-        prev_row: &[usize],
-        prev2_row: &[usize],
+        depth: usize,
         parent_char: Option<char>,
         query: &[char],
         max: usize,
+        rows: &mut Vec<Vec<usize>>,
         out: &mut Vec<(usize, usize)>,
     ) {
         let qlen = query.len();
-        for &(c, child) in &self.children[node] {
-            let mut cur = Vec::with_capacity(qlen + 1);
-            cur.push(prev_row[0] + 1);
-            let mut row_min = cur[0];
-            for j in 1..=qlen {
-                let cost = if c == query[j - 1] { 0 } else { 1 };
-                let mut v = (prev_row[j] + 1).min(cur[j - 1] + 1).min(prev_row[j - 1] + cost);
-                if j >= 2 && c == query[j - 2] && parent_char == Some(query[j - 1]) {
-                    v = v.min(prev2_row[j - 2] + 1);
+        if rows.len() <= depth + 1 {
+            rows.push(vec![0usize; qlen + 1]);
+        }
+        for idx in 0..self.children[node].len() {
+            let (c, child) = self.children[node][idx];
+            let row_min = {
+                // Disjoint borrows: read rows[depth] (prev) & rows[depth-1] (prev2), write rows[depth+1].
+                let (head, tail) = rows.split_at_mut(depth + 1);
+                let prev = &head[depth];
+                let prev2 = &head[depth.saturating_sub(1)]; // only read when parent_char is Some (depth>=1)
+                let cur = &mut tail[0];
+                cur[0] = prev[0] + 1;
+                let mut row_min = cur[0];
+                for j in 1..=qlen {
+                    let cost = if c == query[j - 1] { 0 } else { 1 };
+                    let mut v = (prev[j] + 1).min(cur[j - 1] + 1).min(prev[j - 1] + cost);
+                    if j >= 2 && c == query[j - 2] && parent_char == Some(query[j - 1]) {
+                        v = v.min(prev2[j - 2] + 1);
+                    }
+                    cur[j] = v;
+                    if v < row_min {
+                        row_min = v;
+                    }
                 }
-                cur.push(v);
-                if v < row_min {
-                    row_min = v;
-                }
+                row_min
+            };
+            if row_min > max {
+                continue;
             }
-            if row_min <= max {
-                let child = child as usize;
-                if self.word[child] >= 0 && cur[qlen] <= max {
-                    out.push((self.word[child] as usize, cur[qlen]));
-                }
-                self.walk(child, &cur, prev_row, Some(c), query, max, out);
+            let child = child as usize;
+            if self.word[child] >= 0 && rows[depth + 1][qlen] <= max {
+                out.push((self.word[child] as usize, rows[depth + 1][qlen]));
             }
+            self.walk(child, depth + 1, Some(c), query, max, rows, out);
         }
     }
 }
