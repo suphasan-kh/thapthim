@@ -335,10 +335,18 @@ pub unsafe extern "C" fn thapthim_correct_sent(
             .ok()
             .and_then(|v| v.parse::<f64>().ok())
             .unwrap_or(crate::spell::DEFAULT_SENT_LAMBDA);
+        // Context bigram source: default = the thai_words-aligned bigram (covers dict words the
+        // LST20 bigram lacks); THAPTHIM_SPELL_BIGRAM=lst20 opts out to the segmenter's LST20 LM.
+        let spell = get_spell();
         let engine = get_engine();
-        let corrected = get_spell().correct_sentence(&tokens, crate::spell::MAX_EDITS, sent_lambda, |w1, w2| {
-            engine.score_transition(&crate::lattice::LatticeTier::Word, w1, w2)
-        });
+        let corrected = match std::env::var("THAPTHIM_SPELL_BIGRAM").ok().as_deref() {
+            Some("lst20") => spell.correct_sentence(&tokens, crate::spell::MAX_EDITS, sent_lambda, |w1, w2| {
+                engine.score_transition(&crate::lattice::LatticeTier::Word, w1, w2)
+            }),
+            _ => spell.correct_sentence(&tokens, crate::spell::MAX_EDITS, sent_lambda, |w1, w2| {
+                spell.bigram_logp(w1, w2)
+            }),
+        };
 
         let out = unsafe { std::slice::from_raw_parts_mut(out_lengths_ptr, n_tokens as usize) };
         let mut result = String::new();

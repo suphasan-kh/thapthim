@@ -32,12 +32,19 @@ fn is_thai_word(s: &str) -> bool {
     !s.is_empty() && s.chars().all(is_thai_char)
 }
 
+const BIGRAM_BETA: f64 = 0.7; // Jelinek-Mercer weight on the bigram MLE vs the unigram backoff
+
 pub struct SpellEngine {
     words: Vec<String>,       // the dictionary, indexable
     word_chars: Vec<Vec<char>>, // parallel char arrays for the edit-distance scan
     word_freq: Vec<u32>,      // parallel unigram counts (0 if unseen in the LM)
     by_len: Vec<Vec<u32>>,    // word indices grouped by char length, for the length prefilter
     membership: FxHashSet<String>, // fast "is this exactly a dictionary word?"
+    // Aligned bigram model for correct_sent context scoring (see bigram_logp). Always loaded so
+    // correct_sent covers the thai_words vocabulary the LST20 bigram lacks.
+    align_unigram: rustc_hash::FxHashMap<String, u32>, // aligned unigram counts (bigram backoff)
+    align_total: f64,                                  // sum of aligned unigram counts
+    bigram: rustc_hash::FxHashMap<String, u32>,        // aligned bigrams, keyed "w1\u{1f}w2"
 }
 
 impl SpellEngine {
@@ -87,7 +94,53 @@ impl SpellEngine {
             by_len[c.len()].push(i as u32);
         }
 
-        SpellEngine { words, word_chars, word_freq, by_len, membership }
+        // Aligned bigram model (always loaded, independent of the unigram-ranking selector): aligned
+        // unigram counts for the backoff, and the aligned bigram counts. Both are thai_words-vocabulary.
+        let mut align_unigram: rustc_hash::FxHashMap<String, u32> = rustc_hash::FxHashMap::default();
+        let mut align_total: u64 = 0;
+        for line in include_str!("../assets/spell_unigrams_aligned.txt").lines() {
+            let mut it = line.split('\t');
+            if let (Some(w), Some(c)) = (it.next(), it.next()) {
+                if let Ok(n) = c.parse::<u32>() {
+                    align_unigram.insert(w.to_string(), n);
+                    align_total += n as u64;
+                }
+            }
+        }
+        let mut bigram: rustc_hash::FxHashMap<String, u32> = rustc_hash::FxHashMap::default();
+        for line in include_str!("../assets/spell_bigrams_aligned.txt").lines() {
+            let mut it = line.split('\t');
+            if let (Some(a), Some(b), Some(c)) = (it.next(), it.next(), it.next()) {
+                if let Ok(n) = c.parse::<u32>() {
+                    bigram.insert(format!("{a}\u{1f}{b}"), n);
+                }
+            }
+        }
+
+        SpellEngine {
+            words,
+            word_chars,
+            word_freq,
+            by_len,
+            membership,
+            align_unigram,
+            align_total: align_total.max(1) as f64,
+            bigram,
+        }
+    }
+
+    /// Kneser-Ney-free bigram log-probability P(w2 | w1) from the aligned counts, Jelinek-Mercer
+    /// interpolated with the aligned unigram backoff so an unseen pair still scores (and w1 = "" acts
+    /// as sentence start). Used by correct_sentence for context scoring over the thai_words vocabulary.
+    pub fn bigram_logp(&self, w1: &str, w2: &str) -> f64 {
+        let p_uni = (self.align_unigram.get(w2).copied().unwrap_or(0).max(1) as f64) / self.align_total;
+        let c1 = self.align_unigram.get(w1).copied().unwrap_or(0) as f64;
+        let mle = if c1 > 0.0 {
+            self.bigram.get(&format!("{w1}\u{1f}{w2}")).copied().unwrap_or(0) as f64 / c1
+        } else {
+            0.0
+        };
+        (BIGRAM_BETA * mle + (1.0 - BIGRAM_BETA) * p_uni + 1e-12).ln()
     }
 
     /// Is `raw` a correctly-spelled word (a dictionary entry, after normalization)?

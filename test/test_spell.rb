@@ -77,6 +77,12 @@ class TestSpell < Minitest::Test
     assert_equal ["ผม", "ชอบ", "กิน", "ข้าว"], Thapthim.correct_sent(["ผม", "ชอบ", "กิน", "ข้าว"])
   end
 
+  def test_correct_sent_uses_aligned_bigram_for_context
+    # ความสามาด is OOV; ความสะอาด and ความสามารถ are both edit-distance 2. The aligned bigram
+    # (มี→ความสามารถ) resolves it in context — the LST20 bigram can't (it lacks ความสามารถ).
+    assert_equal ["เขา", "มี", "ความสามารถ"], Thapthim.correct_sent(["เขา", "มี", "ความสามาด"])
+  end
+
   def test_correct_sent_string_returns_string
     result = Thapthim.correct_sent("ผมชอบกินข้าว")
     assert_kind_of String, result
