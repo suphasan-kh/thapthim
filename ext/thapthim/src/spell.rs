@@ -19,6 +19,18 @@ use rustc_hash::FxHashSet;
 pub const MAX_EDITS: usize = 2;
 pub const SUGGEST_TOP_N: usize = 10;
 const LAMBDA: f64 = 2.0; // edit-vs-frequency balance; validated on VISTEC/synthetic typos
+// Default edit-vs-bigram balance for correct_sentence (the LM term is a natural-log KN bigram, so a
+// larger λ than the log10 isolated case). Overridable per call for tuning; see the FFI in lib.rs.
+pub const DEFAULT_SENT_LAMBDA: f64 = 3.0;
+
+// A Thai letter/vowel/tone/sign (U+0E01–U+0E4E) — the shape of a correctable word. Non-Thai tokens
+// (whitespace, punctuation, Latin, digits) are never sent to correction.
+fn is_thai_char(c: char) -> bool {
+    ('\u{0E01}'..='\u{0E4E}').contains(&c)
+}
+fn is_thai_word(s: &str) -> bool {
+    !s.is_empty() && s.chars().all(is_thai_char)
+}
 
 pub struct SpellEngine {
     words: Vec<String>,       // the dictionary, indexable
@@ -40,9 +52,23 @@ impl SpellEngine {
         let word_chars: Vec<Vec<char>> = words.iter().map(|w| w.chars().collect()).collect();
         let membership: FxHashSet<String> = words.iter().cloned().collect();
 
-        // Unigram counts: "<word>\t<count>\t<cont_count>". Only the first two columns are used.
+        // Ranking-frequency source, selectable at runtime (both tables are embedded):
+        //   default / "aligned" — spell_unigrams_aligned.txt, counts over a corpus maximal-matched
+        //                         to thai_words so EVERY dictionary word gets a real frequency. This
+        //                         is the default because the corrector's candidates come from
+        //                         thai_words, and the LST20 table simply lacks many of them (e.g.
+        //                         ความสามารถ). Corpus-derived ("contaminated") — a ranking source
+        //                         only; the candidate dictionary stays the clean thai_words. See tools/.
+        //   "lst20"             — kn_words_unigrams.txt, the shipped LST20 LM. Cleaner counts, but
+        //                         its word inventory diverges from thai_words. Opt-out for the pure
+        //                         version / A-B comparison.
+        // Format is "<word>\t<count>[\t...]" for both; only the first two columns are read.
+        let freq_source = match std::env::var("THAPTHIM_SPELL_FREQ").ok().as_deref() {
+            Some("lst20") => include_str!("../assets/kn_words_unigrams.txt"),
+            _ => include_str!("../assets/spell_unigrams_aligned.txt"),
+        };
         let mut freq_of: rustc_hash::FxHashMap<&str, u32> = rustc_hash::FxHashMap::default();
-        for line in include_str!("../assets/kn_words_unigrams.txt").lines() {
+        for line in freq_source.lines() {
             let mut it = line.split('\t');
             if let (Some(w), Some(c)) = (it.next(), it.next()) {
                 if let Ok(n) = c.parse::<u32>() {
@@ -123,6 +149,97 @@ impl SpellEngine {
             }
         }
         out
+    }
+
+    /// The candidates a single token contributes to the sentence lattice: (surface, edit distance).
+    /// Always includes the token itself at cost 0 (so it can be kept). Only an out-of-dictionary,
+    /// Thai-word-shaped token additionally gets its top-N near-matches — valid words, whitespace,
+    /// punctuation and non-Thai tokens are left with just the keep option, so correct text and
+    /// structure are preserved.
+    fn token_candidates(&self, token: &str, max_edits: usize) -> Vec<(String, usize)> {
+        let mut cands = vec![(token.to_string(), 0usize)];
+        let norm = crate::normalize::std_normalize(token);
+        if norm.is_empty() || self.membership.contains(&norm) || !is_thai_word(&norm) {
+            return cands;
+        }
+        let query: Vec<char> = norm.chars().collect();
+        let mut scored: Vec<(f64, usize, usize)> = self
+            .candidates(&query, max_edits)
+            .into_iter()
+            .map(|(idx, dist)| (self.score(idx, dist), idx, dist))
+            .collect();
+        scored.sort_by(|a, b| {
+            b.0.partial_cmp(&a.0).unwrap_or(std::cmp::Ordering::Equal).then(a.2.cmp(&b.2))
+        });
+        for (_, idx, dist) in scored.into_iter().take(SUGGEST_TOP_N) {
+            cands.push((self.words[idx].clone(), dist));
+        }
+        cands
+    }
+
+    /// Context-aware correction of a pre-segmented token sequence. A bigram Viterbi chooses the
+    /// sequence maximizing Σ bigram_logprob(prev→cur) − λ·Σ edit_cost, where each position's options
+    /// come from `token_candidates`. `bigram` supplies the KN word-layer log-prob P(cur | prev); an
+    /// empty `prev` marks sentence start (the LM backs off to a unigram-like prior there). Returns
+    /// exactly one corrected surface per input token.
+    pub fn correct_sentence(
+        &self,
+        tokens: &[&str],
+        max_edits: usize,
+        sent_lambda: f64,
+        bigram: impl Fn(&str, &str) -> f64,
+    ) -> Vec<String> {
+        if tokens.is_empty() {
+            return Vec::new();
+        }
+        let cand_lists: Vec<Vec<(String, usize)>> =
+            tokens.iter().map(|&t| self.token_candidates(t, max_edits)).collect();
+        let n = tokens.len();
+
+        // Viterbi forward. `back[i][j]` = best predecessor candidate index for candidate j at pos i.
+        let mut back: Vec<Vec<usize>> = Vec::with_capacity(n);
+        let mut prev_scores: Vec<f64> = cand_lists[0]
+            .iter()
+            .map(|(surf, dist)| bigram("", surf) - sent_lambda * *dist as f64)
+            .collect();
+        back.push(vec![usize::MAX; cand_lists[0].len()]);
+
+        for i in 1..n {
+            let mut cur_scores = Vec::with_capacity(cand_lists[i].len());
+            let mut cur_back = Vec::with_capacity(cand_lists[i].len());
+            for (surf, dist) in &cand_lists[i] {
+                let node = -sent_lambda * *dist as f64;
+                let mut best = f64::NEG_INFINITY;
+                let mut best_k = 0usize;
+                for (k, (psurf, _)) in cand_lists[i - 1].iter().enumerate() {
+                    let s = prev_scores[k] + bigram(psurf, surf);
+                    if s > best {
+                        best = s;
+                        best_k = k;
+                    }
+                }
+                cur_scores.push(best + node);
+                cur_back.push(best_k);
+            }
+            prev_scores = cur_scores;
+            back.push(cur_back);
+        }
+
+        // Backtrack from the best final candidate.
+        let mut j = prev_scores
+            .iter()
+            .enumerate()
+            .max_by(|a, b| a.1.partial_cmp(b.1).unwrap_or(std::cmp::Ordering::Equal))
+            .map(|(idx, _)| idx)
+            .unwrap_or(0);
+        let mut path = vec![0usize; n];
+        for i in (0..n).rev() {
+            path[i] = j;
+            if i > 0 {
+                j = back[i][j];
+            }
+        }
+        (0..n).map(|i| cand_lists[i][path[i]].0.clone()).collect()
     }
 }
 

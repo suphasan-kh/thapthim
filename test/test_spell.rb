@@ -64,4 +64,25 @@ class TestSpell < Minitest::Test
     assert_kind_of String, Thapthim.correct(12345)
     assert_kind_of Array, Thapthim.suggest(12345)
   end
+
+  # --- correct_sent: context-aware correction --------------------------------------
+
+  def test_correct_sent_fixes_typo_in_context
+    # กนิ -> กิน (in the LM; ชอบ→กิน bigram); the context picks it.
+    assert_equal ["ผม", "ชอบ", "กิน", "ข้าว"], Thapthim.correct_sent(["ผม", "ชอบ", "กนิ", "ข้าว"])
+    assert_equal ["เด็ก", "ไป", "โรงเรียน"], Thapthim.correct_sent(["เด็ก", "ไป", "โรงเรยน"])
+  end
+
+  def test_correct_sent_leaves_valid_text_unchanged
+    assert_equal ["ผม", "ชอบ", "กิน", "ข้าว"], Thapthim.correct_sent(["ผม", "ชอบ", "กิน", "ข้าว"])
+  end
+
+  def test_correct_sent_string_returns_string
+    result = Thapthim.correct_sent("ผมชอบกินข้าว")
+    assert_kind_of String, result
+  end
+
+  def test_correct_sent_empty
+    assert_equal [], Thapthim.correct_sent([])
+  end
 end

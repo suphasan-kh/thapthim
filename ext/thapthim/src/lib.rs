@@ -298,6 +298,61 @@ pub unsafe extern "C" fn thapthim_correct(raw_text_ptr: *const c_char) -> *mut c
     })
 }
 
+/// Context-aware sentence correction over a pre-segmented token sequence. Tokens arrive concatenated
+/// (`concat_ptr`) with a per-token byte-length array (`lengths_ptr`), exactly like `thapthim_pos_tag`.
+/// A bigram Viterbi (word-layer KN LM) corrects the tokens jointly; the corrected surfaces are
+/// returned concatenated in one C string, with each corrected token's byte length written into the
+/// caller-provided `out_lengths_ptr` buffer (which must hold `n_tokens` `i32`s). There is exactly one
+/// output token per input token, so the caller already knows the count. Free the string with
+/// `thapthim_free_string`. `THAPTHIM_SPELL_SENT_LAMBDA` overrides the edit-vs-bigram weight.
+///
+/// # Safety
+/// `concat_ptr` must point to `sum(lengths)` readable bytes; `lengths_ptr` and `out_lengths_ptr` to
+/// `n_tokens` readable/writable `i32`s. Free the returned string with `thapthim_free_string`.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn thapthim_correct_sent(
+    concat_ptr: *const c_char,
+    lengths_ptr: *const i32,
+    n_tokens: i32,
+    out_lengths_ptr: *mut i32,
+) -> *mut c_char {
+    ffi_ptr(|| {
+        if concat_ptr.is_null() || lengths_ptr.is_null() || out_lengths_ptr.is_null() || n_tokens <= 0 {
+            return std::ptr::null_mut();
+        }
+        let concat = unsafe { read_utf8(concat_ptr) };
+        let lengths = unsafe { std::slice::from_raw_parts(lengths_ptr, n_tokens as usize) };
+        let bytes = concat.as_bytes();
+        let mut tokens: Vec<&str> = Vec::with_capacity(n_tokens as usize);
+        let mut off = 0usize;
+        for &len in lengths {
+            let end = (off + len.max(0) as usize).min(bytes.len());
+            tokens.push(std::str::from_utf8(&bytes[off..end]).unwrap_or(""));
+            off = end;
+        }
+
+        let sent_lambda = std::env::var("THAPTHIM_SPELL_SENT_LAMBDA")
+            .ok()
+            .and_then(|v| v.parse::<f64>().ok())
+            .unwrap_or(crate::spell::DEFAULT_SENT_LAMBDA);
+        let engine = get_engine();
+        let corrected = get_spell().correct_sentence(&tokens, crate::spell::MAX_EDITS, sent_lambda, |w1, w2| {
+            engine.score_transition(&crate::lattice::LatticeTier::Word, w1, w2)
+        });
+
+        let out = unsafe { std::slice::from_raw_parts_mut(out_lengths_ptr, n_tokens as usize) };
+        let mut result = String::new();
+        for (i, tok) in corrected.iter().take(n_tokens as usize).enumerate() {
+            out[i] = tok.len() as i32;
+            result.push_str(tok);
+        }
+        match CString::new(result) {
+            Ok(c) => c.into_raw(),
+            Err(_) => std::ptr::null_mut(),
+        }
+    })
+}
+
 /// POS-tags an already-segmented token sequence. Tokens arrive as one concatenated UTF-8 buffer plus
 /// a per-token byte-length array — not a delimited string, because a whitespace token can itself be a
 /// space or newline, so no byte is safe as a separator. Returns a freshly allocated array of exactly
