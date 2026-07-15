@@ -34,11 +34,87 @@ fn is_thai_word(s: &str) -> bool {
 
 const BIGRAM_BETA: f64 = 0.7; // Jelinek-Mercer weight on the bigram MLE vs the unigram backoff
 
+/// A character trie over the dictionary, searched within a bounded edit distance. Walking the trie
+/// shares the DP work across common prefixes and prunes whole subtrees once a row's minimum exceeds
+/// the budget — far faster than scanning every word. Produces the same (word, distance) set as a
+/// brute-force bounded Damerau-Levenshtein (optimal string alignment, incl. adjacent transposition).
+struct DictTrie {
+    children: Vec<Vec<(char, u32)>>, // node id -> [(edge char, child node id)]
+    word: Vec<i32>,                  // node id -> dictionary word index, or -1 if not a word end
+}
+
+impl DictTrie {
+    fn build(word_chars: &[Vec<char>]) -> Self {
+        let mut children: Vec<Vec<(char, u32)>> = vec![Vec::new()];
+        let mut word: Vec<i32> = vec![-1];
+        for (wi, chars) in word_chars.iter().enumerate() {
+            let mut node = 0usize;
+            for &c in chars {
+                let next = children[node].iter().find(|(ch, _)| *ch == c).map(|&(_, n)| n as usize);
+                node = next.unwrap_or_else(|| {
+                    let id = children.len();
+                    children.push(Vec::new());
+                    word.push(-1);
+                    children[node].push((c, id as u32));
+                    id
+                });
+            }
+            word[node] = wi as i32;
+        }
+        DictTrie { children, word }
+    }
+
+    /// Dictionary words within `max` edits of `query`, as (word index, distance).
+    fn search(&self, query: &[char], max: usize) -> Vec<(usize, usize)> {
+        let init: Vec<usize> = (0..=query.len()).collect();
+        let mut out = Vec::new();
+        self.walk(0, &init, &init, None, query, max, &mut out);
+        out
+    }
+
+    // `prev_row` is the DP row of this node; `prev2_row` the parent's row (for transposition);
+    // `parent_char` the edge char into this node. Each child extends one dictionary character.
+    fn walk(
+        &self,
+        node: usize,
+        prev_row: &[usize],
+        prev2_row: &[usize],
+        parent_char: Option<char>,
+        query: &[char],
+        max: usize,
+        out: &mut Vec<(usize, usize)>,
+    ) {
+        let qlen = query.len();
+        for &(c, child) in &self.children[node] {
+            let mut cur = Vec::with_capacity(qlen + 1);
+            cur.push(prev_row[0] + 1);
+            let mut row_min = cur[0];
+            for j in 1..=qlen {
+                let cost = if c == query[j - 1] { 0 } else { 1 };
+                let mut v = (prev_row[j] + 1).min(cur[j - 1] + 1).min(prev_row[j - 1] + cost);
+                if j >= 2 && c == query[j - 2] && parent_char == Some(query[j - 1]) {
+                    v = v.min(prev2_row[j - 2] + 1);
+                }
+                cur.push(v);
+                if v < row_min {
+                    row_min = v;
+                }
+            }
+            if row_min <= max {
+                let child = child as usize;
+                if self.word[child] >= 0 && cur[qlen] <= max {
+                    out.push((self.word[child] as usize, cur[qlen]));
+                }
+                self.walk(child, &cur, prev_row, Some(c), query, max, out);
+            }
+        }
+    }
+}
+
 pub struct SpellEngine {
     words: Vec<String>,       // the dictionary, indexable
-    word_chars: Vec<Vec<char>>, // parallel char arrays for the edit-distance scan
     word_freq: Vec<u32>,      // parallel unigram counts (0 if unseen in the LM)
-    by_len: Vec<Vec<u32>>,    // word indices grouped by char length, for the length prefilter
+    trie: DictTrie,           // dictionary trie for bounded edit-distance candidate search
     membership: FxHashSet<String>, // fast "is this exactly a dictionary word?"
     // Aligned bigram model for correct_sent context scoring (see bigram_logp). Always loaded so
     // correct_sent covers the thai_words vocabulary the LST20 bigram lacks.
@@ -88,11 +164,7 @@ impl SpellEngine {
             .map(|w| freq_of.get(w.as_str()).copied().unwrap_or(0))
             .collect();
 
-        let max_len = word_chars.iter().map(|c| c.len()).max().unwrap_or(0);
-        let mut by_len: Vec<Vec<u32>> = vec![Vec::new(); max_len + 1];
-        for (i, c) in word_chars.iter().enumerate() {
-            by_len[c.len()].push(i as u32);
-        }
+        let trie = DictTrie::build(&word_chars);
 
         // Aligned bigram model (always loaded, independent of the unigram-ranking selector): aligned
         // unigram counts for the backoff, and the aligned bigram counts. Both are thai_words-vocabulary.
@@ -119,9 +191,8 @@ impl SpellEngine {
 
         SpellEngine {
             words,
-            word_chars,
             word_freq,
-            by_len,
+            trie,
             membership,
             align_unigram,
             align_total: align_total.max(1) as f64,
@@ -186,22 +257,9 @@ impl SpellEngine {
         (self.word_freq[word_idx].max(1) as f64).log10() - LAMBDA * dist as f64
     }
 
-    /// Dictionary words within `max` edits of `query`, as (word index, distance). Only lengths
-    /// within `max` of the query length are examined.
+    /// Dictionary words within `max` edits of `query`, as (word index, distance), via the trie.
     fn candidates(&self, query: &[char], max: usize) -> Vec<(usize, usize)> {
-        let ql = query.len();
-        let lo = ql.saturating_sub(max);
-        let hi = (ql + max).min(self.by_len.len().saturating_sub(1));
-        let mut out = Vec::new();
-        for len in lo..=hi {
-            for &wi in &self.by_len[len] {
-                let wi = wi as usize;
-                if let Some(d) = damerau_levenshtein_bounded(query, &self.word_chars[wi], max) {
-                    out.push((wi, d));
-                }
-            }
-        }
-        out
+        self.trie.search(query, max)
     }
 
     /// The candidates a single token contributes to the sentence lattice: (surface, edit distance).
@@ -294,40 +352,4 @@ impl SpellEngine {
         }
         (0..n).map(|i| cand_lists[i][path[i]].0.clone()).collect()
     }
-}
-
-/// Bounded Damerau-Levenshtein (optimal string alignment with adjacent transposition) on char
-/// slices. Returns `None` as soon as it can prove the distance exceeds `max`, so most far-apart
-/// words are rejected after their first row.
-fn damerau_levenshtein_bounded(a: &[char], b: &[char], max: usize) -> Option<usize> {
-    let (la, lb) = (a.len(), b.len());
-    if la.abs_diff(lb) > max {
-        return None;
-    }
-    let mut prev2: Vec<usize> = vec![0; lb + 1];
-    let mut prev: Vec<usize> = (0..=lb).collect();
-    let mut cur: Vec<usize> = vec![0; lb + 1];
-    for i in 1..=la {
-        cur[0] = i;
-        let mut row_min = i;
-        for j in 1..=lb {
-            let cost = if a[i - 1] == b[j - 1] { 0 } else { 1 };
-            let mut v = (prev[j] + 1).min(cur[j - 1] + 1).min(prev[j - 1] + cost);
-            if i > 1 && j > 1 && a[i - 1] == b[j - 2] && a[i - 2] == b[j - 1] {
-                v = v.min(prev2[j - 2] + 1);
-            }
-            cur[j] = v;
-            if v < row_min {
-                row_min = v;
-            }
-        }
-        if row_min > max {
-            return None;
-        }
-        // Rotate the three rows: prev2 <- prev, prev <- cur, cur <- (old prev2, reused as scratch).
-        std::mem::swap(&mut prev2, &mut prev);
-        std::mem::swap(&mut prev, &mut cur);
-    }
-    let d = prev[lb];
-    if d <= max { Some(d) } else { None }
 }
