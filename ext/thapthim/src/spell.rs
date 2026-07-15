@@ -16,8 +16,25 @@
 
 use rustc_hash::FxHashSet;
 
-pub const MAX_EDITS: usize = 2;
 pub const SUGGEST_TOP_N: usize = 10;
+
+/// Edit-distance bound for a query of `word_len` characters. Default is LENGTH-ADAPTIVE: short words
+/// tolerate fewer edits (a distant match on a short word is coincidence, not correction), long words
+/// more. Validated to beat a flat bound on VISTEC accuracy AND no-harm (short words tightened to 1
+/// cut over-correction; distance 3 only for long words, which have few neighbors).
+/// THAPTHIM_SPELL_MAX_EDITS overrides with a plain number for a flat bound (e.g. "2" = classic
+/// Norvig); "adaptive" is the default. Capped at 3.
+pub fn max_edits_for(word_len: usize) -> usize {
+    let adaptive = match word_len {
+        0..=4 => 1,
+        5..=8 => 2,
+        _ => 3,
+    };
+    match std::env::var("THAPTHIM_SPELL_MAX_EDITS").ok().as_deref() {
+        Some(n) if n != "adaptive" => n.parse::<usize>().map(|v| v.min(3)).unwrap_or(adaptive),
+        _ => adaptive,
+    }
+}
 const LAMBDA: f64 = 2.0; // edit-vs-frequency balance; validated on VISTEC/synthetic typos
 // Default edit-vs-bigram balance for correct_sentence (the LM term is a natural-log KN bigram, so a
 // larger λ than the log10 isolated case). Overridable per call for tuning; see the FFI in lib.rs.
@@ -237,14 +254,14 @@ impl SpellEngine {
 
     /// Ranked correction candidates for `raw` (best first), at most `top_n`. Empty if none within
     /// `max_edits`.
-    pub fn suggest(&self, raw: &str, max_edits: usize, top_n: usize) -> Vec<String> {
+    pub fn suggest(&self, raw: &str, top_n: usize) -> Vec<String> {
         let norm = crate::normalize::std_normalize(raw);
         let query: Vec<char> = norm.chars().collect();
         if query.is_empty() {
             return Vec::new();
         }
         let mut scored: Vec<(f64, usize)> = self
-            .candidates(&query, max_edits)
+            .candidates(&query, max_edits_for(query.len()))
             .into_iter()
             .map(|(i, d)| (self.score(i, d), i))
             .collect();
@@ -260,12 +277,12 @@ impl SpellEngine {
     /// Best-effort single correction. A valid word is returned unchanged (normalized); an unknown
     /// word becomes its top-ranked candidate, or is left unchanged if nothing is within `max_edits`.
     /// (A confidence gate to protect valid out-of-dictionary words — names, slang — is a later step.)
-    pub fn correct(&self, raw: &str, max_edits: usize) -> String {
+    pub fn correct(&self, raw: &str) -> String {
         let norm = crate::normalize::std_normalize(raw);
         if norm.is_empty() || self.membership.contains(&norm) {
             return norm;
         }
-        self.suggest(&norm, max_edits, 1).into_iter().next().unwrap_or(norm)
+        self.suggest(&norm, 1).into_iter().next().unwrap_or(norm)
     }
 
     fn score(&self, word_idx: usize, dist: usize) -> f64 {
@@ -282,7 +299,7 @@ impl SpellEngine {
     /// Thai-word-shaped token additionally gets its top-N near-matches — valid words, whitespace,
     /// punctuation and non-Thai tokens are left with just the keep option, so correct text and
     /// structure are preserved.
-    fn token_candidates(&self, token: &str, max_edits: usize) -> Vec<(String, usize)> {
+    fn token_candidates(&self, token: &str) -> Vec<(String, usize)> {
         let mut cands = vec![(token.to_string(), 0usize)];
         let norm = crate::normalize::std_normalize(token);
         if norm.is_empty() || self.membership.contains(&norm) || !is_thai_word(&norm) {
@@ -290,7 +307,7 @@ impl SpellEngine {
         }
         let query: Vec<char> = norm.chars().collect();
         let mut scored: Vec<(f64, usize, usize)> = self
-            .candidates(&query, max_edits)
+            .candidates(&query, max_edits_for(query.len()))
             .into_iter()
             .map(|(idx, dist)| (self.score(idx, dist), idx, dist))
             .collect();
@@ -311,7 +328,6 @@ impl SpellEngine {
     pub fn correct_sentence(
         &self,
         tokens: &[&str],
-        max_edits: usize,
         sent_lambda: f64,
         bigram: impl Fn(&str, &str) -> f64,
     ) -> Vec<String> {
@@ -319,7 +335,7 @@ impl SpellEngine {
             return Vec::new();
         }
         let cand_lists: Vec<Vec<(String, usize)>> =
-            tokens.iter().map(|&t| self.token_candidates(t, max_edits)).collect();
+            tokens.iter().map(|&t| self.token_candidates(t)).collect();
         let n = tokens.len();
 
         // Viterbi forward. `back[i][j]` = best predecessor candidate index for candidate j at pos i.

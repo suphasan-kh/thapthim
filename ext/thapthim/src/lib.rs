@@ -268,7 +268,7 @@ pub unsafe extern "C" fn thapthim_suggest(raw_text_ptr: *const c_char) -> *mut c
         }
         let text_cow = unsafe { read_utf8(raw_text_ptr) };
         let joined = get_spell()
-            .suggest(&text_cow, crate::spell::MAX_EDITS, crate::spell::SUGGEST_TOP_N)
+            .suggest(&text_cow, crate::spell::SUGGEST_TOP_N)
             .join("\n");
         match CString::new(joined) {
             Ok(c) => c.into_raw(),
@@ -290,7 +290,7 @@ pub unsafe extern "C" fn thapthim_correct(raw_text_ptr: *const c_char) -> *mut c
             return std::ptr::null_mut();
         }
         let text_cow = unsafe { read_utf8(raw_text_ptr) };
-        let corrected = get_spell().correct(&text_cow, crate::spell::MAX_EDITS);
+        let corrected = get_spell().correct(&text_cow);
         match CString::new(corrected) {
             Ok(c) => c.into_raw(),
             Err(_) => std::ptr::null_mut(),
@@ -340,10 +340,10 @@ pub unsafe extern "C" fn thapthim_correct_sent(
         let spell = get_spell();
         let engine = get_engine();
         let corrected = match std::env::var("THAPTHIM_SPELL_BIGRAM").ok().as_deref() {
-            Some("lst20") => spell.correct_sentence(&tokens, crate::spell::MAX_EDITS, sent_lambda, |w1, w2| {
+            Some("lst20") => spell.correct_sentence(&tokens, sent_lambda, |w1, w2| {
                 engine.score_transition(&crate::lattice::LatticeTier::Word, w1, w2)
             }),
-            _ => spell.correct_sentence(&tokens, crate::spell::MAX_EDITS, sent_lambda, |w1, w2| {
+            _ => spell.correct_sentence(&tokens, sent_lambda, |w1, w2| {
                 spell.bigram_logp(w1, w2)
             }),
         };
