@@ -41,6 +41,11 @@ Shipping today:
   `thai_sort_key` returns a comparable, storable key — use it with `sort_by`/`min_by`, or persist it
   in a database column to `ORDER BY` Thai correctly. The numeral and collation helpers above are pure
   Ruby and not yet exposed in Python.
+- **Spelling correction** (`spell`, `suggest`, `correct`, `correct_sent`) — noisy-channel correction
+  over the PyThaiNLP `thai_words` dictionary: candidates within a length-adaptive Damerau-Levenshtein
+  bound (trie search), ranked by word frequency, or by bigram context for whole sentences
+  (`correct_sent`). Frequencies are `thai_words`-aligned; valid words are left unchanged. Ruby-only
+  for now.
 - **Robust input handling** — non–UTF-8 (e.g. TIS-620) transcoding, invalid-byte and NUL scrubbing.
 
 ## Roadmap
@@ -52,9 +57,6 @@ candidate set plus a cost model; the rest are deterministic transforms beside it
 - **Sentence segmentation** — Thai marks sentence breaks with spaces, ambiguously (a space is
   also a phrase/clause separator); a boundary classifier over the segmented word stream,
   trainable from LST20's sentence layer.
-- **Spelling suggestion & correction (`spell` / `correct`)** — dictionary words within an
-  edit-distance bound, ranked by the word LM; layered on top of the orthographic cleanup
-  `std_normalize` already performs.
 - **Transliteration / romanization** — deterministic script transforms (e.g. ISO 11940).
 
 APIs for these will follow the same shape as segmentation: module-level functions, hardened input,
@@ -121,6 +123,15 @@ Thapthim.thai_sort(["ไก่", "กา", "ขา"])     # => ["กา", "ไ�
 Thapthim.thai_sort(users) { |u| u.name }    # sort objects by a Thai field
 # thai_sort_key(name) is a comparable binary key: use with sort_by/min_by, or store it in an
 # indexed column and ORDER BY it so the database returns Thai in dictionary order.
+
+# Spelling: spell (is it a word?), suggest (ranked candidates), correct (best fix; valid words are
+# left unchanged), correct_sent (context-aware over a sentence, using the bigram).
+Thapthim.spell("ประเทด")                 # => false
+Thapthim.suggest("ประเทด")               # => ["ประเทศ", ...]  (ranked)
+Thapthim.correct("ผลไม")                 # => "ผลไม้"
+# correct_sent takes a String (segmented first) or a token array; the bigram picks the right word
+# in context. (Pass tokens when you already have them — a String relies on segmentation.)
+Thapthim.correct_sent(["เขา", "มี", "ความสามาด"])  # => ["เขา", "มี", "ความสามารถ"]
 ```
 
 Every entry point hardens its input — non–UTF-8 (e.g. TIS-620) is transcoded, invalid bytes and

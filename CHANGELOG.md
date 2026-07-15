@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+- **Spelling correction (`spell`, `suggest`, `correct`, `correct_sent`).** Noisy-channel corrector
+  over the cleaned PyThaiNLP `thai_words` dictionary (assets/spell_words.txt): candidate generation
+  by length-adaptive Damerau-Levenshtein via a trie, ranked by a `thai_words`-aligned unigram
+  frequency (`correct`/`suggest`) or a bigram Viterbi for whole sentences (`correct_sent`, String or
+  token array). Valid words are returned unchanged (no-harm ~0.07–0.1% of correct words altered
+  across lst20/best/tnhc). Env knobs: `THAPTHIM_SPELL_FREQ` (aligned|lst20), `THAPTHIM_SPELL_BIGRAM`
+  (aligned|lst20), `THAPTHIM_SPELL_MAX_EDITS` (number|adaptive). Ruby only for now.
 - **Thai collation / sort (`thai_sort`, `thai_sort_key`).** ⚠️ Experimental, not yet verified (unit
   tests pass but the ordering has not been validated at scale / reviewed). Dictionary-order sorting
   following the Royal Society of Thailand: a leading vowel (เ แ โ ใ ไ) is reordered after the consonant it precedes,
