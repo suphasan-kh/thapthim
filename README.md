@@ -181,6 +181,8 @@ import os; os.environ["PATH"] += ":" + os.path.expanduser("~/.cargo/bin")
 
 The dictionary, language model, and entropy table ship as compiled-in data assets. Full pipeline:
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Accuracy/speed: [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
+How every number is measured (machine, corpora, metrics, harnesses):
+[docs/METHODOLOGY.md](docs/METHODOLOGY.md).
 
 ## Benchmarks
 

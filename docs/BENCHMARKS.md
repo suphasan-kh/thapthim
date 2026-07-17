@@ -9,6 +9,9 @@ All engines measured on a single code state (Apple M1) · pythainlp 5.3.4, attac
 (`attacut-sc`), deepcut 0.7.0.0 (TF 2.21), nlpo3 1.4.0 — including the ORCHID97 rows, so every number
 is internally comparable.
 
+> **How each number is produced** — the measurement machine, corpus sizes/samples, exact metrics,
+> and per-harness protocol — is documented in [METHODOLOGY.md](METHODOLOGY.md).
+
 ## Engines
 
 | engine | type | training standard |
